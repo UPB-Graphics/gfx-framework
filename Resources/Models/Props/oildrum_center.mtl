@@ -1,0 +1,9 @@
+newmtl _oildrum_oildrumOildrum_ref1
+kd 0.6 0.6 0.6
+ka 0.1 0.1 0.1
+ks 0.5 0.5 0.5
+ke 0 0 0
+Ns 98.0784
+illum 2
+map_kd oildrum_col.jpg
+

@@ -1,0 +1,18 @@
+# General
+/*
+!.gitignore
+
+!/Visual Studio
+/Visual Studio/*
+!/Visual Studio/Property Sheets
+!/Visual Studio/*.sln
+!/Visual Studio/*.vcxproj
+!/Visual Studio/*.vcxproj.user
+!/Visual Studio/*.vcxproj.filters
+!/Visual Studio/scripts/
+
+# Application
+
+!/libs
+!/Resources
+!/Source

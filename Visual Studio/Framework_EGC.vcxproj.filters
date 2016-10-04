@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{9494f307-c1ec-49c3-b3a2-e8bd3267d84e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Window">
+      <UniqueIdentifier>{a3d208ce-c616-4e32-9d2d-f8e8825c59cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{1d2eb2cb-c2cc-41b4-af6d-395b05f55a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{473dfab2-3e7d-432d-8e69-65aa99f48c29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GPU">
+      <UniqueIdentifier>{271e5bd2-7cb3-40b7-b2e5-5e343c58f910}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Laboratoare">
+      <UniqueIdentifier>{a73d11aa-9a42-4f7c-ba61-adefedb1e0cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Laboratoare\Laborator1">
+      <UniqueIdentifier>{b704d709-81d8-479e-b929-08837c1d7ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Laboratoare\Laborator2">
+      <UniqueIdentifier>{72b98a52-54e5-46b2-b1cc-ddbf01b29581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Managers">
+      <UniqueIdentifier>{2940a1fd-9fef-46a7-93fb-a8241118d00a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Source\Core\Engine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\World.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\include\gl.cpp">
+      <Filter>include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\Window\WindowObject.cpp">
+      <Filter>Core\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\GPU\Shader.cpp">
+      <Filter>Core\GPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Main.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Laborator1\Laborator1.cpp">
+      <Filter>Laboratoare\Laborator1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\Window\WindowCallbacks.cpp">
+      <Filter>Core\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Laborator2\Laborator2.cpp">
+      <Filter>Laboratoare\Laborator2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\GPU\Mesh.cpp">
+      <Filter>Core\GPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\GPU\Texture2D.cpp">
+      <Filter>Core\GPU</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\Managers\TextureManager.cpp">
+      <Filter>Core\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Component\CameraInput.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\Window\InputController.cpp">
+      <Filter>Core\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Component\SimpleScene.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Core\GPU\GPUBuffers.cpp">
+      <Filter>Core\GPU</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Source\Core\World.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Engine.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\include\gl.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\include\glm.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\include\math.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\include\utils.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Window\WindowObject.h">
+      <Filter>Core\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\GPU\Shader.h">
+      <Filter>Core\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator1\Laborator1.h">
+      <Filter>Laboratoare\Laborator1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Window\WindowCallbacks.h">
+      <Filter>Core\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator2\Laborator2.h">
+      <Filter>Laboratoare\Laborator2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\GPU\Mesh.h">
+      <Filter>Core\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\GPU\Texture2D.h">
+      <Filter>Core\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\LabList.h">
+      <Filter>Laboratoare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Managers\ResourcePath.h">
+      <Filter>Core\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Managers\TextureManager.h">
+      <Filter>Core\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Component\CameraInput.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\Window\InputController.h">
+      <Filter>Core\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Component\SimpleScene.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Core\GPU\GPUBuffers.h">
+      <Filter>Core\GPU</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
