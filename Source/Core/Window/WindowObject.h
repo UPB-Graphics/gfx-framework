@@ -109,7 +109,9 @@ class WindowObject
 		double elapsedTime;
 		double deltaFrameTime;
 
+		// Window state and events
 		bool hiddenPointer;
+		bool resizeEvent;
 
 		// Mouse button callback
 		int mouseButtonCallback;			// Bit field for button callback

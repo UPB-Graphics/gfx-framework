@@ -91,4 +91,10 @@ void Laborator1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 
 void Laborator1::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
+	// treat mouse scroll event
+}
+
+void Laborator1::OnWindowResize(int width, int height)
+{
+	// treat window resize event
 }

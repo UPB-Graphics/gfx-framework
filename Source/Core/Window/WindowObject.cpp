@@ -32,6 +32,7 @@ WindowObject::WindowObject(WindowProperties properties)
 {
 	window = nullptr;
 
+	resizeEvent = false;
 	scrollEvent = false;
 	mouseMoveEvent = false;
 
@@ -174,6 +175,7 @@ void WindowObject::FullScreen()
 
 	glfwMakeContextCurrent(window);
 	SetSize(videoDisplay->width, videoDisplay->height);
+	resizeEvent = false;
 }
 
 void WindowObject::WindowMode()
@@ -192,6 +194,7 @@ void WindowObject::WindowMode()
 	}
 
 	SetSize(props.resolution.x, props.resolution.y);
+	resizeEvent = false;
 }
 
 void WindowObject::SetWindowCallbacks()
@@ -271,8 +274,18 @@ void WindowObject::UpdateObservers()
 {
 	ComputeFrameTime();
 
+	// Signal window resize
+	if (resizeEvent)
+	{
+		resizeEvent = false;
+		for (auto obs : observers) {
+			obs->OnWindowResize(props.resolution.x, props.resolution.y);
+		}
+	}
+
 	// Signal mouse move event
-	if (mouseMoveEvent) {
+	if (mouseMoveEvent)
+	{
 		mouseMoveEvent = false;
 		for (auto obs : observers) {
 			obs->OnMouseMove(props.cursorPos.x, props.cursorPos.y, mouseDeltaX, mouseDeltaY);
@@ -334,9 +347,11 @@ void WindowObject::MakeCurrentContext() const
 void WindowObject::SetSize(int width, int height)
 {
 	glfwSetWindowSize(window, width, height);
+	glViewport(0, 0, width, height);
+
 	props.resolution = glm::ivec2(width, height);
 	props.aspectRatio = float(width) / height;
-	glViewport(0, 0, width, height);
+	resizeEvent = true;
 }
 
 glm::ivec2 WindowObject::GetResolution() const

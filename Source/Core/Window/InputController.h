@@ -15,7 +15,7 @@ class InputController
 		// Use for real-time frame-independent interaction such as performing continuous updates when pressing a key
 		// @param deltaTime - frame time in seconds for the previous frame, may be used for frame time independent updates
 		// @param mods - bit combination of GLFW_MOD_"KEY" states: CONTROL, ALT, SHIFT, SUPER
-		// Use window->KeyHold(GLFW_MOD_[KEY]) for testing if a key is being pressed
+		// Use window->KeyHold(GLFW_KEY_"KEYCODE") for testing if a key is being pressed
 		virtual void OnInputUpdate(float deltaTime, int mods) {};
 
 		// If a KEY PRESS event is registered the method will be called before the Update() method
@@ -56,6 +56,11 @@ class InputController
 		// @param offsetX - scroll steps on X axis
 		// @param offsetY - scroll steps on Y axis 
 		virtual void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) {};
+
+		// If the window was resized during the last frame this method will be before the Update() method
+		// @param width - the new width of the window
+		// @param height - the new height of the window
+		virtual void OnWindowResize(int width, int height) {};
 
 	protected:
 		WindowObject *window;
