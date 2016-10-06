@@ -59,7 +59,8 @@ class DLLExport Camera
 		void MoveInDirection(glm::vec3 direction, float deltaTime);
 
 		void SetPerspective(float FoVy, float aspectRatio, float zNear, float zFar);
-		void SetOrthgraphic(float width, float height, float zNear, float zFar);
+		void SetOrthographic(float width, float height, float zNear, float zFar);
+		void SetOrthographic(float left, float right, float bottom, float top, float zNear, float zFar);
 		void SetProjection(const ProjectionInfo &PI);
 		ProjectionInfo GetProjectionInfo() const;
 		float GetFieldOfViewY() const;
