@@ -14,7 +14,9 @@ class InputController
 		// Method will be called each frame before the Update() method
 		// Use for real-time frame-independent interaction such as performing continuous updates when pressing a key
 		// @param deltaTime - frame time in seconds for the previous frame, may be used for frame time independent updates
-		// @param mods - bit combination of GLFW_MOD_"KEY" states: CONTROL, ALT, SHIFT, SUPER
+		// @param mods - (modifiers) bit combination of GLFW_MOD_"KEY" states: CONTROL, ALT, SHIFT, SUPER
+		//			   - the modifiers value holds information about the special keys pressed alongside the normal key event
+		//			   - use for testing key combination such as: CONTROL + ALT + KEY, CONTROL + SHIFT + KEY, etc 
 		// Use window->KeyHold(GLFW_KEY_"KEYCODE") for testing if a key is being pressed
 		virtual void OnInputUpdate(float deltaTime, int mods) {};
 

@@ -7,6 +7,9 @@
 
 using namespace std;
 
+// Order of function calling can be seen in "Source/Core/World.cpp::LoopUpdate()"
+// https://github.com/UPB-Graphics/Framework-EGC/blob/master/Source/Core/World.cpp
+
 Laborator1::Laborator1()
 {
 }
@@ -56,16 +59,19 @@ void Laborator1::FrameEnd()
 	DrawCoordinatSystem();
 }
 
+// Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or
+// https://github.com/UPB-Graphics/Framework-EGC/blob/master/Source/Core/Window/InputController.h
+
 void Laborator1::OnInputUpdate(float deltaTime, int mods)
 {
-
+	// treat continuous update based on input
 };
 
 void Laborator1::OnKeyPress(int key, int mods)
 {
 	// add key press event
-	if (key == GLFW_KEY_C) {
-		camera->Log();
+	if (key == GLFW_KEY_F) {
+		// do something
 	}
 };
 
