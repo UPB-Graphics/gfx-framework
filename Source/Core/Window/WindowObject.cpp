@@ -235,6 +235,8 @@ void WindowObject::Subscribe(InputController *IC)
 void WindowObject::KeyCallback(int key, int scanCode, int action, int mods)
 {
 	keyMods = mods;
+	if (keyStates[key] == (action ? true : false))
+		return;
 	keyStates[key] = action ? true : false;
 	keyEvents[registeredKeyEvents] = key;
 	registeredKeyEvents++;
