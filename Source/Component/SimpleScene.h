@@ -9,6 +9,8 @@ class Transform;
 
 class SimpleScene : public World
 {
+	friend class SceneInput;
+
 	public:
 		SimpleScene();
 		~SimpleScene();
@@ -17,6 +19,7 @@ class SimpleScene : public World
 		void DrawCoordinatSystem();
 		void RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
 		void RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
+		void ReloadShaders() const;
 
 	private:
 		void InitResources();
@@ -27,6 +30,7 @@ class SimpleScene : public World
 		std::unordered_map<std::string, Shader*> shaders;
 
 	private:
+		bool drawGroundPlane;
 		Mesh *xozPlane;
 		Mesh *simpleLine;
 		Transform *objectModel;

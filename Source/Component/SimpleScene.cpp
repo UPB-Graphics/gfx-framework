@@ -1,9 +1,12 @@
 #include "SimpleScene.h"
 
 #include <vector>
+#include <iostream>
+
+#include "CameraInput.h"
+#include "SceneInput.h"
 
 #include <Core/Engine.h>
-#include <Component/CameraInput.h>
 #include <Component/Transform/Transform.h>
 
 using namespace std;
@@ -19,6 +22,11 @@ SimpleScene::~SimpleScene()
 
 void SimpleScene::InitResources()
 {
+	// sets common GL states
+	glClearColor(0, 0, 0, 1);
+
+	drawGroundPlane = true;
+
 	objectModel = new Transform();
 
 	camera = new Camera();
@@ -29,6 +37,7 @@ void SimpleScene::InitResources()
 	camera->Update();
 
 	CameraInput *CI = new CameraInput(camera);
+	SceneInput *SI = new SceneInput(this);
 
 	xozPlane = new Mesh("plane");
 	xozPlane->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "plane50.obj");
@@ -66,9 +75,18 @@ void SimpleScene::InitResources()
 
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
-		Shader *shader = new Shader("ViewNormals");
+		Shader *shader = new Shader("VertexNormal");
 		shader->AddShader(RESOURCE_PATH::SHADERS + "MVP.Texture.VS.glsl", GL_VERTEX_SHADER);
 		shader->AddShader(RESOURCE_PATH::SHADERS + "Normals.FS.glsl", GL_FRAGMENT_SHADER);
+		shader->CreateAndLink();
+		shaders[shader->GetName()] = shader;
+	}
+
+	// Create a shader program for drawing vertex colors
+	{
+		Shader *shader = new Shader("VertexColor");
+		shader->AddShader(RESOURCE_PATH::SHADERS + "MVP.Texture.VS.glsl", GL_VERTEX_SHADER);
+		shader->AddShader(RESOURCE_PATH::SHADERS + "VertexColor.FS.glsl", GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}
@@ -80,6 +98,7 @@ void SimpleScene::InitResources()
 
 void SimpleScene::DrawCoordinatSystem()
 {
+	glLineWidth(1);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// Render the coordinate system
@@ -89,11 +108,14 @@ void SimpleScene::DrawCoordinatSystem()
 		glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
 		glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
 
-		objectModel->SetScale(glm::vec3(1));
-		objectModel->SetWorldPosition(glm::vec3(0));
-		glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(objectModel->GetModel()));
-		glUniform3f(shader->GetUniformLocation("color"), 0.5f, 0.5f, 0.5f);
-		xozPlane->Render();
+		if (drawGroundPlane)
+		{
+			objectModel->SetScale(glm::vec3(1));
+			objectModel->SetWorldPosition(glm::vec3(0));
+			glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(objectModel->GetModel()));
+			glUniform3f(shader->GetUniformLocation("color"), 0.5f, 0.5f, 0.5f);
+			xozPlane->Render();
+		}
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -122,6 +144,9 @@ void SimpleScene::DrawCoordinatSystem()
 
 void SimpleScene::RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, glm::vec3 scale)
 {
+	if (!mesh || !shader)
+		return;
+
 	// render an object using the specified shader and the specified position
 	shader->Use();
 	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
@@ -137,5 +162,19 @@ void SimpleScene::RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, g
 void SimpleScene::RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale)
 {
 	RenderMesh(mesh, shaders["Simple"], position, scale);
+}
+
+void SimpleScene::ReloadShaders() const
+{
+	cout << endl;
+	cout << "=============================" << endl;
+	cout << "Reloading Shaders" << endl;
+	cout << "=============================" << endl;
+	cout << endl;
+
+	for (auto &shader : shaders)
+	{
+		shader.second->Reload();
+	}
 }
 
