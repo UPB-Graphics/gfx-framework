@@ -13,10 +13,10 @@ class Texture2D;
 
 struct VertexFormat
 {
-	VertexFormat(glm::vec3 position, glm::vec3 normal,
-				glm::uvec3 color = glm::uvec3(0),
+	VertexFormat(glm::vec3 position, glm::vec3 color,
+				glm::vec3 normal = glm::vec3(0, 1, 0),
 				glm::uvec2 text_coord = glm::uvec2(0))
-		: position(position), normal(normal), color(color), text_coord(text_coord)	{ }
+		: position(position), normal(normal), color(color), text_coord(text_coord) { };
 
 	// position of the vertex
 	glm::vec3 position;		
@@ -24,11 +24,11 @@ struct VertexFormat
 	// vertex normal
 	glm::vec3 normal;
 
-	// vertex color
-	glm::uvec3 color;
-
 	// vertex texture coordinate
 	glm::uvec2 text_coord;
+
+	// vertex color
+	glm::vec3 color;
 };
 
 struct Material
@@ -72,11 +72,19 @@ class Mesh
 
 		void ClearData();
 
+		// Initializes the mesh object using a VAO GPU buffer that contains the specified number of indices
+		bool InitFromBuffer(unsigned int VAO, unsigned short nrIndices);
+
+		// Initializes the mesh object and upload data to GPU using the provided data buffers
 		bool InitFromData(std::vector<VertexFormat> vertices,
 						std::vector<unsigned short>& indices);
+
+		// Initializes the mesh object and upload data to GPU using the provided data buffers
 		bool InitFromData(std::vector<glm::vec3>& positions,
 						std::vector<glm::vec3>& normals,
 						std::vector<unsigned short>& indices);
+
+		// Initializes the mesh object and upload data to GPU using the provided data buffers
 		bool InitFromData(std::vector<glm::vec3>& positions,
 						std::vector<glm::vec3>& normals,
 						std::vector<glm::vec2>& texCoords,
@@ -86,7 +94,8 @@ class Mesh
 
 		void UseMaterials(bool value);
 
-		// GL_POINTS, GL_LINES, GL_TRIANGLES
+		// GL_POINTS, GL_TRIANGLES, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINE_STRIP_ADJACENCY, GL_LINES_ADJACENCY,
+		// GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLE_STRIP_ADJACENCY, GL_TRIANGLES_ADJACENCY
 		void SetDrawMode(unsigned int drawMode);
 		void Render() const;
 
@@ -94,7 +103,6 @@ class Mesh
 
 	protected:
 		void InitFromData();
-		void UploadVertexData();
 
 		void InitMesh(const aiMesh* paiMesh);
 		bool InitMaterials(const aiScene* pScene);
@@ -108,7 +116,6 @@ class Mesh
 	public:
 		std::vector<glm::vec3> positions;
 		std::vector<glm::vec3> normals;
-		std::vector<glm::vec3> colors;
 		std::vector<glm::vec2> texCoords;
 		std::vector<VertexFormat> vertices;
 		std::vector<unsigned short> indices;

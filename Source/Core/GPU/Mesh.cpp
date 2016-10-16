@@ -76,6 +76,23 @@ void Mesh::InitFromData()
 	buffers->ReleaseMemory();
 }
 
+bool Mesh::InitFromBuffer(unsigned int VAO, unsigned short nrIndices)
+{
+	if (VAO == 0 || nrIndices == 0)
+		return false;
+
+	meshEntries.clear();
+
+	MeshEntry M;
+	M.nrIndices = nrIndices;
+	meshEntries.push_back(M);
+
+	buffers->ReleaseMemory();
+	buffers->VAO = VAO;
+
+	return true;
+}
+
 bool Mesh::InitFromData(std::vector<VertexFormat> vertices, std::vector<unsigned short>& indices)
 {
 	this->vertices = vertices;
