@@ -76,6 +76,9 @@
     <ClCompile Include="..\Source\Core\GPU\GPUBuffers.cpp">
       <Filter>Core\GPU</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\Component\SceneInput.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Core\World.h">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="..\Source\Core\GPU\GPUBuffers.h">
       <Filter>Core\GPU</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Component\SceneInput.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
