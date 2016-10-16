@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Component/SimpleScene.h>
+#include <Core/Engine.h>
 
 class Laborator2 : public SimpleScene
 {
@@ -11,6 +12,8 @@ class Laborator2 : public SimpleScene
 		void Init() override;
 
 	private:
+		Mesh* CreateMesh(const char *name, const std::vector<VertexFormat>& vertices, const std::vector<unsigned short>& indices);
+
 		void FrameStart() override;
 		void Update(float deltaTimeSeconds) override;
 		void FrameEnd() override;
@@ -22,4 +25,8 @@ class Laborator2 : public SimpleScene
 		void OnMouseBtnPress(int mouseX, int mouseY, int button, int mods) override;
 		void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 		void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
+
+	protected:
+		GLenum cullFace;
+		GLenum polygonMode;
 };
