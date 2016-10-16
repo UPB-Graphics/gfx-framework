@@ -1,8 +1,10 @@
-#version 410
-layout(location = 0) out vec4 fragColor;
+#version 330
 
 uniform vec4 debug_color;
 
-void main() {
-	fragColor = debug_color;
+layout(location = 0) out vec4 out_color;
+
+void main()
+{
+	out_color = debug_color;
 }

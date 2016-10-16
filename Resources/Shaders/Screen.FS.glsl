@@ -1,6 +1,6 @@
-#version 410
+#version 330
 
-layout(location = 0) in vec2 tex_coord;
+in vec2 tex_coord;
 
 uniform sampler2D u_texture_0;
 
