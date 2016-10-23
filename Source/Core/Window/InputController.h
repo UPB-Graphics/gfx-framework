@@ -10,6 +10,9 @@ class InputController
 		InputController();
 		virtual ~InputController();
 
+		bool IsActive() const;
+		void SetActive(bool value);
+
 	protected:
 		// Method will be called each frame before the Update() method
 		// Use for real-time frame-independent interaction such as performing continuous updates when pressing a key
@@ -66,4 +69,7 @@ class InputController
 
 	protected:
 		WindowObject *window;
+
+	private:
+		bool isAttached;
 };

@@ -197,6 +197,16 @@ void WindowObject::WindowMode()
 	resizeEvent = false;
 }
 
+void WindowObject::SubscribeToEvents(InputController * IC)
+{
+	observers.push_back(IC);
+}
+
+void WindowObject::UnsubscribeFromEvents(InputController * IC)
+{
+	observers.remove(IC);
+}
+
 void WindowObject::SetWindowCallbacks()
 {
 	glfwSetWindowCloseCallback(window, WindowCallbacks::OnClose);
@@ -225,11 +235,6 @@ bool WindowObject::MouseHold(int button) const
 int WindowObject::GetSpecialKeyState() const
 {
 	return keyMods;
-}
-
-void WindowObject::Subscribe(InputController *IC)
-{
-	observers.push_back(IC);
 }
 
 void WindowObject::KeyCallback(int key, int scanCode, int action, int mods)
@@ -320,7 +325,6 @@ void WindowObject::UpdateObservers()
 			obs->OnMouseScroll(props.cursorPos.x, props.cursorPos.y, mouseScrollDeltaX, mouseScrollDeltaY);
 		}
 	}
-
 
 	// Signal key events
 	if (registeredKeyEvents)

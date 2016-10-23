@@ -83,14 +83,15 @@ class WindowObject
 		void FullScreen();
 		void WindowMode();
 
-		// Subscribe to receive input events
-		void Subscribe(InputController * IC);
-
 		// Input Processing
 		void KeyCallback(int key, int scanCode, int action, int mods);
 		void MouseButtonCallback(int button, int action, int mods);
 		void MouseMove(int posX, int posY);
 		void MouseScroll(double offsetX, double offsetY);
+
+		// Subscribe to receive input events
+		void SubscribeToEvents(InputController * IC);
+		void UnsubscribeFromEvents(InputController * IC);
 
 	private:
 		void SetWindowCallbacks();
