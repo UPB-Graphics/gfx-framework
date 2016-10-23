@@ -4,6 +4,7 @@ class Mesh;
 class Shader;
 class Camera;
 class Transform;
+class InputController;
 
 #include <Core/World.h>
 
@@ -16,9 +17,15 @@ class SimpleScene : public World
 		~SimpleScene();
 
 	protected:
+		void AddMeshToList(Mesh *mesh);
 		void DrawCoordinatSystem();
+
 		void RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
 		void RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
+
+		void RenderMesh2D(Mesh * mesh, glm::mat3 &modelMatrix);
+		void RenderMesh2D(Mesh * mesh, Shader * shader, glm::mat3 &modelMatrix);
+
 		void ReloadShaders() const;
 
 	private:
@@ -26,6 +33,7 @@ class SimpleScene : public World
 
 	protected:
 		Camera *camera;
+		InputController *cameraInput;
 		std::unordered_map<std::string, Mesh*> meshes;
 		std::unordered_map<std::string, Shader*> shaders;
 

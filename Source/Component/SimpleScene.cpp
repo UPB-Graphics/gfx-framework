@@ -36,7 +36,9 @@ void SimpleScene::InitResources()
 	camera->transform->SetWorldRotation(glm::vec3(-15, 0, 0));
 	camera->Update();
 
-	CameraInput *CI = new CameraInput(camera);
+	cameraInput = new CameraInput(camera);
+	window = Engine::GetWindow();
+
 	SceneInput *SI = new SceneInput(this);
 
 	xozPlane = new Mesh("plane");
@@ -48,7 +50,7 @@ void SimpleScene::InitResources()
 			VertexFormat(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)),
 			VertexFormat(glm::vec3(0, 1, 0), glm::vec3(0, 1, 0)),
 		};
-		std::vector<unsigned short> indices = { 0, 1, 2, 1, 3, 2 };
+		std::vector<unsigned short> indices = { 0, 1 };
 
 		simpleLine = new Mesh("line");
 		simpleLine->InitFromData(vertices, indices);
@@ -94,6 +96,14 @@ void SimpleScene::InitResources()
 	// Default rendering mode will use depth buffer
 	glDepthMask(GL_TRUE);
 	glEnable(GL_DEPTH_TEST);
+}
+
+void SimpleScene::AddMeshToList(Mesh * mesh)
+{
+	if (mesh->GetMeshID())
+	{
+		meshes[mesh->GetMeshID()] = mesh;
+	}
 }
 
 void SimpleScene::DrawCoordinatSystem()
@@ -162,6 +172,31 @@ void SimpleScene::RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, g
 void SimpleScene::RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale)
 {
 	RenderMesh(mesh, shaders["Simple"], position, scale);
+}
+
+void SimpleScene::RenderMesh2D(Mesh * mesh, Shader * shader, glm::mat3 &modelMatrix)
+{
+	if (!mesh || !shader)
+		return;
+
+	shader->Use();
+	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+	
+	glm::mat3 mm = modelMatrix;
+	glm::mat4 model = glm::mat4(
+		mm[0][0], mm[0][1], mm[0][2], 0.f,
+		mm[1][0], mm[1][1], mm[1][2], 0.f,
+		0.f, 0.f, mm[2][2], 0.f,
+		mm[2][0], mm[2][1], 0.f, 1.f);
+
+	glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(model));
+	mesh->Render();
+}
+
+void SimpleScene::RenderMesh2D(Mesh * mesh, glm::mat3 &modelMatrix)
+{
+	RenderMesh2D(mesh, shaders["Simple"], modelMatrix);
 }
 
 void SimpleScene::ReloadShaders() const
