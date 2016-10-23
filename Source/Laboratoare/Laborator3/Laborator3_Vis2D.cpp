@@ -24,13 +24,13 @@ void Laborator3_Vis2D::Init()
 	camera->Update();
 	cameraInput->SetActive(false);
 
-	glm::vec3 corner = glm::vec3(0.001, 0.001, 0);
-	length = 0.99f;
-
 	logicSpace.x = 0;		// logic x
 	logicSpace.y = 0;		// logic y
 	logicSpace.width = 4;	// logic width
 	logicSpace.height = 4;	// logic height
+
+	glm::vec3 corner = glm::vec3(0.001, 0.001, 0);
+	length = 0.99f;
 
 	Mesh* square1 = Object2D::CreateSquare("square1", corner, length, glm::vec3(1, 0, 0));
 	AddMeshToList(square1);
@@ -100,11 +100,7 @@ void Laborator3_Vis2D::Update(float deltaTimeSeconds)
 	glm::ivec2 resolution = window->GetResolution();
 
 	// Sets the screen area where to draw - the left half of the window
-	viewSpace.x = 0;
-	viewSpace.y = 0;
-	viewSpace.width = resolution.x / 2;
-	viewSpace.height = resolution.y;
-	
+	viewSpace = ViewportSpace(0, 0, resolution.x / 2, resolution.y);
 	SetViewportArea(viewSpace, glm::vec3(0), true);
 	
 	// Compute the 2D visualization matrix
@@ -115,11 +111,7 @@ void Laborator3_Vis2D::Update(float deltaTimeSeconds)
 
 	// The viewport is now the right half of the window
 
-	viewSpace.x = resolution.x / 2;
-	viewSpace.y = 0;
-	viewSpace.width = resolution.x / 2;
-	viewSpace.height = resolution.y;
-
+	viewSpace = ViewportSpace(resolution.x / 2, 0, resolution.x / 2, resolution.y);
 	SetViewportArea(viewSpace, glm::vec3(0.5f), true);
 
 	// Compute uniform 2D visualization matrix

@@ -9,6 +9,9 @@ class Laborator3_Vis2D : public SimpleScene
 	public:
 		struct ViewportSpace
 		{
+			ViewportSpace() : x(0), y(0), width(1), height(1) {}
+			ViewportSpace(int x, int y, int width, int height)
+				: x(x), y(y), width(width), height(width) {}
 			int x;
 			int y;
 			int width;
@@ -17,6 +20,9 @@ class Laborator3_Vis2D : public SimpleScene
 
 		struct LogicSpace
 		{
+			LogicSpace() : x(0), y(0), width(1), height(1) {}
+			LogicSpace(float x, float y, float width, float height)
+				: x(x), y(y), width(width), height(width) {}
 			float x;
 			float y;
 			float width;
