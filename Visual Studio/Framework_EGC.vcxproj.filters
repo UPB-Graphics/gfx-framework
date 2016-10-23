@@ -28,6 +28,9 @@
     <Filter Include="Core\Managers">
       <UniqueIdentifier>{2940a1fd-9fef-46a7-93fb-a8241118d00a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Laboratoare\Laborator3">
+      <UniqueIdentifier>{f21df892-0e51-49dc-ac1e-32f90fc6fc4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Engine.cpp">
@@ -78,6 +81,15 @@
     </ClCompile>
     <ClCompile Include="..\Source\Component\SceneInput.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Laborator3\Laborator3.cpp">
+      <Filter>Laboratoare\Laborator3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Laborator3\Object2D.cpp">
+      <Filter>Laboratoare\Laborator3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Laborator3\Laborator3_Vis2D.cpp">
+      <Filter>Laboratoare\Laborator3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +155,18 @@
     </ClInclude>
     <ClInclude Include="..\Source\Component\SceneInput.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Laborator3.h">
+      <Filter>Laboratoare\Laborator3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Transform2D.h">
+      <Filter>Laboratoare\Laborator3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Object2D.h">
+      <Filter>Laboratoare\Laborator3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Laborator3_Vis2D.h">
+      <Filter>Laboratoare\Laborator3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

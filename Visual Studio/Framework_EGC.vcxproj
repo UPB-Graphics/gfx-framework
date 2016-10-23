@@ -35,6 +35,9 @@
     <ClCompile Include="..\Source\include\gl.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator1\Laborator1.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator2\Laborator2.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Laborator3\Laborator3.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Laborator3\Laborator3_Vis2D.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Laborator3\Object2D.cpp" />
     <ClCompile Include="..\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +62,10 @@
     <ClInclude Include="..\Source\Laboratoare\LabList.h" />
     <ClInclude Include="..\Source\Laboratoare\Laborator1\Laborator1.h" />
     <ClInclude Include="..\Source\Laboratoare\Laborator2\Laborator2.h" />
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Laborator3.h" />
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Laborator3_Vis2D.h" />
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Object2D.h" />
+    <ClInclude Include="..\Source\Laboratoare\Laborator3\Transform2D.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FB43B467-42CC-458C-9556-597B025830F7}</ProjectGuid>
