@@ -57,12 +57,12 @@ Mesh* Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &
 	// TODO: Create the VAO and bind it
 
 	// TODO: Create the VBO and bind it
-	unsigned int VBO;
+	unsigned int VBO = 0;
 
 	// TODO: Send vertices data into the VBO buffer
 
 	// TODO: Crete the IBO and bind it
-	unsigned int IBO;
+	unsigned int IBO = 0;
 
 	// TODO: Send indices data into the IBO buffer
 
@@ -103,6 +103,7 @@ Mesh* Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &
 void Laborator2::FrameStart()
 {
 	// clears the color buffer (using the previously set color) and depth buffer
+	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glm::ivec2 resolution = window->GetResolution();
