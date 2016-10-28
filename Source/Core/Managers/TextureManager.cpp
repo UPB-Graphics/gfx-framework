@@ -16,7 +16,6 @@ void TextureManager::Init()
 	LoadTexture(RESOURCE_PATH::TEXTURES, "black.jpg");
 	LoadTexture(RESOURCE_PATH::TEXTURES, "noise.png");
 	LoadTexture(RESOURCE_PATH::TEXTURES, "random.jpg");
-	LoadTexture(RESOURCE_PATH::TEXTURES, "explosion.bmp");
 	LoadTexture(RESOURCE_PATH::TEXTURES, "particle.png");
 }
 
