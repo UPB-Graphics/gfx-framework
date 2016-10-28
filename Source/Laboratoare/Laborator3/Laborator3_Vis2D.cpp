@@ -152,22 +152,22 @@ void Laborator3_Vis2D::OnInputUpdate(float deltaTime, int mods)
 void Laborator3_Vis2D::OnKeyPress(int key, int mods)
 {
 
-};
+}
 
 void Laborator3_Vis2D::OnKeyRelease(int key, int mods)
 {
 	// add key release event
-};
+}
 
 void Laborator3_Vis2D::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 	// add mouse move event
-};
+}
 
 void Laborator3_Vis2D::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
 	// add mouse button press event
-};
+}
 
 void Laborator3_Vis2D::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {

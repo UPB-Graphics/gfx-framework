@@ -102,22 +102,22 @@ void Laborator3::OnInputUpdate(float deltaTime, int mods)
 void Laborator3::OnKeyPress(int key, int mods)
 {
 	// add key press event
-};
+}
 
 void Laborator3::OnKeyRelease(int key, int mods)
 {
 	// add key release event
-};
+}
 
 void Laborator3::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 	// add mouse move event
-};
+}
 
 void Laborator3::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
 	// add mouse button press event
-};
+}
 
 void Laborator3::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
@@ -125,5 +125,9 @@ void Laborator3::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 }
 
 void Laborator3::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+{
+}
+
+void Laborator3::OnWindowResize(int width, int height)
 {
 }

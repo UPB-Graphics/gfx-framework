@@ -71,6 +71,7 @@ class WindowObject
 		bool KeyHold(int keyCode) const;
 		bool MouseHold(int button) const;
 		int GetSpecialKeyState() const;
+		glm::ivec2 GetCursorPosition() const;
 
 		// Update event listeners (key press / mouse move / window events)
 		void UpdateObservers();

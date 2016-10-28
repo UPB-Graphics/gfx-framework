@@ -28,8 +28,12 @@ class Engine
 {
 	public:
 		static WindowObject* Init(WindowProperties &props);
+
 		static WindowObject* GetWindow();
+
+		// Get elapsed time in seconds since the application started
 		static double GetElapsedTime();
+
 		static void Exit();
 
 	private:

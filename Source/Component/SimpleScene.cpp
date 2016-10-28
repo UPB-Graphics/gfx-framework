@@ -174,7 +174,7 @@ void SimpleScene::RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale)
 	RenderMesh(mesh, shaders["Simple"], position, scale);
 }
 
-void SimpleScene::RenderMesh2D(Mesh * mesh, Shader * shader, glm::mat3 &modelMatrix)
+void SimpleScene::RenderMesh2D(Mesh * mesh, Shader * shader, const glm::mat3 &modelMatrix)
 {
 	if (!mesh || !shader)
 		return;
@@ -194,9 +194,21 @@ void SimpleScene::RenderMesh2D(Mesh * mesh, Shader * shader, glm::mat3 &modelMat
 	mesh->Render();
 }
 
-void SimpleScene::RenderMesh2D(Mesh * mesh, glm::mat3 &modelMatrix)
+void SimpleScene::RenderMesh2D(Mesh * mesh, const glm::mat3 & modelMatrix, const glm::vec3 & color) const
 {
-	RenderMesh2D(mesh, shaders["Simple"], modelMatrix);
+	Shader* shader = shaders.at("Color");
+
+	if (!mesh || !shader)
+		return;
+
+	// render an object using the specified shader and the specified position
+	shader->Use();
+	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+	glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	glUniform3f(shader->GetUniformLocation("color"), color.r, color.g, color.b);
+
+	mesh->Render();
 }
 
 void SimpleScene::ReloadShaders() const

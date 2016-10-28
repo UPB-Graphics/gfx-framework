@@ -161,22 +161,22 @@ void Laborator2::OnKeyPress(int key, int mods)
 			break;
 		}
 	}
-};
+}
 
 void Laborator2::OnKeyRelease(int key, int mods)
 {
 	// add key release event
-};
+}
 
 void Laborator2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 	// add mouse move event
-};
+}
 
 void Laborator2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
 	// add mouse button press event
-};
+}
 
 void Laborator2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
@@ -184,5 +184,9 @@ void Laborator2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 }
 
 void Laborator2::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+{
+}
+
+void Laborator2::OnWindowResize(int width, int height)
 {
 }

@@ -24,6 +24,7 @@ class Laborator3 : public SimpleScene
 		void OnMouseBtnPress(int mouseX, int mouseY, int button, int mods) override;
 		void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 		void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
+		void OnWindowResize(int width, int height) override;
 
 	protected:
 		glm::mat3 modelMatrix;

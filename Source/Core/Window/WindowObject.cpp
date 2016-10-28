@@ -237,6 +237,11 @@ int WindowObject::GetSpecialKeyState() const
 	return keyMods;
 }
 
+glm::ivec2 WindowObject::GetCursorPosition() const
+{
+	return props.cursorPos;
+}
+
 void WindowObject::KeyCallback(int key, int scanCode, int action, int mods)
 {
 	keyMods = mods;
