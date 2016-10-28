@@ -233,9 +233,9 @@ bool Mesh::InitMaterials(const aiScene* pScene)
 	return ret;
 }
 
-void Mesh::SetDrawMode(unsigned int drawMode)
+void Mesh::SetDrawMode(GLenum primitive)
 {
-	glDrawMode = drawMode;
+	glDrawMode = primitive;
 }
 
 void Mesh::UseMaterials(bool value)

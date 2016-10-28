@@ -13,7 +13,8 @@ class Texture2D;
 
 struct VertexFormat
 {
-	VertexFormat(glm::vec3 position, glm::vec3 color,
+	VertexFormat(glm::vec3 position, 
+				glm::vec3 color = glm::vec3(1),
 				glm::vec3 normal = glm::vec3(0, 1, 0),
 				glm::uvec2 text_coord = glm::uvec2(0))
 		: position(position), normal(normal), color(color), text_coord(text_coord) { };
@@ -66,6 +67,8 @@ struct MeshEntry
 
 class Mesh
 {
+	typedef unsigned int GLenum;
+
 	public:
 		Mesh(std::string meshID);
 		virtual ~Mesh();
@@ -96,7 +99,7 @@ class Mesh
 
 		// GL_POINTS, GL_TRIANGLES, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINE_STRIP_ADJACENCY, GL_LINES_ADJACENCY,
 		// GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLE_STRIP_ADJACENCY, GL_TRIANGLES_ADJACENCY
-		void SetDrawMode(unsigned int drawMode);
+		void SetDrawMode(GLenum primitive);
 		void Render() const;
 
 		const char* GetMeshID() const;
@@ -124,7 +127,7 @@ class Mesh
 		std::string fileLocation;
 
 		bool useMaterial;
-		unsigned int glDrawMode;
+		GLenum glDrawMode;
 		GPUBuffers *buffers;
 
 		std::vector<MeshEntry> meshEntries;
