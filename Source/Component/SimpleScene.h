@@ -26,6 +26,8 @@ class SimpleScene : public World
 		void RenderMesh2D(Mesh * mesh, Shader * shader, const glm::mat3 &modelMatrix);
 		void RenderMesh2D(Mesh * mesh, const glm::mat3 &modelMatrix, const glm::vec3 &color) const;
 
+		void RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 &modelMatrix);
+
 		void ReloadShaders() const;
 
 	private:
