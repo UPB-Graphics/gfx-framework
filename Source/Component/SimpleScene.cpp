@@ -201,11 +201,18 @@ void SimpleScene::RenderMesh2D(Mesh * mesh, const glm::mat3 & modelMatrix, const
 	if (!mesh || !shader)
 		return;
 
+	glm::mat3 mm = modelMatrix;
+	glm::mat4 model = glm::mat4(
+		mm[0][0], mm[0][1], mm[0][2], 0.f,
+		mm[1][0], mm[1][1], mm[1][2], 0.f,
+		0.f, 0.f, mm[2][2], 0.f,
+		mm[2][0], mm[2][1], 0.f, 1.f);
+
 	// render an object using the specified shader and the specified position
 	shader->Use();
 	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
 	glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
-	glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(model));
 	glUniform3f(shader->GetUniformLocation("color"), color.r, color.g, color.b);
 
 	mesh->Render();
