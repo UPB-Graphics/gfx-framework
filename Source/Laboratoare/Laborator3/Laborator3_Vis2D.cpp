@@ -19,10 +19,11 @@ Laborator3_Vis2D::~Laborator3_Vis2D()
 
 void Laborator3_Vis2D::Init()
 {
+	auto camera = GetSceneCamera();
 	camera->SetPosition(glm::vec3(0, 0, 50));
 	camera->SetRotation(glm::vec3(0, 0, 0));
 	camera->Update();
-	cameraInput->SetActive(false);
+	GetCameraInput()->SetActive(false);
 
 	logicSpace.x = 0;		// logic x
 	logicSpace.y = 0;		// logic y
@@ -82,8 +83,8 @@ void Laborator3_Vis2D::SetViewportArea(const ViewportSpace & viewSpace, glm::vec
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glDisable(GL_SCISSOR_TEST);
 
-	camera->SetOrthographic((float)viewSpace.x, (float)(viewSpace.x + viewSpace.width), (float)viewSpace.y, (float)(viewSpace.y + viewSpace.height), 0.1f, 400);
-	camera->Update();
+	GetSceneCamera()->SetOrthographic((float)viewSpace.x, (float)(viewSpace.x + viewSpace.width), (float)viewSpace.y, (float)(viewSpace.y + viewSpace.height), 0.1f, 400);
+	GetSceneCamera()->Update();
 }
 
 void Laborator3_Vis2D::FrameStart()

@@ -2,12 +2,15 @@
 
 #include <Core/Window/InputController.h>
 
-class Camera;
+namespace EngineComponents
+{
+	class Camera;
+}
 
 class CameraInput : public InputController
 {
 	public:
-		CameraInput(Camera *camera);
+		CameraInput(EngineComponents::Camera *camera);
 		void OnInputUpdate(float deltaTime, int mods) override;
 		void OnKeyPress(int key, int mods) override;
 		void OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY) override;
@@ -15,6 +18,6 @@ class CameraInput : public InputController
 		void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 
 	public:
-		Camera *camera;
+		EngineComponents::Camera *camera;
 };
 

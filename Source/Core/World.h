@@ -3,7 +3,6 @@
 #include <unordered_map>
 
 class Mesh;
-class Camera;
 class Shader;
 
 #include "Window/InputController.h"

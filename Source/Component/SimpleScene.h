@@ -2,9 +2,13 @@
 
 class Mesh;
 class Shader;
-class Camera;
-class Transform;
 class InputController;
+
+namespace EngineComponents
+{
+	class Camera;
+	class Transform;
+}
 
 #include <Core/World.h>
 
@@ -17,31 +21,35 @@ class SimpleScene : public World
 		~SimpleScene();
 
 	protected:
-		void AddMeshToList(Mesh *mesh);
-		void DrawCoordinatSystem();
+		virtual void AddMeshToList(Mesh *mesh);
+		virtual void DrawCoordinatSystem();
+		virtual void DrawCoordinatSystem(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMaxtix);
 
-		void RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
-		void RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
+		virtual void RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
+		virtual void RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
 
-		void RenderMesh2D(Mesh * mesh, Shader * shader, const glm::mat3 &modelMatrix);
-		void RenderMesh2D(Mesh * mesh, const glm::mat3 &modelMatrix, const glm::vec3 &color) const;
+		virtual void RenderMesh2D(Mesh * mesh, Shader * shader, const glm::mat3 &modelMatrix);
+		virtual void RenderMesh2D(Mesh * mesh, const glm::mat3 &modelMatrix, const glm::vec3 &color) const;
 
-		void RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 &modelMatrix);
+		virtual void RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 &modelMatrix);
 
-		void ReloadShaders() const;
+		virtual void ReloadShaders() const final;
+		virtual EngineComponents::Camera* GetSceneCamera() const final;
+		virtual InputController* GetCameraInput() const final;
 
 	private:
 		void InitResources();
 
 	protected:
-		Camera *camera;
-		InputController *cameraInput;
 		std::unordered_map<std::string, Mesh*> meshes;
 		std::unordered_map<std::string, Shader*> shaders;
 
 	private:
+		EngineComponents::Camera *camera;
+		InputController *cameraInput;
+
 		bool drawGroundPlane;
 		Mesh *xozPlane;
 		Mesh *simpleLine;
-		Transform *objectModel;
+		EngineComponents::Transform *objectModel;
 };

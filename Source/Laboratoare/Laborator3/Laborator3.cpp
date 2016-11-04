@@ -20,11 +20,12 @@ Laborator3::~Laborator3()
 void Laborator3::Init()
 {
 	glm::ivec2 resolution = window->GetResolution();
+	auto camera = GetSceneCamera();
 	camera->SetOrthographic(0, (float)resolution.x, 0, (float)resolution.y, 0.01f, 400);
 	camera->SetPosition(glm::vec3(0, 0, 50));
 	camera->SetRotation(glm::vec3(0, 0, 0));
 	camera->Update();
-	cameraInput->SetActive(false);
+	GetCameraInput()->SetActive(false);
 
 	glm::vec3 corner = glm::vec3(0, 0, 0);
 	float squareSide = 100;

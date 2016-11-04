@@ -10,6 +10,7 @@
 #include <Component/Transform/Transform.h>
 
 using namespace std;
+using namespace EngineComponents;
 
 SimpleScene::SimpleScene()
 {
@@ -108,6 +109,11 @@ void SimpleScene::AddMeshToList(Mesh * mesh)
 
 void SimpleScene::DrawCoordinatSystem()
 {
+	DrawCoordinatSystem(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+}
+
+void SimpleScene::DrawCoordinatSystem(const glm::mat4 & viewMatrix, const glm::mat4 & projectionMaxtix)
+{
 	glLineWidth(1);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -115,8 +121,8 @@ void SimpleScene::DrawCoordinatSystem()
 	{
 		Shader *shader = shaders["Color"];
 		shader->Use();
-		glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
-		glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+		glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(viewMatrix));
+		glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(projectionMaxtix));
 
 		if (drawGroundPlane)
 		{
@@ -244,5 +250,15 @@ void SimpleScene::ReloadShaders() const
 	{
 		shader.second->Reload();
 	}
+}
+
+Camera * SimpleScene::GetSceneCamera() const
+{
+	return camera;
+}
+
+InputController * SimpleScene::GetCameraInput() const
+{
+	return cameraInput;
 }
 

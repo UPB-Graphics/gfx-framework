@@ -8,6 +8,7 @@
 #include <Component/Transform/Transform.h>
 
 using namespace std;
+using namespace EngineComponents;
 
 CameraInput::CameraInput(Camera *camera)
 {
