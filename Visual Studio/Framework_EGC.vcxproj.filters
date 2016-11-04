@@ -34,6 +34,9 @@
     <Filter Include="Laboratoare\Laborator4">
       <UniqueIdentifier>{03d968af-da09-43fb-ac60-276d51f376a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Laboratoare\Laborator5">
+      <UniqueIdentifier>{882a2d66-73aa-4b5c-8461-78d8766990ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Engine.cpp">
@@ -96,6 +99,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Laboratoare\Laborator4\Laborator4.cpp">
       <Filter>Laboratoare\Laborator4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Laborator5\Laborator5.cpp">
+      <Filter>Laboratoare\Laborator5</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +185,12 @@
     </ClInclude>
     <ClInclude Include="..\Source\Laboratoare\Laborator4\Transform3D.h">
       <Filter>Laboratoare\Laborator4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator5\Laborator5.h">
+      <Filter>Laboratoare\Laborator5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator5\LabCamera.h">
+      <Filter>Laboratoare\Laborator5</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
