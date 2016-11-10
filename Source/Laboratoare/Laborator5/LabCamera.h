@@ -36,7 +36,7 @@ namespace Laborator
 			void MoveForward(float distance)
 			{
 				glm::vec3 dir = glm::normalize(glm::vec3(forward.x, 0, forward.z));
-				// [OPTIONAL] - movement will keep the camera at the same height always
+				// movement will keep the camera at the same height always
 				// Example: If you rotate up/down your head and walk forward you will still keep the same relative distance (height) to the ground!
 				// Translate the camera using the DIR vector computed from forward
 			}
@@ -45,12 +45,6 @@ namespace Laborator
 			{
 				// TODO : Translate the camera using the "forward" vector
 			}
-
-			void TranslateToTarget(float distance)
-			{
-				// TODO : Translate the camera with a certain distance towards the "forward" direction
-			}
-
 
 			void TranslateUpword(float distance)
 			{
