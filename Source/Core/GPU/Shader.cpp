@@ -44,8 +44,7 @@ unsigned int Shader::Reload()
 		program = 0;
 	}
 
-	unsigned int rez = CreateAndLink();
-	return rez;
+	return CreateAndLink();
 }
 
 void Shader::BindTexturesUnits()
@@ -121,6 +120,9 @@ unsigned int Shader::CreateAndLink()
 		auto shaderID = Shader::CreateShader(S.file, S.type);
 		if (shaderID) {
 			shaders.push_back(shaderID);
+		}
+		else {
+			return 0;
 		}
 	}
 

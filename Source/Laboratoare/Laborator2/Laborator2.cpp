@@ -67,8 +67,8 @@ Mesh* Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &
 	// TODO: Send indices data into the IBO buffer
 
 	// ========================================================================
-	// This is section is strongly linked to how the GPU Shader program treats data
-	// It will be learned later, when GLSL shaders will introduces
+	// This section describes how the GPU Shader Vertex Shader program receives data
+	// It will be learned later, when GLSL shaders will be introduced
 	// For the moment just think that each property value from our vertex format needs to be send to a certain channel
 	// in order to know how to receive it in the GLSL vertex shader
 

@@ -26,6 +26,11 @@ Mesh::~Mesh()
 	SAFE_FREE(buffers);
 }
 
+const GPUBuffers * Mesh::GetBuffers() const
+{
+	return buffers;
+}
+
 const char * Mesh::GetMeshID() const
 {
 	return meshID.c_str();
@@ -231,6 +236,11 @@ bool Mesh::InitMaterials(const aiScene* pScene)
 
 	CheckOpenGLError();
 	return ret;
+}
+
+GLenum Mesh::GetDrawMode() const
+{
+	return glDrawMode;
 }
 
 void Mesh::SetDrawMode(GLenum primitive)

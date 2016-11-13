@@ -100,8 +100,11 @@ class Mesh
 		// GL_POINTS, GL_TRIANGLES, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINE_STRIP_ADJACENCY, GL_LINES_ADJACENCY,
 		// GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLE_STRIP_ADJACENCY, GL_TRIANGLES_ADJACENCY
 		void SetDrawMode(GLenum primitive);
+		GLenum GetDrawMode() const;
+
 		void Render() const;
 
+		const GPUBuffers* GetBuffers() const;
 		const char* GetMeshID() const;
 
 	protected:

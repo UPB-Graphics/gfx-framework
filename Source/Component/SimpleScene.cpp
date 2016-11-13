@@ -121,8 +121,8 @@ void SimpleScene::DrawCoordinatSystem(const glm::mat4 & viewMatrix, const glm::m
 	{
 		Shader *shader = shaders["Color"];
 		shader->Use();
-		glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(viewMatrix));
-		glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(projectionMaxtix));
+		glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+		glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(projectionMaxtix));
 
 		if (drawGroundPlane)
 		{
@@ -160,13 +160,13 @@ void SimpleScene::DrawCoordinatSystem(const glm::mat4 & viewMatrix, const glm::m
 
 void SimpleScene::RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, glm::vec3 scale)
 {
-	if (!mesh || !shader)
+	if (!mesh || !shader || !shader->program)
 		return;
 
 	// render an object using the specified shader and the specified position
 	shader->Use();
-	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
-	glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+	glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 
 	glm::mat4 model(1);
 	model = glm::translate(model, position);
@@ -182,12 +182,12 @@ void SimpleScene::RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale)
 
 void SimpleScene::RenderMesh2D(Mesh * mesh, Shader * shader, const glm::mat3 &modelMatrix)
 {
-	if (!mesh || !shader)
+	if (!mesh || !shader || !shader->program)
 		return;
 
 	shader->Use();
-	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
-	glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+	glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 	
 	glm::mat3 mm = modelMatrix;
 	glm::mat4 model = glm::mat4(
@@ -204,7 +204,7 @@ void SimpleScene::RenderMesh2D(Mesh * mesh, const glm::mat3 & modelMatrix, const
 {
 	Shader* shader = shaders.at("Color");
 
-	if (!mesh || !shader)
+	if (!mesh || !shader || !shader->program)
 		return;
 
 	glm::mat3 mm = modelMatrix;
@@ -216,8 +216,8 @@ void SimpleScene::RenderMesh2D(Mesh * mesh, const glm::mat3 & modelMatrix, const
 
 	// render an object using the specified shader and the specified position
 	shader->Use();
-	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
-	glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+	glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 	glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(model));
 	glUniform3f(shader->GetUniformLocation("color"), color.r, color.g, color.b);
 
@@ -226,13 +226,13 @@ void SimpleScene::RenderMesh2D(Mesh * mesh, const glm::mat3 & modelMatrix, const
 
 void SimpleScene::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & modelMatrix)
 {
-	if (!mesh || !shader)
+	if (!mesh || !shader || !shader->program)
 		return;
 
 	// render an object using the specified shader and the specified position
 	shader->Use();
-	glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetViewMatrix()));
-	glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+	glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+	glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 	glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 	mesh->Render();
