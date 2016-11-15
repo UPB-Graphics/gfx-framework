@@ -65,12 +65,12 @@ Mesh* Laborator6::CreateMesh(const char *name, const std::vector<VertexFormat> &
 {
 	unsigned int VAO = 0;
 	// TODO: Create the VAO and bind it
-	glCreateVertexArrays(1, &VAO);
+	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
 	// TODO: Create the VBO and bind it
 	unsigned int VBO;
-	glCreateBuffers(1, &VBO);
+	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	// TODO: Send vertices data into the VBO buffer
@@ -78,7 +78,7 @@ Mesh* Laborator6::CreateMesh(const char *name, const std::vector<VertexFormat> &
 
 	// TODO: Crete the IBO and bind it
 	unsigned int IBO;
-	glCreateBuffers(1, &IBO);
+	glGenBuffers(1, &IBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 
 	// TODO: Send indices data into the IBO buffer
