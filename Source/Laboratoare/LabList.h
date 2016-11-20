@@ -7,3 +7,4 @@
 #include <Laboratoare/Laborator4/Laborator4.h>
 #include <Laboratoare/Laborator5/Laborator5.h>
 #include <Laboratoare/Laborator6/Laborator6.h>
+#include <Laboratoare/Laborator7/Laborator7.h>
