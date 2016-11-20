@@ -104,7 +104,7 @@ Mesh* Laborator6::CreateMesh(const char *name, const std::vector<VertexFormat> &
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(VertexFormat), (void*)(2 * sizeof(glm::vec3) + sizeof(glm::vec2)));
 	// ========================================================================
 
-	// TODO: Unbind the VAO
+	// Unbind the VAO
 	glBindVertexArray(0);
 
 	// Check for OpenGL errors
@@ -167,7 +167,7 @@ void Laborator6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 		return;
 
 	// render an object using the specified shader and the specified position
-	shader->Use();
+	glUseProgram(shader->program);
 
 	// TODO : get shader location for uniform mat4 "Model"
 
