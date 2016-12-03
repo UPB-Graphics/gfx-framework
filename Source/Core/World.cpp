@@ -34,6 +34,7 @@ void World::Pause()
 void World::Exit()
 {
 	shouldClose = true;
+	window->Close();
 }
 
 double World::GetLastFrameTime()

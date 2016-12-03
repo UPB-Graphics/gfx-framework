@@ -22,4 +22,7 @@ void SceneInput::OnKeyPress(int key, int mods)
 
 	if (key == GLFW_KEY_F5)
 		scene->ReloadShaders();
+
+	if (key == GLFW_KEY_ESCAPE)
+		scene->Exit();
 }
