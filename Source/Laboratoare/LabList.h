@@ -9,3 +9,4 @@
 #include <Laboratoare/Laborator6/Laborator6.h>
 #include <Laboratoare/Laborator7/Laborator7.h>
 #include <Laboratoare/Laborator8/Laborator8.h>
+#include <Laboratoare/Laborator9/Laborator9.h>

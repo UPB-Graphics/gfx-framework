@@ -43,6 +43,7 @@
     <ClCompile Include="..\Source\Laboratoare\Laborator6\Laborator6.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator7\Laborator7.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator8\Laborator8.cpp" />
+    <ClCompile Include="..\Source\Laboratoare\Laborator9\Laborator9.cpp" />
     <ClCompile Include="..\Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +79,7 @@
     <ClInclude Include="..\Source\Laboratoare\Laborator6\Laborator6.h" />
     <ClInclude Include="..\Source\Laboratoare\Laborator7\Laborator7.h" />
     <ClInclude Include="..\Source\Laboratoare\Laborator8\Laborator8.h" />
+    <ClInclude Include="..\Source\Laboratoare\Laborator9\Laborator9.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Laboratoare\Laborator6\Shaders\FragmentShader.glsl" />
@@ -86,6 +88,8 @@
     <None Include="..\Source\Laboratoare\Laborator7\Shaders\VertexShader.glsl" />
     <None Include="..\Source\Laboratoare\Laborator8\Shaders\FragmentShader.glsl" />
     <None Include="..\Source\Laboratoare\Laborator8\Shaders\VertexShader.glsl" />
+    <None Include="..\Source\Laboratoare\Laborator9\Shaders\FragmentShader.glsl" />
+    <None Include="..\Source\Laboratoare\Laborator9\Shaders\VertexShader.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FB43B467-42CC-458C-9556-597B025830F7}</ProjectGuid>

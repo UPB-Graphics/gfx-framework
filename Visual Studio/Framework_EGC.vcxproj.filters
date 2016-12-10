@@ -55,6 +55,12 @@
     <Filter Include="Laboratoare\Laborator8\Shaders">
       <UniqueIdentifier>{ca649040-b6c3-45ca-9f4d-b36d6b0df943}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Laboratoare\Laborator9">
+      <UniqueIdentifier>{72722bbc-d126-4745-97fb-990fffedc3f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Laboratoare\Laborator9\Shaders">
+      <UniqueIdentifier>{a7995ec9-7a24-4990-8d42-92088d9a6dfb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Core\Engine.cpp">
@@ -129,6 +135,9 @@
     </ClCompile>
     <ClCompile Include="..\Source\Laboratoare\Laborator8\Laborator8.cpp">
       <Filter>Laboratoare\Laborator8</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\Laboratoare\Laborator9\Laborator9.cpp">
+      <Filter>Laboratoare\Laborator9</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +237,9 @@
     <ClInclude Include="..\Source\Laboratoare\Laborator8\Laborator8.h">
       <Filter>Laboratoare\Laborator8</Filter>
     </ClInclude>
+    <ClInclude Include="..\Source\Laboratoare\Laborator9\Laborator9.h">
+      <Filter>Laboratoare\Laborator9</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Laboratoare\Laborator6\Shaders\FragmentShader.glsl">
@@ -247,6 +259,12 @@
     </None>
     <None Include="..\Source\Laboratoare\Laborator8\Shaders\VertexShader.glsl">
       <Filter>Laboratoare\Laborator8\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Laboratoare\Laborator9\Shaders\FragmentShader.glsl">
+      <Filter>Laboratoare\Laborator9\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Laboratoare\Laborator9\Shaders\VertexShader.glsl">
+      <Filter>Laboratoare\Laborator9\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
