@@ -11,6 +11,7 @@ class TextureManager
 	public:
 		static void Init();
 		static Texture2D* LoadTexture(const std::string &Path, const char *fileName);
+		static void SetTexture(const std::string name, Texture2D * texture);
 		static Texture2D* GetTexture(const char* name);
 		static Texture2D* GetTexture(unsigned int textureID);
 

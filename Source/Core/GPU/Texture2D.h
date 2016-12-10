@@ -15,6 +15,7 @@ class Texture2D
 		void UploadNewData(const uchar *img);
 		void UploadNewData(const ushort *img);
 
+		void Init(GLuint gpuTextureID, unsigned int width, unsigned int height, unsigned int channels);
 		void Create(const unsigned char* img, int width, int height, int chn);
 		void CreateU16(const unsigned short* img, int width, int height, int chn);
 

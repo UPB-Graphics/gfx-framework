@@ -50,6 +50,14 @@ GLuint Texture2D::GetTextureID() const
 	return textureID;
 }
 
+void Texture2D::Init(GLuint gpuTextureID, unsigned int width, unsigned int height, unsigned int channels)
+{
+	this->textureID = gpuTextureID;
+	this->width = width;
+	this->height = height;
+	this->channels = channels;
+}
+
 bool Texture2D::Load2D(const char* fileName, GLenum wrapping_mode)
 {
 	int width, height, chn;

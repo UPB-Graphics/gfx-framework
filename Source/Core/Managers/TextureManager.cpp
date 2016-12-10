@@ -48,6 +48,11 @@ Texture2D* TextureManager::LoadTexture(const string &path, const char *fileName)
 	return texture;
 }
 
+void TextureManager::SetTexture(string name, Texture2D *texture)
+{
+	mapTextures[name] = texture;
+}
+
 Texture2D* TextureManager::GetTexture(const char* name)
 {
 	if (mapTextures[name])
