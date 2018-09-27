@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Managers">
+    <Position X="7.25" Y="3.25" Height="0.311" Width="1.7" />
+  </Comment>
+  <Comment CommentText="Window &amp; Context">
+    <Position X="6.276" Y="0.5" Height="0.311" Width="1.7" />
+  </Comment>
+  <Comment CommentText="GPU Resources">
+    <Position X="10.804" Y="0.521" Height="0.311" Width="1.7" />
+  </Comment>
+  <Comment CommentText="3D Scene Instances">
+    <Position X="3.777" Y="4.015" Height="0.311" Width="1.7" />
+  </Comment>
+  <Class Name="CameraInput" Collapsed="true">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAAAAAAAgAAAAAAAAAAAAAAABAAAgAAAAAAEEAAAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Component\CameraInput.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Engine" Collapsed="true">
+    <Position X="8" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAIIAACAACAAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\Engine.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GPUBuffers" Collapsed="true">
+    <Position X="12.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAABAAAAAAAAIACAAAAAAAAAAAAAAAEAAAEAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\GPU\GPUBuffers.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputController" Collapsed="true">
+    <Position X="1.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAgAAAAAAAAAAEAAAAAAAABAABwIIABAAEMAAAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\Window\InputController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laborator2" Collapsed="true">
+    <Position X="3.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiQAAgAAAAAAAAAAAAEAAAAEABAAAwAAABACkEEABCA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Laboratoare\Laborator2\Laborator2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mesh" Collapsed="true">
+    <Position X="10.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAgARAkAQgEAADQAAAAAJACAAAQwIoAAAZIACAhAAAg=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\GPU\Mesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneInput" Collapsed="true">
+    <Position X="3.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Component\SceneInput.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shader" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>4DAWAAAAAEAAAGAAAQQQCABCAAgEAAgALgAgABAgJAE=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\GPU\Shader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleScene">
+    <Position X="1.25" Y="4" Width="1.5" />
+    <Members>
+      <Method Name="DrawCoordinatSystem" Hidden="true" />
+      <Field Name="drawGroundPlane" Hidden="true" />
+      <Method Name="GetCameraInput" Hidden="true" />
+      <Method Name="GetSceneCamera" Hidden="true" />
+      <Field Name="objectModel" Hidden="true" />
+      <Method Name="ReloadShaders" Hidden="true" />
+      <Field Name="simpleLine" Hidden="true" />
+      <Method Name="SimpleScene" Hidden="true" />
+      <Field Name="xozPlane" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAEACAAAgAMAAAoAAABAAAAgAAgBUgCgAAAABAEAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Component\SimpleScene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Texture2D" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAgEIAAAASQUACAACRMIAAAAHAAAACWAEAAEDA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\GPU\Texture2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureManager" Collapsed="true">
+    <Position X="7.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAACAACAAAAABAABAAAABCAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\Managers\TextureManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowCallbacks" Collapsed="true">
+    <Position X="6.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAABAAAgACAAAAAQAQAAAAAAAAAAAAAAAICAAAAAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\Window\WindowCallbacks.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowObject" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>VLEYIQIAhYRiABNIECQrQALAgKCUIAQIQDAIGACAIBQ=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\Window\WindowObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowProperties" Collapsed="true">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAEAAAAAAAAQAAiICAAAAAUAEAAAgAACAAAAAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\Window\WindowObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="World" Collapsed="true">
+    <Position X="1.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGQggBAAAREAAAAAAAAAAAAAAACCAAAAIAACACAAJAI=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Core\World.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laborator1" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AyQAAgAAAAAAAAAAAAAAAAAAABAAAwACABACEEAABAA=</HashCode>
+      <FileName>D:\Dropbox\Facultate\EGC\Framework-EGC\Source\Laboratoare\Laborator1\Laborator1.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
