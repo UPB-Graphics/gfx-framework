@@ -266,5 +266,6 @@
     <None Include="..\Source\Laboratoare\Laborator9\Shaders\VertexShader.glsl">
       <Filter>Laboratoare\Laborator9\Shaders</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
