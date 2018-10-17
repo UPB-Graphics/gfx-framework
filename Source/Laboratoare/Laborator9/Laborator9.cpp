@@ -46,7 +46,7 @@ void Laborator9::Init()
 	}
 
 	{
-		mapTextures["random"] = CreateRandomTexture(25, 25);
+		mapTextures["random"] = CreateRandomTexture(32, 32);
 	}
 
 	// Load meshes
