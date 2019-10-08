@@ -45,7 +45,7 @@ WindowObject::WindowObject(WindowProperties properties)
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Init OpenGL Window
 	props.fullScreen ? FullScreen() : WindowMode();
@@ -178,8 +178,15 @@ void WindowObject::FullScreen()
 	resizeEvent = false;
 }
 
+void error_callback(int error, const char* description)
+{
+    fprintf(stderr, "Error: %s\n", description);
+}
+
 void WindowObject::WindowMode()
 {
+	glfwSetErrorCallback(error_callback);
+	if (!glfwInit()) { fprintf(stderr, "Failed to initialize GLFW\n"); } 
 	window = glfwCreateWindow(props.resolution.x, props.resolution.y, props.name.c_str(), NULL, NULL);
 	assert(window != nullptr);
 	glfwMakeContextCurrent(window);

@@ -16,3 +16,8 @@
 !/libs
 !/Resources
 !/Source
+
+#cmake file
+!/CMakeLists.txt
+!/fedora-dep.sh
+!/ubuntu-dependencies.sh
