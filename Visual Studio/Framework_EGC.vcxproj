@@ -32,8 +32,6 @@
     <ClCompile Include="..\Source\Core\Window\WindowCallbacks.cpp" />
     <ClCompile Include="..\Source\Core\Window\WindowObject.cpp" />
     <ClCompile Include="..\Source\Core\World.cpp" />
-    <ClCompile Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.cpp" />
-    <ClCompile Include="..\Source\TextRenderer\TextRenderer.cpp" />
     <ClCompile Include="..\Source\include\gl.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator1\Laborator1.cpp" />
     <ClCompile Include="..\Source\Laboratoare\Laborator2\Laborator2.cpp" />
@@ -63,8 +61,6 @@
     <ClInclude Include="..\Source\Core\Window\WindowCallbacks.h" />
     <ClInclude Include="..\Source\Core\Window\WindowObject.h" />
     <ClInclude Include="..\Source\Core\World.h" />
-    <ClInclude Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.h" />
-    <ClInclude Include="..\Source\TextRenderer\TextRenderer.h" />
     <ClInclude Include="..\Source\include\gl.h" />
     <ClInclude Include="..\Source\include\glm.h" />
     <ClInclude Include="..\Source\include\math.h" />
@@ -94,15 +90,13 @@
     <None Include="..\Source\Laboratoare\Laborator8\Shaders\VertexShader.glsl" />
     <None Include="..\Source\Laboratoare\Laborator9\Shaders\FragmentShader.glsl" />
     <None Include="..\Source\Laboratoare\Laborator9\Shaders\VertexShader.glsl" />
-    <None Include="..\Source\TextRenderer\Shaders\FragmentShaderText.glsl" />
-    <None Include="..\Source\TextRenderer\Shaders\VertexShaderText.glsl" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FB43B467-42CC-458C-9556-597B025830F7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Framework_EGC</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -142,7 +136,6 @@
     <Import Project="Property Sheets\glfw.props" />
     <Import Project="Property Sheets\include.props" />
     <Import Project="Property Sheets\assimp.props" />
-    <Import Project="Property Sheets\freetype.props" />
     <Import Project="Property Sheets\Engine.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -151,7 +144,6 @@
     <Import Project="Property Sheets\glfw.props" />
     <Import Project="Property Sheets\include.props" />
     <Import Project="Property Sheets\assimp.props" />
-    <Import Project="Property Sheets\freetype.props" />
     <Import Project="Property Sheets\Engine.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -160,7 +152,6 @@
     <Import Project="Property Sheets\glfw.props" />
     <Import Project="Property Sheets\include.props" />
     <Import Project="Property Sheets\assimp.props" />
-    <Import Project="Property Sheets\freetype.props" />
     <Import Project="Property Sheets\Engine.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -169,7 +160,6 @@
     <Import Project="Property Sheets\glfw.props" />
     <Import Project="Property Sheets\include.props" />
     <Import Project="Property Sheets\assimp.props" />
-    <Import Project="Property Sheets\freetype.props" />
     <Import Project="Property Sheets\Engine.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />

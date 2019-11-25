@@ -16,12 +16,6 @@
     <Filter Include="Core\GPU">
       <UniqueIdentifier>{271e5bd2-7cb3-40b7-b2e5-5e343c58f910}</UniqueIdentifier>
     </Filter>
-    <Filter Include="TextRenderer">
-      <UniqueIdentifier>{b6c81712-a8e7-463b-9c32-bd1cbb2ce665}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TextRenderer\Shaders">
-      <UniqueIdentifier>{8ba23916-dcbc-4616-b8eb-045ca148b7cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Laboratoare">
       <UniqueIdentifier>{a73d11aa-9a42-4f7c-ba61-adefedb1e0cf}</UniqueIdentifier>
     </Filter>
@@ -66,9 +60,6 @@
     </Filter>
     <Filter Include="Laboratoare\Laborator9\Shaders">
       <UniqueIdentifier>{a7995ec9-7a24-4990-8d42-92088d9a6dfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Laboratoare\Laborator_BonusTextRenderer">
-      <UniqueIdentifier>{949b7584-e1f0-4b93-9154-b98af2fe0139}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,9 +112,6 @@
     <ClCompile Include="..\Source\Component\SceneInput.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\TextRenderer\TextRenderer.cpp">
-      <Filter>TextRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Laboratoare\Laborator3\Laborator3.cpp">
       <Filter>Laboratoare\Laborator3</Filter>
     </ClCompile>
@@ -150,9 +138,6 @@
     </ClCompile>
     <ClCompile Include="..\Source\Laboratoare\Laborator9\Laborator9.cpp">
       <Filter>Laboratoare\Laborator9</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.cpp">
-      <Filter>Laboratoare\Laborator_BonusTextRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,9 +204,6 @@
     <ClInclude Include="..\Source\Component\SceneInput.h">
       <Filter>Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\TextRenderer\TextRenderer.h">
-      <Filter>TextRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Laboratoare\Laborator3\Laborator3.h">
       <Filter>Laboratoare\Laborator3</Filter>
     </ClInclude>
@@ -258,9 +240,6 @@
     <ClInclude Include="..\Source\Laboratoare\Laborator9\Laborator9.h">
       <Filter>Laboratoare\Laborator9</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Laboratoare\Laborator_BonusTextRenderer\Laborator_BonusTextRenderer.h">
-      <Filter>Laboratoare\Laborator_BonusTextRenderer</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Source\Laboratoare\Laborator6\Shaders\FragmentShader.glsl">
@@ -288,11 +267,5 @@
       <Filter>Laboratoare\Laborator9\Shaders</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
-    <None Include="..\Source\TextRenderer\Shaders\FragmentShaderText.glsl">
-      <Filter>TextRenderer\Shaders</Filter>
-    </None>
-    <None Include="..\Source\TextRenderer\Shaders\VertexShaderText.glsl">
-      <Filter>TextRenderer\Shaders</Filter>
-    </None>
   </ItemGroup>
 </Project>
