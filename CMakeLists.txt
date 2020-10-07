@@ -65,5 +65,10 @@ add_executable(EGC ${CPPSources})
 target_link_libraries(EGC m GL GLEW glfw assimp components)
 
 
-add_custom_target(link_target ALL
-                COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/Resources ${CMAKE_BINARY_DIR}/Resources)
+# Copy resources to bin tree
+add_custom_target(copy_resources ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${PROJECT_SOURCE_DIR}/Resources" "${PROJECT_BINARY_DIR}/Resources"
+        COMMENT "Copying resources to build tree"
+        VERBATIM)
+
+add_dependencies(EGC copy_resources)
