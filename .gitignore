@@ -19,5 +19,6 @@
 
 #cmake file
 !/CMakeLists.txt
+!/arch-deps.sh
 !/fedora-dep.sh
 !/ubuntu-dependencies.sh
