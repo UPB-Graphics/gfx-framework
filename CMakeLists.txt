@@ -38,6 +38,8 @@ link_directories(${COMPONENT_LIB})
 include_directories(${SOURCE_SUBDIRS})
 
 file(GLOB_RECURSE CPPSources *.cpp)
+# Including CMake sources might prevent us from building the executable.
+list(FILTER CPPSources EXCLUDE REGEX CMakeFiles/*)
 
 # Remove strings matching given regular expression from a list.
 # @param(in,out) aItems Reference of a list variable to filter.
@@ -66,4 +68,5 @@ target_link_libraries(EGC m GL GLEW glfw assimp components)
 
 
 add_custom_target(link_target ALL
-                COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/Resources ${CMAKE_BINARY_DIR}/Resources)
+                COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/Resources ${CMAKE_BINARY_DIR}/Resources
+                COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/Source ${CMAKE_BINARY_DIR}/Source)
