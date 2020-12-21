@@ -1,6 +1,6 @@
 #pragma once
 #include <include/glm.h>
-#include <include/math.h>
+#include <include/math_utils.h>
 
 namespace Laborator
 {

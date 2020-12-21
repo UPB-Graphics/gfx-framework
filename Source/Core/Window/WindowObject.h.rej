@@ -1,8 +1,0 @@
---- WindowObject.h	2018-10-28 18:29:00.567422806 +0000
-+++ WindowObject.h	2018-09-27 18:54:57.000000000 +0000
-@@ -147,4 +151,4 @@
- 
- 		// Input Observers
- 		std::list<InputController*> observers;
--};
-+};
