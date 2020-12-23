@@ -65,7 +65,7 @@ void Laborator1::FrameEnd()
 void Laborator1::OnInputUpdate(float deltaTime, int mods)
 {
 	// treat continuous update based on input
-};
+}
 
 void Laborator1::OnKeyPress(int key, int mods)
 {
@@ -73,22 +73,22 @@ void Laborator1::OnKeyPress(int key, int mods)
 	if (key == GLFW_KEY_F) {
 		// do something
 	}
-};
+}
 
 void Laborator1::OnKeyRelease(int key, int mods)
 {
 	// add key release event
-};
+}
 
 void Laborator1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 	// add mouse move event
-};
+}
 
 void Laborator1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
 	// add mouse button press event
-};
+}
 
 void Laborator1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {

@@ -7,7 +7,7 @@
 #include "SceneInput.h"
 
 #include <Core/Engine.h>
-#include <Component/Transform/Transform.h>
+#include <LibEGC.hpp>
 
 using namespace std;
 using namespace EngineComponents;
@@ -32,15 +32,16 @@ void SimpleScene::InitResources()
 
 	camera = new Camera();
 	camera->SetPerspective(60, window->props.aspectRatio, 0.01f, 200);
-	camera->transform->SetMoveSpeed(2);
-	camera->transform->SetWorldPosition(glm::vec3(0, 1.6f, 2.5));
-	camera->transform->SetWorldRotation(glm::vec3(-15, 0, 0));
+	camera->m_transform->SetMoveSpeed(2);
+	camera->m_transform->SetWorldPosition(glm::vec3(0, 1.6f, 2.5));
+	camera->m_transform->SetWorldRotation(glm::vec3(-15, 0, 0));
 	camera->Update();
 
 	cameraInput = new CameraInput(camera);
 	window = Engine::GetWindow();
 
 	SceneInput *SI = new SceneInput(this);
+	UNUSED(SI);
 
 	xozPlane = new Mesh("plane");
 	xozPlane->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "plane50.obj");

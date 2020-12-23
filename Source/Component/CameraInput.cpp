@@ -4,8 +4,7 @@
 #include <include/gl.h>
 #include <Core/Window/WindowObject.h>
 
-#include <Component/Camera/Camera.h>
-#include <Component/Transform/Transform.h>
+#include <LibEGC.hpp>
 
 using namespace std;
 using namespace EngineComponents;

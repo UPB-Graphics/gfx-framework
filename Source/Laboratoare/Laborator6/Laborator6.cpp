@@ -184,7 +184,7 @@ void Laborator6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 	glm::mat4 projectionMatrix = GetSceneCamera()->GetProjectionMatrix();
 
 	// Draw the object
-	glBindVertexArray(mesh->GetBuffers()->VAO);
+	glBindVertexArray(mesh->GetBuffers()->m_VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 

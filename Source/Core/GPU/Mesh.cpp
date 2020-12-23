@@ -93,7 +93,7 @@ bool Mesh::InitFromBuffer(unsigned int VAO, unsigned short nrIndices)
 	meshEntries.push_back(M);
 
 	buffers->ReleaseMemory();
-	buffers->VAO = VAO;
+	buffers->m_VAO = VAO;
 
 	return true;
 }
@@ -105,7 +105,7 @@ bool Mesh::InitFromData(std::vector<VertexFormat> vertices, std::vector<unsigned
 
 	InitFromData();
 	*buffers = UtilsGPU::UploadData(vertices, indices);
-	return buffers->VAO != 0;
+	return buffers->m_VAO != 0;
 }
 
 bool Mesh::InitFromData(std::vector<glm::vec3>& positions, std::vector<glm::vec3>& normals, std::vector<unsigned short>& indices)
@@ -116,7 +116,7 @@ bool Mesh::InitFromData(std::vector<glm::vec3>& positions, std::vector<glm::vec3
 
 	InitFromData();
 	*buffers = UtilsGPU::UploadData(positions, normals, indices);
-	return buffers->VAO != 0;
+	return buffers->m_VAO != 0;
 }
 
 bool Mesh::InitFromData(vector<glm::vec3>& positions,
@@ -131,7 +131,7 @@ bool Mesh::InitFromData(vector<glm::vec3>& positions,
 
 	InitFromData();
 	*buffers = UtilsGPU::UploadData(positions, normals, texCoords, indices);
-	return buffers->VAO != 0;
+	return buffers->m_VAO != 0;
 }
 
 bool Mesh::InitFromScene(const aiScene* pScene)
@@ -173,7 +173,7 @@ bool Mesh::InitFromScene(const aiScene* pScene)
 
 	buffers->ReleaseMemory();
 	*buffers = UtilsGPU::UploadData(positions, normals, texCoords, indices);
-	return buffers->VAO != 0;
+	return buffers->m_VAO != 0;
 }
 
 void Mesh::InitMesh(const aiMesh* paiMesh)
@@ -222,16 +222,16 @@ bool Mesh::InitMaterials(const aiScene* pScene)
 		}
 
 		if (aiGetMaterialColor(pMaterial, AI_MATKEY_COLOR_AMBIENT, &color) == AI_SUCCESS)
-			memcpy(&materials[i]->ambient, &color, sizeof(color));
+			memcpy((void *)&materials[i]->ambient, &color, sizeof(color));
 
 		if (aiGetMaterialColor(pMaterial, AI_MATKEY_COLOR_DIFFUSE, &color) == AI_SUCCESS)
-			memcpy(&materials[i]->diffuse, &color, sizeof(color));
+			memcpy((void *)&materials[i]->diffuse, &color, sizeof(color));
 
 		if (aiGetMaterialColor(pMaterial, AI_MATKEY_COLOR_SPECULAR, &color) == AI_SUCCESS)
-			memcpy(&materials[i]->specular, &color, sizeof(color));
+			memcpy((void *)&materials[i]->specular, &color, sizeof(color));
 
 		if (aiGetMaterialColor(pMaterial, AI_MATKEY_COLOR_EMISSIVE, &color) == AI_SUCCESS)
-			memcpy(&materials[i]->emissive, &color, sizeof(color));
+			memcpy((void *)&materials[i]->emissive, &color, sizeof(color));
 	}
 
 	CheckOpenGLError();
@@ -255,7 +255,7 @@ void Mesh::UseMaterials(bool value)
 
 void Mesh::Render() const
 {
-	glBindVertexArray(buffers->VAO);
+	glBindVertexArray(buffers->m_VAO);
 	for (unsigned int i = 0; i < meshEntries.size(); i++)
 	{
 		if (useMaterial)

@@ -206,7 +206,7 @@ void Laborator9::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 	}
 
 	// Draw the object
-	glBindVertexArray(mesh->GetBuffers()->VAO);
+	glBindVertexArray(mesh->GetBuffers()->m_VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 
@@ -253,8 +253,8 @@ void Laborator9::OnInputUpdate(float deltaTime, int mods)
 	if (!window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		glm::vec3 up = glm::vec3(0, 1, 0);
-		glm::vec3 right = GetSceneCamera()->transform->GetLocalOXVector();
-		glm::vec3 forward = GetSceneCamera()->transform->GetLocalOZVector();
+		glm::vec3 right = GetSceneCamera()->m_transform->GetLocalOXVector();
+		glm::vec3 forward = GetSceneCamera()->m_transform->GetLocalOZVector();
 		forward = glm::normalize(glm::vec3(forward.x, 0, forward.z));
 	}
 }

@@ -128,7 +128,7 @@ void Laborator8::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 	glUniform3f(light_direction, lightDirection.x, lightDirection.y, lightDirection.z);
 
 	// TODO: Set eye position (camera position) uniform
-	glm::vec3 eyePosition = GetSceneCamera()->transform->GetWorldPosition();
+	glm::vec3 eyePosition = GetSceneCamera()->m_transform->GetWorldPosition();
 	int eye_position = glGetUniformLocation(shader->program, "eye_position");
 	glUniform3f(eye_position, eyePosition.x, eyePosition.y, eyePosition.z);
 
@@ -160,7 +160,7 @@ void Laborator8::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 	glUniformMatrix4fv(loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 	// Draw the object
-	glBindVertexArray(mesh->GetBuffers()->VAO);
+	glBindVertexArray(mesh->GetBuffers()->m_VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
 }
 
@@ -174,8 +174,8 @@ void Laborator8::OnInputUpdate(float deltaTime, int mods)
 	if (!window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
 	{
 		glm::vec3 up = glm::vec3(0, 1, 0);
-		glm::vec3 right = GetSceneCamera()->transform->GetLocalOXVector();
-		glm::vec3 forward = GetSceneCamera()->transform->GetLocalOZVector();
+		glm::vec3 right = GetSceneCamera()->m_transform->GetLocalOXVector();
+		glm::vec3 forward = GetSceneCamera()->m_transform->GetLocalOZVector();
 		forward = glm::normalize(glm::vec3(forward.x, 0, forward.z));
 
 		// Control light position using on W, A, S, D, E, Q

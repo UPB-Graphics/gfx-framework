@@ -2,7 +2,7 @@
 
 #include <Core/Engine.h>
 #include <Component/CameraInput.h>
-#include <Component/Transform/Transform.h>
+#include <LibEGC.hpp>
 
 World::World()
 {

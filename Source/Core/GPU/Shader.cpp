@@ -246,8 +246,8 @@ unsigned int Shader::CreateProgram(const vector<unsigned int> &shaderObjects)
 	// Delete the shader objects because we do not need them any more
 	for (auto shader: shaderObjects)
 		glDeleteShader(shader);
+	
+	CheckOpenGLError();
 
 	return glProgramObject;
-
-	CheckOpenGLError();
 }

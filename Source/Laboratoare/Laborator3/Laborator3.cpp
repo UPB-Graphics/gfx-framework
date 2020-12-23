@@ -26,7 +26,7 @@ void Laborator3::Init()
 	camera->SetRotation(glm::vec3(0, 0, 0));
 	camera->Update();
 	GetCameraInput()->SetActive(false);
-
+	
 	glm::vec3 corner = glm::vec3(0, 0, 0);
 	float squareSide = 100;
 

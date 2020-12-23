@@ -6,7 +6,7 @@
 
 #include "SimpleScene.h"
 
-#include <Component/Transform/Transform.h>
+#include <LibEGC.hpp>
 
 using namespace std;
 

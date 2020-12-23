@@ -16,7 +16,7 @@
 
 #include <Core/World.h>
 
-#include <Component/Camera/Camera.h>
+#include <LibEGC.hpp>
 
 #include <Core/Managers/ResourcePath.h>
 #include <Core/Managers/TextureManager.h>

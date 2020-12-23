@@ -315,7 +315,6 @@ void WindowObject::UpdateObservers()
 	auto pressEvent = mouseButtonAction & mouseButtonStates;
 	if (pressEvent)
 	{
-		auto pressEvent = mouseButtonAction & mouseButtonStates;
 		for (auto obs : observers) {
 			obs->OnMouseBtnPress(props.cursorPos.x, props.cursorPos.y, pressEvent, keyMods);
 		}

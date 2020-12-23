@@ -84,20 +84,21 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         ${EGCF_ROOT_DIR}/libs/GL/${__cmake_arch}/Release/glew32.lib
         ${EGCF_ROOT_DIR}/libs/GLFW/${__cmake_arch}/Release/glfw3dll.lib
         ${EGCF_ROOT_DIR}/libs/assimp/${__cmake_arch}/Release/assimp.lib
-        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/Components.lib
+        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.lib
     )
 else()
     target_link_libraries(EGCFramework PRIVATE
         GLEW
         glfw
         assimp
-        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libcomponents.so
+        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.so
     )
 endif()
 
 
 # Set target properties
 target_include_directories(EGCFramework PRIVATE ${EGCF_INCLUDE_DIRS_PRIVATE})
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT EGCFramework)
 
 
 # Set source file properties
@@ -112,7 +113,7 @@ source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES
 
 # Add definitions (specific to this project)
 # Recommended reading: so@a/24470998/5922876, so@a/11437693/5922876
-set(EGCF_CXX_DEFS       ENGINE_DLL_EXPORTS _CRT_SECURE_NO_WARNINGS)
+set(EGCF_CXX_DEFS       LIBEGC_EXPORTS GLM_FORCE_SILENT_WARNINGS _CRT_SECURE_NO_WARNINGS)
 target_compile_definitions(EGCFramework PRIVATE ${EGCF_CXX_DEFS})
 
 
@@ -121,15 +122,14 @@ target_compile_definitions(EGCFramework PRIVATE ${EGCF_CXX_DEFS})
 if (MSVC)
     set(EGCF_CXX_FLAGS  /W4 /WX-)
     # TODO fix these warnings
-    set(EGCF_CXX_FLAGS  ${EGCF_CXX_FLAGS} /wd4100 /wd4201 /wd4324 /wd4458 /wd4189 /wd4244 /wd4456 /wd4702)
+    set(EGCF_CXX_FLAGS  ${EGCF_CXX_FLAGS} /wd4100 /wd4458 /wd4189 /wd4244)
 else()
     set(EGCF_CXX_FLAGS  -Wall -Wextra -pedantic -Wno-error)
     # TODO fix these warnings
     set(EGCF_CXX_FLAGS  ${EGCF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
-                                            -Wno-pedantic -Wno-deprecated-copy -Wno-reorder
-                                            -Wno-misleading-indentation -Wno-unused-but-set-variable
-                                            -Wno-class-memaccess -Wno-shift-negative-value
-                                            -Wno-implicit-fallthrough)
+                                            -Wno-deprecated-copy
+                                            -Wno-unused-but-set-variable
+                                            -Wno-missing-field-initializers -Wno-sign-compare)
 endif()
 target_compile_options(EGCFramework PRIVATE ${EGCF_CXX_FLAGS})
 
@@ -147,10 +147,10 @@ if (MSVC)
         COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\Source"
         COMMAND mklink /J "${OUTPUT_DIR_BS}\\Source" "${EGCF_ROOT_DIR_BS}\\Source"
 
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/GL/${__cmake_arch}/Release/glew32.dll         ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/GLFW/${__cmake_arch}/Release/glfw3.dll        ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/assimp/${__cmake_arch}/Release/assimp.dll     ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/Components.dll ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/GL/${__cmake_arch}/Release/glew32.dll       ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/GLFW/${__cmake_arch}/Release/glfw3.dll      ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/assimp/${__cmake_arch}/Release/assimp.dll   ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.dll   ${OUTPUT_DIR}
     )
 else()
     add_custom_command(TARGET EGCFramework POST_BUILD

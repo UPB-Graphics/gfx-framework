@@ -35,4 +35,4 @@ namespace OpenGL
 	// Check for OpenGL Errors
 	// Returns 1 if an OpenGL error occurred, 0 otherwise.
 	int CheckError(const char *file, int line, bool log = true);
-};
+}

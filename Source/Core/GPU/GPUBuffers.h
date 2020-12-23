@@ -15,11 +15,11 @@ class GPUBuffers
 		void ReleaseMemory();
 
 	public:
-		GLuint VAO;
-		GLuint VBO[6];
+		GLuint m_VAO;
+		GLuint m_VBO[6];
 
 	private:
-		unsigned short size;
+		unsigned short m_size;
 };
 
 namespace UtilsGPU
