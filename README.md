@@ -21,9 +21,9 @@ In either case, it is ***strongly*** recommended to build the code with the most
 
 In this step, you need to check that your computer's hardware and drivers are not too ancient.
 
-Graphics capabilities are exposed by the graphics drivers. If you don't have a dedicated graphics card, don't worry - there is a high chance your CPU already has [such capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. As such, you need to bring your drivers up to date. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
+Graphics capabilities are exposed by the graphics drivers. If you don't have a dedicated graphics card, don't worry - there is a high chance your CPU already has [such capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. Regardless of what you have, you need to bring your drivers up to date. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
 
-After you update the drivers, you must check that the version of the OpenGL API provided by the operating system is at least ***version 3.3, core profile***. To find the OpenGL versions supported by your drivers, run these commands from a terminal:
+After you update the drivers, you must check that the version of the OpenGL API provided by the operating system is at least ***version 3.3, core profile***. To find the OpenGL versions supported by your drivers, follow these steps:
 
 -   Windows:
     1.  Go here: https://github.com/gkv311/wglinfo/releases/
@@ -34,7 +34,7 @@ After you update the drivers, you must check that the version of the OpenGL API 
         wglinfo64.exe | findstr "version"
         ```
     
--   Linux, if installed directly on device, or in virtual machine:
+-   Linux, if installed directly on device, or in a virtual machine:
     1.  One of the following:
         -   Debian (Ubuntu): `sudo apt install -y mesa-utils`
         -   Red Hat (Fedora): `sudo dnf install -y glx-utils`
@@ -47,7 +47,7 @@ After you update the drivers, you must check that the version of the OpenGL API 
 
 This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, a Makefile on Linux, macOS, MinGW; a Visual Studio project on Windows; and so on).
 
-The minimum compatible version is 3.17, however, as with the compilers, it is **strongly** recommended to use the latest version. To install CMake, follow these steps:
+The minimum compatible version is 3.16, however, as with the compilers, it is **strongly** recommended to use the latest version. To install CMake, follow these steps:
 
 -   Windows:
     1.  Go to the CMake downloads page and use the installer
@@ -65,8 +65,7 @@ After installation, check that `cmake` is in your `PATH` environment variable (i
 
 There are some open-source libraries that this project uses. To install them:
 
--   Windows:
-    1.  Do nothing - all necessary libraries are already provided with the code
+-   Windows: you don't need to do anything - all necessary libraries are already provided with the code
 
 -   Linux:
     1.  Depending on your distribution, run one of the following scripts as superuser:
@@ -103,9 +102,17 @@ You can run the project from an IDE, as well as standalone, from anywhere on dis
 -   Linux:
     -   `./bin/Debug/EGCFramework`
 
+
+# Contributing
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more info.
+A future roadmap is ***TBD***.
+
+
 # License
 
-This project is available under the [MIT][ref-mit] license. See the [LICENSE.md](LICENSE.md) file for more info.
+This project is available under the [MIT][ref-mit] license. See [LICENSE.md](LICENSE.md) for the full license text.
+This project also includes external libraries that are available under a variety of licenses. 
 
 
 [ref-cmake]:            https://github.com/Kitware/CMake/
