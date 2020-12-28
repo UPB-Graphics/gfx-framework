@@ -13,11 +13,13 @@
 
 # Application
 
+!/cmake
+!/docs
 !/libs
 !/Resources
 !/Source
+!/tools
 
 #cmake file
 !/CMakeLists.txt
-!/deps-*
 !*.md

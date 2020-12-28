@@ -21,7 +21,7 @@ In either case, it is ***strongly*** recommended to build the code with the most
 
 In this step, you need to check that your computer's hardware and drivers are not too ancient.
 
-Graphics capabilities are exposed by the graphics drivers. If you don't have a dedicated graphics card, don't worry - there is a high chance your CPU already has [such capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. Regardless of what you have, you need to bring your drivers up to date. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
+Graphics capabilities are exposed by the graphics drivers. If you don't have a dedicated graphics card, don't worry: there is a high chance your CPU already has [such capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. Regardless of what you have, you need to bring your drivers up to date. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
 
 After you update the drivers, you must check that the version of the OpenGL API provided by the operating system is at least ***version 3.3, core profile***. To find the OpenGL versions supported by your drivers, follow these steps:
 
@@ -33,6 +33,9 @@ After you update the drivers, you must check that the version of the OpenGL API 
         cd %userprofile%\Desktop
         wglinfo64.exe | findstr "version"
         ```
+    4.  Check the output:
+
+        ![wglinfo](docs/images/wglinfo.png)
     
 -   Linux, if installed directly on device, or in a virtual machine:
     1.  One of the following:
@@ -40,6 +43,9 @@ After you update the drivers, you must check that the version of the OpenGL API 
         -   Red Hat (Fedora): `sudo dnf install -y glx-utils`
         -   Arch (x86_64): `sudo pacman -Sy mesa-demos`
     2.  `glxinfo | grep "version" | grep "profile"`
+    3.  Check the output:
+
+        ![glxinfo](docs/images/glxinfo.png)
 
 -   Linux, if installed via WSL2: if you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous; for more details, ***TBD***.
 
