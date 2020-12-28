@@ -53,7 +53,7 @@ After you update the drivers, you must check that the version of the OpenGL API 
 
 This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, a Makefile on Linux, macOS, MinGW; a Visual Studio project on Windows; and so on).
 
-The minimum compatible version is 3.16, however, as with the compilers, it is **strongly** recommended to use the latest version. To install CMake, follow these steps:
+The minimum compatible version is 3.16, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install CMake, follow these steps:
 
 -   Windows:
     1.  Go to the CMake downloads page and use the installer
@@ -65,7 +65,7 @@ The minimum compatible version is 3.16, however, as with the compilers, it is **
         -   If it's 3.16 or newer, you're all set
         -   Otherwise, run `./tools/install-cmake.sh && . ~/.profile` in a terminal
 
-After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` again. Instructions on how to add an executable to your `PATH` differ across operating systems and are **not** covered here.
+After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` again. Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
 
 ## Install the third-party libraries
 
