@@ -1,8 +1,8 @@
 #ifndef LIBEGC_TRANSFORM_H
 #define LIBEGC_TRANSFORM_H
 
-#include "exports.h"
-#include "glm_wrapper.hpp"
+#include "../exports.h"
+#include "../glm_wrapper.hpp"
 
 #include <list>
 

@@ -15,6 +15,7 @@ class WindowProperties
 		WindowProperties();
 
 	public:
+		std::string selfDirPath;
 		std::string name;
 		glm::ivec2 resolution;
 		glm::ivec2 position;

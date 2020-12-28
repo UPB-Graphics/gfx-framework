@@ -2,10 +2,13 @@
 
 #include <string>
 
+#include "TextUtils.h"
+
+
 namespace RESOURCE_PATH
 {
-	const std::string ROOT = "Resources/";
-	const std::string MODELS = ROOT + "Models/";
-	const std::string TEXTURES = ROOT + "Textures/";
-	const std::string SHADERS = ROOT + "Shaders/";
+	const std::string ROOT		= PATH_JOIN("Resources");
+	const std::string MODELS	= PATH_JOIN(ROOT, "Models");
+	const std::string TEXTURES	= PATH_JOIN(ROOT, "Textures");
+	const std::string SHADERS	= PATH_JOIN(ROOT, "Shaders");
 }

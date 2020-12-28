@@ -1,7 +1,7 @@
 #ifndef LIBEGC_LIBEGC_H
 #define LIBEGC_LIBEGC_H
 
-#include "internal/Camera.hpp"
-#include "internal/Transform.hpp"
+#include "internal/components/Camera.hpp"
+#include "internal/components/Transform.hpp"
 
 #endif

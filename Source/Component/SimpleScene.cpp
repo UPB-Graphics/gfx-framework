@@ -44,7 +44,7 @@ void SimpleScene::InitResources()
 	UNUSED(SI);
 
 	xozPlane = new Mesh("plane");
-	xozPlane->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "plane50.obj");
+	xozPlane->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Primitives"), "plane50.obj");
 
 	{
 		vector<VertexFormat> vertices =
@@ -62,8 +62,8 @@ void SimpleScene::InitResources()
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
 		Shader *shader = new Shader("Simple");
-		shader->AddShader(RESOURCE_PATH::SHADERS + "MVP.Texture.VS.glsl", GL_VERTEX_SHADER);
-		shader->AddShader(RESOURCE_PATH::SHADERS + "Default.FS.glsl", GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "Default.FS.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}
@@ -71,8 +71,8 @@ void SimpleScene::InitResources()
 	// Create a shader program for drawing vertex colors
 	{
 		Shader *shader = new Shader("Color");
-		shader->AddShader(RESOURCE_PATH::SHADERS + "MVP.Texture.VS.glsl", GL_VERTEX_SHADER);
-		shader->AddShader(RESOURCE_PATH::SHADERS + "Color.FS.glsl", GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "Color.FS.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}
@@ -80,8 +80,8 @@ void SimpleScene::InitResources()
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
 		Shader *shader = new Shader("VertexNormal");
-		shader->AddShader(RESOURCE_PATH::SHADERS + "MVP.Texture.VS.glsl", GL_VERTEX_SHADER);
-		shader->AddShader(RESOURCE_PATH::SHADERS + "Normals.FS.glsl", GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "Normals.FS.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}
@@ -89,8 +89,8 @@ void SimpleScene::InitResources()
 	// Create a shader program for drawing vertex colors
 	{
 		Shader *shader = new Shader("VertexColor");
-		shader->AddShader(RESOURCE_PATH::SHADERS + "MVP.Texture.VS.glsl", GL_VERTEX_SHADER);
-		shader->AddShader(RESOURCE_PATH::SHADERS + "VertexColor.FS.glsl", GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::SHADERS, "VertexColor.FS.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}

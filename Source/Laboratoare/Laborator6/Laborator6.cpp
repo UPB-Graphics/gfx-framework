@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <Core/Engine.h>
+#include <Core/TextUtils.h>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ void Laborator6::Init()
 {
 	{
 		Mesh* mesh = new Mesh("box");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "box.obj");
+		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Primitives"), "box.obj");
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 
@@ -54,8 +55,8 @@ void Laborator6::Init()
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
 		Shader *shader = new Shader("ShaderLab6");
-		shader->AddShader("Source/Laboratoare/Laborator6/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
-		shader->AddShader("Source/Laboratoare/Laborator6/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator6", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator6", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}

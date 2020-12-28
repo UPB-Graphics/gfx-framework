@@ -28,7 +28,7 @@ WindowObject* Engine::Init(WindowProperties & props)
 		exit(0);
 	}
 
-	TextureManager::Init();
+	TextureManager::Init(window->props.selfDirPath);
 
 	return window;
 }

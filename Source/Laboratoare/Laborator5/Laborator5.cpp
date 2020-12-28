@@ -25,13 +25,13 @@ void Laborator5::Init()
 
 	{
 		Mesh* mesh = new Mesh("box");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "box.obj");
+		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Primitives"), "box.obj");
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 
 	{
 		Mesh* mesh = new Mesh("sphere");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "sphere.obj");
+		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Primitives"), "sphere.obj");
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 

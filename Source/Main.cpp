@@ -16,6 +16,9 @@ int main(int argc, char **argv)
 	wp.resolution = glm::ivec2(1280, 720);
 	wp.vSync = true;
 
+	std::string binaryPath = std::string(argv[0]);
+	wp.selfDirPath = binaryPath.substr(0, binaryPath.find_last_of("/\\"));
+
 	// Init the Engine and create a new window with the defined properties
 	WindowObject* window = Engine::Init(wp);
 

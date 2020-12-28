@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <include/gl.h>
-#include <include/utils.h>
+#include <include/memory_utils.h>
 
 #include "../Engine.h"
 #include "WindowCallbacks.h"
@@ -40,7 +40,7 @@ WindowObject::WindowObject(WindowProperties properties)
 	deltaFrameTime = 0;
 	props.aspectRatio = float(props.resolution.x) / props.resolution.y;
 
-	// Set context version
+	// Set context version, meaning 3.3 core profile
 	glfwWindowHint(GLFW_VISIBLE, props.visible);
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

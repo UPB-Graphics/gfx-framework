@@ -1,7 +1,7 @@
 #pragma once
 #include <include/gl.h>
 #include <include/glm.h>
-#include <include/utils.h>
+#include <include/memory_utils.h>
 #include <vector>
 
 #include <Core/GPU/Mesh.h>

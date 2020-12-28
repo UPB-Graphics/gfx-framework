@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <Core/Engine.h>
+#include <Core/TextUtils.h>
 
 using namespace std;
 
@@ -20,27 +21,27 @@ void Laborator7::Init()
 {
 	{
 		Mesh* mesh = new Mesh("box");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "box.obj");
+		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Primitives"), "box.obj");
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 
 	{
 		Mesh* mesh = new Mesh("sphere");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "sphere.obj");
+		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Primitives"), "sphere.obj");
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 
 	{
 		Mesh* mesh = new Mesh("plane");
-		mesh->LoadMesh(RESOURCE_PATH::MODELS + "Primitives", "plane50.obj");
+		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Primitives"), "plane50.obj");
 		meshes[mesh->GetMeshID()] = mesh;
 	}
 
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
 		Shader *shader = new Shader("ShaderLab7");
-		shader->AddShader("Source/Laboratoare/Laborator7/Shaders/VertexShader.glsl", GL_VERTEX_SHADER);
-		shader->AddShader("Source/Laboratoare/Laborator7/Shaders/FragmentShader.glsl", GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator7", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator7", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}

@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-#include <include/utils.h>
+#include <include/memory_utils.h>
 
 #include <Core/GPU/GPUBuffers.h>
 #include <Core/GPU/Texture2D.h>

@@ -1,8 +1,8 @@
 #ifndef LIBEGC_CAMERA_H
 #define LIBEGC_CAMERA_H
 
-#include "exports.h"
-#include "glm_wrapper.hpp"
+#include "../exports.h"
+#include "../glm_wrapper.hpp"
 
 #include <vector>
 
