@@ -1,4 +1,4 @@
-# Introduction
+# :sparkles: Introduction
 
 This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
 It is currently used as teaching support for the following courses:
@@ -13,7 +13,7 @@ The code is cross-platform, and you can build it natively on:
 -   Linux: x86_64
 -   macOS: x86_64
 
-# Prerequisites
+# :white_check_mark: Prerequisites
 
 This section describes ***what you need to do and install*** before actually building the code.
 
@@ -98,7 +98,7 @@ There are some open-source libraries that this project uses. To install them:
         -   Red Hat (Fedora): `./tools/deps-fedora.sh`
         -   Arch (x86_64): `./tools/deps-arch.sh`
 
-# Building
+# :gear: Building
 
 Open a terminal and go into the root folder of the project, which contains the top-level `CMakeLists.txt` file.
 Do not run CMake directly from the top-level folder (meaning, do not do this: `cmake .`). Instead, make a separate directory, as follows:
@@ -120,7 +120,7 @@ Every time you add or remove a source code file on disk, ***you need to follow t
 
 If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then follow all the steps again.
 
-# Running
+# :rocket: Running
 
 You can run the project from an IDE, as well as standalone, from anywhere on disk. For example:
 
@@ -132,13 +132,13 @@ You can run the project from an IDE, as well as standalone, from anywhere on dis
     -   `./bin/Debug/EGCFramework`
 
 
-# Contributing
+# :wrench: Contributing
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more info.
 A future roadmap is ***TBD***.
 
 
-# License
+# :page_facing_up: License
 
 This project is available under the [MIT][ref-mit] license. See [LICENSE.md](LICENSE.md) for the full license text.
 This project also includes external libraries that are available under a variety of licenses. 
