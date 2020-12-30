@@ -19,35 +19,40 @@ In either case, it is ***strongly*** recommended to build the code with the most
 
 ## Check your graphics capabilities
 
-In this step, you need to check that your computer's hardware and drivers are not too ancient.
+Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
-Graphics capabilities are exposed by the graphics drivers. If you don't have a dedicated graphics card, don't worry: there is a high chance your CPU already has [such capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. Regardless of what you have, you need to bring your drivers up to date. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
+This project requires OpenGL ***version 3.3 core profile,*** or newer. If your computer has a processor manufactured within the last few years, you should be safe: a modern CPU has [graphics capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. If you have a dedicated graphics card, you should be even safer.
 
-After you update the drivers, you must check that the version of the OpenGL API provided by the operating system is at least ***version 3.3, core profile***. To find the OpenGL versions supported by your drivers, follow these steps:
+***If you're not sure,*** follow the steps in this section to find out.
 
--   Windows:
-    1.  Go here: https://github.com/gkv311/wglinfo/releases/
-    2.  Download the latest version of the file called `wglinfo64.exe` and save it to Desktop
-    3.  Open a command prompt, and run:
-        ```bat
-        cd %userprofile%\Desktop
-        wglinfo64.exe | findstr "version"
-        ```
-    4.  Check the output:
+1.  Update your graphics drivers. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
+2.  Check the OpenGL version your device supports:
 
-        ![wglinfo](docs/images/wglinfo.png)
-    
--   Linux, if installed directly on device, or in a virtual machine:
-    1.  One of the following:
-        -   Debian (Ubuntu): `sudo apt install -y mesa-utils`
-        -   Red Hat (Fedora): `sudo dnf install -y glx-utils`
-        -   Arch (x86_64): `sudo pacman -Sy mesa-demos`
-    2.  `glxinfo | grep "version" | grep "profile"`
-    3.  Check the output:
+    -   Windows:
+        1.  Go here: https://github.com/gkv311/wglinfo/releases/
+        2.  Download the latest version of the file called `wglinfo64.exe` and save it to Desktop
+        3.  Open a command prompt, and run:
+            ```bat
+            cd %userprofile%\Desktop
+            wglinfo64.exe | findstr /c:"(core profile) version string"
+            ```
+        4.  Check the output, for example:
+            ```
+            [WGL] OpenGL (core profile) version string: 4.6.0 - Build 27.20.100.8681
+            ```
+        
+    -   Linux, if installed directly on device, or in a virtual machine:
+        1.  One of the following:
+            -   Debian (Ubuntu): `sudo apt install -y mesa-utils`
+            -   Red Hat (Fedora): `sudo dnf install -y glx-utils`
+            -   Arch (x86_64): `sudo pacman -Sy mesa-demos`
+        2.  `glxinfo | grep "core profile version string"`
+        3.  Check the output, for example:
+            ```
+            OpenGL core profile version string: 3.3 (Core Profile) Mesa 20.0.8
+            ```
 
-        ![glxinfo](docs/images/glxinfo.png)
-
--   Linux, if installed via WSL2: if you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous; for more details, ***TBD***.
+    -   Linux, if installed via WSL2: if you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous; for more details, ***TBD***.
 
 ## Install the build tools
 
