@@ -21,7 +21,7 @@ In either case, it is ***strongly*** recommended to build the code with the most
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
-This project requires OpenGL ***version 3.3 core profile,*** or newer. If your computer has a processor manufactured within the last few years, you should be safe: a modern CPU has [graphics capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. If you have a dedicated graphics card, you should be even safer.
+This project requires OpenGL ***version 3.3 core profile***, or newer. If your computer has a processor manufactured within the last few years, you should be safe: a modern CPU has [graphics capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. If you have a dedicated graphics card, you should be even safer.
 
 ***If you're not sure,*** follow the steps in this section to find out.
 
@@ -58,19 +58,19 @@ This project requires OpenGL ***version 3.3 core profile,*** or newer. If your c
 
 This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, a Makefile on Linux, macOS, MinGW; a Visual Studio project on Windows; and so on).
 
-The minimum compatible version is 3.16, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install CMake, follow these steps:
+The minimum compatible version is ***3.16***, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install CMake, follow these steps:
 
 -   Windows:
-    1.  Go to the CMake downloads page and use the installer
+    1.  Go to the [CMake downloads page][ref-cmake-dl] and use the installer
 
 -   Linux:
     1.  Use your package manager to install `cmake`
     2.  Check the version using `cmake --version`
     3.  Depending on the version:
-        -   If it's 3.16 or newer, you're all set
+        -   If it's the minimum required (see above), you're all set
         -   Otherwise, run `./tools/install-cmake.sh && . ~/.profile` in a terminal
 
-After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` again. Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
+After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` (again). Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
 
 ## Install the third-party libraries
 
@@ -87,7 +87,7 @@ There are some open-source libraries that this project uses. To install them:
 # Building
 
 Open a terminal and go into the root folder of the project, which contains the top-level `CMakeLists.txt` file.
-Do not run CMake directly from the top-level folder. Instead, issue the following commands from the terminal:
+Do not run CMake directly from the top-level folder (meaning, do not do this: `cmake .`). Instead, make a separate directory, as follows:
 
 1.  `mkdir build`
 2.  `cd build`
@@ -100,7 +100,11 @@ Do not run CMake directly from the top-level folder. Instead, issue the followin
         -   `cmake --build .`
         -   or just `make`
 
-**Note:** If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then try again.
+Every time you modify source code and want to recompile, ***you only need to follow the last step***.
+
+Every time you add or remove a source code file on disk, ***you need to follow the last two steps***.
+
+If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then follow all the steps again.
 
 # Running
 
@@ -127,7 +131,7 @@ This project also includes external libraries that are available under a variety
 
 
 [ref-cmake]:            https://github.com/Kitware/CMake/
-[ref-cmake-dl]:         https://cmake.org/download/
+[ref-cmake-dl]:         https://github.com/Kitware/CMake/releases/
 [ref-cmake-build]:      https://github.com/Kitware/CMake#building-cmake-from-scratch
 [ref-igp-wiki]:         https://en.wikipedia.org/wiki/Graphics_processing_unit#Integrated_graphics_processing_unit
 [ref-intelhd-wiki]:     https://en.wikipedia.org/wiki/Intel_Graphics_Technology
