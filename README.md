@@ -13,18 +13,22 @@ The code is cross-platform, and you can build it natively on:
 -   Linux: x86_64
 -   macOS: x86_64
 
+Basically, it most likely works on your computer.
+
+
 # :white_check_mark: Prerequisites
 
 This section describes ***what you need to do and install*** before actually building the code.
 
 ## Install a compiler
 
-The code is written in C++11 and GLSL. The minimum versions of relevant compilers are:
+The code is written in C++11 and GLSL. The ***minimum*** versions of major compilers we recommend having are:
 
--   Visual C++ 14.0 (part of Visual Studio 2015) or newer
--   GCC 5 or newer.
+-   Visual C++ 14.0, part of Visual Studio 2015 (Windows)
+-   GCC 8 (Linux)
+-   clang 10 (macOS)
 
-In either case, it is ***strongly*** recommended to build the code with the most recent available version. Older compiler versions may not fully respect the C++11 standard.
+Basically, it works with the major compilers. In any case, it is ***strongly*** recommended to build the code with the most recent available versions. Older compiler versions may not fully respect the C++11 standard and may have various bugs.
 
 ## Check your graphics capabilities
 
@@ -103,6 +107,10 @@ There are some open-source libraries that this project uses. To install them:
         -   Red Hat (Fedora): `./tools/deps-fedora.sh`
         -   Arch (x86_64): `./tools/deps-arch.sh`
 
+-   macOS:
+    1.  `brew install glew glfw assimp`
+
+
 # :gear: Building
 
 Open a terminal and go into the root folder of the project, which contains the top-level `CMakeLists.txt` file.
@@ -115,7 +123,7 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
     -   Windows, one of the following:
         -   `cmake --build .`
         -   or just double-click the `.sln` file to open it in Visual Studio, then press `Ctrl+Shift+B` to build it
-    -   Linux, one of the following:
+    -   Linux and macOS, one of the following:
         -   `cmake --build .`
         -   or just `make`
 
@@ -125,6 +133,7 @@ Every time you add or remove a source code file on disk, ***you need to follow t
 
 If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then follow all the steps again.
 
+
 # :rocket: Running
 
 You can run the project from an IDE, as well as standalone, from anywhere on disk. For example:
@@ -133,7 +142,7 @@ You can run the project from an IDE, as well as standalone, from anywhere on dis
     -   `.\bin\Debug\EGCFramework`
     -   or just open the `.sln` file in Visual Studio, then press `F5` to run it
 
--   Linux:
+-   Linux and macOS:
     -   `./bin/Debug/EGCFramework`
 
 
