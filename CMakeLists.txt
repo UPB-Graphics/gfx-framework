@@ -86,12 +86,23 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         ${EGCF_ROOT_DIR}/libs/assimp/${__cmake_arch}/Release/assimp.lib
         ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.lib
     )
-else()
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(EGCFramework PRIVATE
         GLEW
         glfw
         assimp
         ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.so
+    )
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    # Fix linking on 10.14+. See https://stackoverflow.com/questions/54068035
+    target_link_directories(EGCFramework PRIVATE
+        /usr/local/lib
+    )
+    target_link_libraries(EGCFramework PRIVATE
+        GLEW
+        glfw
+        assimp
+        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.dylib
     )
 endif()
 

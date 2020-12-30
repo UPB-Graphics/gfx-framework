@@ -3,16 +3,16 @@
 #define GL_ENABLED
 
 #ifndef GL_DISABLE_GLEW
-	#define GLEW_ENABLED
-	#include <GL/glew.h>
+#	define GLEW_ENABLED
+#	include <GL/glew.h>
 
-	#ifdef _WIN32
-		#include <GL/wglew.h>
-	#endif
-
-	#if defined(__linux__)
-		#include <GL/glxew.h>
-	#endif
+#	ifdef _WIN32
+#		include <GL/wglew.h>
+#	elif defined(__linux__)
+#		include <GL/glxew.h>
+#	elif defined(__APPLE__)
+#		include <GL/glew.h>
+#	endif
 #endif
 
 #include <GLFW/glfw3.h>

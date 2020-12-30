@@ -1,8 +1,17 @@
 # Introduction
 
-This project is a tiny graphics framework used in ...
+This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
+It is currently used as teaching support for the following courses:
+
+-   Elements of Computer Graphics [(Open CourseWare)](https://ocw.cs.pub.ro/courses/egc)
 
 It has missing functionality that you will need to implement.
+
+The code is cross-platform, and you can build it natively on:
+
+-   Windows: i686, x86_64
+-   Linux: x86_64
+-   macOS: x86_64
 
 # Prerequisites
 
@@ -64,7 +73,9 @@ This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your 
 The minimum compatible version is ***3.16***, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install CMake, follow these steps:
 
 -   Windows:
-    1.  Go to the [CMake downloads page][ref-cmake-dl] and use the installer
+    1.  Go to the [CMake downloads page][ref-cmake-dl]
+    2.  Download the latest version of the file called `cmake-<VERSION>-win64-x64.msi`
+    3.  Install it
 
 -   Linux:
     1.  Use your package manager to install `cmake`
