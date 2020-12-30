@@ -42,12 +42,15 @@ This project requires OpenGL ***version 3.3 core profile***, or newer. If your c
             ```
         
     -   Linux, if installed directly on device, or in a virtual machine:
-        1.  One of the following:
+        1.  Run one of the following scripts:
             -   Debian (Ubuntu): `sudo apt install -y mesa-utils`
             -   Red Hat (Fedora): `sudo dnf install -y glx-utils`
             -   Arch (x86_64): `sudo pacman -Sy mesa-demos`
-        2.  `glxinfo | grep "core profile version string"`
-        3.  Check the output, for example:
+        2.  Run the following command:
+            ```bash
+            glxinfo | grep "core profile version string"
+            ```
+        4.  Check the output, for example:
             ```
             OpenGL core profile version string: 3.3 (Core Profile) Mesa 20.0.8
             ```
