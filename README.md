@@ -66,6 +66,8 @@ This project requires OpenGL ***version 3.3 core profile***, or newer. If your c
 
     -   Linux, if installed via WSL2: if you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous; for more details, ***TBD***.
 
+    -   macOS: version 10.15 (Catalina) works, even though Apple has deprecated OpenGL. Older versions may work but are untested. Version 11.0 (Big Sur) is untested and might not work.
+
 ## Install the build tools
 
 This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, a Makefile on Linux, macOS, MinGW; a Visual Studio project on Windows; and so on).
@@ -83,6 +85,9 @@ The minimum compatible version is ***3.16***, however, as with the compilers, it
     3.  Depending on the version:
         -   If it's the minimum required (see above), you're all set
         -   Otherwise, run `./tools/install-cmake.sh && . ~/.profile` in a terminal
+
+-   macOS:
+    1.  `brew install cmake`
 
 After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` (again). Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
 
