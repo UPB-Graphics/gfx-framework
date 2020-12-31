@@ -9,7 +9,7 @@ It is currently used as teaching support for the following course:
 
 It has missing functionality that you will need to implement.
 
-The code is cross-platform, and you can build it natively on:
+The code is cross-platform, and has been tested on:
 
 -   Windows: i686, x86_64
 -   Linux: x86_64
