@@ -27,7 +27,7 @@ Every time you update a dependency, make sure you also update this list.
 
 ### `libEGC`
 
-These sources for these binaries are private. If you need builds for a certain architecture, platform etc., file a Github issue and let us know. Even better, try implementing your own!
+The sources for these binaries are private. If you need builds for a certain architecture, platform etc., file a Github issue and let us know. Even better, try implementing the hidden functionality!
 
 
 ### `assimp`
