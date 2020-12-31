@@ -1,9 +1,11 @@
-# :sparkles: Introduction
+# EGC Framework
+
+## :sparkles: Introduction
 
 This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
-It is currently used as teaching support for the following courses:
+It is currently used as teaching support for the following course:
 
--   Elements of Computer Graphics [(Open CourseWare)](https://ocw.cs.pub.ro/courses/egc)
+-   Elements of Computer Graphics [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/egc)
 
 It has missing functionality that you will need to implement.
 
@@ -16,11 +18,11 @@ The code is cross-platform, and you can build it natively on:
 Basically, it most likely works on your computer.
 
 
-# :white_check_mark: Prerequisites
+## :white_check_mark: Prerequisites
 
 This section describes ***what you need to do and install*** before actually building the code.
 
-## Install a compiler
+### Install a compiler
 
 The code is written in C++11 and GLSL. The ***minimum*** versions of major compilers we recommend having are:
 
@@ -30,7 +32,7 @@ The code is written in C++11 and GLSL. The ***minimum*** versions of major compi
 
 Basically, it works with the major compilers. In any case, it is ***strongly*** recommended to build the code with the most recent available versions. Older compiler versions may not fully respect the C++11 standard and may have various bugs.
 
-## Check your graphics capabilities
+### Check your graphics capabilities
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
@@ -72,7 +74,7 @@ This project requires OpenGL ***version 3.3 core profile***, or newer. If your c
 
     -   macOS: version 10.15 (Catalina) works, even though Apple has deprecated OpenGL. Older versions may work but are untested. Version 11.0 (Big Sur) is untested and might not work.
 
-## Install the build tools
+### Install the build tools
 
 This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, a Makefile on Linux, macOS, MinGW; a Visual Studio project on Windows; and so on).
 
@@ -95,7 +97,7 @@ The minimum compatible version is ***3.16***, however, as with the compilers, it
 
 After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` (again). Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
 
-## Install the third-party libraries
+### Install the third-party libraries
 
 There are some open-source libraries that this project uses. To install them:
 
@@ -111,7 +113,7 @@ There are some open-source libraries that this project uses. To install them:
     1.  `brew install glew glfw assimp`
 
 
-# :gear: Building
+## :gear: Building
 
 Open a terminal and go into the root folder of the project, which contains the top-level `CMakeLists.txt` file.
 Do not run CMake directly from the top-level folder (meaning, do not do this: `cmake .`). Instead, make a separate directory, as follows:
@@ -134,7 +136,7 @@ Every time you add or remove a source code file on disk, ***you need to follow t
 If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then follow all the steps again.
 
 
-# :rocket: Running
+## :rocket: Running
 
 You can run the project from an IDE, as well as standalone, from anywhere on disk. For example:
 
@@ -146,13 +148,13 @@ You can run the project from an IDE, as well as standalone, from anywhere on dis
     -   `./bin/Debug/EGCFramework`
 
 
-# :wrench: Contributing
+## :wrench: Contributing
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more info.
 A future roadmap is ***TBD***.
 
 
-# :page_facing_up: License
+## :page_facing_up: License
 
 This project is available under the [MIT][ref-mit] license. See [LICENSE.md](LICENSE.md) for the full license text.
 This project also includes external libraries that are available under a variety of licenses. 
