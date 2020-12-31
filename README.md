@@ -30,7 +30,7 @@ The code is written in C++11 and GLSL. The ***minimum*** versions of major compi
 -   GCC 8 (Linux)
 -   clang 10 (macOS)
 
-Basically, it works with the major compilers. In any case, it is ***strongly*** recommended to build the code with the most recent available versions. Older compiler versions may not fully respect the C++11 standard and may have various bugs.
+In any case, it is ***strongly*** recommended to build the code with the most recent available versions. Older compiler versions may not fully respect the C++11 standard and may have various bugs.
 
 ### Check your graphics capabilities
 
