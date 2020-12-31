@@ -15,7 +15,7 @@
 
 !/cmake
 !/docs
-!/libs
+!/deps
 !/Resources
 !/Source
 !/tools

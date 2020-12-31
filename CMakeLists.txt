@@ -30,6 +30,12 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${EGCF_ROOT_DIR}/cmake)
 
 # Find required packages
 find_package(OpenGL REQUIRED)
+if (NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    find_package(GLEW REQUIRED)
+    find_package(PkgConfig REQUIRED)
+    pkg_search_module(GLFW REQUIRED glfw3)
+    find_package(ASSIMP REQUIRED)
+endif()
 
 
 # Gather the source files
@@ -45,8 +51,8 @@ file(GLOB_RECURSE EGCF_HEADERS_PRIVATE
 
 # Gather the include directories
 set(EGCF_INCLUDE_DIRS_PRIVATE
-    ${EGCF_ROOT_DIR}/libs
-    ${EGCF_ROOT_DIR}/libs/Engine
+    ${EGCF_ROOT_DIR}/deps/api
+    ${EGCF_ROOT_DIR}/deps/api/libEGC
     #
     ${CMAKE_CURRENT_LIST_DIR}/Source
     ${CMAKE_CURRENT_LIST_DIR}/Source/Component
@@ -68,9 +74,9 @@ custom_add_executable(EGCFramework
 
 # Detect architecture
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(__cmake_arch x64)
+    set(__cmake_arch x86_64)
 elseif (CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(__cmake_arch x86)
+    set(__cmake_arch i686)
 endif()
 
 
@@ -81,17 +87,17 @@ target_link_libraries(EGCFramework PRIVATE
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(EGCFramework PRIVATE
-        ${EGCF_ROOT_DIR}/libs/GL/${__cmake_arch}/Release/glew32.lib
-        ${EGCF_ROOT_DIR}/libs/GLFW/${__cmake_arch}/Release/glfw3dll.lib
-        ${EGCF_ROOT_DIR}/libs/assimp/${__cmake_arch}/Release/assimp.lib
-        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.lib
+        ${EGCF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.lib
+        ${EGCF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3dll.lib
+        ${EGCF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.lib
+        ${EGCF_ROOT_DIR}/deps/prebuilt/libEGC/${__cmake_arch}/$<CONFIG>/libEGC.lib
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(EGCFramework PRIVATE
         GLEW
         glfw
         assimp
-        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.so
+        ${EGCF_ROOT_DIR}/deps/prebuilt/libEGC/${__cmake_arch}/$<CONFIG>/libEGC.so
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     # Fix linking on 10.14+. See https://stackoverflow.com/questions/54068035
@@ -102,7 +108,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
         GLEW
         glfw
         assimp
-        ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.dylib
+        ${EGCF_ROOT_DIR}/deps/prebuilt/libEGC/${__cmake_arch}/$<CONFIG>/libEGC.dylib
     )
 endif()
 
@@ -119,7 +125,8 @@ set_source_files_properties(${EGCF_HEADERS_PRIVATE}  PROPERTIES HEADER_FILE_ONLY
 # Group files under logical folders (mainly for IDEs)
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES
     ${EGCF_SOURCES}
-    ${EGCF_HEADERS_PRIVATE})
+    ${EGCF_HEADERS_PRIVATE}
+)
 
 
 # Add definitions (specific to this project)
@@ -137,17 +144,25 @@ if (MSVC)
 else()
     set(EGCF_CXX_FLAGS  -Wall -Wextra -pedantic -Wno-error)
     # TODO fix these warnings
-    set(EGCF_CXX_FLAGS  ${EGCF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
-                                            -Wno-deprecated-copy
-                                            -Wno-unused-but-set-variable
-                                            -Wno-missing-field-initializers -Wno-sign-compare)
+    if (CMAKE_C_COMPILER_ID MATCHES "GCC")
+        set(EGCF_CXX_FLAGS  ${EGCF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
+                                                -Wno-deprecated-copy
+                                                -Wno-unused-but-set-variable
+                                                -Wno-missing-field-initializers -Wno-sign-compare)
+    elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
+        set(EGCF_CXX_FLAGS  ${EGCF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
+                                                -Wno-deprecated-copy -Wno-constant-logical-operand
+                                                -Wno-address-of-packed-member -Wno-unused-private-field
+                                                -Wno-missing-field-initializers -Wno-sign-compare
+                                                -Wno-unknown-warning-option)
+    endif()
 endif()
 target_compile_options(EGCFramework PRIVATE ${EGCF_CXX_FLAGS})
 
 
 # Add post-build events
 get_target_property(OUTPUT_DIR EGCFramework RUNTIME_OUTPUT_DIRECTORY)
-if (MSVC)
+if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
     string(REPLACE "/" "\\" OUTPUT_DIR_BS "${OUTPUT_DIR}")
     string(REPLACE "/" "\\" EGCF_ROOT_DIR_BS "${EGCF_ROOT_DIR}")
 
@@ -158,10 +173,10 @@ if (MSVC)
         COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\Source"
         COMMAND mklink /J "${OUTPUT_DIR_BS}\\Source" "${EGCF_ROOT_DIR_BS}\\Source"
 
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/GL/${__cmake_arch}/Release/glew32.dll       ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/GLFW/${__cmake_arch}/Release/glfw3.dll      ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/assimp/${__cmake_arch}/Release/assimp.dll   ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/libs/Engine/${__cmake_arch}/Release/libEGC.dll   ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.dll       ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3.dll      ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.dll   ${OUTPUT_DIR}
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGCF_ROOT_DIR}/deps/prebuilt/libEGC/${__cmake_arch}/$<CONFIG>/libEGC.dll ${OUTPUT_DIR}
     )
 else()
     add_custom_command(TARGET EGCFramework POST_BUILD
