@@ -16,11 +16,11 @@ Every time you update a dependency, make sure you also update this list.
 | Dependency    | Version
 | :---          | :---
 | libEGC        | private
-| assimp        | 88e5f341 @ master
-| glew          | 3cdab58d @ master
-| glfw          | 0b9e48fa @ master
-| glm           | 3a25105d @ master
-| stb           | b42009b3 @ master
+| [assimp](https://github.com/assimp/assimp)    | 88e5f341 @ master
+| [glew](https://github.com/nigels-com/glew)    | 3cdab58d @ master
+| [glfw](https://github.com/glfw/glfw)          | 0b9e48fa @ master
+| [glm](https://github.com/g-truc/glm)          | 3a25105d @ master
+| [stb](https://github.com/nothings/stb)        | b42009b3 @ master
 
 
 ## :bento: Dependencies
