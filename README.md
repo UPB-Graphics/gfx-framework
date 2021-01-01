@@ -6,6 +6,7 @@ This project is a tiny graphics framework used by the Graphics Department of the
 It is currently used as teaching support for the following course:
 
 -   Elements of Computer Graphics [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/egc)
+-   Graphics Processing Systems [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/spg)
 
 It has missing functionality that you will need to implement.
 

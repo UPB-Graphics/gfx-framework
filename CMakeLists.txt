@@ -163,29 +163,40 @@ endif()
 target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
 
 
-# Add post-build events
-get_target_property(OUTPUT_DIR ${target_name} RUNTIME_OUTPUT_DIRECTORY)
-if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
-    string(REPLACE "/" "\\" OUTPUT_DIR_BS "${OUTPUT_DIR}")
-    string(REPLACE "/" "\\" EGXF_ROOT_DIR_BS "${EGXF_ROOT_DIR}")
+# Define post-build events
+function(post_build)
+    get_target_property(output_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
+    set(res_dir "res")
+    set(src_dir "Source")
+    message("~~~~~~~~~~~~~~~~~~~~~")
+    message(${output_dir})
 
-    # TODO make these more elegant
-    add_custom_command(TARGET ${target_name} POST_BUILD
-        COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\Resources"
-        COMMAND mklink /J "${OUTPUT_DIR_BS}\\Resources" "${EGXF_ROOT_DIR_BS}\\Resources"
-        COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\Source"
-        COMMAND mklink /J "${OUTPUT_DIR_BS}\\Source" "${EGXF_ROOT_DIR_BS}\\Source"
+    if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
+        string(REPLACE "/" "\\" OUTPUT_DIR_BS "${output_dir}")
+        string(REPLACE "/" "\\" EGXF_ROOT_DIR_BS "${EGXF_ROOT_DIR}")
 
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.dll       ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3.dll      ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.dll   ${OUTPUT_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComponents/${__cmake_arch}/Release/libEGXComponents.dll ${OUTPUT_DIR}
-    )
-else()
-    add_custom_command(TARGET ${target_name} POST_BUILD
-        COMMAND rm -rf ${OUTPUT_DIR}/Resources
-        COMMAND ln -s ${EGXF_ROOT_DIR}/Resources ${OUTPUT_DIR}/Resources
-        COMMAND rm -rf ${OUTPUT_DIR}/Source
-        COMMAND ln -s ${EGXF_ROOT_DIR}/Source ${OUTPUT_DIR}/Source
-    )
-endif()
+        # TODO make these more elegant
+        add_custom_command(TARGET ${target_name} POST_BUILD
+            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${res_dir}"
+            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${res_dir}" "${EGXF_ROOT_DIR_BS}\\${res_dir}"
+            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${src_dir}"
+            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${src_dir}" "${EGXF_ROOT_DIR_BS}\\${src_dir}"
+
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.dll       ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3.dll      ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.dll   ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComponents/${__cmake_arch}/Release/libEGXComponents.dll ${output_dir}
+        )
+    else()
+        add_custom_command(TARGET ${target_name} POST_BUILD
+            COMMAND rm -rf ${output_dir}/${res_dir}
+            COMMAND ln -s ${EGXF_ROOT_DIR}/${res_dir} ${output_dir}/${res_dir}
+            COMMAND rm -rf ${output_dir}/${src_dir}
+            COMMAND ln -s ${EGXF_ROOT_DIR}/${src_dir} ${output_dir}/${src_dir}
+        )
+    endif()
+endfunction()
+
+
+# Call post-build events
+post_build()

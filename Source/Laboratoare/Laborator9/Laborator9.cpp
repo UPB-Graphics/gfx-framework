@@ -19,30 +19,30 @@ Laborator9::~Laborator9()
 
 void Laborator9::Init()
 {
-	const string textureLoc = "Source/Laboratoare/Laborator9/Textures/";
+	const string sourceTextureDir = PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator9", "Textures");
 
 	// Load textures
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((textureLoc + "grass_bilboard.png").c_str(), GL_REPEAT);
+		texture->Load2D((sourceTextureDir + "grass_bilboard.png").c_str(), GL_REPEAT);
 		mapTextures["grass"] = texture;
 	}
 
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((textureLoc + "crate.jpg").c_str(), GL_REPEAT);
+		texture->Load2D((sourceTextureDir + "crate.jpg").c_str(), GL_REPEAT);
 		mapTextures["crate"] = texture;
 	}
 
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((textureLoc + "earth.png").c_str(), GL_REPEAT);
+		texture->Load2D((sourceTextureDir + "earth.png").c_str(), GL_REPEAT);
 		mapTextures["earth"] = texture;
 	}
 
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D("Resources/Models/Vegetation/Bamboo/bamboo.png", GL_REPEAT);
+		texture->Load2D(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "Vegetation", "Bamboo", "bamboo.png").c_str(), GL_REPEAT);
 		mapTextures["bamboo"] = texture;
 	}
 
