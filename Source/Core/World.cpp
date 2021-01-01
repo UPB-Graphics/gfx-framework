@@ -1,8 +1,8 @@
 #include "World.h"
 
-#include <Core/Engine.h>
-#include <Component/CameraInput.h>
-#include <LibEGC.hpp>
+#include "Core/Engine.h"
+#include "Component/CameraInput.h"
+#include "components/transform.h"
 
 World::World()
 {

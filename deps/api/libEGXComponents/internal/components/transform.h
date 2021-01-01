@@ -1,15 +1,15 @@
-#ifndef LIBEGC_TRANSFORM_H
-#define LIBEGC_TRANSFORM_H
+#ifndef LIBEGXC_TRANSFORM_H
+#define LIBEGXC_TRANSFORM_H
 
 #include "../exports.h"
-#include "../glm_wrapper.hpp"
+#include "../glm_wrapper.h"
 
 #include <list>
 
 
 namespace EngineComponents
 {
-	class LIBEGC_API Transform
+	class LIBEGXC_API Transform
 	{
 		public:
 			Transform();

@@ -1,14 +1,15 @@
 #include "WindowObject.h"
 
-#include <iostream>
-#include <include/gl.h>
-#include <include/memory_utils.h>
+#include "include/gl.h"
+#include "include/memory_utils.h"
 
 #include "../Engine.h"
 #include "WindowCallbacks.h"
 #include "InputController.h"
 
-#include <include/gl.h>
+#include "include/gl.h"
+
+#include <iostream>
 
 using namespace std;
 

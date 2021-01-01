@@ -1,6 +1,7 @@
 #pragma once
-#include <include/gl.h>
-#include <include/memory_utils.h>
+
+#include "include/gl.h"
+#include "include/memory_utils.h"
 
 class Texture2D
 {

@@ -1,10 +1,11 @@
 #pragma once
-#include <include/gl.h>
-#include <include/glm.h>
-#include <include/memory_utils.h>
-#include <vector>
+#include "include/gl.h"
+#include "include/glm.h"
+#include "include/memory_utils.h"
 
-#include <Core/GPU/Mesh.h>
+#include "Core/GPU/Mesh.h"
+
+#include <vector>
 
 class GPUBuffers
 {

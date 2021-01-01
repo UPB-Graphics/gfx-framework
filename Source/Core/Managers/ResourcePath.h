@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
-
 #include "TextUtils.h"
+
+#include <string>
 
 
 namespace RESOURCE_PATH

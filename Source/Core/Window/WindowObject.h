@@ -1,10 +1,10 @@
 #pragma once
+
+#include "include/gl.h"
+#include "include/glm.h"
+
 #include <string>
 #include <list>
-
-#include <include/gl.h>
-#include <include/glm.h>
-
 
 class InputController;
 class WindowCallbacks;

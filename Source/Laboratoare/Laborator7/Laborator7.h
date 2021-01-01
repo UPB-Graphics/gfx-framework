@@ -1,6 +1,6 @@
 #pragma once
 #include <Component/SimpleScene.h>
-#include <LibEGC.hpp>
+#include "components/transform.h"
 #include <Core/GPU/Mesh.h>
 
 class Laborator7 : public SimpleScene

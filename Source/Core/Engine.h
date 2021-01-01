@@ -4,25 +4,25 @@
  *	Graphic Engine
  */
 
-#include <include/gl.h>
-#include <include/glm.h>
-#include <include/math_utils.h>
-#include <include/memory_utils.h>
+#include "include/gl.h"
+#include "include/glm.h"
+#include "include/math_utils.h"
+#include "include/memory_utils.h"
 
-#include <Core/GPU/GPUBuffers.h>
-#include <Core/GPU/Mesh.h>
-#include <Core/GPU/Shader.h>
-#include <Core/GPU/Texture2D.h>
+#include "Core/GPU/GPUBuffers.h"
+#include "Core/GPU/Mesh.h"
+#include "Core/GPU/Shader.h"
+#include "Core/GPU/Texture2D.h"
 
-#include <Core/World.h>
+#include "Core/World.h"
 
-#include <LibEGC.hpp>
+#include "components/camera.h"
 
-#include <Core/Managers/ResourcePath.h>
-#include <Core/Managers/TextureManager.h>
+#include "Core/Managers/ResourcePath.h"
+#include "Core/Managers/TextureManager.h"
 
-#include <Core/Window/WindowObject.h>
-#include <Core/Window/InputController.h>
+#include "Core/Window/WindowObject.h"
+#include "Core/Window/InputController.h"
 
 class Engine
 {

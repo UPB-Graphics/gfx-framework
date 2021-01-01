@@ -1,9 +1,9 @@
 #include "Texture2D.h"
 
+#include "include/gl.h"
+
 #include <thread>
 #include <iostream>
-
-#include <include/gl.h>
 
 using namespace std;
 

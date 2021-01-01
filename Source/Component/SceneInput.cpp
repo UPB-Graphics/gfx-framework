@@ -1,12 +1,12 @@
 #include "SceneInput.h"
-#include <iostream>
-
-#include <include/gl.h>
-#include <Core/Window/WindowObject.h>
 
 #include "SimpleScene.h"
 
-#include <LibEGC.hpp>
+#include "include/gl.h"
+#include "Core/Window/WindowObject.h"
+#include "components/transform.h"
+
+#include <iostream>
 
 using namespace std;
 

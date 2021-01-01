@@ -1,8 +1,8 @@
 #include "Engine.h"
 
-#include <iostream>
+#include "include/gl.h"
 
-#include <include/gl.h>
+#include <iostream>
 
 using namespace std;
 

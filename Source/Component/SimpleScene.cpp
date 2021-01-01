@@ -1,13 +1,13 @@
 #include "SimpleScene.h"
 
-#include <vector>
-#include <iostream>
-
 #include "CameraInput.h"
 #include "SceneInput.h"
 
-#include <Core/Engine.h>
-#include <LibEGC.hpp>
+#include "Core/Engine.h"
+#include "components/transform.h"
+
+#include <vector>
+#include <iostream>
 
 using namespace std;
 using namespace EngineComponents;

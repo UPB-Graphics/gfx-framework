@@ -110,7 +110,7 @@ There are some open-source libraries that this project uses. To install them:
         -   Arch (x86_64): `./tools/deps-arch.sh`
 
 -   macOS:
-    1.  `brew install glew glfw assimp`
+    1.  `brew install glew glfw assimp pkgconfig`
 
 
 ## :gear: Building

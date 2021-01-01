@@ -1,8 +1,8 @@
 #include "TextureManager.h"
 
-#include <include/memory_utils.h>
-#include <Core/GPU/Texture2D.h>
-#include <Core/Managers/ResourcePath.h>
+#include "include/memory_utils.h"
+#include "Core/GPU/Texture2D.h"
+#include "Core/Managers/ResourcePath.h"
 
 using namespace std;
 

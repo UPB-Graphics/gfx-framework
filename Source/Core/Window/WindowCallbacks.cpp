@@ -1,11 +1,11 @@
 #include "WindowCallbacks.h"
 
+#include "Core/Engine.h"
+#include "Core/Window/WindowObject.h"
+
+#include "include/gl.h"
+
 #include <iostream>
-
-#include <Core/Engine.h>
-#include <Core/Window/WindowObject.h>
-
-#include <include/gl.h>
 
 using namespace std;
 

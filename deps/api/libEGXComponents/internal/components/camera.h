@@ -1,8 +1,8 @@
-#ifndef LIBEGC_CAMERA_H
-#define LIBEGC_CAMERA_H
+#ifndef LIBEGXC_CAMERA_H
+#define LIBEGXC_CAMERA_H
 
 #include "../exports.h"
-#include "../glm_wrapper.hpp"
+#include "../glm_wrapper.h"
 
 #include <vector>
 
@@ -27,7 +27,7 @@ namespace EngineComponents
 		bool isPerspective;
 	};
 
-	class LIBEGC_API Camera
+	class LIBEGXC_API Camera
 	{
 		public:
 			Camera();

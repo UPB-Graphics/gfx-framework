@@ -1,8 +1,9 @@
 #include "Shader.h"
 
+#include "include/gl.h"
+
 #include <fstream>
 #include <iostream>
-#include <include/gl.h>
 
 using namespace std;
 

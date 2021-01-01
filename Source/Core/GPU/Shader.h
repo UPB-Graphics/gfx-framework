@@ -1,10 +1,11 @@
 #pragma once
+
+#include "include/gl.h"
+
 #include <string>
 #include <vector>
 #include <list>
 #include <functional>
-
-#include <include/gl.h>
 
 #define MAX_2D_TEXTURES		16
 #define INVALID_LOC			-1

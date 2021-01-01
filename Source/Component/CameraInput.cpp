@@ -1,10 +1,11 @@
 #include "CameraInput.h"
+
+#include "include/gl.h"
+#include "Core/Window/WindowObject.h"
+#include "components/camera.h"
+#include "components/transform.h"
+
 #include <iostream>
-
-#include <include/gl.h>
-#include <Core/Window/WindowObject.h>
-
-#include <LibEGC.hpp>
 
 using namespace std;
 using namespace EngineComponents;
