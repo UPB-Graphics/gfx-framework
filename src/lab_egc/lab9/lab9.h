@@ -5,8 +5,10 @@
 #include "core/gpu/mesh.h"
 
 
-class Laborator9 : public SimpleScene
+namespace egc
 {
+	class Laborator9 : public SimpleScene
+	{
 	public:
 		Laborator9();
 		~Laborator9();
@@ -18,8 +20,8 @@ class Laborator9 : public SimpleScene
 		void Update(float deltaTimeSeconds) override;
 		void FrameEnd() override;
 
-		void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, Texture2D* texture1 = NULL, Texture2D* texture2 = NULL);
-		Texture2D* CreateRandomTexture(unsigned int width, unsigned int height);
+		void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, Texture2D *texture1 = NULL, Texture2D *texture2 = NULL);
+		Texture2D *CreateRandomTexture(unsigned int width, unsigned int height);
 
 		void OnInputUpdate(float deltaTime, int mods) override;
 		void OnKeyPress(int key, int mods) override;
@@ -30,6 +32,7 @@ class Laborator9 : public SimpleScene
 		void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
 		void OnWindowResize(int width, int height) override;
 
-		std::unordered_map<std::string, Texture2D*> mapTextures;
+		std::unordered_map<std::string, Texture2D *> mapTextures;
 		GLuint randomTextureID;
-};
+	};
+}

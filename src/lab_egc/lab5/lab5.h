@@ -4,8 +4,10 @@
 #include "lab_camera.h"
 
 
-class Laborator5 : public SimpleScene
+namespace egc
 {
+	class Laborator5 : public SimpleScene
+	{
 	public:
 		Laborator5();
 		~Laborator5();
@@ -17,7 +19,7 @@ class Laborator5 : public SimpleScene
 		void Update(float deltaTimeSeconds) override;
 		void FrameEnd() override;
 
-		void RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & modelMatrix) override;
+		void RenderMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix) override;
 
 		void OnInputUpdate(float deltaTime, int mods) override;
 		void OnKeyPress(int key, int mods) override;
@@ -29,7 +31,8 @@ class Laborator5 : public SimpleScene
 		void OnWindowResize(int width, int height) override;
 
 	protected:
-		Laborator::Camera *camera;
+		implemented::Camera *camera;
 		glm::mat4 projectionMatrix;
 		bool renderCameraTarget;
-};
+	};
+}

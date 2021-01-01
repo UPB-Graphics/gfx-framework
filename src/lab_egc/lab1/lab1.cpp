@@ -6,6 +6,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace egc;
 
 
 // Order of function calling can be seen in "Source/Core/World.cpp::LoopUpdate()"

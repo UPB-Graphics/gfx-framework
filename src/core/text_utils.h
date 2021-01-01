@@ -14,11 +14,11 @@
 
 
 // -------------------------------------------------------------------------
-namespace TextUtils
+namespace text_utils
 {
     std::string Join(
         const std::vector<std::string> &elements,
         const std::string &separator);
 
-#define PATH_JOIN(...) TextUtils::Join(std::vector<std::string>{__VA_ARGS__}, std::string(1, PATH_SEPARATOR))
+#define PATH_JOIN(...) text_utils::Join(std::vector<std::string>{__VA_ARGS__}, std::string(1, PATH_SEPARATOR))
 }

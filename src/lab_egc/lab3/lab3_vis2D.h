@@ -6,8 +6,10 @@
 #include <string>
 
 
-class Laborator3_Vis2D : public SimpleScene
+namespace egc
 {
+	class Laborator3_Vis2D : public SimpleScene
+	{
 	public:
 		struct ViewportSpace
 		{
@@ -65,4 +67,5 @@ class Laborator3_Vis2D : public SimpleScene
 		ViewportSpace viewSpace;
 		LogicSpace logicSpace;
 		glm::mat3 modelMatrix, visMatrix;
-};
+	};
+}

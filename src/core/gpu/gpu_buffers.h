@@ -24,7 +24,7 @@ class GPUBuffers
 		unsigned short m_size;
 };
 
-namespace UtilsGPU
+namespace gpu_utils
 {
 
 	GPUBuffers UploadData(const std::vector<glm::vec3> &positions,

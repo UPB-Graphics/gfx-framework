@@ -7,28 +7,30 @@
 #include <vector>
 
 
-namespace EngineComponents
+namespace egx
 {
-	class Transform;
-
-	enum class CameraType {
-		FirstPerson,
-		ThirdPerson
-	};
-
-	struct ProjectionInfo
+	namespace comp
 	{
-		float FoVy;
-		float zNear;
-		float zFar;
-		float aspectRatio;
-		float width;
-		float height;
-		bool isPerspective;
-	};
+		class Transform;
 
-	class LIBEGXC_API Camera
-	{
+		enum class CameraType {
+			FirstPerson,
+			ThirdPerson
+		};
+
+		struct ProjectionInfo
+		{
+			float FoVy;
+			float zNear;
+			float zFar;
+			float aspectRatio;
+			float width;
+			float height;
+			bool isPerspective;
+		};
+
+		class LIBEGXC_API Camera
+		{
 		public:
 			Camera();
 			~Camera();
@@ -38,8 +40,8 @@ namespace EngineComponents
 			virtual void Update();
 
 		public:
-			const glm::mat4& GetViewMatrix() const;
-			const glm::mat4& GetProjectionMatrix() const;
+			const glm::mat4 &GetViewMatrix() const;
+			const glm::mat4 &GetProjectionMatrix() const;
 
 			// Rotation
 			void RotateOX(float deltaTime);
@@ -78,7 +80,7 @@ namespace EngineComponents
 			void UpdateRoll(float deltaAngle);
 
 		public:
-			Transform 	*m_transform;
+			Transform *m_transform;
 
 			// Camera Type
 			CameraType  m_type;
@@ -105,8 +107,8 @@ namespace EngineComponents
 			float 		m_aspectRatio;
 			bool 		m_isPerspective;
 			float 		m_ortographicWidth;
-	};
-
+		};
+	}
 }
 
 #endif

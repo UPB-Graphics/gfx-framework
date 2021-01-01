@@ -105,7 +105,7 @@ bool Mesh::InitFromData(std::vector<VertexFormat> vertices, std::vector<unsigned
 	this->indices = indices;
 
 	InitFromData();
-	*buffers = UtilsGPU::UploadData(vertices, indices);
+	*buffers = gpu_utils::UploadData(vertices, indices);
 	return buffers->m_VAO != 0;
 }
 
@@ -116,7 +116,7 @@ bool Mesh::InitFromData(std::vector<glm::vec3>& positions, std::vector<glm::vec3
 	this->indices = indices;
 
 	InitFromData();
-	*buffers = UtilsGPU::UploadData(positions, normals, indices);
+	*buffers = gpu_utils::UploadData(positions, normals, indices);
 	return buffers->m_VAO != 0;
 }
 
@@ -131,7 +131,7 @@ bool Mesh::InitFromData(vector<glm::vec3>& positions,
 	this->indices = indices;
 
 	InitFromData();
-	*buffers = UtilsGPU::UploadData(positions, normals, texCoords, indices);
+	*buffers = gpu_utils::UploadData(positions, normals, texCoords, indices);
 	return buffers->m_VAO != 0;
 }
 
@@ -173,7 +173,7 @@ bool Mesh::InitFromScene(const aiScene* pScene)
 		return false;
 
 	buffers->ReleaseMemory();
-	*buffers = UtilsGPU::UploadData(positions, normals, texCoords, indices);
+	*buffers = gpu_utils::UploadData(positions, normals, texCoords, indices);
 	return buffers->m_VAO != 0;
 }
 

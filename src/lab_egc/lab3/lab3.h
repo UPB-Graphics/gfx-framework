@@ -6,8 +6,10 @@
 #include <string>
 
 
-class Laborator3 : public SimpleScene
+namespace egc
 {
+	class Laborator3 : public SimpleScene
+	{
 	public:
 		Laborator3();
 		~Laborator3();
@@ -33,4 +35,5 @@ class Laborator3 : public SimpleScene
 		float translateX, translateY;
 		float scaleX, scaleY;
 		float angularStep;
-};
+	};
+}

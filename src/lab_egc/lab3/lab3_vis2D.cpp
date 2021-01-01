@@ -8,6 +8,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace egc;
 
 
 Laborator3_Vis2D::Laborator3_Vis2D()
@@ -34,7 +35,7 @@ void Laborator3_Vis2D::Init()
 	glm::vec3 corner = glm::vec3(0.001, 0.001, 0);
 	length = 0.99f;
 
-	Mesh* square1 = Object2D::CreateSquare("square1", corner, length, glm::vec3(1, 0, 0));
+	Mesh* square1 = object2D::CreateSquare("square1", corner, length, glm::vec3(1, 0, 0));
 	AddMeshToList(square1);
 }
 
@@ -129,19 +130,19 @@ void Laborator3_Vis2D::FrameEnd()
 
 void Laborator3_Vis2D::DrawScene(glm::mat3 visMatrix)
 {
-	modelMatrix = visMatrix * Transform2D::Translate(0, 0);
+	modelMatrix = visMatrix * transform2D::Translate(0, 0);
 	RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 
-	modelMatrix = visMatrix * Transform2D::Translate(3, 0);
+	modelMatrix = visMatrix * transform2D::Translate(3, 0);
 	RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 
-	modelMatrix = visMatrix * Transform2D::Translate(1.5, 1.5);
+	modelMatrix = visMatrix * transform2D::Translate(1.5, 1.5);
 	RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 
-	modelMatrix = visMatrix * Transform2D::Translate(0, 3);
+	modelMatrix = visMatrix * transform2D::Translate(0, 3);
 	RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 
-	modelMatrix = visMatrix * Transform2D::Translate(3, 3);
+	modelMatrix = visMatrix * transform2D::Translate(3, 3);
 	RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 }
 

@@ -3,8 +3,10 @@
 #include "components/simple_scene.h"
 
 
-class Laborator4 : public SimpleScene
+namespace egc
 {
+	class Laborator4 : public SimpleScene
+	{
 	public:
 		Laborator4();
 		~Laborator4();
@@ -31,4 +33,5 @@ class Laborator4 : public SimpleScene
 		float scaleX, scaleY, scaleZ;
 		float angularStepOX, angularStepOY, angularStepOZ;
 		GLenum polygonMode;
-};
+	};
+}

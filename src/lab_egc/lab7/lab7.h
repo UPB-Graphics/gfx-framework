@@ -5,8 +5,10 @@
 #include "core/gpu/mesh.h"
 
 
-class Laborator7 : public SimpleScene
+namespace egc
 {
+	class Laborator7 : public SimpleScene
+	{
 	public:
 		Laborator7();
 		~Laborator7();
@@ -33,4 +35,5 @@ class Laborator7 : public SimpleScene
 		unsigned int materialShininess;
 		float materialKd;
 		float materialKs;
-};
+	};
+}

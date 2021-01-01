@@ -3,9 +3,10 @@
 #include "components/simple_scene.h"
 #include "core/engine.h"
 
-
-class Laborator2 : public SimpleScene
+namespace egc
 {
+	class Laborator2 : public SimpleScene
+	{
 	public:
 		Laborator2();
 		~Laborator2();
@@ -13,7 +14,7 @@ class Laborator2 : public SimpleScene
 		void Init() override;
 
 	private:
-		Mesh* CreateMesh(const char *name, const std::vector<VertexFormat>& vertices, const std::vector<unsigned short>& indices);
+		Mesh *CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices);
 
 		void FrameStart() override;
 		void Update(float deltaTimeSeconds) override;
@@ -31,4 +32,5 @@ class Laborator2 : public SimpleScene
 	protected:
 		GLenum cullFace;
 		GLenum polygonMode;
-};
+	};
+}

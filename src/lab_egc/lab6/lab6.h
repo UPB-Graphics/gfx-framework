@@ -4,15 +4,17 @@
 #include "core/gpu/mesh.h"
 
 
-class Laborator6 : public SimpleScene
+namespace egc
 {
+	class Laborator6 : public SimpleScene
+	{
 	public:
 		Laborator6();
 		~Laborator6();
 
 		void Init() override;
 
-		Mesh * CreateMesh(const char * name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices);
+		Mesh *CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices);
 
 	private:
 		void FrameStart() override;
@@ -29,4 +31,5 @@ class Laborator6 : public SimpleScene
 		void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 		void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
 		void OnWindowResize(int width, int height) override;
-};
+	};
+}

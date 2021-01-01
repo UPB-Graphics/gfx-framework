@@ -8,6 +8,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace egc;
 
 
 Laborator4::Laborator4()
@@ -60,20 +61,20 @@ void Laborator4::Update(float deltaTimeSeconds)
 	glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
 
 	modelMatrix = glm::mat4(1);
-	modelMatrix *= Transform3D::Translate(-2.5f, 0.5f,-1.5f);
-	modelMatrix *= Transform3D::Translate(translateX, translateY, translateZ);
+	modelMatrix *= transform3D::Translate(-2.5f, 0.5f,-1.5f);
+	modelMatrix *= transform3D::Translate(translateX, translateY, translateZ);
 	RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
 
 	modelMatrix = glm::mat4(1);
-	modelMatrix *= Transform3D::Translate(0.0f, 0.5f, -1.5f);
-	modelMatrix *= Transform3D::Scale(scaleX, scaleY, scaleZ);
+	modelMatrix *= transform3D::Translate(0.0f, 0.5f, -1.5f);
+	modelMatrix *= transform3D::Scale(scaleX, scaleY, scaleZ);
 	RenderMesh(meshes["box"], shaders["Simple"], modelMatrix);
 
 	modelMatrix = glm::mat4(1);
-	modelMatrix *= Transform3D::Translate(2.5f, 0.5f, -1.5f);
-	modelMatrix *= Transform3D::RotateOX(angularStepOX);
-	modelMatrix *= Transform3D::RotateOY(angularStepOY);
-	modelMatrix *= Transform3D::RotateOZ(angularStepOZ);
+	modelMatrix *= transform3D::Translate(2.5f, 0.5f, -1.5f);
+	modelMatrix *= transform3D::RotateOX(angularStepOX);
+	modelMatrix *= transform3D::RotateOY(angularStepOY);
+	modelMatrix *= transform3D::RotateOZ(angularStepOZ);
 	RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
 }
 

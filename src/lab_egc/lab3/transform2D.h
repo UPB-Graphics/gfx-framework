@@ -3,7 +3,7 @@
 #include "include/glm_utils.h"
 
 
-namespace Transform2D
+namespace transform2D
 {
 	// Translate matrix
 	inline glm::mat3 Translate(float translateX, float translateY)

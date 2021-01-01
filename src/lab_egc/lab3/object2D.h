@@ -6,7 +6,7 @@
 #include <string>
 
 
-namespace Object2D
+namespace object2D
 {
 
 	// Create square with given bottom left corner, length and color

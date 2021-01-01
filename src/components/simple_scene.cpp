@@ -4,13 +4,11 @@
 #include "scene_input.h"
 
 #include "core/engine.h"
-#include "components/transform.h"
 
 #include <vector>
 #include <iostream>
 
 using namespace std;
-using namespace EngineComponents;
 
 
 SimpleScene::SimpleScene()
@@ -29,9 +27,9 @@ void SimpleScene::InitResources()
 
 	drawGroundPlane = true;
 
-	objectModel = new Transform();
+	objectModel = new egx::comp::Transform();
 
-	camera = new Camera();
+	camera = new egx::comp::Camera();
 	camera->SetPerspective(60, window->props.aspectRatio, 0.01f, 200);
 	camera->m_transform->SetMoveSpeed(2);
 	camera->m_transform->SetWorldPosition(glm::vec3(0, 1.6f, 2.5));
@@ -254,7 +252,7 @@ void SimpleScene::ReloadShaders() const
 	}
 }
 
-Camera * SimpleScene::GetSceneCamera() const
+egx::comp::Camera * SimpleScene::GetSceneCamera() const
 {
 	return camera;
 }

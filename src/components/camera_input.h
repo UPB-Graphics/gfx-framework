@@ -1,17 +1,13 @@
 #pragma once
 
 #include "core/window/input_controller.h"
+#include "components/camera.h"
 
-
-namespace EngineComponents
-{
-	class Camera;
-}
 
 class CameraInput : public InputController
 {
 	public:
-		CameraInput(EngineComponents::Camera *camera);
+		CameraInput(egx::comp::Camera *camera);
 		void OnInputUpdate(float deltaTime, int mods) override;
 		void OnKeyPress(int key, int mods) override;
 		void OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY) override;
@@ -19,5 +15,5 @@ class CameraInput : public InputController
 		void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 
 	public:
-		EngineComponents::Camera *camera;
+		egx::comp::Camera *camera;
 };

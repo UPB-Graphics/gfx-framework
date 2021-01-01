@@ -3,7 +3,7 @@
 #include "core/engine.h"
 
 
-Mesh* Object2D::CreateSquare(std::string name, glm::vec3 leftBottomCorner, float length, glm::vec3 color, bool fill)
+Mesh* object2D::CreateSquare(std::string name, glm::vec3 leftBottomCorner, float length, glm::vec3 color, bool fill)
 {
 	glm::vec3 corner = leftBottomCorner;
 

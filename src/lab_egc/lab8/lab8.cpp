@@ -8,6 +8,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace egc;
 
 
 Laborator8::Laborator8()

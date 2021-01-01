@@ -7,10 +7,12 @@
 #include <list>
 
 
-namespace EngineComponents
+namespace egx
 {
-	class LIBEGXC_API Transform
+	namespace comp
 	{
+		class LIBEGXC_API Transform
+		{
 		public:
 			Transform();
 			Transform(const Transform &trasform);
@@ -38,7 +40,7 @@ namespace EngineComponents
 			virtual glm::vec3 GetLocalOZVector() const;
 
 			virtual glm::vec3 GetScale() const;
-			virtual const glm::mat4& GetModel();
+			virtual const glm::mat4 &GetModel();
 
 			virtual float GetMoveSpeed() const;
 			virtual float GetScaleSpeed() const;
@@ -139,9 +141,10 @@ namespace EngineComponents
 			bool					m_modelIsOutdated;
 			bool					m_updateHierarchy;
 
-			Transform*				m_parentNode;
-			std::list<Transform*>	m_childNodes;
-	};
+			Transform *m_parentNode;
+			std::list<Transform *>	m_childNodes;
+		};
+	}
 }
 
 #endif

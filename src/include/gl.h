@@ -22,14 +22,14 @@
 // Returns 1 if an OpenGL error occurred, 0 otherwise.
 
 #ifdef _DEBUG
-#define CheckOpenGLError() OpenGL::CheckError(__FILE__, __LINE__)
-#define SilentCheckOpenGLError() OpenGL::CheckError(__FILE__, __LINE__, false)
+#define CheckOpenGLError() gl_utils::CheckError(__FILE__, __LINE__)
+#define SilentCheckOpenGLError() gl_utils::CheckError(__FILE__, __LINE__, false)
 #else
 #define CheckOpenGLError()
 #define SilentCheckOpenGLError()
 #endif
 
-namespace OpenGL
+namespace gl_utils
 {
 	// -------------------------------------------------------------------------
 	// Check for OpenGL Errors

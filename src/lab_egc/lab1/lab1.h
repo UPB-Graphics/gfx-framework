@@ -3,8 +3,10 @@
 #include "components/simple_scene.h"
 
 
-class Laborator1 : public SimpleScene
+namespace egc
 {
+	class Laborator1 : public SimpleScene
+	{
 	public:
 		Laborator1();
 		~Laborator1();
@@ -24,4 +26,5 @@ class Laborator1 : public SimpleScene
 		void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 		void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
 		void OnWindowResize(int width, int height) override;
-};
+	};
+}

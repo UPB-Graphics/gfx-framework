@@ -8,6 +8,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace egc;
 
 
 Laborator3::Laborator3()
@@ -47,13 +48,13 @@ void Laborator3::Init()
 	angularStep = 0;
 	
 
-	Mesh* square1 = Object2D::CreateSquare("square1", corner, squareSide, glm::vec3(1, 0, 0), true);
+	Mesh* square1 = object2D::CreateSquare("square1", corner, squareSide, glm::vec3(1, 0, 0), true);
 	AddMeshToList(square1);
 	
-	Mesh* square2 = Object2D::CreateSquare("square2", corner, squareSide, glm::vec3(0, 1, 0));
+	Mesh* square2 = object2D::CreateSquare("square2", corner, squareSide, glm::vec3(0, 1, 0));
 	AddMeshToList(square2);
 
-	Mesh* square3 = Object2D::CreateSquare("square3", corner, squareSide, glm::vec3(0, 0, 1));
+	Mesh* square3 = object2D::CreateSquare("square3", corner, squareSide, glm::vec3(0, 0, 1));
 	AddMeshToList(square3);
 }
 
@@ -73,19 +74,19 @@ void Laborator3::Update(float deltaTimeSeconds)
 	// TODO: update steps for translation, rotation, scale, in order to create animations
 	
 	modelMatrix = glm::mat3(1);
-	modelMatrix *= Transform2D::Translate(150, 250);
+	modelMatrix *= transform2D::Translate(150, 250);
 	// TODO: create animations by multiplying current transform matrix with matrices from Transform 2D
 
 	RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 
 	modelMatrix = glm::mat3(1);
-	modelMatrix *= Transform2D::Translate(400, 250);
+	modelMatrix *= transform2D::Translate(400, 250);
 	//TODO create animations by multiplying current transform matrix with matrices from Transform 2D
 	
 	RenderMesh2D(meshes["square2"], shaders["VertexColor"], modelMatrix);
 
 	modelMatrix = glm::mat3(1);
-	modelMatrix *= Transform2D::Translate(650, 250);
+	modelMatrix *= transform2D::Translate(650, 250);
 
 	//TODO create animations by multiplying current transform matrix with matrices from Transform 2D
 	RenderMesh2D(meshes["square3"], shaders["VertexColor"], modelMatrix);

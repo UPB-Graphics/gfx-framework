@@ -4,7 +4,7 @@
 #include "include/math_utils.h"
 
 
-namespace Laborator
+namespace implemented
 {
 	class Camera
 	{

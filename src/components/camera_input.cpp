@@ -2,16 +2,14 @@
 
 #include "include/gl.h"
 #include "core/window/window_object.h"
-#include "components/camera.h"
 #include "components/transform.h"
 
 #include <iostream>
 
 using namespace std;
-using namespace EngineComponents;
 
 
-CameraInput::CameraInput(Camera *camera)
+CameraInput::CameraInput(egx::comp::Camera *camera)
 {
 	this->camera = camera;
 }

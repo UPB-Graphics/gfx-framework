@@ -7,6 +7,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace egc;
 
 
 Laborator5::Laborator5()
@@ -21,7 +22,7 @@ void Laborator5::Init()
 {
 	renderCameraTarget = false;
 
-	camera = new Laborator::Camera();
+	camera = new implemented::Camera();
 	camera->Set(glm::vec3(0, 2, 3.5f), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
 
 	{

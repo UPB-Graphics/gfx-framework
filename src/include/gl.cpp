@@ -20,7 +20,7 @@ void PrintGLErrorDescription(unsigned int glErr)
 	cout << "\t[" << glErr << "] : " << GLerrorDescription[glErr - GL_INVALID_ENUM].c_str() << "\n";
 }
 
-int OpenGL::CheckError(const char * file, int line, bool log)
+int gl_utils::CheckError(const char * file, int line, bool log)
 {
 	#ifdef _DEBUG
 		GLenum glErr = glGetError();

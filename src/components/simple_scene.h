@@ -1,16 +1,13 @@
 #pragma once
 
+#include "core/world.h"
+#include "components/transform.h"
+#include "components/camera.h"
+
+
 class Mesh;
 class Shader;
 class InputController;
-
-namespace EngineComponents
-{
-	class Camera;
-	class Transform;
-}
-
-#include "core/world.h"
 
 class SimpleScene : public World
 {
@@ -34,7 +31,7 @@ class SimpleScene : public World
 		virtual void RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 &modelMatrix);
 
 		virtual void ReloadShaders() const final;
-		virtual EngineComponents::Camera* GetSceneCamera() const final;
+		virtual egx::comp::Camera* GetSceneCamera() const final;
 		virtual InputController* GetCameraInput() const final;
 
 	private:
@@ -45,11 +42,11 @@ class SimpleScene : public World
 		std::unordered_map<std::string, Shader*> shaders;
 
 	private:
-		EngineComponents::Camera *camera;
+		egx::comp::Camera *camera;
 		InputController *cameraInput;
 
 		bool drawGroundPlane;
 		Mesh *xozPlane;
 		Mesh *simpleLine;
-		EngineComponents::Transform *objectModel;
+		egx::comp::Transform *objectModel;
 };

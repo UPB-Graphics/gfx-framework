@@ -2,7 +2,7 @@
 
 
 // -------------------------------------------------------------------------
-std::string TextUtils::Join(
+std::string text_utils::Join(
     const std::vector<std::string> &elements,
     const std::string &separator)
 {

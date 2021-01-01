@@ -33,7 +33,7 @@ void GPUBuffers::ReleaseMemory()
 	}
 }
 
-namespace UtilsGPU
+namespace gpu_utils
 {
 	GPUBuffers UploadData(const vector<glm::vec3> &positions,
 					const vector<glm::vec3> &normals, 

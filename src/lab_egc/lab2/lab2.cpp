@@ -6,6 +6,7 @@
 #include <iostream>
 
 using namespace std;
+using namespace egc;
 
 
 Laborator2::Laborator2()
