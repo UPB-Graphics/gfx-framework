@@ -13,4 +13,4 @@ sudo apt install -y build-essential
 
 
 # Install required tools for this project.
-sudo apt install -y cmake g++ libglm-dev libglew-dev libassimp-dev libglfw3-dev
+sudo apt install -y cmake g++ libglm-dev libglew-dev libassimp-dev libglfw3-dev pkg-config

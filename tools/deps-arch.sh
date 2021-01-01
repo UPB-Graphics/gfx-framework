@@ -28,4 +28,4 @@ sudo pacman -Sy mesa mesa-demos
 # pacman -Sy lib32-mesa lib32-mesa-demos
 
 # Install required tools for this project
-sudo pacman -Sy cmake assimp glm glew glfw-x11 
+sudo pacman -Sy cmake assimp glm glew glfw-x11 pkgconf

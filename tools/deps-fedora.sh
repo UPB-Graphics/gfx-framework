@@ -12,4 +12,4 @@ sudo dnf install -y mesa-dri-drivers glx-utils
 
 # Install required tools for this project.
 # Package list originally prepared by Catalin Puscoci.
-sudo dnf install -y cmake g++ assimp-devel glfw-devel glew-devel glm-devel
+sudo dnf install -y cmake g++ assimp-devel glfw-devel glew-devel glm-devel pkg-config
