@@ -1,4 +1,4 @@
-# EGC Framework
+# EGX Framework
 
 ## :sparkles: Introduction
 
@@ -6,6 +6,7 @@ This project is a tiny graphics framework used by the Graphics Department of the
 It is currently used as teaching support for the following course:
 
 -   Elements of Computer Graphics [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/egc)
+-   Graphics Processing Systems [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/spg)
 
 It has missing functionality that you will need to implement.
 
@@ -141,11 +142,11 @@ If something goes wrong when generating the project, just delete the contents of
 You can run the project from an IDE, as well as standalone, from anywhere on disk. For example:
 
 -   Windows, one of the following:
-    -   `.\bin\Debug\EGCFramework`
+    -   `.\bin\Debug\EGXFramework`
     -   or just open the `.sln` file in Visual Studio, then press `F5` to run it
 
 -   Linux and macOS:
-    -   `./bin/Debug/EGCFramework`
+    -   `./bin/Debug/EGXFramework`
 
 
 ## :wrench: Contributing
