@@ -1,11 +1,11 @@
+#include "core/engine.h"
+#include "lab_egc/lab_list.h"
+
 #include <ctime>
 #include <iostream>
 
 using namespace std;
 
-#include <Core/Engine.h>
-
-#include <Laboratoare/LabList.h>
 
 int main(int argc, char **argv)
 {

@@ -132,7 +132,7 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
 
 Every time you modify source code and want to recompile, ***you only need to follow the last step***.
 
-Every time you add or remove a source code file on disk, ***you need to follow the last two steps***.
+Every time you add/remove/rename a source code file on disk, ***you need to follow the last two steps***.
 
 If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then follow all the steps again.
 
