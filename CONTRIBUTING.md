@@ -5,8 +5,8 @@
 
 -   The official channel of contact is Github, which is used for code review,
     issues, suggestions, and long term discussions.
--   ***By making a contribution to this project, you agree to
-    [Developer's Certificate of Origin 1.1](https://developercertificate.org/).***
+-   By making a contribution to this project, you agree to
+    [Developer's Certificate of Origin 1.1](https://developercertificate.org/).
 
 
 ## Sending patches
@@ -34,6 +34,6 @@
     additional cosmetic changes in the same file you're working on, however,
     avoid doing something like reformatting a whole file, and hiding an actual
     functional change in the same commit.
--   Splitting changes does **not** mean that you should make them as fine-grained
+-   Splitting changes does ***not*** mean that you should make them as fine-grained
     as possible. Commits should form logical steps in development. The way you
     split changes is important for code review and analyzing bugs.
