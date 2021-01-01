@@ -6,7 +6,19 @@ This is a short guide on how to update the third-party code in the `deps` direct
 ## :white_check_mark: Prerequisites
 
 -   Visual Studio 2019 or newer
--   some form of `bash`, for example via WSL2
+-   `sh` via Git for Windows:
+    -   install manually from the [official website](https://git-scm.com/downloads)
+    -   ***or,*** via Chocolatey: `choco install -y git`
+-   `make` for Windows:
+    -   install manually from the [official website](https://packages.msys2.org/package/mingw-w64-x86_64-make)
+    -   ***or,*** via Chocolatey: `choco install -y make`
+-   Python 3, either vanilla or Anaconda:
+    -   vanilla:
+        -   install manually from the [official website](https://www.python.org/downloads/)
+        -   ***or,*** via Chocolatey: `choco install -y python --pre`
+    -   Anaconda:
+        -   install manually from the [official website](https://www.anaconda.com/products/individual)
+        -   ***or,*** via Chocolatey: `choco install -y anaconda3`
 
 
 ## :label: Current versions
@@ -27,7 +39,8 @@ Every time you update a dependency, make sure you also update this list.
 
 ### `libEGC`
 
-The sources for these binaries are private. If you need builds for a certain architecture, platform etc., file a Github issue and let us know. Even better, try implementing the hidden functionality!
+The sources for these binaries are private. If you need builds for a certain architecture, platform etc.,
+file a Github issue and let us know. Even better, try implementing the hidden functionality!
 
 
 ### `assimp`
@@ -79,7 +92,7 @@ Follow these steps:
     ```
 -   generate the source files:
     ```
-    bash -c "cd auto && make"
+    "C:\Program Files\Git\bin\sh" -c "cd auto && make"
     ```
 -   build the 32-bit binaries:
     ```
@@ -126,7 +139,7 @@ Follow these steps:
     cmake --build . --config Release
     cd ..
     ```
--   build the 32-bit binaries:
+-   build the 64-bit binaries:
     ```
     mkdir build-64
     cd build-64
