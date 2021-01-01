@@ -12,3 +12,8 @@ namespace RESOURCE_PATH
 	const std::string TEXTURES	= PATH_JOIN(ROOT, "Textures");
 	const std::string SHADERS	= PATH_JOIN(ROOT, "Shaders");
 }
+
+namespace SOURCE_PATH
+{
+	const std::string ROOT		= PATH_JOIN("src");
+}

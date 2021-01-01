@@ -55,8 +55,8 @@ void Laborator6::Init()
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
 		Shader *shader = new Shader("ShaderLab6");
-		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator6", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
-		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator6", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::ROOT, "Laboratoare", "Laborator6", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::ROOT, "Laboratoare", "Laborator6", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}

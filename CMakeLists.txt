@@ -43,12 +43,12 @@ endif()
 
 # Gather the source files
 file(GLOB_RECURSE EGXF_SOURCES
-    ${CMAKE_CURRENT_LIST_DIR}/Source/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/*.c*
 )
 
 # Gather the header files
 file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/Source/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/*.h*
 )
 
 
@@ -57,14 +57,14 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
     ${EGXF_ROOT_DIR}/deps/api
     ${EGXF_ROOT_DIR}/deps/api/libEGXComponents/internal
     #
-    ${CMAKE_CURRENT_LIST_DIR}/Source
-    ${CMAKE_CURRENT_LIST_DIR}/Source/Component
-    ${CMAKE_CURRENT_LIST_DIR}/Source/Core
-    ${CMAKE_CURRENT_LIST_DIR}/Source/Core/GPU
-    ${CMAKE_CURRENT_LIST_DIR}/Source/Core/Managers
-    ${CMAKE_CURRENT_LIST_DIR}/Source/Core/Window
-    ${CMAKE_CURRENT_LIST_DIR}/Source/include
-    ${CMAKE_CURRENT_LIST_DIR}/Source/Laboratoare
+    ${CMAKE_CURRENT_LIST_DIR}/src
+    ${CMAKE_CURRENT_LIST_DIR}/src/Component
+    ${CMAKE_CURRENT_LIST_DIR}/src/Core
+    ${CMAKE_CURRENT_LIST_DIR}/src/Core/GPU
+    ${CMAKE_CURRENT_LIST_DIR}/src/Core/Managers
+    ${CMAKE_CURRENT_LIST_DIR}/src/Core/Window
+    ${CMAKE_CURRENT_LIST_DIR}/src/include
+    ${CMAKE_CURRENT_LIST_DIR}/src/Laboratoare
 )
 
 
@@ -167,9 +167,7 @@ target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
 function(post_build)
     get_target_property(output_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
     set(res_dir "res")
-    set(src_dir "Source")
-    message("~~~~~~~~~~~~~~~~~~~~~")
-    message(${output_dir})
+    set(src_dir "src")
 
     if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
         string(REPLACE "/" "\\" OUTPUT_DIR_BS "${output_dir}")

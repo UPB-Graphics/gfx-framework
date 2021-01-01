@@ -19,7 +19,7 @@ Laborator9::~Laborator9()
 
 void Laborator9::Init()
 {
-	const string sourceTextureDir = PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator9", "Textures");
+	const string sourceTextureDir = PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::ROOT, "Laboratoare", "Laborator9", "Textures");
 
 	// Load textures
 	{
@@ -107,8 +107,8 @@ void Laborator9::Init()
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
 		Shader *shader = new Shader("ShaderLab9");
-		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator9", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
-		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator9", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::ROOT, "Laboratoare", "Laborator9", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::ROOT, "Laboratoare", "Laborator9", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}

@@ -1,4 +1,4 @@
-#include "Laborator7.h"
+#include "Laborator8.h"
 
 #include <vector>
 #include <string>
@@ -9,15 +9,15 @@
 
 using namespace std;
 
-Laborator7::Laborator7()
+Laborator8::Laborator8()
 {
 }
 
-Laborator7::~Laborator7()
+Laborator8::~Laborator8()
 {
 }
 
-void Laborator7::Init()
+void Laborator8::Init()
 {
 	{
 		Mesh* mesh = new Mesh("box");
@@ -39,9 +39,9 @@ void Laborator7::Init()
 
 	// Create a shader program for drawing face polygon with the color of the normal
 	{
-		Shader *shader = new Shader("ShaderLab7");
-		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator7", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
-		shader->AddShader(PATH_JOIN(window->props.selfDirPath, "Source", "Laboratoare", "Laborator7", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+		Shader *shader = new Shader("ShaderLab8");
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::ROOT, "Laboratoare", "Laborator8", "Shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+		shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::ROOT, "Laboratoare", "Laborator8", "Shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
 		shader->CreateAndLink();
 		shaders[shader->GetName()] = shader;
 	}
@@ -49,13 +49,14 @@ void Laborator7::Init()
 	//Light & material properties
 	{
 		lightPosition = glm::vec3(0, 1, 1);
+		lightDirection = glm::vec3(0, -1, 0);
 		materialShininess = 30;
 		materialKd = 0.5;
 		materialKs = 0.5;
 	}
 }
 
-void Laborator7::FrameStart()
+void Laborator8::FrameStart()
 {
 	// clears the color buffer (using the previously set color) and depth buffer
 	glClearColor(0, 0, 0, 1);
@@ -66,12 +67,12 @@ void Laborator7::FrameStart()
 	glViewport(0, 0, resolution.x, resolution.y);	
 }
 
-void Laborator7::Update(float deltaTimeSeconds)
+void Laborator8::Update(float deltaTimeSeconds)
 {
 	{
 		glm::mat4 modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 1, 0));
-		RenderSimpleMesh(meshes["sphere"], shaders["ShaderLab7"], modelMatrix);
+		RenderSimpleMesh(meshes["sphere"], shaders["ShaderLab8"], modelMatrix);
 	}
 
 	{
@@ -79,14 +80,14 @@ void Laborator7::Update(float deltaTimeSeconds)
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(2, 0.5f, 0));
 		modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 0, 0));
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
-		RenderSimpleMesh(meshes["box"], shaders["ShaderLab7"], modelMatrix);
+		RenderSimpleMesh(meshes["box"], shaders["ShaderLab8"], modelMatrix);
 	}
 
 	{
 		glm::mat4 modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(-2, 0.5f, 0));
 		modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 1, 0));
-		RenderSimpleMesh(meshes["box"], shaders["ShaderLab7"], modelMatrix, glm::vec3(0, 0.5, 0));
+		RenderSimpleMesh(meshes["box"], shaders["ShaderLab8"], modelMatrix, glm::vec3(0, 0.5, 0));
 	}
 
 	// Render ground
@@ -94,7 +95,7 @@ void Laborator7::Update(float deltaTimeSeconds)
 		glm::mat4 modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.01f, 0));
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25f));
-		RenderSimpleMesh(meshes["plane"], shaders["ShaderLab7"], modelMatrix);
+		RenderSimpleMesh(meshes["plane"], shaders["ShaderLab8"], modelMatrix);
 	}
 
 	// Render the point light in the scene
@@ -106,12 +107,12 @@ void Laborator7::Update(float deltaTimeSeconds)
 	}
 }
 
-void Laborator7::FrameEnd()
+void Laborator8::FrameEnd()
 {
 	DrawCoordinatSystem();
 }
 
-void Laborator7::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix, const glm::vec3 &color)
+void Laborator8::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix, const glm::vec3 &color)
 {
 	if (!mesh || !shader || !shader->GetProgramID())
 		return;
@@ -121,16 +122,34 @@ void Laborator7::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 
 	// Set shader uniforms for light & material properties
 	// TODO: Set light position uniform
+	int light_position = glGetUniformLocation(shader->program, "light_position");
+	glUniform3f(light_position, lightPosition.x, lightPosition.y, lightPosition.z);
+
+	int light_direction = glGetUniformLocation(shader->program, "light_direction");
+	glUniform3f(light_direction, lightDirection.x, lightDirection.y, lightDirection.z);
 
 	// TODO: Set eye position (camera position) uniform
 	glm::vec3 eyePosition = GetSceneCamera()->m_transform->GetWorldPosition();
+	int eye_position = glGetUniformLocation(shader->program, "eye_position");
+	glUniform3f(eye_position, eyePosition.x, eyePosition.y, eyePosition.z);
 
 	// TODO: Set material property uniforms (shininess, kd, ks, object color) 
+	int material_shininess = glGetUniformLocation(shader->program, "material_shininess");
+	glUniform1i(material_shininess, materialShininess);
+
+	int material_kd = glGetUniformLocation(shader->program, "material_kd");
+	glUniform1f(material_kd, materialKd);
+
+	int material_ks = glGetUniformLocation(shader->program, "material_ks");
+	glUniform1f(material_ks, materialKs);
+
+	int object_color = glGetUniformLocation(shader->program, "object_color");
+	glUniform3f(object_color, color.r, color.g, color.b);
 
 	// Bind model matrix
 	GLint loc_model_matrix = glGetUniformLocation(shader->program, "Model");
 	glUniformMatrix4fv(loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	
+
 	// Bind view matrix
 	glm::mat4 viewMatrix = GetSceneCamera()->GetViewMatrix();
 	int loc_view_matrix = glGetUniformLocation(shader->program, "View");
@@ -149,7 +168,7 @@ void Laborator7::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 // Documentation for the input functions can be found in: "/Source/Core/Window/InputController.h" or
 // https://github.com/UPB-Graphics/Framework-EGC/blob/master/Source/Core/Window/InputController.h
 
-void Laborator7::OnInputUpdate(float deltaTime, int mods)
+void Laborator8::OnInputUpdate(float deltaTime, int mods)
 {
 	float speed = 2;
 
@@ -170,35 +189,35 @@ void Laborator7::OnInputUpdate(float deltaTime, int mods)
 	}
 }
 
-void Laborator7::OnKeyPress(int key, int mods)
+void Laborator8::OnKeyPress(int key, int mods)
 {
 	// add key press event
 }
 
-void Laborator7::OnKeyRelease(int key, int mods)
+void Laborator8::OnKeyRelease(int key, int mods)
 {
 	// add key release event
 }
 
-void Laborator7::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Laborator8::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 	// add mouse move event
 }
 
-void Laborator7::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Laborator8::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
 	// add mouse button press event
 }
 
-void Laborator7::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Laborator8::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
 	// add mouse button release event
 }
 
-void Laborator7::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Laborator8::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
-void Laborator7::OnWindowResize(int width, int height)
+void Laborator8::OnWindowResize(int width, int height)
 {
 }
