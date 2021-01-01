@@ -24,6 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(${EGXF_ROOT_DIR}/cmake/utils.cmake)
 custom_set_build_type()
 
+# Fix to hide a bug in CMake. Hopefully able to be removed in the future.
+set(CMAKE_POLICY_DEFAULT_CMP0012 NEW)
 
 # Set path to detector scripts, then find and include the required packages
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${EGXF_ROOT_DIR}/cmake)
