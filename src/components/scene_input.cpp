@@ -2,10 +2,6 @@
 
 #include "simple_scene.h"
 
-#include "include/gl.h"
-#include "core/window/window_object.h"
-#include "components/transform.h"
-
 #include <iostream>
 
 using namespace std;

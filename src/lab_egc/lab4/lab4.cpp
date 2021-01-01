@@ -1,6 +1,5 @@
 #include "lab4.h"
 
-#include "core/engine.h"
 #include "transform3D.h"
 
 #include <vector>

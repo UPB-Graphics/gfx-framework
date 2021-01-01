@@ -1,22 +1,18 @@
 #include "texture2D.h"
 
-#include "include/gl.h"
+#include "types.h"
+#include "memory_utils.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb/stb_image.h>
+#include <stb/stb_image_write.h>
 
 #include <thread>
 #include <iostream>
 
 using namespace std;
 
-
-#define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-
-
-using uint = unsigned int;
-using uchar = unsigned char;
-
-#include <stb/stb_image.h>
-#include <stb/stb_image_write.h>
 
 void write_image_thread(const char* fileName, uint width, uint height, uint channels, const uchar *data)
 {

@@ -1,9 +1,6 @@
 #include "window_callbacks.h"
 
 #include "core/engine.h"
-#include "core/window/window_object.h"
-
-#include "include/gl.h"
 
 #include <iostream>
 

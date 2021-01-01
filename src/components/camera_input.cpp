@@ -1,8 +1,6 @@
 #include "camera_input.h"
 
-#include "include/gl.h"
-#include "core/window/window_object.h"
-#include "components/transform.h"
+#include "include/memory_utils.h"
 
 #include <iostream>
 

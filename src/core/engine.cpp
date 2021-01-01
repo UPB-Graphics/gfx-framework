@@ -1,6 +1,9 @@
 #include "engine.h"
 
-#include "include/gl.h"
+#include "include/gl_utils.h"
+#include "include/window_utils.h"
+
+#include "core/managers/texture_manager.h"
 
 #include <iostream>
 
@@ -23,9 +26,6 @@ WindowObject* Engine::Init(WindowProperties & props)
 	{
 		// Serious problem
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-		#ifdef WIN32
-		Sleep(2000);
-		#endif
 		exit(0);
 	}
 

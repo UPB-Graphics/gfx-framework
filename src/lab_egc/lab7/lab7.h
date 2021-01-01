@@ -2,7 +2,6 @@
 
 #include "components/simple_scene.h"
 #include "components/transform.h"
-#include "core/gpu/mesh.h"
 
 
 namespace egc

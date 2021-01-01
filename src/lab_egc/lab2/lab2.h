@@ -1,7 +1,7 @@
 #pragma once
 
 #include "components/simple_scene.h"
-#include "core/engine.h"
+
 
 namespace egc
 {

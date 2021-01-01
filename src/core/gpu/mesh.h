@@ -1,41 +1,18 @@
 #pragma once
 
-#include "assimp/Importer.hpp"		// C++ importer interface
-#include "assimp/scene.h"			// Output data structure
-#include "assimp/postprocess.h"		// Post processing flags
+#include "vertex_format.h"
+#include "texture2D.h"
+#include "gpu_buffers.h"
 
-#include "include/glm_utils.h"
+#include "assimp/scene.h"			// Output data structure
 
 #include <string>
 #include <vector>
 
 
-class GPUBuffers;
-class Texture2D;
-
-struct VertexFormat
+class Material
 {
-	VertexFormat(glm::vec3 position, 
-				glm::vec3 color = glm::vec3(1),
-				glm::vec3 normal = glm::vec3(0, 1, 0),
-				glm::vec2 text_coord = glm::vec2(0))
-		: position(position), normal(normal), text_coord(text_coord), color(color) { };
-
-	// position of the vertex
-	glm::vec3 position;		
-
-	// vertex normal
-	glm::vec3 normal;
-
-	// vertex texture coordinate
-	glm::vec2 text_coord;
-
-	// vertex color
-	glm::vec3 color;
-};
-
-struct Material
-{
+public:
 	Material()
 	{
 		texture = nullptr;
@@ -52,8 +29,9 @@ struct Material
 
 static const unsigned int INVALID_MATERIAL = 0xFFFFFFFF;
 
-struct MeshEntry
+class MeshEntry
 {
+public:
 	MeshEntry()
 	{
 		nrIndices = 0;

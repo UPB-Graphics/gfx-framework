@@ -1,4 +1,5 @@
 #include "gpu_buffers.h"
+#include "vertex_format.h"
 
 using namespace std;
 

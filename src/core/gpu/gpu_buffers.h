@@ -1,9 +1,9 @@
 #pragma once
-#include "include/gl.h"
-#include "include/glm_utils.h"
-#include "include/memory_utils.h"
 
-#include "core/gpu/mesh.h"
+#include "core/gpu/vertex_format.h"
+
+#include "include/gl_utils.h"
+#include "include/glm_utils.h"
 
 #include <vector>
 

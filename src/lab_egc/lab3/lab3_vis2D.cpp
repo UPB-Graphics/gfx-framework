@@ -1,6 +1,5 @@
 #include "lab3_vis2D.h"
 
-#include "core/engine.h"
 #include "transform2D.h"
 #include "object2D.h"
 

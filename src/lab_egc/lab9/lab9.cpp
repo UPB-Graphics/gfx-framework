@@ -1,8 +1,5 @@
 #include "lab9.h"
 
-#include "core/engine.h"
-#include "core/text_utils.h"
-
 #include <vector>
 #include <string>
 #include <iostream>

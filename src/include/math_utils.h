@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+
 inline float lerp(float v0, float v1, float t) {
 	return v0 + (v1 - v0) * t;
 }

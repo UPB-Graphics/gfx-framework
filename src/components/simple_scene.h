@@ -1,18 +1,25 @@
 #pragma once
 
-#include "core/world.h"
-#include "components/transform.h"
 #include "components/camera.h"
 
+#include "core/world.h"
+#include "core/engine.h"
+#include "core/gpu/mesh.h"
+#include "core/gpu/shader.h"
+#include "core/gpu/texture2D.h"
+#include "core/managers/resource_path.h"
 
-class Mesh;
-class Shader;
-class InputController;
+#include "include/text_utils.h"
+#include "include/window_utils.h"
+#include "include/memory_utils.h"
+#include "include/gl_utils.h"
+#include "include/math_utils.h"
+
+#include <unordered_map>
+
 
 class SimpleScene : public World
 {
-	friend class SceneInput;
-
 	public:
 		SimpleScene();
 		~SimpleScene();

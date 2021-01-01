@@ -1,32 +1,21 @@
 #pragma once
 
-#define GL_ENABLED
-
 #ifndef GL_DISABLE_GLEW
 #	define GLEW_ENABLED
 #	include <GL/glew.h>
-
-#	ifdef _WIN32
-#		include <GL/wglew.h>
-#	elif defined(__linux__)
-#		include <GL/glxew.h>
-#	elif defined(__APPLE__)
-#		include <GL/glew.h>
-#	endif
 #endif
 
-#include <GLFW/glfw3.h>
 
 // -------------------------------------------------------------------------
 // Check for OpenGL Errors
 // Returns 1 if an OpenGL error occurred, 0 otherwise.
 
 #ifdef _DEBUG
-#define CheckOpenGLError() gl_utils::CheckError(__FILE__, __LINE__)
-#define SilentCheckOpenGLError() gl_utils::CheckError(__FILE__, __LINE__, false)
+#	define CheckOpenGLError() gl_utils::CheckError(__FILE__, __LINE__)
+#	define SilentCheckOpenGLError() gl_utils::CheckError(__FILE__, __LINE__, false)
 #else
-#define CheckOpenGLError()
-#define SilentCheckOpenGLError()
+#	define CheckOpenGLError()
+#	define SilentCheckOpenGLError()
 #endif
 
 namespace gl_utils

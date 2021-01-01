@@ -1,13 +1,10 @@
 #pragma once
 
-#include "include/memory_utils.h"
 #include "window_object.h"
 
 
 class InputController
 {
-	friend class WindowObject;
-
 	public:
 		InputController();
 		virtual ~InputController();

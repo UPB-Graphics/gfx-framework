@@ -2,8 +2,15 @@
 
 #include "core/engine.h"
 
+#include "include/gl_utils.h"
 
-Mesh* object2D::CreateSquare(std::string name, glm::vec3 leftBottomCorner, float length, glm::vec3 color, bool fill)
+
+Mesh* object2D::CreateSquare(
+	std::string name, 
+	glm::vec3 leftBottomCorner, 
+	float length, 
+	glm::vec3 color, 
+	bool fill)
 {
 	glm::vec3 corner = leftBottomCorner;
 

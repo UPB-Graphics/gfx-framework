@@ -1,14 +1,14 @@
 #pragma once
 
-#include "include/gl.h"
-#include "include/glm_utils.h"
+#include "glm_utils.h"
+#include "window_utils.h"
+
+#include "window/input_controller.h"
+#include "window/window_callbacks.h"
 
 #include <string>
 #include <list>
 
-
-class InputController;
-class WindowCallbacks;
 
 class WindowProperties
 {
@@ -36,9 +36,6 @@ class WindowProperties
 
 class WindowObject
 {
-	friend class InputController;
-	friend class WindowCallbacks;
-
 	public:
 		WindowObject(WindowProperties properties);
 		~WindowObject();

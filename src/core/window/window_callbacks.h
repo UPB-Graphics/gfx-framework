@@ -1,8 +1,6 @@
 #pragma once
 
-#include "include/gl.h"
-
-#include "core/window/window_object.h"
+#include "include/window_utils.h"
 
 
 class WindowCallbacks

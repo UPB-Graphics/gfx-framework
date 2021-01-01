@@ -3,7 +3,7 @@
 #include "camera_input.h"
 #include "scene_input.h"
 
-#include "core/engine.h"
+#include "components/transform.h"
 
 #include <vector>
 #include <iostream>
@@ -40,7 +40,6 @@ void SimpleScene::InitResources()
 	window = Engine::GetWindow();
 
 	SceneInput *SI = new SceneInput(this);
-	UNUSED(SI);
 
 	xozPlane = new Mesh("plane");
 	xozPlane->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "plane50.obj");

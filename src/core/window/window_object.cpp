@@ -1,13 +1,10 @@
 #include "window_object.h"
 
-#include "include/gl.h"
+#include "include/gl_utils.h"
 #include "include/memory_utils.h"
+#include "include/window_utils.h"
 
 #include "../engine.h"
-#include "window_callbacks.h"
-#include "input_controller.h"
-
-#include "include/gl.h"
 
 #include <iostream>
 

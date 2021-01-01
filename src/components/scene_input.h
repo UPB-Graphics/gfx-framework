@@ -1,9 +1,9 @@
 #pragma once
 
+#include "components/simple_scene.h"
+
 #include "core/window/input_controller.h"
 
-
-class SimpleScene;
 
 class SceneInput : public InputController
 {

@@ -1,7 +1,5 @@
 #include "lab1.h"
 
-#include "core/engine.h"
-
 #include <vector>
 #include <iostream>
 

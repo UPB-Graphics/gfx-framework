@@ -1,11 +1,11 @@
 #pragma once
 
+#include "core/gpu/texture2D.h"
+
 #include <unordered_map>
 #include <string>
 #include <vector>
 
-
-class Texture2D;
 
 class TextureManager
 {

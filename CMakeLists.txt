@@ -58,13 +58,10 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
     ${EGXF_ROOT_DIR}/deps/api/libEGXComponents/internal
     #
     ${CMAKE_CURRENT_LIST_DIR}/src
-    ${CMAKE_CURRENT_LIST_DIR}/src/Component
-    ${CMAKE_CURRENT_LIST_DIR}/src/Core
-    ${CMAKE_CURRENT_LIST_DIR}/src/Core/GPU
-    ${CMAKE_CURRENT_LIST_DIR}/src/Core/Managers
-    ${CMAKE_CURRENT_LIST_DIR}/src/Core/Window
+    ${CMAKE_CURRENT_LIST_DIR}/src/component
+    ${CMAKE_CURRENT_LIST_DIR}/src/core
     ${CMAKE_CURRENT_LIST_DIR}/src/include
-    ${CMAKE_CURRENT_LIST_DIR}/src/Laboratoare
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_egc
 )
 
 

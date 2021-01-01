@@ -1,10 +1,13 @@
 #include "mesh.h"
 
-#include "include/memory_utils.h"
+#include "assimp/Importer.hpp"		// C++ importer interface
+#include "assimp/postprocess.h"		// Post processing flags
 
 #include "core/gpu/gpu_buffers.h"
 #include "core/gpu/texture2D.h"
 #include "core/managers/texture_manager.h"
+
+#include "include/memory_utils.h"
 
 using namespace std;
 

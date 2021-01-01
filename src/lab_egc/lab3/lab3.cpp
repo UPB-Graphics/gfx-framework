@@ -1,6 +1,5 @@
 #include "lab3.h"
 
-#include "core/engine.h"
 #include "transform2D.h"
 #include "object2D.h"
 
