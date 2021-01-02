@@ -1,8 +1,5 @@
 #pragma once
 
-#include "core/gpu/mesh.h"
-#include "core/gpu/shader.h"
-
 #include "window/input_controller.h"
 
 
