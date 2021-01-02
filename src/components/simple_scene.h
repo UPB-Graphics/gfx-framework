@@ -20,6 +20,8 @@
 
 class SimpleScene : public World
 {
+	friend class SceneInput;
+
 	public:
 		SimpleScene();
 		~SimpleScene();

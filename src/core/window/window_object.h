@@ -36,6 +36,9 @@ class WindowProperties
 
 class WindowObject
 {
+	friend class InputController;
+	friend class WindowCallbacks;
+
 	public:
 		WindowObject(WindowProperties properties);
 		~WindowObject();

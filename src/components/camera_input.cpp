@@ -1,6 +1,8 @@
 #include "camera_input.h"
 
 #include "include/memory_utils.h"
+#include "include/window_utils.h"
+#include "engine.h"
 
 #include <iostream>
 
