@@ -1,6 +1,7 @@
 #include "texture_manager.h"
 
-#include "include/memory_utils.h"
+#include "utils/memory_utils.h"
+
 #include "core/gpu/texture2D.h"
 #include "core/managers/resource_path.h"
 

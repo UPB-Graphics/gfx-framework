@@ -60,7 +60,7 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src
     ${CMAKE_CURRENT_LIST_DIR}/src/component
     ${CMAKE_CURRENT_LIST_DIR}/src/core
-    ${CMAKE_CURRENT_LIST_DIR}/src/include
+    ${CMAKE_CURRENT_LIST_DIR}/src/utils
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_egc
 )
 

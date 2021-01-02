@@ -1,6 +1,6 @@
 #pragma once
 
-#include "include/gl_utils.h"
+#include "utils/gl_utils.h"
 
 #include <string>
 #include <vector>

@@ -2,8 +2,8 @@
 
 #include "core/gpu/vertex_format.h"
 
-#include "include/gl_utils.h"
-#include "include/glm_utils.h"
+#include "utils/gl_utils.h"
+#include "utils/glm_utils.h"
 
 #include <vector>
 

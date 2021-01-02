@@ -10,11 +10,11 @@
 #include "core/managers/resource_path.h"
 #include "core/managers/texture_manager.h"
 
-#include "include/text_utils.h"
-#include "include/window_utils.h"
-#include "include/memory_utils.h"
-#include "include/gl_utils.h"
-#include "include/math_utils.h"
+#include "utils/text_utils.h"
+#include "utils/window_utils.h"
+#include "utils/memory_utils.h"
+#include "utils/gl_utils.h"
+#include "utils/math_utils.h"
 
 #include <unordered_map>
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "include/glm_utils.h"
-#include "include/math_utils.h"
+#include "utils/glm_utils.h"
+#include "utils/math_utils.h"
 
 
 namespace implemented

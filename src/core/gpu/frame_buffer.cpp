@@ -2,8 +2,8 @@
 
 #include "core/window/window_callbacks.h"
 
-#include "include/gl_utils.h"
-#include "include/memory_utils.h"
+#include "utils/gl_utils.h"
+#include "utils/memory_utils.h"
 
 #include <iostream>
 

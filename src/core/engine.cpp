@@ -1,7 +1,7 @@
 #include "engine.h"
 
-#include "include/gl_utils.h"
-#include "include/window_utils.h"
+#include "utils/gl_utils.h"
+#include "utils/window_utils.h"
 
 #include "core/managers/texture_manager.h"
 

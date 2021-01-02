@@ -2,7 +2,7 @@
 
 #include "core/gpu/mesh.h"
 
-#include "include/glm_utils.h"
+#include "utils/glm_utils.h"
 
 #include <string>
 

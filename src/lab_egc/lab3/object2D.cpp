@@ -2,7 +2,7 @@
 
 #include "core/engine.h"
 
-#include "include/gl_utils.h"
+#include "utils/gl_utils.h"
 
 
 Mesh* object2D::CreateSquare(
