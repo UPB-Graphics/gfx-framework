@@ -1,5 +1,6 @@
 #include "core/engine.h"
 #include "lab_egc/lab_list.h"
+#include "lab_spg/lab_list.h"
 
 #include <ctime>
 #include <iostream>
@@ -23,7 +24,7 @@ int main(int argc, char **argv)
 	WindowObject* window = Engine::Init(wp);
 
 	// Create a new 3D world and start running it
-	World *world = new egc::Laborator1();
+	World *world = new spg::Laborator1();
 	world->Init();
 	world->Run();
 

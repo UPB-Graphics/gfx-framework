@@ -34,6 +34,8 @@ Texture2D::Texture2D()
 	height = 0;
 	channels = 0;
 	textureID = 0;
+	bitsPerPixel = 8;
+	cacheInMemory = false;
 	targetType = GL_TEXTURE_2D;
 	wrappingMode = GL_REPEAT;
 	textureMinFilter = GL_LINEAR;
@@ -56,50 +58,62 @@ void Texture2D::Init(GLuint gpuTextureID, unsigned int width, unsigned int heigh
 	this->channels = channels;
 }
 
-bool Texture2D::Load2D(const char* fileName, GLenum wrapping_mode)
+bool Texture2D::Load2D(const char *fileName, GLenum wrapping_mode)
 {
 	int width, height, chn;
-	unsigned char *data = stbi_load(fileName, &width, &height, &chn, 0);
+	imageData = stbi_load(fileName, &width, &height, &chn, 0);
 
-	if (data == NULL) {
-		#ifdef DEBUG_INFO
+	if (imageData == NULL) {
+#ifdef DEBUG_INFO
 		cout << "ERROR loading texture: " << file_name << endl << endl;
-		#endif
+#endif
 		return false;
 	}
 
-	#ifdef DEBUG_INFO
+#ifdef DEBUG_INFO
 	cout << "Loaded " << file_name << endl;
 	cout << width << " * " << height << " channels: " << chn << endl << endl;
-	#endif
+#endif
 
 	textureMinFilter = GL_LINEAR_MIPMAP_LINEAR;
 	wrappingMode = wrapping_mode;
 
 	Init2DTexture(width, height, chn);
-	glTexImage2D(targetType, 0, internalFormat[0][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_BYTE, data);
+	glTexImage2D(targetType, 0, internalFormat[0][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_BYTE, imageData);
 	glGenerateMipmap(targetType);
 	glBindTexture(targetType, 0);
 	CheckOpenGLError();
 
-	stbi_image_free(data);
+	if (cacheInMemory == false)
+	{
+		stbi_image_free(imageData);
+	}
+
 	return true;
 }
 
-void Texture2D::SaveToFile(const char * fileName) const
+void Texture2D::SaveToFile(const char *fileName)
 {
-	unsigned char *data = new unsigned char[width * height * channels];
+	if (imageData == nullptr)
+	{
+		imageData = new unsigned char[width * height * channels];
+	}
 	glBindTexture(targetType, textureID);
-	glGetTexImage(targetType, 0, pixelFormat[channels], GL_UNSIGNED_BYTE, (void*)data);
+	glGetTexImage(targetType, 0, pixelFormat[channels], GL_UNSIGNED_BYTE, (void *)imageData);
 
-	stbi_write_png(fileName, width, height, channels, data, width * channels);
-	SAFE_FREE_ARRAY(data);
+	stbi_write_png(fileName, width, height, channels, imageData, width * channels);
+}
+
+void Texture2D::CacheInMemory(bool state)
+{
+	cacheInMemory = state;
 }
 
 void Texture2D::UploadNewData(const uchar *img)
 {
 	Bind();
 	glTexSubImage2D(targetType, 0, 0, 0, width, height, pixelFormat[channels], GL_UNSIGNED_BYTE, img);
+	glGenerateMipmap(targetType);
 	UnBind();
 }
 
@@ -107,20 +121,65 @@ void Texture2D::UploadNewData(const ushort *img)
 {
 	Bind();
 	glTexSubImage2D(targetType, 0, 0, 0, width, height, pixelFormat[channels], GL_UNSIGNED_SHORT, img);
+	glGenerateMipmap(targetType);
 	UnBind();
 }
 
-void Texture2D::Create(const unsigned char* img, int width, int height, int chn)
+void Texture2D::Create(const unsigned char *img, int width, int height, int chn)
 {
 	Init2DTexture(width, height, chn);
-	glTexImage2D(targetType, 0, internalFormat[0][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_BYTE, (void*)img);
+	glTexImage2D(targetType, 0, internalFormat[0][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_BYTE, (void *)img);
 	UnBind();
 }
 
-void Texture2D::CreateU16(const unsigned short* img, int width, int height, int chn)
+void Texture2D::CreateU16(const unsigned short *img, int width, int height, int chn)
 {
 	Init2DTexture(width, height, chn);
-	glTexImage2D(targetType, 0, internalFormat[1][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_SHORT, (void*)img);
+	glTexImage2D(targetType, 0, internalFormat[1][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_SHORT, (void *)img);
+	UnBind();
+}
+
+void Texture2D::CreateCubeTexture(const float *data, uint width, uint height, uint chn)
+{
+	this->width = width;
+	this->height = height;
+	targetType = GL_TEXTURE_CUBE_MAP;
+
+	glDeleteTextures(1, &textureID);
+	glGenTextures(1, &textureID);
+
+	glBindTexture(targetType, textureID);
+	glTexParameteri(targetType, GL_TEXTURE_MIN_FILTER, textureMinFilter);
+	glTexParameteri(targetType, GL_TEXTURE_MAG_FILTER, textureMagFilter);
+	glTexParameteri(targetType, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(targetType, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(targetType, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	//	glTexStorage2D(GL_TEXTURE_CUBE_MAP, 1, internalFormat[3][chn], width, height);
+
+	for (int i = 0; i < 6; i++)
+	{
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat[3][chn], width, height, 0, pixelFormat[chn], GL_FLOAT, NULL);
+	}
+
+	UnBind();
+}
+
+void Texture2D::CreateFrameBufferTexture(uint width, uint height, uint targetID, uint precision)
+{
+	bitsPerPixel = precision;
+	int prec = precision / 8 - 1;
+	Init2DTexture(width, height, 4);
+	glTexImage2D(targetType, 0, internalFormat[prec][4], width, height, 0, pixelFormat[4], GL_UNSIGNED_BYTE, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + targetID, GL_TEXTURE_2D, textureID, 0);
+	UnBind();
+}
+
+void Texture2D::CreateDepthBufferTexture(uint width, uint height)
+{
+	Init2DTexture(width, height, 1);
+	glTexImage2D(targetType, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, textureID, 0);
 	UnBind();
 }
 
@@ -161,10 +220,20 @@ unsigned int Texture2D::GetHeight() const
 	return height;
 }
 
-void Texture2D::GetSize(unsigned int &width,unsigned int &height) const
+void Texture2D::GetSize(unsigned int &width, unsigned int &height) const
 {
 	width = this->width;
 	height = this->height;
+}
+
+unsigned char *Texture2D::GetImageData() const
+{
+	return imageData;
+}
+
+unsigned int Texture2D::GetNrChannels() const
+{
+	return channels;
 }
 
 void Texture2D::SetWrappingMode(GLenum mode)

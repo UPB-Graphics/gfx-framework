@@ -8,6 +8,7 @@
 #include "core/gpu/shader.h"
 #include "core/gpu/texture2D.h"
 #include "core/managers/resource_path.h"
+#include "core/managers/texture_manager.h"
 
 #include "include/text_utils.h"
 #include "include/window_utils.h"
@@ -26,6 +27,8 @@ class SimpleScene : public World
 		SimpleScene();
 		~SimpleScene();
 
+		bool ToggleGroundPlane();
+
 	protected:
 		virtual void AddMeshToList(Mesh *mesh);
 		virtual void DrawCoordinatSystem();
@@ -42,6 +45,8 @@ class SimpleScene : public World
 		virtual void ReloadShaders() const final;
 		virtual egx::comp::Camera* GetSceneCamera() const final;
 		virtual InputController* GetCameraInput() const final;
+
+		void ClearScreen();
 
 	private:
 		void InitResources();
