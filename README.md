@@ -1,4 +1,4 @@
-# EGX Framework - WORK IN PROGRESS, NOT FOR MERGING
+# EGX Framework
 
 ## :sparkles: Introduction
 
@@ -121,7 +121,11 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
 
 1.  `mkdir build`
 2.  `cd build`
-3.  Generate the project: `cmake ..`
+3.  Generate the project:
+    -   for EGC (default): `cmake ..`
+    -   for SPG: `cmake .. -DWITH_LAB_EGC=0 -DWITH_LAB_SPG=1`
+    -   for both: `cmake ..  -DWITH_LAB_SPG=1`
+    -   for none (`SimpleScene` only): `cmake .. -DWITH_LAB_EGC=0`
 4.  Build the project:
     -   Windows, one of the following:
         -   `cmake --build .`
@@ -147,6 +151,20 @@ You can run the project from an IDE, as well as standalone, from anywhere on dis
 
 -   Linux and macOS:
     -   `./bin/Debug/EGXFramework`
+
+To run a certain lab:
+
+-   go into `main.cpp`
+-   find this line:
+    ```cpp
+    World *world = new SimpleScene();
+    ```
+-   replace it with whatever you want to run, for example:
+    ```cpp
+    World *world = new egc::Laborator1();
+    World *world = new spg::Laborator1();
+    // etc.
+    ```
 
 
 ## :wrench: Contributing
