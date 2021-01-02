@@ -1,5 +1,5 @@
-#ifndef LIBEGXC_LIBEGXC_H
-#define LIBEGXC_LIBEGXC_H
+#ifndef LIBEGXCOMP_LIBEGXCOMP_H
+#define LIBEGXCOMP_LIBEGXCOMP_H
 
 #include "internal/components/camera.h"
 #include "internal/components/transform.h"

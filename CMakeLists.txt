@@ -87,7 +87,7 @@ file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
 # Gather the include directories
 set(EGXF_INCLUDE_DIRS_PRIVATE
     ${EGXF_ROOT_DIR}/deps/api
-    ${EGXF_ROOT_DIR}/deps/api/libEGXComponents/internal
+    ${EGXF_ROOT_DIR}/deps/api/libEGXComp/internal
     #
     ${CMAKE_CURRENT_LIST_DIR}/src
     ${CMAKE_CURRENT_LIST_DIR}/src/component
@@ -124,14 +124,14 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.lib
         ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3dll.lib
         ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComponents/${__cmake_arch}/Release/libEGXComponents.lib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.lib
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(${target_name} PRIVATE
         GLEW
         glfw
         assimp
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComponents/${__cmake_arch}/Release/libEGXComponents.so
+        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.so
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     # Fix linking on 10.14+. See https://stackoverflow.com/questions/54068035
@@ -142,7 +142,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
         GLEW
         glfw
         assimp
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComponents/${__cmake_arch}/Release/libEGXComponents.dylib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.dylib
     )
 endif()
 
@@ -220,7 +220,7 @@ function(post_build)
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.dll       ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3.dll      ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.dll   ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComponents/${__cmake_arch}/Release/libEGXComponents.dll ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.dll ${output_dir}
         )
     else()
         add_custom_command(TARGET ${target_name} POST_BUILD

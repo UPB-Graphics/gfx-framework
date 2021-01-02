@@ -1,5 +1,5 @@
-#ifndef LIBEGXC_CAMERA_H
-#define LIBEGXC_CAMERA_H
+#ifndef LIBEGXCOMP_CAMERA_H
+#define LIBEGXCOMP_CAMERA_H
 
 #include "../exports.h"
 #include "../glm_wrapper.h"
@@ -29,7 +29,7 @@ namespace egx
 			bool isPerspective;
 		};
 
-		class LIBEGXC_API Camera
+		class LIBEGXCOMP_API Camera
 		{
 		public:
 			Camera();

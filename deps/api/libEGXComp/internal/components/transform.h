@@ -1,5 +1,5 @@
-#ifndef LIBEGXC_TRANSFORM_H
-#define LIBEGXC_TRANSFORM_H
+#ifndef LIBEGXCOMP_TRANSFORM_H
+#define LIBEGXCOMP_TRANSFORM_H
 
 #include "../exports.h"
 #include "../glm_wrapper.h"
@@ -11,7 +11,7 @@ namespace egx
 {
 	namespace comp
 	{
-		class LIBEGXC_API Transform
+		class LIBEGXCOMP_API Transform
 		{
 		public:
 			Transform();
