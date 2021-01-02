@@ -3,16 +3,17 @@
 
 ## General
 
--   The official channel of contact is Github, which is used for code review,
-    issues, suggestions, and long term discussions.
+-   The official contact for project development is Github, which is used for
+    code review, issues, suggestions, and long term discussions.
 -   By making a contribution to this project, you agree to
     [Developer's Certificate of Origin 1.1](https://developercertificate.org/).
 
 
 ## Sending patches
 
--   Make a Github pull request.
--   Never send patches to any of the developers' email addresses.
+-   For small changes, send a pull request through GitHub
+-   For bigger changes, talk to us first before you start working on them.
+    It will make code review easier for both parties later on.
 -   Be sure to ***test your changes*** on as many platforms as possible. If
     you didn't, or you only did on some platforms, make sure to say so in the
     commit message and the pull request text.
