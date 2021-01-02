@@ -1,7 +1,7 @@
 #pragma once
 
-#include <include/gl_utils.h>
-#include <include/glm_utils.h>
+#include "utils/gl_utils.h"
+#include "utils/glm_utils.h"
 
 #include "components/camera.h"
 #include "components/transform.h"

@@ -106,12 +106,12 @@ void SimpleScene::AddMeshToList(Mesh * mesh)
 	}
 }
 
-void SimpleScene::DrawCoordinatSystem()
+void SimpleScene::DrawCoordinateSystem()
 {
-	DrawCoordinatSystem(camera->GetViewMatrix(), camera->GetProjectionMatrix());
+	DrawCoordinateSystem(camera->GetViewMatrix(), camera->GetProjectionMatrix());
 }
 
-void SimpleScene::DrawCoordinatSystem(const glm::mat4 & viewMatrix, const glm::mat4 & projectionMaxtix)
+void SimpleScene::DrawCoordinateSystem(const glm::mat4 & viewMatrix, const glm::mat4 & projectionMaxtix)
 {
 	glLineWidth(1);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -279,4 +279,10 @@ bool SimpleScene::ToggleGroundPlane()
 {
 	drawGroundPlane = !drawGroundPlane;
 	return drawGroundPlane;
+}
+
+void SimpleScene::Update(float deltaTimeSeconds)
+{
+	ClearScreen();
+	DrawCoordinateSystem();
 }

@@ -86,7 +86,7 @@ void Laborator5::Update(float deltaTimeSeconds)
 
 void Laborator5::FrameEnd()
 {
-	DrawCoordinatSystem(camera->GetViewMatrix(), projectionMatrix);
+	DrawCoordinateSystem(camera->GetViewMatrix(), projectionMatrix);
 }
 
 void Laborator5::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & modelMatrix)

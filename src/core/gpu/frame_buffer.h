@@ -3,7 +3,7 @@
 #include "core/gpu/shader.h"
 #include "core/gpu/texture2D.h"
 
-#include <include/glm_utils.h>
+#include "utils/glm_utils.h"
 
 #include <vector>
 

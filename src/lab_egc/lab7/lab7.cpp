@@ -107,7 +107,7 @@ void Laborator7::Update(float deltaTimeSeconds)
 
 void Laborator7::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 void Laborator7::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix, const glm::vec3 &color)

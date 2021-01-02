@@ -137,7 +137,7 @@ void Laborator5::Update(float deltaTimeSeconds)
 
 void Laborator5::FrameEnd()
 {
-	//DrawCoordinatSystem();
+	//DrawCoordinateSystem();
 }
 
 void Laborator5::LoadShader(std::string name, bool hasGeomtery)

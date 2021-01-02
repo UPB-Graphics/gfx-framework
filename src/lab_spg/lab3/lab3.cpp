@@ -120,7 +120,7 @@ void Laborator3::DrawScene()
 
 void Laborator3::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 // Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or

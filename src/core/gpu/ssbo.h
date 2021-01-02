@@ -1,7 +1,7 @@
 #pragma once
 
-#include <include/gl_utils.h>
-#include <include/memory_utils.h>
+#include "utils/gl_utils.h"
+#include "utils/memory_utils.h"
 
 
 template <class StorageEntry>

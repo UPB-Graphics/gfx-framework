@@ -31,8 +31,8 @@ class SimpleScene : public World
 
 	protected:
 		virtual void AddMeshToList(Mesh *mesh);
-		virtual void DrawCoordinatSystem();
-		virtual void DrawCoordinatSystem(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMaxtix);
+		virtual void DrawCoordinateSystem();
+		virtual void DrawCoordinateSystem(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMaxtix);
 
 		virtual void RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
 		virtual void RenderMesh(Mesh * mesh, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
@@ -50,6 +50,7 @@ class SimpleScene : public World
 
 	private:
 		void InitResources();
+		void Update(float deltaTimeSeconds) override;
 
 	protected:
 		std::unordered_map<std::string, Mesh*> meshes;

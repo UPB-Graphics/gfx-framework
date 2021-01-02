@@ -79,7 +79,7 @@ void Laborator4::Update(float deltaTimeSeconds)
 
 void Laborator4::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 void Laborator4::OnInputUpdate(float deltaTime, int mods)

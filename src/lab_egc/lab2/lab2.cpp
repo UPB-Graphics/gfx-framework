@@ -135,7 +135,7 @@ void Laborator2::Update(float deltaTimeSeconds)
 
 void Laborator2::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 void Laborator2::OnInputUpdate(float deltaTime, int mods)

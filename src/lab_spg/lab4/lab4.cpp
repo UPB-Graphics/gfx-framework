@@ -132,7 +132,7 @@ void Laborator4::Update(float deltaTimeSeconds)
 
 void Laborator4::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 unsigned int Laborator4::UploadCubeMapTexture(const std::string &posx, const std::string &posy, const std::string &posz, const std::string& negx, const std::string& negy, const std::string& negz)

@@ -105,7 +105,7 @@ void Laborator7::Update(float deltaTimeSeconds)
 
 void Laborator7::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 void Laborator7::OnFileSelected(std::string fileName)

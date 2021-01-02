@@ -158,7 +158,7 @@ void Laborator6::Update(float deltaTimeSeconds)
 
 void Laborator6::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 void Laborator6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix)

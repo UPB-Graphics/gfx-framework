@@ -24,8 +24,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(${EGXF_ROOT_DIR}/cmake/utils.cmake)
 custom_set_build_type()
 
+
 # Fix to hide a bug in CMake. Hopefully able to be removed in the future.
 set(CMAKE_POLICY_DEFAULT_CMP0012 NEW)
+
 
 # Set path to detector scripts, then find and include the required packages
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${EGXF_ROOT_DIR}/cmake)
@@ -41,14 +43,44 @@ if (NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
 endif()
 
 
+# Set options
+option(WITH_LAB_EGC "With EGC labs" ON)
+option(WITH_LAB_SPG "With SPG labs" ON)
+
+
+# Set the suffixes for directories, depending on how we want to include
+# sources and headers for different courses. If the suffix variables remain
+# empty, the GLOB_RECURSE will look for files in the directory called `lab_`
+# which does not actually exist, but will not fail.
+if (WITH_LAB_EGC)
+    set(SUFFIX_LAB_EGC "egc")
+endif()
+if (WITH_LAB_SPG)
+    set(SUFFIX_LAB_SPG "spg")
+endif()
+
+
 # Gather the source files
 file(GLOB_RECURSE EGXF_SOURCES
-    ${CMAKE_CURRENT_LIST_DIR}/src/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/components/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/core/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/utils/*.c*
+    #
+    ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
+    #
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.c*
 )
+
 
 # Gather the header files
 file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}/src/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/components/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/core/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/utils/*.h*
+    #
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.h*
 )
 
 
@@ -61,7 +93,9 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src/component
     ${CMAKE_CURRENT_LIST_DIR}/src/core
     ${CMAKE_CURRENT_LIST_DIR}/src/utils
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_egc
+    #
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}
 )
 
 
@@ -132,6 +166,12 @@ source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES
 # Add definitions (specific to this project)
 # Recommended reading: so@a/24470998/5922876, so@a/11437693/5922876
 set(EGXF_CXX_DEFS       LIBEGXC_EXPORTS GLM_FORCE_SILENT_WARNINGS _CRT_SECURE_NO_WARNINGS)
+if (WITH_LAB_EGC)
+    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_EGC)
+endif()
+if (WITH_LAB_SPG)
+    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_SPG)
+endif()
 target_compile_definitions(${target_name} PRIVATE ${EGXF_CXX_DEFS})
 
 

@@ -1,6 +1,13 @@
 #include "core/engine.h"
-#include "lab_egc/lab_list.h"
-#include "lab_spg/lab_list.h"
+#include "components/simple_scene.h"
+
+#if defined(WITH_LAB_EGC)
+#	include "lab_egc/lab_list.h"
+#endif
+
+#if defined(WITH_LAB_SPG)
+#	include "lab_spg/lab_list.h"
+#endif
 
 #include <ctime>
 #include <iostream>
@@ -24,7 +31,14 @@ int main(int argc, char **argv)
 	WindowObject* window = Engine::Init(wp);
 
 	// Create a new 3D world and start running it
+#if defined(WITH_LAB_EGC)
+	World *world = new egc::Laborator1();
+#elif defined(WITH_LAB_SPG)
 	World *world = new spg::Laborator1();
+#else
+	World *world = new SimpleScene();
+#endif
+
 	world->Init();
 	world->Run();
 

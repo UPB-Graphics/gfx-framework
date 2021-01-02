@@ -56,7 +56,7 @@ void Laborator1::Update(float deltaTimeSeconds)
 
 void Laborator1::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 // Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or

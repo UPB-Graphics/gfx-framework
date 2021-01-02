@@ -136,7 +136,7 @@ void Laborator2::Update(float deltaTimeSeconds)
 
 void Laborator2::FrameEnd()
 {
-	//DrawCoordinatSystem();
+	//DrawCoordinateSystem();
 }
 
 // Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or

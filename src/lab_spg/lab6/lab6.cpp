@@ -232,7 +232,7 @@ void Laborator6::Update(float deltaTimeSeconds)
 
 void Laborator6::FrameEnd()
 {
-	DrawCoordinatSystem();
+	DrawCoordinateSystem();
 }
 
 void Laborator6::LoadShader(std::string name)
