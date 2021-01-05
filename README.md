@@ -3,10 +3,11 @@
 ## :sparkles: Introduction
 
 This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
-It is currently used as teaching and study material for the following courses:
+It is currently used as teaching and study material for a number of courses of increasing complexity:
 
--   Elements of Computer Graphics [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/egc)
--   Graphics Processing Systems [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/spg)
+-   B.Sc. year 3: Introduction to Computer Graphics (*Elemente de Grafică pe Calculator, EGC*) &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/egc)
+-   B.Sc. year 4: Graphics Processing Systems (*Sisteme de Prelucrare Grafică, SPG*) &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/spg)
+-   M.Sc. year 1: Advanced Graphics Programming Techniques (*Programarea Prelucrărilor în Banda Grafică, PPBG*)
 
 It has missing functionality that you will need to implement.
 
@@ -124,7 +125,7 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
 3.  Generate the project:
     -   for EGC (default): `cmake ..`
     -   for SPG: `cmake .. -DWITH_LAB_EGC=0 -DWITH_LAB_SPG=1`
-    -   for both: `cmake ..  -DWITH_LAB_SPG=1`
+    -   for PPBG: `cmake .. -DWITH_LAB_EGC=0 -DWITH_LAB_PPBG=1`
     -   for none (`SimpleScene` only): `cmake .. -DWITH_LAB_EGC=0`
 4.  Build the project:
     -   Windows, one of the following:
@@ -154,15 +155,16 @@ You can run the project from an IDE, as well as standalone, from anywhere on dis
 
 To run a certain lab:
 
--   go into `main.cpp`
--   find this line:
+-   Go into `main.cpp`
+-   Find this line:
     ```cpp
     World *world = new SimpleScene();
     ```
--   replace it with whatever you want to run, for example:
+-   Replace it with whatever you want to run, for example:
     ```cpp
     World *world = new egc::Laborator1();
     World *world = new spg::Laborator1();
+    World *world = new ppbg::Laborator1();
     // etc.
     ```
 
@@ -172,11 +174,12 @@ To run a certain lab:
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more info.
 A future roadmap is ***TBD***.
 
+
 ### Developer documentation
 
 All additional documentation can be found in the `docs` directory. Moving forward, more contents will be listed here as they are added:
 
--   [how to update the Windows dependencies](docs/updating_win_deps.md)
+-   [Updating Windows dependencies](docs/updating_win_deps.md)
 
 
 ## :page_facing_up: License
