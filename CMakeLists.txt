@@ -104,6 +104,13 @@ target_include_directories(EGCFramework PRIVATE ${EGCF_INCLUDE_DIRS_PRIVATE})
 set_source_files_properties(${EGCF_HEADERS_PRIVATE}  PROPERTIES HEADER_FILE_ONLY TRUE)
 
 
+# For Visual Studio, set the working directory and the startup project
+if (MSVC)
+    set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT EGCFramework)
+    set_property(TARGET EGCFramework PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
+
+
 # Group files under logical folders (mainly for IDEs)
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES
     ${EGCF_SOURCES}
