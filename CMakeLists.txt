@@ -149,7 +149,13 @@ endif()
 
 # Set target properties
 target_include_directories(${target_name} PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE})
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${target_name})
+
+
+# For Visual Studio, set the working directory and the startup project
+if (MSVC)
+    set_property(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}" PROPERTY VS_STARTUP_PROJECT ${target_name})
+    set_property(TARGET ${target_name} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
+endif()
 
 
 # Set source file properties
