@@ -92,7 +92,10 @@ Mesh* Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &
 	// TODO: Unbind the VAO
 
 	// Check for OpenGL errors
-	CheckOpenGLError();
+	if (CheckOpenGLError() == GL_INVALID_OPERATION)
+	{
+		cout << "\t[NOTE] : DON'T WORRY! The GL_INVALID_OPERATION error should go away when completing the TODO sections." << std::endl;
+	}
 
 	// Mesh information is saved into a Mesh object
 	meshes[name] = new Mesh(name);

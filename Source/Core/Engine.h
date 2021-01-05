@@ -6,7 +6,7 @@
 
 #include <include/gl.h>
 #include <include/glm.h>
-#include <include/math.h>
+#include <include/math_utils.h>
 #include <include/utils.h>
 
 #include <Core/GPU/GPUBuffers.h>

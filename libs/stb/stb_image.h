@@ -567,6 +567,8 @@ STBIDEF int   stbi_zlib_decode_noheader_buffer(char *obuffer, int olen, const ch
 #include <stdlib.h>
 #include <string.h>
 
+#include <cmath>
+
 #if !defined(STBI_NO_LINEAR) || !defined(STBI_NO_HDR)
 #include <math.h>  // ldexp
 #endif

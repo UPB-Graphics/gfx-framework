@@ -5,6 +5,10 @@
 #include <include/gl.h>
 #include <include/glm.h>
 
+
+class InputController;
+class WindowCallbacks;
+
 class WindowProperties
 {
 	public:
