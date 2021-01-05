@@ -27,7 +27,7 @@ Every time you update a dependency, make sure you also update this list.
 
 | Dependency    | Version
 | :---          | :---
-| libEGC        | private
+| libEGXComp    | private
 | [assimp](https://github.com/assimp/assimp)    | 88e5f341 @ master
 | [glew](https://github.com/nigels-com/glew)    | 3cdab58d @ master
 | [glfw](https://github.com/glfw/glfw)          | 0b9e48fa @ master
@@ -37,7 +37,7 @@ Every time you update a dependency, make sure you also update this list.
 
 ## :bento: Dependencies
 
-### `libEGC`
+### `libEGXComp`
 
 The sources for these binaries are private. If you need builds for a certain architecture, platform etc.,
 file a Github issue and let us know. Even better, try implementing the hidden functionality!

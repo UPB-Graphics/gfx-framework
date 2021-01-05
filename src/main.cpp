@@ -9,6 +9,10 @@
 #	include "lab_spg/lab_list.h"
 #endif
 
+#if defined(WITH_LAB_PPBG)
+#	include "lab_ppbg/lab_list.h"
+#endif
+
 #include <ctime>
 #include <iostream>
 

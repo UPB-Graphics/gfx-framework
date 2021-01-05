@@ -74,7 +74,9 @@ This project requires OpenGL ***version 3.3 core profile***, or newer. If your c
 
     -   Linux, if installed via WSL2: if you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous; for more details, ***TBD***.
 
-    -   macOS: version 10.15 (Catalina) works, even though Apple has deprecated OpenGL. Older versions may work but are untested. Version 11.0 (Big Sur) is untested and might not work.
+    -   macOS:
+        -   Versions 10.9 (Mavericks) through 10.14 (Mojave) should work but are untested.
+        -   Versions 10.15 (Catalina) and 11.0 (Big Sur) should also work, even though Apple has deprecated OpenGL.
 
 ### Install the build tools
 

@@ -46,6 +46,7 @@ endif()
 # Set options
 option(WITH_LAB_EGC "With EGC labs" ON)
 option(WITH_LAB_SPG "With SPG labs" ON)
+option(WITH_LAB_PPBG "With PPBG labs" ON)
 
 
 # Set the suffixes for directories, depending on how we want to include
@@ -57,6 +58,9 @@ if (WITH_LAB_EGC)
 endif()
 if (WITH_LAB_SPG)
     set(SUFFIX_LAB_SPG "spg")
+endif()
+if (WITH_LAB_PPBG)
+    set(SUFFIX_LAB_PPBG "ppbg")
 endif()
 
 
@@ -70,6 +74,7 @@ file(GLOB_RECURSE EGXF_SOURCES
     #
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.c*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_PPBG}/*.c*
 )
 
 
@@ -81,6 +86,7 @@ file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
     #
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_PPBG}/*.h*
 )
 
 
@@ -96,6 +102,7 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
     #
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_PPBG}
 )
 
 
@@ -177,6 +184,9 @@ if (WITH_LAB_EGC)
 endif()
 if (WITH_LAB_SPG)
     set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_SPG)
+endif()
+if (WITH_LAB_PPBG)
+    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_PPBG)
 endif()
 target_compile_definitions(${target_name} PRIVATE ${EGXF_CXX_DEFS})
 
