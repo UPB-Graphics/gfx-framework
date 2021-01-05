@@ -3,7 +3,7 @@
 ## :sparkles: Introduction
 
 This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
-It is currently used as teaching support for the following course:
+It is currently used as teaching and study material for the following courses:
 
 -   Elements of Computer Graphics [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/egc)
 -   Graphics Processing Systems [(course materials, in Romanian)](https://ocw.cs.pub.ro/courses/spg)
@@ -171,6 +171,12 @@ To run a certain lab:
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more info.
 A future roadmap is ***TBD***.
+
+### Developer documentation
+
+All additional documentation can be found in the `docs` directory. Moving forward, more contents will be listed here as they are added:
+
+-   [how to update the Windows dependencies](docs/updating_win_deps.md)
 
 
 ## :page_facing_up: License
