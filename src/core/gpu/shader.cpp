@@ -111,6 +111,14 @@ void Shader::AddShader(const string & shaderFile, GLenum shaderType)
 	shaderFiles.push_back(S);
 }
 
+void Shader::AddShaderCode(const string &shaderCode, GLenum shaderType)
+{
+	ShaderFile S;
+	S.file = shaderCode;
+	S.type = shaderType;
+	shaderCodes.push_back(S);
+}
+
 unsigned int Shader::CreateAndLink()
 {
 	vector<unsigned int> shaders;
@@ -118,6 +126,17 @@ unsigned int Shader::CreateAndLink()
 	// Compile shaders
 	for (auto S : shaderFiles) {
 		auto shaderID = Shader::CreateShader(S.file, S.type);
+		if (shaderID) {
+			shaders.push_back(shaderID);
+		}
+		else {
+			return 0;
+		}
+	}
+
+	for (auto S : shaderCodes)
+	{
+		auto shaderID = Shader::CompileShader(S.file, S.type);
 		if (shaderID) {
 			shaders.push_back(shaderID);
 		}
@@ -167,6 +186,11 @@ unsigned int Shader::CreateShader(const string &shaderFile, GLenum shaderType)
 	file.read(&shader_code[0], shader_code.size());
 	file.close();
 
+	return CompileShader(shader_code, shaderType);
+}
+
+unsigned int Shader::CompileShader(const std::string shaderCode, GLenum shaderType)
+{
 	int infoLogLength = 0;
 	int compileResult = 0;
 	unsigned int glShaderObject;
@@ -178,8 +202,8 @@ unsigned int Shader::CreateShader(const string &shaderFile, GLenum shaderType)
 		return 0;
 	}
 
-	const char *shader_code_ptr = shader_code.c_str();
-	const int shader_code_size = (int) shader_code.size();
+	const char *shader_code_ptr = shaderCode.c_str();
+	const int shader_code_size = (int)shaderCode.size();
 
 	glShaderSource(glShaderObject, 1, &shader_code_ptr, &shader_code_size);
 	glCompileShader(glShaderObject);
@@ -191,11 +215,11 @@ unsigned int Shader::CreateShader(const string &shaderFile, GLenum shaderType)
 		string str_shader_type = "";
 
 		if(shaderType == GL_VERTEX_SHADER)				str_shader_type="VERTEX";
-		#ifndef OPENGL_ES
+#ifndef OPENGL_ES
 		if(shaderType == GL_TESS_CONTROL_SHADER)		str_shader_type="TESS CONTROL";
 		if(shaderType == GL_TESS_EVALUATION_SHADER)		str_shader_type="TESS EVALUATION";
 		if(shaderType == GL_GEOMETRY_SHADER)			str_shader_type="GEOMETRY";
-		#endif
+#endif
 		if(shaderType == GL_FRAGMENT_SHADER)			str_shader_type="FRAGMENT";
 		if(shaderType == GL_COMPUTE_SHADER)				str_shader_type="COMPUTE";
 

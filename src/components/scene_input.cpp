@@ -15,7 +15,7 @@ SceneInput::SceneInput(SimpleScene *scene)
 void SceneInput::OnKeyPress(int key, int mods)
 {
 	if (key == GLFW_KEY_F3)
-		scene->drawGroundPlane = !scene->drawGroundPlane;
+		scene->ToggleGroundPlane();
 
 	if (key == GLFW_KEY_F5)
 		scene->ReloadShaders();

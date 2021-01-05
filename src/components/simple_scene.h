@@ -28,6 +28,7 @@ class SimpleScene : public World
 		~SimpleScene();
 
 		bool ToggleGroundPlane();
+		virtual void ReloadShaders() const final;
 
 	protected:
 		virtual void AddMeshToList(Mesh *mesh);
@@ -42,7 +43,6 @@ class SimpleScene : public World
 
 		virtual void RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 &modelMatrix);
 
-		virtual void ReloadShaders() const final;
 		virtual egx::comp::Camera* GetSceneCamera() const final;
 		virtual InputController* GetCameraInput() const final;
 
