@@ -23,19 +23,19 @@ void Laborator9::Init()
 	// Load textures
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((sourceTextureDir + "grass_bilboard.png").c_str(), GL_REPEAT);
+		texture->Load2D(PATH_JOIN(sourceTextureDir, "grass_bilboard.png").c_str(), GL_REPEAT);
 		mapTextures["grass"] = texture;
 	}
 
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((sourceTextureDir + "crate.jpg").c_str(), GL_REPEAT);
+		texture->Load2D(PATH_JOIN(sourceTextureDir, "crate.jpg").c_str(), GL_REPEAT);
 		mapTextures["crate"] = texture;
 	}
 
 	{
 		Texture2D* texture = new Texture2D();
-		texture->Load2D((sourceTextureDir + "earth.png").c_str(), GL_REPEAT);
+		texture->Load2D(PATH_JOIN(sourceTextureDir, "earth.png").c_str(), GL_REPEAT);
 		mapTextures["earth"] = texture;
 	}
 
