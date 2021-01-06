@@ -20,7 +20,7 @@
 
 -   Fork this repo and make your own.
 -   Make one dedicated branch per feature; if you want to do more than one thing,
-    make more than one branches. We will not merge from your `master`.
+    make more than one branch. We will not merge from your `master`.
 -   Write informative commit messages. See https://chris.beams.io/posts/git-commit/
 -   ***Split an independent change into its own commit.*** This does not mean that
     you should make commits as fine-grained as possible. Commits should form
