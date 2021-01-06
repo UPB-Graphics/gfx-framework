@@ -230,14 +230,11 @@ function(post_build)
         string(REPLACE "/" "\\" OUTPUT_DIR_BS "${output_dir}")
         string(REPLACE "/" "\\" EGXF_ROOT_DIR_BS "${EGXF_ROOT_DIR}")
 
-        # The `rem` command does nothing by itself. In this context, it hides
-        # the failure of the previous command, if it happens. This construct
-        # also allows clang+make compilation on Windows.
         add_custom_command(TARGET ${target_name} POST_BUILD
-            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${res_dir}" || rem
-            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${res_dir}" "${EGXF_ROOT_DIR_BS}\\${res_dir}" || rem
-            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${src_dir}" || rem
-            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${src_dir}" "${EGXF_ROOT_DIR_BS}\\${src_dir}" || rem
+            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${res_dir}"
+            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${res_dir}" "${EGXF_ROOT_DIR_BS}\\${res_dir}"
+            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${src_dir}"
+            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${src_dir}" "${EGXF_ROOT_DIR_BS}\\${src_dir}"
 
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.dll       ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3.dll      ${output_dir}
