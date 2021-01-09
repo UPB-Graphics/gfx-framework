@@ -22,7 +22,7 @@ It's just a technical name for a set of functions that allow you to communicate 
 
 ## Technical choices
 
-### Which API are we using?
+### Which API are we learning?
 
 They generally fall into two broad categories:
 
@@ -41,14 +41,14 @@ This project uses OpenGL, as it's the only one from the current generation that 
 *At least for the time being.* Next-generation standards are slowly but surely replacing the current-generation ones.
 
 
-### Why not use a next-generation API?
+### Why not learn a next-generation API?
 
 You could argue that we should be using, for example, Vulkan. After all, it's slowly becoming the graphics industry standard! As with anything involving standards, however, things are more complicated than they appear. There are several reasons why we're sticking with OpenGL for the near future:
 
--   This project does not focus primarily on learning a certain graphics API. It aims to give you a sense of how a basic graphics application works, and to allow you to learn concepts rather than implementation details. Going forward, you will be able to apply these concepts with any other graphics API or game engine.
+-   This project does not focus primarily on learning a certain graphics API. It aims to give you a sense of how a basic graphics application works, and to allow you to learn concepts rather than implementation details. ***Going forward, you will be able to apply these concepts with any other graphics API or game engine.***
 -   There's a fair chance your computer might not support it. Vulkan has only been around since mid-2010s, which in terms of standards is very, very new.
--   Vulkan is one step lower-level than OpenGL. For practical purposes, you should write an abstraction layer on top of it. Using Vulkan directly for rendering is generally extremely tedious and not the best tool for education. In the future, should this project switch to Vulkan, we will take care to write a simple abstraction layer.
--   There is a current industry effort to implement the OpenGL API on top of Vulkan, [called Zink](ref-zink-article), and more such efforts are expected to appear in the future.
+-   Vulkan is one step lower-level than OpenGL. For any practical purposes, one should write an abstraction layer on top of it. Using Vulkan directly for rendering is generally extremely tedious and not the best tool for education. In the future, should this project switch to Vulkan, we will take care to write a simple abstraction layer over some of its components.
+-   There are currently several industry efforts to implement the OpenGL API on top of Vulkan. OpenGL has been used for decades and is the primary API for non-gaming graphics applications (e.g. CAD software); the time and financial cost of porting these to Vulkan will not allow this transition in the near future.
 
 
 [ref-zink-article]:         https://www.gamingonlinux.com/2020/11/valve-funds-open-source-developer-to-work-on-zink-the-opengl-on-vulkan-driver
