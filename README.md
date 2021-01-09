@@ -9,14 +9,14 @@ It is currently used as teaching and study material for a number of courses of i
 -   Graphics Processing Systems, abbr. ***SPG***, BSc year 4 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/spg)
 -   Advanced Graphics Programming Techniques, abbr. ***PPBG***, MSc year 1
 
-It has missing functionality that you will need to implement.
-
 You can read more about it [in the docs](docs/docs.md).
+
+It has missing and closed-source functionality that you will need to implement.
 
 The code is cross-platform, and you can build it natively on:
 
 -   Windows: i686, x86_64
--   Linux: x86_64
+-   Linux: x86_64, aarch64
 -   macOS: x86_64
 
 Basically, it most likely works on your computer.
