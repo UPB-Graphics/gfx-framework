@@ -4,12 +4,12 @@
 
 ## Overview
 
-### What does it teach?
+### What does it do?
 
 This is a project that aims to give you a basic understanding of:
 
 -   How a graphics API works
--   How you can develop game logic in an object-oriented way
+-   How to develop game logic in an object-oriented way
 -   How algebra and geometry is used in graphics
 -   How to use parallel computing via shaders
 -   And more!

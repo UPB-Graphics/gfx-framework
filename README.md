@@ -11,7 +11,7 @@ It is currently used as teaching and study material for a number of courses of i
 
 It has missing functionality that you will need to implement.
 
-You can read more about it [in the user docs](docs/docs.md).
+You can read more about it [in the docs](docs/docs.md).
 
 The code is cross-platform, and you can build it natively on:
 
