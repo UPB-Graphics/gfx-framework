@@ -158,12 +158,12 @@ void TessellationShader::OnKeyRelease(int key, int mods)
 void TessellationShader::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
 	// add mouse move event
-};
+}
 
 void TessellationShader::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
 	// add mouse button press event
-};
+}
 
 void TessellationShader::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {

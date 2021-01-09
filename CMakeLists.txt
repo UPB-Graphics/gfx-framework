@@ -115,9 +115,17 @@ custom_add_executable(${target_name}
 
 # Detect architecture
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(__cmake_arch x86_64)
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch")
+        set(__cmake_arch aarch64)
+    else()
+        set(__cmake_arch x86_64)
+    endif()
 elseif (CMAKE_SIZEOF_VOID_P EQUAL 4)
-    set(__cmake_arch i686)
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch")
+        set(__cmake_arch armv7)
+    else()
+        set(__cmake_arch i686)
+    endif()
 endif()
 
 
