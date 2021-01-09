@@ -48,4 +48,7 @@ You could argue that we should be using, for example, Vulkan. After all, it's sl
 -   This project does not focus primarily on learning a certain graphics API. It aims to give you a sense of how a basic graphics application works, and to allow you to learn concepts rather than implementation details. Going forward, you will be able to apply these concepts with any other graphics API or game engine.
 -   There's a fair chance your computer might not support it. Vulkan has only been around since mid-2010s, which in terms of standards is very, very new.
 -   Vulkan is one step lower-level than OpenGL. For practical purposes, you should write an abstraction layer on top of it. Using Vulkan directly for rendering is generally extremely tedious and not the best tool for education. In the future, should this project switch to Vulkan, we will take care to write a simple abstraction layer.
--   There is a current effort to implement the OpenGL API on top of Vulkan, called Zink, and more such efforts are expected to appear in the future.
+-   There is a current industry effort to implement the OpenGL API on top of Vulkan, [called Zink](ref-zink-article), and more such efforts are expected to appear in the future.
+
+
+[ref-zink-article]:         https://www.gamingonlinux.com/2020/11/valve-funds-open-source-developer-to-work-on-zink-the-opengl-on-vulkan-driver
