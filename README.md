@@ -177,11 +177,9 @@ See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more info.
 A future roadmap is ***TBD***.
 
 
-### Developer documentation
+## :book: Documentation
 
-All additional documentation can be found in the `docs` directory. Moving forward, more contents will be listed here as they are added:
-
--   [Updating Windows dependencies](docs/updating_win_deps.md)
+All user and developer documentation can be found in the `docs` directory. The top page is [`docs/docs.md`](docs/docs.md).
 
 
 ## :page_facing_up: License
