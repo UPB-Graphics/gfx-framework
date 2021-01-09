@@ -1,3 +1,5 @@
+***[Docs home](../docs.md)***
+
 # Updating Windows dependencies
 
 This is a short guide on how to update the third-party code in the `deps` directory.
@@ -81,6 +83,7 @@ Follow these steps:
     file:   assimp/build-64/bin/Release/assimp.dll  ->      deps/prebuilt/assimp/x86_64/Release
     ```
 
+
 ### `glew`
 
 Follow these steps:
@@ -122,6 +125,7 @@ Follow these steps:
     file:   glew/build-64/bin/Release/glew32.dll    ->      deps/prebuilt/glew/x86_64/Release
     ```
 
+
 ### `glfw`
 
 Follow these steps:
@@ -159,6 +163,7 @@ Follow these steps:
     file:   glfw/build-64/src/Release/glfw3.dll     ->      deps/prebuilt/GLFW/x86_64/Release
     ```
 
+
 ### `glm`
 
 Follow these steps:
@@ -172,6 +177,7 @@ Follow these steps:
     ```
     dir:    glm/glm                                 ->      deps/api
     ```
+
 
 ### `stb` components
 

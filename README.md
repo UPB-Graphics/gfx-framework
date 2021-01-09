@@ -11,6 +11,8 @@ It is currently used as teaching and study material for a number of courses of i
 
 It has missing functionality that you will need to implement.
 
+You can read more about it [in the user docs](docs/docs.md).
+
 The code is cross-platform, and you can build it natively on:
 
 -   Windows: i686, x86_64
@@ -171,15 +173,15 @@ To run a certain lab:
     ```
 
 
+## :book: Documentation
+
+All user and developer documentation can be found in the `docs` directory. The top page is [`docs/docs.md`](docs/docs.md).
+
+
 ## :wrench: Contributing
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more info.
 A future roadmap is ***TBD***.
-
-
-## :book: Documentation
-
-All user and developer documentation can be found in the `docs` directory. The top page is [`docs/docs.md`](docs/docs.md).
 
 
 ## :page_facing_up: License
