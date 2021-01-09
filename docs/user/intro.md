@@ -26,17 +26,17 @@ It's just a technical name for a set of functions that allow you to communicate 
 
 Graphics APIs generally fall into two broad categories:
 
--   Current generation (beginning with mid-1990s, widespread adoption expected until mid-2020s)
-    -   OpenGL (Windows, Linux, macOS)
+-   Current generation: launched in the 2000s, and widespread adoption is expected to last until the 2020s
+    -   OpenGL 3.x/4.x (Windows, Linux, macOS)
     -   OpenGL ES (Android, iOS)
     -   Direct3D 11 (Windows)
 
--   Next generation (beginning with mid-2010s, widespread adoption expected from mid-2020s)
+-   Next generation: launched in the 2010s, and widespread adoption is expected to begin in the 2020s
     -   Vulkan (Windows, Linux, macOS, Android, iOS, consoles, VR/AR devices)
     -   Direct3D 12 (Windows)
     -   Metal (macOS, iOS)
 
-This project uses OpenGL, as it's the only one from the current generation that works on all major desktop systems.
+This project uses OpenGL 3.x/4.x, as it's the only one from the current generation that works on all major desktop systems.
 
 
 ### Why not learn a next-generation API?
