@@ -7,7 +7,6 @@
 #include "core/window/window_callbacks.h"
 
 #include "utils/glm_utils.h"
-#include "utils/window_utils.h"
 
 
 class WindowProperties
@@ -29,6 +28,13 @@ class WindowProperties
     bool hideOnClose;
     bool vSync;
 };
+
+
+/*
+ *  Opaque window handle
+ */
+struct WindowDataImpl;
+typedef WindowDataImpl *WindowData;
 
 /*
  * Class WindowObject
@@ -67,9 +73,6 @@ class WindowObject
     void SetSize(int width, int height);
     glm::ivec2 GetResolution() const;
 
-    // OpenGL State
-    GLFWwindow* GetGLFWWindow() const;
-
     // Window Event
     void PollEvents() const;
 
@@ -105,11 +108,7 @@ class WindowObject
 
  public:
     WindowProperties props;
-    GLFWwindow* window;
-
-    // Native handles
-    void *openglHandle;
-    void *nativeRenderingContext;
+    WindowData window;
 
  private:
     // Frame Time

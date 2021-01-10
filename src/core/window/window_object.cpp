@@ -10,6 +10,14 @@
 #include "utils/memory_utils.h"
 #include "utils/window_utils.h"
 
+/*
+ *  Implementation of the opaque window handle
+ */
+struct WindowDataImpl
+{
+    GLFWwindow *handle;
+};
+
 
 WindowProperties::WindowProperties()
 {
@@ -30,7 +38,8 @@ WindowProperties::WindowProperties()
 WindowObject::WindowObject(WindowProperties properties)
     : props(properties)
 {
-    window = nullptr;
+    window = new WindowDataImpl();
+    window->handle = nullptr;
 
     resizeEvent = false;
     scrollEvent = false;
@@ -52,10 +61,7 @@ WindowObject::WindowObject(WindowProperties properties)
 
     // Init OpenGL Window
     props.fullScreen ? FullScreen() : WindowMode();
-
     SetVSync(props.vSync);
-
-    CheckOpenGLError();
 
     // Set default state
     mouseButtonAction = 0;
@@ -70,14 +76,15 @@ WindowObject::WindowObject(WindowProperties properties)
 
 WindowObject::~WindowObject()
 {
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(window->handle);
+    delete window;
 }
 
 
 void WindowObject::Show()
 {
     props.visible = true;
-    glfwShowWindow(window);
+    glfwShowWindow(window->handle);
     MakeCurrentContext();
 }
 
@@ -85,7 +92,7 @@ void WindowObject::Show()
 void WindowObject::Hide()
 {
     props.visible = false;
-    glfwHideWindow(window);
+    glfwHideWindow(window->handle);
 }
 
 
@@ -105,41 +112,41 @@ bool WindowObject::ToggleVSync()
 
 void WindowObject::Close()
 {
-    props.hideOnClose ? Hide() : glfwSetWindowShouldClose(window, 1);
+    props.hideOnClose ? Hide() : glfwSetWindowShouldClose(window->handle, 1);
 }
 
 
 int WindowObject::ShouldClose() const
 {
-    return glfwWindowShouldClose(window);
+    return glfwWindowShouldClose(window->handle);
 }
 
 
 void WindowObject::ShowPointer()
 {
     hiddenPointer = false;
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetInputMode(window->handle, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
 
 void WindowObject::HidePointer()
 {
     hiddenPointer = true;
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    glfwSetInputMode(window->handle, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 
 
 void WindowObject::DisablePointer()
 {
     hiddenPointer = true;
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window->handle, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 
 void WindowObject::SetWindowPosition(glm::ivec2 position)
 {
     props.position = position;
-    glfwSetWindowPos(window, position.x, position.y);
+    glfwSetWindowPos(window->handle, position.x, position.y);
 }
 
 
@@ -159,7 +166,7 @@ void WindowObject::CenterPointer()
 {
     props.cursorPos.x = props.resolution.x / 2;
     props.cursorPos.y = props.resolution.y / 2;
-    glfwSetCursorPos(window, props.cursorPos.x, props.cursorPos.y);
+    glfwSetCursorPos(window->handle, props.cursorPos.x, props.cursorPos.y);
 }
 
 
@@ -167,7 +174,7 @@ void WindowObject::SetPointerPosition(int mousePosX, int mousePosY)
 {
     props.cursorPos.x = mousePosX;
     props.cursorPos.y = mousePosY;
-    glfwSetCursorPos(window, mousePosX, mousePosY);
+    glfwSetCursorPos(window->handle, mousePosX, mousePosY);
 }
 
 
@@ -190,10 +197,10 @@ void WindowObject::FullScreen()
 {
     GLFWmonitor *monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode *videoDisplay = glfwGetVideoMode(monitor);
-    window = glfwCreateWindow(videoDisplay->width, videoDisplay->height, props.name.c_str(), monitor, NULL);
-    assert(window != nullptr);
+    window->handle = glfwCreateWindow(videoDisplay->width, videoDisplay->height, props.name.c_str(), monitor, NULL);
+    assert(window->handle != nullptr);
 
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(window->handle);
     SetSize(videoDisplay->width, videoDisplay->height);
     resizeEvent = false;
 }
@@ -209,9 +216,9 @@ void WindowObject::WindowMode()
 {
     glfwSetErrorCallback(error_callback);
     if (!glfwInit()) { fprintf(stderr, "Failed to initialize GLFW\n"); }
-    window = glfwCreateWindow(props.resolution.x, props.resolution.y, props.name.c_str(), NULL, NULL);
-    assert(window != nullptr);
-    glfwMakeContextCurrent(window);
+    window->handle = glfwCreateWindow(props.resolution.x, props.resolution.y, props.name.c_str(), NULL, NULL);
+    assert(window->handle != nullptr);
+    glfwMakeContextCurrent(window->handle);
 
     // Centers the window on the primary display
     if (props.centered) {
@@ -241,18 +248,12 @@ void WindowObject::UnsubscribeFromEvents(InputController * IC)
 
 void WindowObject::SetWindowCallbacks()
 {
-    glfwSetWindowCloseCallback(window, WindowCallbacks::OnClose);
-    glfwSetWindowSizeCallback(window, WindowCallbacks::OnResize);
-    glfwSetKeyCallback(window, WindowCallbacks::KeyCallback);
-    glfwSetMouseButtonCallback(window, WindowCallbacks::MouseClick);
-    glfwSetCursorPosCallback(window, WindowCallbacks::CursorMove);
-    glfwSetScrollCallback(window, WindowCallbacks::MouseScroll);
-}
-
-
-GLFWwindow * WindowObject::GetGLFWWindow() const
-{
-    return window;
+    glfwSetWindowCloseCallback(window->handle, WindowCallbacks::OnClose);
+    glfwSetWindowSizeCallback(window->handle, WindowCallbacks::OnResize);
+    glfwSetKeyCallback(window->handle, WindowCallbacks::KeyCallback);
+    glfwSetMouseButtonCallback(window->handle, WindowCallbacks::MouseClick);
+    glfwSetCursorPosCallback(window->handle, WindowCallbacks::CursorMove);
+    glfwSetScrollCallback(window->handle, WindowCallbacks::MouseScroll);
 }
 
 
@@ -383,7 +384,7 @@ void WindowObject::UpdateObservers()
 
     // Continuous events
     for (auto obs : observers) {
-            obs->OnInputUpdate(static_cast<float>(deltaFrameTime), keyMods);
+        obs->OnInputUpdate(static_cast<float>(deltaFrameTime), keyMods);
     }
 
     mouseButtonAction = 0;
@@ -392,15 +393,13 @@ void WindowObject::UpdateObservers()
 
 void WindowObject::MakeCurrentContext() const
 {
-    glfwMakeContextCurrent(window);
-    CheckOpenGLError();
+    glfwMakeContextCurrent(window->handle);
 }
 
 
 void WindowObject::SetSize(int width, int height)
 {
-    glfwSetWindowSize(window, width, height);
-    glViewport(0, 0, width, height);
+    glfwSetWindowSize(window->handle, width, height);
 
     props.resolution = glm::ivec2(width, height);
     props.aspectRatio = float(width) / height;
@@ -416,6 +415,5 @@ glm::ivec2 WindowObject::GetResolution() const
 
 void WindowObject::SwapBuffers() const
 {
-    glfwSwapBuffers(window);
-    CheckOpenGLError();
+    glfwSwapBuffers(window->handle);
 }
