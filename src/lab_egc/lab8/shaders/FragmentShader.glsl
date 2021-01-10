@@ -1,7 +1,7 @@
 #version 330
 
 // Input
-// TODO(student): get color value from vertex shader
+// TODO(student): Get color value from vertex shader
 in vec3 world_position;
 in vec3 world_normal;
 

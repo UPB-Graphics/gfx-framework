@@ -1,7 +1,7 @@
 #version 330
 
 // Input
-// TODO(student): Get values from fragment shader
+// TODO(student): Get values from vertex shader
 
 // Output
 layout(location = 0) out vec4 out_color;

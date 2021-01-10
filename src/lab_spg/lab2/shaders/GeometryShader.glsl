@@ -38,7 +38,7 @@ vec3 bezier(float t)
 }
 
 
-// TODO(student): Try to create a Hermite/B-Spline curve
+// TODO(student): Try to create a Hermite/B-spline curve
 
 
 void main()
