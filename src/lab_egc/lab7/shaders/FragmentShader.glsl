@@ -1,11 +1,14 @@
 #version 330
 
-// TODO: get color value from vertex shader
+// Input
+// TODO(student): get color value from vertex shader
 
+// Output
 layout(location = 0) out vec4 out_color;
+
 
 void main()
 {
-	// TODO: write pixel out color
-	out_color = vec4(1);
+    // TODO(student): write pixel out color
+    out_color = vec4(1);
 }

@@ -84,6 +84,8 @@ file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src/core/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/utils/*.h*
     #
+    ${CMAKE_CURRENT_LIST_DIR}/res/*.glsl
+    #
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EXTRA}/*.h*
