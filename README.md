@@ -29,19 +29,17 @@ This section describes ***what you need to do and install*** before actually bui
 
 ### Install a compiler
 
-The code is written in C++11. Unless you absolutely need to use an older version, we ***strongly*** recommended building the code with the most recent available one.
+The code is written in C++11. We ***strongly*** recommended building the code with the most recent available compiler versions.
 
--   Windows:
-    -   minimum: MSVC++ 14.0, part of Visual Studio 2015
-    -   recommended: MSVC++ 14.2x latest, part of Visual Studio 2019
+-   minimum:
+    -   Windows: MSVC++ 14.0, part of Visual Studio 2015
+    -   Linux: GCC 5
+    -   macOS: clang 4
 
--   Linux:
-    -   minimum: GCC 5
-    -   recommended: GCC latest
-
--   macOS:
-    -   minimum: clang 4
-    -   recommended: clang latest
+-   recommended:
+    -   Windows: MSVC++ 14.2x latest, part of Visual Studio 2019
+    -   Linux: GCC latest
+    -   macOS: clang latest
 
 
 ### Check your graphics capabilities
