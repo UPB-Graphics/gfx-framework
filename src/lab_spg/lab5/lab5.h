@@ -8,7 +8,7 @@
 
 namespace spg
 {
-    class Laborator5 : public SimpleScene
+    class Laborator5 : public egx::comp::SimpleScene
     {
      public:
         Laborator5();

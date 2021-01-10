@@ -22,7 +22,7 @@ namespace extra
         glm::mat4 modelMatrix;
     };
 
-    class ShadowMapping : public SimpleScene
+    class ShadowMapping : public egx::comp::SimpleScene
     {
      public:
         ShadowMapping();
@@ -58,7 +58,7 @@ namespace extra
         int lightMode;
 
         egx::comp::Camera *lightCamera;
-        CameraInput *lightCameraInput;
+        egx::comp::CameraInput *lightCameraInput;
         GameObject *lightObject;
         std::vector<GameObject *> sceneObjects;
 

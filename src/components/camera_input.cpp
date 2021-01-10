@@ -7,13 +7,13 @@
 #include "utils/window_utils.h"
 
 
-CameraInput::CameraInput(egx::comp::Camera *camera)
+egx::comp::CameraInput::CameraInput(Camera *camera)
 {
     this->camera = camera;
 }
 
 
-void CameraInput::OnInputUpdate(float deltaTime, int mods)
+void egx::comp::CameraInput::OnInputUpdate(float deltaTime, int mods)
 {
     if (!window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT)) return;
 
@@ -41,7 +41,7 @@ void CameraInput::OnInputUpdate(float deltaTime, int mods)
 }
 
 
-void CameraInput::OnKeyPress(int key, int mods) {
+void egx::comp::CameraInput::OnKeyPress(int key, int mods) {
     if (mods)
     {
         return;
@@ -54,7 +54,7 @@ void CameraInput::OnKeyPress(int key, int mods) {
 }
 
 
-void CameraInput::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void egx::comp::CameraInput::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     if (window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
     {
@@ -65,7 +65,7 @@ void CameraInput::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 }
 
 
-void CameraInput::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void egx::comp::CameraInput::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     if (IS_BIT_SET(button, GLFW_MOUSE_BUTTON_RIGHT))
     {
@@ -74,7 +74,7 @@ void CameraInput::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 }
 
 
-void CameraInput::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void egx::comp::CameraInput::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     if (IS_BIT_SET(button, GLFW_MOUSE_BUTTON_RIGHT))
     {

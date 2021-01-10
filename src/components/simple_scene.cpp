@@ -7,6 +7,8 @@
 #include "components/scene_input.h"
 #include "components/transform.h"
 
+using namespace egx::comp;
+
 
 SimpleScene::SimpleScene()
 {
@@ -26,9 +28,9 @@ void SimpleScene::InitResources()
 
     drawGroundPlane = true;
 
-    objectModel = new egx::comp::Transform();
+    objectModel = new Transform();
 
-    camera = new egx::comp::Camera();
+    camera = new Camera();
     camera->SetPerspective(60, window->props.aspectRatio, 0.01f, 200);
     camera->m_transform->SetMoveSpeed(2);
     camera->m_transform->SetWorldPosition(glm::vec3(0, 1.6f, 2.5));
@@ -260,7 +262,7 @@ void SimpleScene::ReloadShaders() const
 }
 
 
-egx::comp::Camera * SimpleScene::GetSceneCamera() const
+Camera * SimpleScene::GetSceneCamera() const
 {
     return camera;
 }

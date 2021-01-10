@@ -5,13 +5,13 @@
 #include "components/simple_scene.h"
 
 
-SceneInput::SceneInput(SimpleScene *scene)
+egx::comp::SceneInput::SceneInput(SimpleScene *scene)
 {
     this->scene = scene;
 }
 
 
-void SceneInput::OnKeyPress(int key, int mods)
+void egx::comp::SceneInput::OnKeyPress(int key, int mods)
 {
     if (key == GLFW_KEY_F3)
     {

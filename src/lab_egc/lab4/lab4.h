@@ -5,7 +5,7 @@
 
 namespace egc
 {
-    class Laborator4 : public SimpleScene
+    class Laborator4 : public egx::comp::SimpleScene
     {
      public:
         Laborator4();

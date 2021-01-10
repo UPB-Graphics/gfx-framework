@@ -14,6 +14,7 @@
 #include "core/gpu/ssbo.h"
 
 
+// TODO(developer): Decouple egx::comp components from this class
 template <class T>
 class ParticleEffect
 {

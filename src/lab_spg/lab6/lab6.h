@@ -18,7 +18,7 @@ namespace spg
         float radius;
     };
 
-    class Laborator6 : public SimpleScene
+    class Laborator6 : public egx::comp::SimpleScene
     {
      public:
         Laborator6();

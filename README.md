@@ -173,7 +173,7 @@ To run a certain lab:
 -   Go into `main.cpp`
 -   Find this line:
     ```cpp
-    World *world = new SimpleScene();
+    World *world = new egx::comp::SimpleScene();
     ```
 -   Replace it with whatever you want to run, for example:
     ```cpp

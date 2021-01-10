@@ -113,7 +113,7 @@ void ShadowMapping::Init()
         lightCamera->m_transform->SetMoveSpeed(2);
         lightCamera->Update();
 
-        lightCameraInput = new CameraInput(lightCamera);
+        lightCameraInput = new egx::comp::CameraInput(lightCamera);
         lightCameraInput->SetActive(false);
     }
 }

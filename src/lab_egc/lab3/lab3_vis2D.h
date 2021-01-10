@@ -5,7 +5,7 @@
 
 namespace egc
 {
-    class Laborator3_Vis2D : public SimpleScene
+    class Laborator3_Vis2D : public egx::comp::SimpleScene
     {
      public:
         struct ViewportSpace
