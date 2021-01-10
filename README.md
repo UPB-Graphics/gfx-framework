@@ -147,6 +147,9 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
         -   `cmake --build .`
         -   or just `make`
 
+
+### Rebuilding
+
 Every time you modify source code and want to recompile, ***you only need to follow the last step***.
 
 Every time you add/remove/rename a source code file on disk, ***you need to follow the last two steps***.
