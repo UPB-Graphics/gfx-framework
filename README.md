@@ -26,15 +26,23 @@ Basically, it most likely works on your computer.
 
 This section describes ***what you need to do and install*** before actually building the code.
 
+
 ### Install a compiler
 
-The code is written in C++11 and GLSL. The ***minimum*** versions of major compilers we recommend having are:
+The code is written in C++11. Unless you absolutely need to use an older version, we ***strongly*** recommended building the code with the most recent available one.
 
--   Visual C++ 14.0, part of Visual Studio 2015 (Windows)
--   GCC 8 (Linux)
--   clang 10 (macOS)
+-   Windows:
+    -   minimum: MSVC++ 14.0, part of Visual Studio 2015
+    -   recommended: MSVC++ 14.2x latest, part of Visual Studio 2019
 
-In any case, it is ***strongly*** recommended to build the code with the most recent available versions. Older compiler versions may not fully respect the C++11 standard and may have various bugs.
+-   Linux:
+    -   minimum: GCC 5
+    -   recommended: GCC latest
+
+-   macOS:
+    -   minimum: clang 4
+    -   recommended: clang latest
+
 
 ### Check your graphics capabilities
 
@@ -80,6 +88,7 @@ This project requires OpenGL ***version 3.3 core profile***, or newer. If your c
         -   Versions 10.9 (Mavericks) through 10.14 (Mojave) should work but are untested.
         -   Versions 10.15 (Catalina) and 11.0 (Big Sur) should also work, even though Apple has deprecated OpenGL.
 
+
 ### Install the build tools
 
 This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, a Makefile on Linux, macOS, MinGW; a Visual Studio project on Windows; and so on).
@@ -102,6 +111,7 @@ The minimum compatible version is ***3.16***, however, as with the compilers, it
     1.  `brew install cmake`
 
 After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` (again). Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
+
 
 ### Install the third-party libraries
 
