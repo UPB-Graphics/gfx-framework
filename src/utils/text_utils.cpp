@@ -1,4 +1,6 @@
-#include "text_utils.h"
+#include "utils/text_utils.h"
+
+#include <algorithm>
 
 
 // -------------------------------------------------------------------------

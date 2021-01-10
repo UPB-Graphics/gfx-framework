@@ -1,33 +1,33 @@
 #pragma once
 
-#include "glm_utils.h"
-#include "window_utils.h"
-
-#include "window/input_controller.h"
-#include "window/window_callbacks.h"
-
 #include <string>
 #include <list>
+
+#include "core/window/input_controller.h"
+#include "core/window/window_callbacks.h"
+
+#include "utils/glm_utils.h"
+#include "utils/window_utils.h"
 
 
 class WindowProperties
 {
-	public:
-		WindowProperties();
+ public:
+    WindowProperties();
 
-	public:
-		std::string selfDirPath;
-		std::string name;
-		glm::ivec2 resolution;
-		glm::ivec2 position;
-		glm::ivec2 cursorPos;
-		float aspectRatio;
-		bool resizable;
-		bool visible;
-		bool fullScreen;
-		bool centered;
-		bool hideOnClose;
-		bool vSync;
+ public:
+    std::string selfDirPath;
+    std::string name;
+    glm::ivec2 resolution;
+    glm::ivec2 position;
+    glm::ivec2 cursorPos;
+    float aspectRatio;
+    bool resizable;
+    bool visible;
+    bool fullScreen;
+    bool centered;
+    bool hideOnClose;
+    bool vSync;
 };
 
 /*
@@ -36,117 +36,117 @@ class WindowProperties
 
 class WindowObject
 {
-	friend class InputController;
-	friend class WindowCallbacks;
+    friend class InputController;
+    friend class WindowCallbacks;
 
-	public:
-		WindowObject(WindowProperties properties);
-		~WindowObject();
+ public:
+    explicit WindowObject(WindowProperties properties);
+    ~WindowObject();
 
-		void Show();
-		void Hide();
-		void Close();
-		int ShouldClose() const;
+    void Show();
+    void Hide();
+    void Close();
+    int ShouldClose() const;
 
-		void ShowPointer();
-		void CenterPointer();
-		void SetPointerPosition(int mousePosX, int mousePosY);
-		void HidePointer();
-		void DisablePointer();
+    void ShowPointer();
+    void CenterPointer();
+    void SetPointerPosition(int mousePosX, int mousePosY);
+    void HidePointer();
+    void DisablePointer();
 
-		void SetWindowPosition(glm::ivec2 position);
-		void CenterWindow();
+    void SetWindowPosition(glm::ivec2 position);
+    void CenterWindow();
 
-		void SwapBuffers() const;
-		void SetVSync(bool state);
-		bool ToggleVSync();
+    void SwapBuffers() const;
+    void SetVSync(bool state);
+    bool ToggleVSync();
 
-		void MakeCurrentContext() const;
+    void MakeCurrentContext() const;
 
-		// Window Information
-		void SetSize(int width, int height);
-		glm::ivec2 GetResolution() const;
+    // Window Information
+    void SetSize(int width, int height);
+    glm::ivec2 GetResolution() const;
 
-		// OpenGL State
-		GLFWwindow* GetGLFWWindow() const;
-	
-		// Window Event
-		void PollEvents() const;
+    // OpenGL State
+    GLFWwindow* GetGLFWWindow() const;
 
-		// Get Input State
-		bool KeyHold(int keyCode) const;
-		bool MouseHold(int button) const;
-		int GetSpecialKeyState() const;
-		glm::ivec2 GetCursorPosition() const;
+    // Window Event
+    void PollEvents() const;
 
-		// Update event listeners (key press / mouse move / window events)
-		void UpdateObservers();
+    // Get Input State
+    bool KeyHold(int keyCode) const;
+    bool MouseHold(int button) const;
+    int GetSpecialKeyState() const;
+    glm::ivec2 GetCursorPosition() const;
 
-	protected:
-		// Frame time
-		void ComputeFrameTime();
-		
-		// Window Creation
-		void FullScreen();
-		void WindowMode();
+    // Update event listeners (key press / mouse move / window events)
+    void UpdateObservers();
 
-		// Input Processing
-		void KeyCallback(int key, int scanCode, int action, int mods);
-		void MouseButtonCallback(int button, int action, int mods);
-		void MouseMove(int posX, int posY);
-		void MouseScroll(double offsetX, double offsetY);
+ protected:
+    // Frame time
+    void ComputeFrameTime();
 
-		// Subscribe to receive input events
-		void SubscribeToEvents(InputController * IC);
-		void UnsubscribeFromEvents(InputController * IC);
+    // Window Creation
+    void FullScreen();
+    void WindowMode();
 
-	private:
-		void SetWindowCallbacks();
+    // Input Processing
+    void KeyCallback(int key, int scanCode, int action, int mods);
+    void MouseButtonCallback(int button, int action, int mods);
+    void MouseMove(int posX, int posY);
+    void MouseScroll(double offsetX, double offsetY);
 
-	public:
-		WindowProperties props;
-		GLFWwindow* window;
+    // Subscribe to receive input events
+    void SubscribeToEvents(InputController * IC);
+    void UnsubscribeFromEvents(InputController * IC);
 
-		// Native handles
-		void *openglHandle;
-		void *nativeRenderingContext;
+ private:
+    void SetWindowCallbacks();
 
-	private:
-		// Frame Time
-		unsigned int frameID;
-		double elapsedTime;
-		double deltaFrameTime;
+ public:
+    WindowProperties props;
+    GLFWwindow* window;
 
-		// Window state and events
-		bool hiddenPointer;
-		bool resizeEvent;
+    // Native handles
+    void *openglHandle;
+    void *nativeRenderingContext;
 
-		// Mouse button callback
-		int mouseButtonCallback;			// Bit field for button callback
-		int mouseButtonAction;				// Bit field for button state
-		int mouseButtonStates;				// Bit field for mouse button state
+ private:
+    // Frame Time
+    unsigned int frameID;
+    double elapsedTime;
+    double deltaFrameTime;
 
-		// Mouse move event
-		bool mouseMoveEvent;
-		int mouseDeltaX;
-		int mouseDeltaY;
+    // Window state and events
+    bool hiddenPointer;
+    bool resizeEvent;
 
-		// Mouse scroll event
-		bool scrollEvent;
-		int mouseScrollDeltaX;
-		int mouseScrollDeltaY;
+    // Mouse button callback
+    int mouseButtonCallback;            // Bit field for button callback
+    int mouseButtonAction;              // Bit field for button state
+    int mouseButtonStates;              // Bit field for mouse button state
 
-		// States for keyboard buttons - PRESSED(true) / RELEASED(false)
-		int registeredKeyEvents;
-		int keyEvents[128];
-		bool keyStates[384];
+    // Mouse move event
+    bool mouseMoveEvent;
+    int mouseDeltaX;
+    int mouseDeltaY;
 
-		// Platform specific key codes - PRESSED(true) / RELEASED(false)
-		bool keyScanCode[512];
+    // Mouse scroll event
+    bool scrollEvent;
+    int mouseScrollDeltaX;
+    int mouseScrollDeltaY;
 
-		// Special keys (ALT, CTRL, SHIFT, CAPS LOOK, OS KEY) active alongside with normal key or mouse input
-		int keyMods;	
+    // States for keyboard buttons - PRESSED(true) / RELEASED(false)
+    int registeredKeyEvents;
+    int keyEvents[128];
+    bool keyStates[384];
 
-		// Input Observers
-		std::list<InputController*> observers;
+    // Platform specific key codes - PRESSED(true) / RELEASED(false)
+    bool keyScanCode[512];
+
+    // Special keys (ALT, CTRL, SHIFT, CAPS LOOK, OS KEY) active alongside with normal key or mouse input
+    int keyMods;
+
+    // Input Observers
+    std::list<InputController*> observers;
 };

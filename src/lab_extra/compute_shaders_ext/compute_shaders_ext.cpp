@@ -1,5 +1,6 @@
-#include "compute_shaders_ext.h"
+#include "lab_extra/compute_shaders_ext/compute_shaders_ext.h"
 
+#include <string>
 #include <vector>
 #include <iostream>
 #include <chrono>
@@ -10,312 +11,336 @@ using namespace extra;
 
 static inline GLuint NumGroupSize(int dataSize, int groupSize)
 {
-	return (dataSize + groupSize - 1) / groupSize;
+    return (dataSize + groupSize - 1) / groupSize;
 }
+
 
 static void DispatchCompute(uint sizeX, uint sizeY, uint sizeZ, uint workGroupSize, bool synchronize = true)
 {
-	glDispatchCompute(NumGroupSize(sizeX, workGroupSize), NumGroupSize(sizeY, workGroupSize), NumGroupSize(sizeZ, workGroupSize));
-	if (synchronize) {
-		glMemoryBarrier(GL_ALL_BARRIER_BITS);
-	}
-	CheckOpenGLError();
+    glDispatchCompute(NumGroupSize(sizeX, workGroupSize), NumGroupSize(sizeY, workGroupSize), NumGroupSize(sizeZ, workGroupSize));
+    if (synchronize) {
+        glMemoryBarrier(GL_ALL_BARRIER_BITS);
+    }
+    CheckOpenGLError();
 }
+
 
 // Order of function calling can be seen in "Source/Core/World.cpp::LoopUpdate()"
 // https://github.com/UPB-Graphics/SPG-Framework/blob/master/Source/Core/World.cpp
+
 
 ComputeShadersExt::ComputeShadersExt()
 {
 }
 
+
 ComputeShadersExt::~ComputeShadersExt()
 {
 }
 
+
 void ComputeShadersExt::Init()
 {
-	auto camera = GetSceneCamera();
-	camera->SetPositionAndRotation(glm::vec3(0, 5, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
-	camera->Update();
+    auto camera = GetSceneCamera();
+    camera->SetPositionAndRotation(glm::vec3(0, 5, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
+    camera->Update();
 
-	// Load a mesh from file into GPU memory
-	{
-		Mesh* mesh = new Mesh("sphere");
-		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
-		meshes[mesh->GetMeshID()] = mesh;
-	}
+    // Load a mesh from file into GPU memory
+    {
+        Mesh* mesh = new Mesh("sphere");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
+        meshes[mesh->GetMeshID()] = mesh;
+    }
 
-	{
-		Mesh* mesh = new Mesh("bamboo");
-		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
-		meshes[mesh->GetMeshID()] = mesh;
-	}
+    {
+        Mesh* mesh = new Mesh("bamboo");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
+        meshes[mesh->GetMeshID()] = mesh;
+    }
 
-	{
-		Mesh* mesh = new Mesh("quad");
-		mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
-		mesh->UseMaterials(false);
-		meshes[mesh->GetMeshID()] = mesh;
-	}
+    {
+        Mesh* mesh = new Mesh("quad");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
+        mesh->UseMaterials(false);
+        meshes[mesh->GetMeshID()] = mesh;
+    }
 
-	const string shaderPath = PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::EXTRA, "compute_shaders_ext", "shaders");
+    const string shaderPath = PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::EXTRA, "compute_shaders_ext", "shaders");
 
-	// Create a shader program for rendering to texture
-	{
-		Shader *shader = new Shader("ComputeShadersEx");
-		shader->AddShader(PATH_JOIN(shaderPath, "VertexShader.glsl"), GL_VERTEX_SHADER);
-		shader->AddShader(PATH_JOIN(shaderPath, "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
-		shader->CreateAndLink();
-		shaders[shader->GetName()] = shader;
-	}
+    // Create a shader program for rendering to texture
+    {
+        Shader *shader = new Shader("ComputeShadersEx");
+        shader->AddShader(PATH_JOIN(shaderPath, "VertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
 
-	{
-		Shader *shader = new Shader("FullScreenPass");
-		shader->AddShader(PATH_JOIN(shaderPath, "FullScreenPass.VS.glsl"), GL_VERTEX_SHADER);
-		shader->AddShader(PATH_JOIN(shaderPath, "FullScreenPass.FS.glsl"), GL_FRAGMENT_SHADER);
-		shader->CreateAndLink();
-		shaders[shader->GetName()] = shader;
-	}
+    {
+        Shader *shader = new Shader("FullScreenPass");
+        shader->AddShader(PATH_JOIN(shaderPath, "FullScreenPass.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "FullScreenPass.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
 
-	{
-		Shader *shader = new Shader("Blur");
-		shader->AddShader(PATH_JOIN(shaderPath, "Blur.VS.glsl"), GL_VERTEX_SHADER);
-		shader->AddShader(PATH_JOIN(shaderPath, "Blur.FS.glsl"), GL_FRAGMENT_SHADER);
-		shader->CreateAndLink();
-		shaders[shader->GetName()] = shader;
-	}
+    {
+        Shader *shader = new Shader("Blur");
+        shader->AddShader(PATH_JOIN(shaderPath, "Blur.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "Blur.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
 
-	{
-		Shader *shader = new Shader("ComputeShader");
-		shader->AddShader(PATH_JOIN(shaderPath, "ComputeShader.CS.glsl"), GL_COMPUTE_SHADER);
-		shader->CreateAndLink();
-		shaders[shader->GetName()] = shader;
-	}
+    {
+        Shader *shader = new Shader("ComputeShader");
+        shader->AddShader(PATH_JOIN(shaderPath, "ComputeShader.CS.glsl"), GL_COMPUTE_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
 
-	auto resolution = window->GetResolution();
+    auto resolution = window->GetResolution();
 
-	frameBuffer = new FrameBuffer();
-	frameBuffer->Generate(resolution.x, resolution.y, 3);
+    frameBuffer = new FrameBuffer();
+    frameBuffer->Generate(resolution.x, resolution.y, 3);
 
-	frameBufferBlur = new FrameBuffer();
-	frameBufferBlur->Generate(resolution.x, resolution.y, 1, false, 8);
+    frameBufferBlur = new FrameBuffer();
+    frameBufferBlur->Generate(resolution.x, resolution.y, 1, false, 8);
 
-	textureBlur = new Texture2D();
-	textureBlur->Create(nullptr, resolution.x, resolution.y, 4);
+    textureBlur = new Texture2D();
+    textureBlur->Create(nullptr, resolution.x, resolution.y, 4);
 }
+
 
 void ComputeShadersExt::FrameStart()
 {
-
 }
+
 
 void ComputeShadersExt::Update(float deltaTimeSeconds)
 {
-	angle += 0.5f * deltaTimeSeconds;
+    angle += 0.5f * deltaTimeSeconds;
 
-	ClearScreen();
+    ClearScreen();
 
-	{
-		frameBuffer->Bind();
-		DrawScene();
-	}
+    {
+        frameBuffer->Bind();
+        DrawScene();
+    }
 
-	glFinish();
+    glFinish();
 
-	const int nrTimers = 3;
-	GLuint64 timers[nrTimers];
-	unsigned int queryID[nrTimers];
-	glGenQueries(nrTimers, queryID);
-	
-	glQueryCounter(queryID[0], GL_TIMESTAMP);
+    const int kNrTimers = 3;
+    GLuint64 timers[kNrTimers];
+    unsigned int queryID[kNrTimers];
 
-	{
-		auto tStart = std::chrono::high_resolution_clock::now();
+    glGenQueries(kNrTimers, queryID);
+    glQueryCounter(queryID[0], GL_TIMESTAMP);
 
-		// Blur using a framebuffer
-		{
-			auto shader = shaders["Blur"];
-			shader->Use();
+    {
+        auto tStart = std::chrono::high_resolution_clock::now();
 
-			frameBufferBlur->Bind();
+        // Blur using a framebuffer
+        {
+            auto shader = shaders["Blur"];
+            shader->Use();
 
-			{
-				int locTexture = shader->GetUniformLocation("texture_1");
-				glUniform1i(locTexture, 0);
-				frameBuffer->BindTexture(0, GL_TEXTURE0);
-			}
+            frameBufferBlur->Bind();
 
-			glm::mat4 modelMatrix(1);
-			RenderMesh(meshes["quad"], shader, modelMatrix);
-		}
+            {
+                int locTexture = shader->GetUniformLocation("texture_1");
+                glUniform1i(locTexture, 0);
+                frameBuffer->BindTexture(0, GL_TEXTURE0);
+            }
 
-		//glFinish();
+            glm::mat4 modelMatrix(1);
+            RenderMesh(meshes["quad"], shader, modelMatrix);
+        }
 
-		auto tEnd = std::chrono::high_resolution_clock::now();
-		auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(tEnd - tStart).count();
-		//cout << "FB_Time: " << diff << " ms" << endl;
-	}
+#if 0
+        glFinish();
+#endif
 
-	glQueryCounter(queryID[1], GL_TIMESTAMP);
+        auto tEnd = std::chrono::high_resolution_clock::now();
+        auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(tEnd - tStart).count();
+#if 0
+        cout << "FB_Time: " << diff << " ms" << endl;
+#endif
+    }
 
-	
-	{
-		auto tStart = std::chrono::high_resolution_clock::now();
+    glQueryCounter(queryID[1], GL_TIMESTAMP);
 
-		// Run compute shader
-		{
-			auto shader = shaders["ComputeShader"];
-			shader->Use();
+    {
+        auto tStart = std::chrono::high_resolution_clock::now();
 
-			glm::ivec2 resolution = frameBuffer->GetResolution();
+        // Run compute shader
+        {
+            auto shader = shaders["ComputeShader"];
+            shader->Use();
 
-			glBindImageTexture(0, frameBuffer->GetTextureID(0), 0, GL_FALSE, 0, GL_READ_WRITE, GL_RGBA32F);
-			glBindImageTexture(1, textureBlur->GetTextureID(), 0, GL_FALSE, 0, GL_READ_WRITE, GL_RGBA8);
-			DispatchCompute(resolution.x, resolution.y, 1, 16, true);
-		}
+            glm::ivec2 resolution = frameBuffer->GetResolution();
 
-		//glFinish();
+            glBindImageTexture(0, frameBuffer->GetTextureID(0), 0, GL_FALSE, 0, GL_READ_WRITE, GL_RGBA32F);
+            glBindImageTexture(1, textureBlur->GetTextureID(), 0, GL_FALSE, 0, GL_READ_WRITE, GL_RGBA8);
+            DispatchCompute(resolution.x, resolution.y, 1, 16, true);
+        }
 
-		auto tEnd = std::chrono::high_resolution_clock::now();
-		auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(tEnd - tStart).count();
-		//cout << "CS_Time: " << diff << " ms" << endl;
-	}
+#if 0
+        glFinish();
+#endif
 
-	glQueryCounter(queryID[2], GL_TIMESTAMP);
-	glFinish();
+        auto tEnd = std::chrono::high_resolution_clock::now();
+        auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(tEnd - tStart).count();
+#if 0
+        cout << "CS_Time: " << diff << " ms" << endl;
+#endif
+    }
 
-	for (int i = 0; i < nrTimers; i++)
-	{
-		glGetQueryObjectui64v(queryID[i], GL_QUERY_RESULT, &timers[i]);
-	}
+    glQueryCounter(queryID[2], GL_TIMESTAMP);
+    glFinish();
 
-	printf("Time spent on the GPU FB: %f ms\n", (timers[1] - timers[0]) / 1000000.0);
-	printf("Time spent on the GPU CB: %f ms\n", (timers[2] - timers[1]) / 1000000.0);
+    for (int i = 0; i < kNrTimers; i++)
+    {
+        glGetQueryObjectui64v(queryID[i], GL_QUERY_RESULT, &timers[i]);
+    }
 
-	// Render the scene normaly
+    printf("Time spent on the GPU FB: %f ms\n", (timers[1] - timers[0]) / 1000000.0);
+    printf("Time spent on the GPU CB: %f ms\n", (timers[2] - timers[1]) / 1000000.0);
 
-	FrameBuffer::BindDefault();
+    // Render the scene normaly
 
-	if (fullScreenPass)
-	{
-		{
-			auto shader = shaders["FullScreenPass"];
-			shader->Use();
+    FrameBuffer::BindDefault();
 
-			{
-				int locTexture = shader->GetUniformLocation("texture_1");
-				glUniform1i(locTexture, 0);
-				frameBuffer->BindTexture(0, GL_TEXTURE0);
-			}
+    if (fullScreenPass)
+    {
+        {
+            auto shader = shaders["FullScreenPass"];
+            shader->Use();
 
-			{
-				int locTexture = shader->GetUniformLocation("texture_2");
-				glUniform1i(locTexture, 1);
-				frameBuffer->BindTexture(1, GL_TEXTURE0 + 1);
-			}
+            {
+                int locTexture = shader->GetUniformLocation("texture_1");
+                glUniform1i(locTexture, 0);
+                frameBuffer->BindTexture(0, GL_TEXTURE0);
+            }
 
-			{
-				int locTexture = shader->GetUniformLocation("texture_3");
-				glUniform1i(locTexture, 2);
-				frameBuffer->BindTexture(2, GL_TEXTURE0 + 2);
-			}
+            {
+                int locTexture = shader->GetUniformLocation("texture_2");
+                glUniform1i(locTexture, 1);
+                frameBuffer->BindTexture(1, GL_TEXTURE0 + 1);
+            }
 
-			{
-				int locTexture = shader->GetUniformLocation("texture_4");
-				glUniform1i(locTexture, 3);
-				glActiveTexture(GL_TEXTURE0 + 3);
-				glBindTexture(GL_TEXTURE_2D, textureBlur->GetTextureID());
-			}
+            {
+                int locTexture = shader->GetUniformLocation("texture_3");
+                glUniform1i(locTexture, 2);
+                frameBuffer->BindTexture(2, GL_TEXTURE0 + 2);
+            }
 
-			{
-				int locTexture = shader->GetUniformLocation("texture_5");
-				glUniform1i(locTexture, 4);
-				glActiveTexture(GL_TEXTURE0 + 4);
-				glBindTexture(GL_TEXTURE_2D, frameBufferBlur->GetTextureID(0));
-			}
+            {
+                int locTexture = shader->GetUniformLocation("texture_4");
+                glUniform1i(locTexture, 3);
+                glActiveTexture(GL_TEXTURE0 + 3);
+                glBindTexture(GL_TEXTURE_2D, textureBlur->GetTextureID());
+            }
 
-			int locTextureID = shader->GetUniformLocation("textureID");
-			glUniform1i(locTextureID, textureID);
+            {
+                int locTexture = shader->GetUniformLocation("texture_5");
+                glUniform1i(locTexture, 4);
+                glActiveTexture(GL_TEXTURE0 + 4);
+                glBindTexture(GL_TEXTURE_2D, frameBufferBlur->GetTextureID(0));
+            }
 
-			glm::mat4 modelMatrix(1);
-			RenderMesh(meshes["quad"], shader, modelMatrix);
-		}
-	}
+            int locTextureID = shader->GetUniformLocation("textureID");
+            glUniform1i(locTextureID, textureID);
+
+            glm::mat4 modelMatrix(1);
+            RenderMesh(meshes["quad"], shader, modelMatrix);
+        }
+    }
 }
+
 
 void ComputeShadersExt::DrawScene()
 {
-	for (int i = 0; i < 16; i++)
-	{
-		float rotateAngle = (angle + i) * ((i % 2) * 2 - 1);
-		glm::vec3 position = glm::vec3(-4 + (i % 4) * 2.5, 0, -2 + (i / 4) * 2.5);
+    for (int i = 0; i < 16; i++)
+    {
+        float rotateAngle = (angle + i) * ((i % 2) * 2 - 1);
+        glm::vec3 position = glm::vec3(-4 + (i % 4) * 2.5, 0, -2 + (i / 4) * 2.5);
 
-		glm::mat4 modelMatrix = glm::translate(glm::mat4(1), position);
-		modelMatrix = glm::rotate(modelMatrix, rotateAngle, glm::vec3(0, 1, 0));
-		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f));
+        glm::mat4 modelMatrix = glm::translate(glm::mat4(1), position);
+        modelMatrix = glm::rotate(modelMatrix, rotateAngle, glm::vec3(0, 1, 0));
+        modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f));
 
-		RenderMesh(meshes["bamboo"], shaders["ComputeShadersEx"], modelMatrix);
-	}
+        RenderMesh(meshes["bamboo"], shaders["ComputeShadersEx"], modelMatrix);
+    }
 }
+
 
 void ComputeShadersExt::FrameEnd()
 {
-	DrawCoordinateSystem();
+    DrawCoordinateSystem();
 }
+
 
 // Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or
 // https://github.com/UPB-Graphics/SPG-Framework/blob/master/Source/Core/Window/InputController.h
 
+
 void ComputeShadersExt::OnInputUpdate(float deltaTime, int mods)
 {
-	// treat continuous update based on input
+    // treat continuous update based on input
 }
+
 
 void ComputeShadersExt::OnKeyPress(int key, int mods)
 {
-	// add key press event
-	if (key == GLFW_KEY_F)
-	{
-		fullScreenPass = !fullScreenPass;
-	}
+    // add key press event
+    if (key == GLFW_KEY_F)
+    {
+        fullScreenPass = !fullScreenPass;
+    }
 
-	for (int i = 1; i < 9; i++)
-	{
-		if (key == GLFW_KEY_0 + i)
-		{
-			textureID = i - 1;
-		}
-	}
+    for (int i = 1; i < 9; i++)
+    {
+        if (key == GLFW_KEY_0 + i)
+        {
+            textureID = i - 1;
+        }
+    }
 }
+
 
 void ComputeShadersExt::OnKeyRelease(int key, int mods)
 {
-	// add key release event
+    // add key release event
 }
+
 
 void ComputeShadersExt::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-	// add mouse move event
+    // add mouse move event
 }
+
 
 void ComputeShadersExt::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-	// add mouse button press event
+    // add mouse button press event
 }
+
 
 void ComputeShadersExt::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-	// add mouse button release event
+    // add mouse button release event
 }
+
 
 void ComputeShadersExt::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-	// treat mouse scroll event
+    // treat mouse scroll event
 }
+
 
 void ComputeShadersExt::OnWindowResize(int width, int height)
 {
-	frameBuffer->Resize(width, height, 32);
-	// treat window resize event
+    frameBuffer->Resize(width, height, 32);
+    // treat window resize event
 }

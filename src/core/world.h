@@ -5,28 +5,28 @@
 
 class World : public InputController
 {
-	public:
-		World();
-		virtual ~World() {};
-		virtual void Init() {};
-		virtual void FrameStart() {};
-		virtual void Update(float deltaTimeSeconds) {};
-		virtual void FrameEnd() {};
+ public:
+    World();
+    virtual ~World() {}
+    virtual void Init() {}
+    virtual void FrameStart() {}
+    virtual void Update(float deltaTimeSeconds) {}
+    virtual void FrameEnd() {}
 
-		virtual void Run() final;
-		virtual void Pause() final;
-		virtual void Exit() final;
+    void Run();
+    void Pause();
+    void Exit();
 
-		virtual double GetLastFrameTime() final;
+    double GetLastFrameTime();
 
-	private:
-		void ComputeFrameDeltaTime();
-		void LoopUpdate();
+ private:
+    void ComputeFrameDeltaTime();
+    void LoopUpdate();
 
-	private:
-		double previousTime;
-		double elapsedTime;
-		double deltaTime;
-		bool paused;
-		bool shouldClose;
+ private:
+    double previousTime;
+    double elapsedTime;
+    double deltaTime;
+    bool paused;
+    bool shouldClose;
 };

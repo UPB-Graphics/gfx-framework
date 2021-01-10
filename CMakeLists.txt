@@ -87,6 +87,10 @@ file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EXTRA}/*.h*
+    #
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.glsl
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.glsl
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EXTRA}/*.glsl
 )
 
 
@@ -96,13 +100,6 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
     ${EGXF_ROOT_DIR}/deps/api/libEGXComp/internal
     #
     ${CMAKE_CURRENT_LIST_DIR}/src
-    ${CMAKE_CURRENT_LIST_DIR}/src/component
-    ${CMAKE_CURRENT_LIST_DIR}/src/core
-    ${CMAKE_CURRENT_LIST_DIR}/src/utils
-    #
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EXTRA}
 )
 
 
@@ -203,11 +200,11 @@ target_compile_definitions(${target_name} PRIVATE ${EGXF_CXX_DEFS})
 # Recommended reading: so@a/23995391/5922876
 if (MSVC)
     set(EGXF_CXX_FLAGS  /W4 /WX-)
-    # TODO fix these warnings
+    # TODO(developer): Fix these warnings
     set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS} /wd4100 /wd4458 /wd4189 /wd4244)
 else()
     set(EGXF_CXX_FLAGS  -Wall -Wextra -pedantic -Wno-error)
-    # TODO fix these warnings
+    # TODO(developer): Fix these warnings
     if (CMAKE_C_COMPILER_ID MATCHES "GNU")
         set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
                                                 -Wno-deprecated-copy
