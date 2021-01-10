@@ -74,10 +74,10 @@ void Laborator9::Init()
     {
         vector<glm::vec3> vertices
         {
-            glm::vec3(0.5f,   0.5f, 0.0f),    // Top Right
-            glm::vec3(0.5f,  -0.5f, 0.0f),    // Bottom Right
-            glm::vec3(-0.5f, -0.5f, 0.0f),    // Bottom Left
-            glm::vec3(-0.5f,  0.5f, 0.0f),    // Top Left
+            glm::vec3(0.5f,   0.5f, 0.0f),    // top right
+            glm::vec3(0.5f,  -0.5f, 0.0f),    // bottom right
+            glm::vec3(-0.5f, -0.5f, 0.0f),    // bottom left
+            glm::vec3(-0.5f,  0.5f, 0.0f),    // top left
         };
 
         vector<glm::vec3> normals
@@ -270,31 +270,31 @@ void Laborator9::OnInputUpdate(float deltaTime, int mods)
 
 void Laborator9::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
 }
 
 
 void Laborator9::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator9::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator9::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator9::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 

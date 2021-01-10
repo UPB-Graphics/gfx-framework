@@ -196,31 +196,31 @@ void Laborator8::OnInputUpdate(float deltaTime, int mods)
 
 void Laborator8::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
 }
 
 
 void Laborator8::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator8::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator8::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator8::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 

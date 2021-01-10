@@ -96,7 +96,7 @@ void Laborator4::OnInputUpdate(float deltaTime, int mods)
 
 void Laborator4::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
     if (key == GLFW_KEY_SPACE)
     {
         switch (polygonMode)
@@ -117,25 +117,25 @@ void Laborator4::OnKeyPress(int key, int mods)
 
 void Laborator4::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator4::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator4::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator4::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 

@@ -174,25 +174,25 @@ void Laborator2::OnKeyPress(int key, int mods)
 
 void Laborator2::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 

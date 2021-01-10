@@ -76,44 +76,44 @@ void Laborator1::OnInputUpdate(float deltaTime, int mods)
 
 void Laborator1::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
     if (key == GLFW_KEY_F) {
-        // do something
+        // TODO(student): Do something here
     }
 }
 
 
 void Laborator1::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 
 void Laborator1::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-    // treat mouse scroll event
+    // Treat mouse scroll event
 }
 
 
 void Laborator1::OnWindowResize(int width, int height)
 {
-    // treat window resize event
+    // Treat window resize event
 }

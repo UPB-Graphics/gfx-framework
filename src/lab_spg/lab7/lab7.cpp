@@ -171,13 +171,13 @@ void Laborator7::SaveImage(std::string fileName)
 
 void Laborator7::OnInputUpdate(float deltaTime, int mods)
 {
-    // treat continuous update based on input
+    // Treat continuous update based on input
 }
 
 
 void Laborator7::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
     if (key == GLFW_KEY_F || key == GLFW_KEY_ENTER || key == GLFW_KEY_SPACE)
     {
         OpenDialogue();
@@ -218,35 +218,35 @@ void Laborator7::OnKeyPress(int key, int mods)
 
 void Laborator7::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator7::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator7::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator7::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 
 void Laborator7::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-    // treat mouse scroll event
+    // Treat mouse scroll event
 }
 
 
 void Laborator7::OnWindowResize(int width, int height)
 {
-    // treat window resize event
+    // Treat window resize event
 }

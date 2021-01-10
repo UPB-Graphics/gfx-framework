@@ -166,7 +166,9 @@ void Texture2D::CreateCubeTexture(const float *data, uint width, uint height, ui
     glTexParameteri(targetType, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(targetType, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-    //    glTexStorage2D(GL_TEXTURE_CUBE_MAP, 1, internalFormat[3][chn], width, height);
+#if 0
+    glTexStorage2D(GL_TEXTURE_CUBE_MAP, 1, internalFormat[3][chn], width, height);
+#endif
 
     for (int i = 0; i < 6; i++)
     {

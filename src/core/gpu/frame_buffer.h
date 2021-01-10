@@ -42,7 +42,7 @@ class FrameBuffer
     Texture2D *depthTexture;
 
     unsigned int FBO;
-    unsigned int *DrawBuffers;        // TEST IF IS NECESSARY TO DECLARE
+    unsigned int *DrawBuffers;          // TODO(developer): test if is necessary to declare
     unsigned int depthRenderbuffer;
 
     int width;

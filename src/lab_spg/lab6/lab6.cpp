@@ -263,13 +263,13 @@ void Laborator6::LoadShader(std::string name)
 
 void Laborator6::OnInputUpdate(float deltaTime, int mods)
 {
-    // treat continuous update based on input
+    // Treat continuous update based on input
 }
 
 
 void Laborator6::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
     int index = key - GLFW_KEY_0;
     if (index >= 0 && index <= 9) {
         outputType = index;
@@ -279,37 +279,37 @@ void Laborator6::OnKeyPress(int key, int mods)
 
 void Laborator6::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator6::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator6::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator6::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 
 void Laborator6::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-    // treat mouse scroll event
+    // Treat mouse scroll event
 }
 
 
 void Laborator6::OnWindowResize(int width, int height)
 {
-    // treat window resize event
+    // Treat window resize event
     frameBuffer->Resize(width, height, 32);
     lightBuffer->Resize(width, height, 32);
 }

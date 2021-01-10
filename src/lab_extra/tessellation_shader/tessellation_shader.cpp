@@ -114,7 +114,7 @@ void TessellationShader::FrameEnd()
 
 void TessellationShader::OnInputUpdate(float deltaTime, int mods)
 {
-    // treat continuous update based on input
+    // Treat continuous update based on input
 }
 
 
@@ -165,35 +165,35 @@ void TessellationShader::OnKeyPress(int key, int mods)
 
 void TessellationShader::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void TessellationShader::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void TessellationShader::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void TessellationShader::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 
 void TessellationShader::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-    // treat mouse scroll event
+    // Treat mouse scroll event
 }
 
 
 void TessellationShader::OnWindowResize(int width, int height)
 {
-    // treat window resize event
+    // Treat window resize event
 }

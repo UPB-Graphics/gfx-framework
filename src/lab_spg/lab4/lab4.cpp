@@ -192,47 +192,47 @@ unsigned int Laborator4::UploadCubeMapTexture(const std::string &posx, const std
 
 void Laborator4::OnInputUpdate(float deltaTime, int mods)
 {
-    // treat continuous update based on input
+    // Treat continuous update based on input
 }
 
 
 void Laborator4::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
 }
 
 
 void Laborator4::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator4::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator4::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator4::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 
 void Laborator4::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-    // treat mouse scroll event
+    // Treat mouse scroll event
 }
 
 
 void Laborator4::OnWindowResize(int width, int height)
 {
-    // treat window resize event
+    // Treat window resize event
 }

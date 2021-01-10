@@ -23,7 +23,7 @@ void TextureManager::Init(const std::string &selfDirPath)
 #if 0
 TextureManager::~TextureManager()
 {
-    // delete textures
+    // Delete textures
     unsigned int size = (unsigned int) vTextures.size();
     for (unsigned int i=0; i <size; ++i)
         SAFE_FREE(vTextures[i]);

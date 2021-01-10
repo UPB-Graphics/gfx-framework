@@ -11,15 +11,15 @@ struct VertexFormat
         glm::vec2 text_coord = glm::vec2(0))
         : position(position), normal(normal), text_coord(text_coord), color(color) { }
 
-    // position of the vertex
+    // Position of the vertex
     glm::vec3 position;
 
-    // vertex normal
+    // Vertex normal
     glm::vec3 normal;
 
-    // vertex texture coordinate
+    // Vertex texture coordinates
     glm::vec2 text_coord;
 
-    // vertex color
+    // Vertex color
     glm::vec3 color;
 };

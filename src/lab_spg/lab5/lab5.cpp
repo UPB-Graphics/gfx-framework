@@ -174,7 +174,7 @@ void Laborator5::LoadShader(std::string name, bool hasGeomtery)
 
 void Laborator5::OnInputUpdate(float deltaTime, int mods)
 {
-    // treat continuous update based on input
+    // Treat continuous update based on input
 }
 
 
@@ -185,35 +185,35 @@ void Laborator5::OnKeyPress(int key, int mods)
 
 void Laborator5::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void Laborator5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void Laborator5::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void Laborator5::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 
 void Laborator5::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-    // treat mouse scroll event
+    // Treat mouse scroll event
 }
 
 
 void Laborator5::OnWindowResize(int width, int height)
 {
-    // treat window resize event
+    // Treat window resize event
 }

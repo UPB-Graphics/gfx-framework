@@ -122,9 +122,9 @@ class WindowObject
     bool resizeEvent;
 
     // Mouse button callback
-    int mouseButtonCallback;            // Bit field for button callback
-    int mouseButtonAction;              // Bit field for button state
-    int mouseButtonStates;              // Bit field for mouse button state
+    int mouseButtonCallback;            // bit field for button callback
+    int mouseButtonAction;              // bit field for button state
+    int mouseButtonStates;              // bit field for mouse button state
 
     // Mouse move event
     bool mouseMoveEvent;

@@ -287,13 +287,13 @@ void ComputeShadersExt::FrameEnd()
 
 void ComputeShadersExt::OnInputUpdate(float deltaTime, int mods)
 {
-    // treat continuous update based on input
+    // Treat continuous update based on input
 }
 
 
 void ComputeShadersExt::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
     if (key == GLFW_KEY_F)
     {
         fullScreenPass = !fullScreenPass;
@@ -311,36 +311,36 @@ void ComputeShadersExt::OnKeyPress(int key, int mods)
 
 void ComputeShadersExt::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void ComputeShadersExt::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void ComputeShadersExt::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void ComputeShadersExt::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 
 void ComputeShadersExt::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
-    // treat mouse scroll event
+    // Treat mouse scroll event
 }
 
 
 void ComputeShadersExt::OnWindowResize(int width, int height)
 {
     frameBuffer->Resize(width, height, 32);
-    // treat window resize event
+    // Treat window resize event
 }

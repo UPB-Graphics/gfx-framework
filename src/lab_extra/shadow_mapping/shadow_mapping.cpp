@@ -325,7 +325,7 @@ void ShadowMapping::OnInputUpdate(float deltaTime, int mods)
 
 void ShadowMapping::OnKeyPress(int key, int mods)
 {
-    // add key press event
+    // Add key press event
     if (key == GLFW_KEY_C)
     {
         bool controlCamera = GetCameraInput()->IsActive();
@@ -343,25 +343,25 @@ void ShadowMapping::OnKeyPress(int key, int mods)
 
 void ShadowMapping::OnKeyRelease(int key, int mods)
 {
-    // add key release event
+    // Add key release event
 }
 
 
 void ShadowMapping::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
-    // add mouse move event
+    // Add mouse move event
 }
 
 
 void ShadowMapping::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button press event
+    // Add mouse button press event
 }
 
 
 void ShadowMapping::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
-    // add mouse button release event
+    // Add mouse button release event
 }
 
 

@@ -21,7 +21,7 @@ SimpleScene::~SimpleScene()
 
 void SimpleScene::InitResources()
 {
-    // sets common GL states
+    // Sets common GL states
     glClearColor(0, 0, 0, 1);
 
     drawGroundPlane = true;
@@ -165,7 +165,7 @@ void SimpleScene::RenderMesh(Mesh * mesh, Shader * shader, glm::vec3 position, g
     if (!mesh || !shader || !shader->program)
         return;
 
-    // render an object using the specified shader and the specified position
+    // Render an object using the specified shader and the specified position
     shader->Use();
     glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
     glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
@@ -219,7 +219,7 @@ void SimpleScene::RenderMesh2D(Mesh * mesh, const glm::mat3 & modelMatrix, const
         0.f, 0.f, mm[2][2], 0.f,
         mm[2][0], mm[2][1], 0.f, 1.f);
 
-    // render an object using the specified shader and the specified position
+    // Render an object using the specified shader and the specified position
     shader->Use();
     glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
     glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
@@ -235,7 +235,7 @@ void SimpleScene::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & mod
     if (!mesh || !shader || !shader->program)
         return;
 
-    // render an object using the specified shader and the specified position
+    // Render an object using the specified shader and the specified position
     shader->Use();
     glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
     glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
@@ -276,13 +276,13 @@ void SimpleScene::ClearScreen()
 {
     glm::ivec2 resolution = window->props.resolution;
 
-    // sets the clear color for the color buffer
+    // Sets the clear color for the color buffer
     glClearColor(0, 0, 0, 1);
 
-    // clears the color buffer (using the previously set color) and depth buffer
+    // Clears the color buffer (using the previously set color) and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // sets the screen area where to draw
+    // Sets the screen area where to draw
     glViewport(0, 0, resolution.x, resolution.y);
 }
 
