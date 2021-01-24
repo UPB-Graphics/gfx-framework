@@ -1,11 +1,12 @@
 # Documentation
 
-Welcome! This is the home page for developer documentation (in the `dev` directory) and user documentation (in the `user` directory).
+Welcome! This is the home page for user documentation (in the `user` directory) and developer documentation (in the `dev` directory).
 
 
 ## User documentation
 
 -   [Introduction](user/intro.md)
+-   [Checking the graphics capabilities](user/check_capabilities.md)
 
 
 ## Developer documentation
