@@ -48,7 +48,7 @@ Graphics capabilities are decided by the combination of your computer's hardware
 
 This project requires OpenGL ***version 3.3 core profile***, or newer. If your computer has a processor manufactured within the last few years, you should be safe: a modern CPU has [graphics capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. If you have a dedicated graphics card, you should be even safer.
 
-***If you're not sure,*** follow the steps in [this guide](docs/user/check_capabilities.md) to find out.
+***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
 
 
 ### Install the build tools
