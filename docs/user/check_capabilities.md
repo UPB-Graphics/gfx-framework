@@ -1,4 +1,6 @@
-# Checking the graphics capabilities
+-   **[Docs home](../docs.md)**
+
+# Checking your graphics capabilities
 
 
 1.  Update your graphics drivers. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
@@ -31,7 +33,7 @@
             OpenGL core profile version string: 3.3 (Core Profile) Mesa 20.0.8
             ```
 
-    -   Linux, if installed via WSL2: if you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous; for more details, ***TBD***.
+    -   Linux, if installed via WSL2: if you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous, and you should only try it if you know what you're doing. For more details, check the documentation.
 
     -   macOS:
         -   Versions 10.9 (Mavericks) through 10.14 (Mojave) should work but are untested.

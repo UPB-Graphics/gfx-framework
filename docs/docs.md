@@ -6,7 +6,7 @@ Welcome! This is the home page for user documentation (in the `user` directory) 
 ## User documentation
 
 -   [Introduction](user/intro.md)
--   [Checking the graphics capabilities](user/check_capabilities.md)
+-   [Checking your graphics capabilities](user/check_capabilities.md)
 
 
 ## Developer documentation
