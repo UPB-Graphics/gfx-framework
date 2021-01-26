@@ -100,7 +100,7 @@ That's it! :tada:
 
 ## :hammer_and_wrench: Installing other Linux distros
 
-At the time of writing this guide, Fedora and Arch don't have official pacjages in the Microsoft Store, yet. We expect that this will change in the future.
+At the time of writing this guide, Fedora and Arch don't have official packages in the Microsoft Store, yet. We expect that this will change in the future.
 
 If you ***really*** want to go deeper, you can install these via WSL2 as well. What follows is a series of instructions that may or may not work for you. ***By using them, you agree to do so at your own risk.***
 
