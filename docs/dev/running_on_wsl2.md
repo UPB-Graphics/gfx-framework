@@ -84,7 +84,7 @@ Follow these steps:
         ```
     3.  Optionally, run a random graphical application to check that everything works. For example:
         ```sh
-        sudo apt install mesa-utils         # Debian (Ubuntu)
+        sudo apt install -y mesa-utils      # Debian (Ubuntu)
         sudo dnf -y install glx-utils       # Red Hat (Fedora)
         sudo pacman -Sy mesa-demos          # Arch (x86_64)
 
@@ -102,15 +102,31 @@ That's it! :tada:
 
 At the time of writing this guide, Fedora and Arch don't have official packages in the Microsoft Store, yet. We expect that this will change in the future.
 
-If you ***really*** want to go deeper, you can install these via WSL2 as well. What follows is a series of instructions that may or may not work for you. ***By using them, you agree to do so at your own risk.***
+If you ***really*** want to go deeper, you can install these via WSL2 as well. For this to work, keep in mind that you need to already have an existing WSL2 Linux distribution, such as, you guessed it, Ubuntu. What follows is a series of instructions that may or may not work for you. ***By using them, you agree to do so at your own risk.***
 
 
 ### WSL2 Fedora
 
 Use the following instructions as a starting point:
 
-1.  Use [this guide][ref-wsl-fedora]
-2.  Install any missing graphics drivers:
+1.  Download the image from here: https://github.com/fedora-cloud/docker-brew-fedora/tree/33/x86_64
+2.  Prepare the image, from an already existing Linux terminal:
+    ```sh
+    unxz fedora-33.20210106-x86_64.tar.xz
+    mv fedora-33.20210106-x86_64.tar fedora-33.tar
+    ```
+3.  Install and start the image, from a Windows terminal:
+    ```bat
+    mkdir c:\distros
+    wsl --import fedora-33 c:\distros\fedora-33 fedora-33.tar
+    wsl -d fedora-33
+    ```
+4.  Install basic stuff:
+    ```sh
+    sudo dnf check-update
+    sudo dnf -y install wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils
+    ```
+5.  Install any missing graphics drivers:
     ```sh
     sudo dnf -y install mesa-dri-drivers
     ```
@@ -120,29 +136,28 @@ Use the following instructions as a starting point:
 
 Use the following instructions as a starting point:
 
-1.  Prepare the image:
-    ```sh
+1.  Download the image from here: 
+2.  Prepare the image, from an already existing Linux terminal:
+    ```bat
     sudo tar xzf archlinux-bootstrap-2020.12.01-x86_64.tar.gz
     sudo tar czf arch-2020.12.01.tar.gz -C root.x86_64/ $(cd root.x86_64/ && ls)
     sudo rm -rf root.x86_64/
     sudo rm archlinux-bootstrap-2020.12.01-x86_64.tar.gz
     ```
-
-2.  Install and start the image, from a Windows terminal:
+3.  Install and start the image, from a Windows terminal:
     ```bat
-    wsl --import arch-2020.12.01 "C:\wsl_images\arch-2020.12.01" arch-2020.12.01.tar.gz
+    mkdir c:\distros
+    wsl --import arch-2020.12.01 "c:\distros\arch-2020.12.01" arch-2020.12.01.tar.gz
     wsl -d arch-2020.12.01
     ```
-
-3.  Set up the package sources:
+4.  Set up the package sources:
     ```sh
     cd ~
     curl -s "https://git.archlinux.org/pacman-contrib.git/plain/src/rankmirrors.sh.in" > rankmirrors.sh
     chmod +x rankmirrors.sh
     curl -s "https://archlinux.org/mirrorlist/?country=US&protocol=http&protocol=https&ip_version=4" | cut -b 2- | ./rankmirrors.sh -n 10 - > /etc/pacman.d/mirrorlist
     ```
-
-4.  Configure the distribution:
+5.  Install basic stuff:
     ```sh
     pacman -Syu
     pacman -Sy base-devel
@@ -154,4 +169,3 @@ Use the following instructions as a starting point:
 [ref-ms-wsl]:           https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
 [ref-ms-wsl-req]:       https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-2---check-requirements-for-running-wsl-2
 [ref-askubuntu-wsl]:    https://askubuntu.com/a/1177730
-[ref-fedora-wsl]:       https://fedoramagazine.org/wsl-fedora-33/
