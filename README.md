@@ -9,7 +9,7 @@ It is currently used as teaching and study material for a number of courses of i
 -   Graphics Processing Systems, abbr. ***SPG***, BSc year 4 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/spg)
 -   Advanced Graphics Programming Techniques, abbr. ***PPBG***, MSc year 1
 
-You can read more about it [in the docs](docs/docs.md).
+You can read more about it [in the docs](docs/home.md).
 
 It has missing and closed-source functionality that you will need to implement.
 
@@ -150,7 +150,7 @@ To run a certain lab:
 
 ## :book: Documentation
 
-All user and developer documentation can be found in the `docs` directory. The top page is [`docs/docs.md`](docs/docs.md).
+All user and developer documentation can be found in the `docs` directory. The top page is [`docs/home.md`](docs/home.md).
 
 
 ## :wrench: Contributing

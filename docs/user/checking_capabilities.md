@@ -1,4 +1,4 @@
--   **[Docs home](../docs.md)**
+-   **[Docs home](../home.md)**
 
 # Checking your graphics capabilities
 

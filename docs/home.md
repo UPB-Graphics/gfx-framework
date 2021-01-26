@@ -1,4 +1,4 @@
-# Documentation
+# Home
 
 Welcome! This is the home page for user documentation (in the `user` directory) and developer documentation (in the `dev` directory).
 
