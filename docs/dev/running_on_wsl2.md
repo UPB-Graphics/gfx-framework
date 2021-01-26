@@ -18,7 +18,7 @@ This is a short guide on how to run this project on WSL2. This is arguably the m
 
 Follow these steps:
 
-1.  Follow steps 1 through 5 in [this Microsoft guide][ref-ms-wsl]. ***Carefully read everything*** before you proceed to follow the steps therein. In particular, check that you have the right version of Windows 10.
+1.  Follow steps 1 through 5 in [this Microsoft guide][ref-ms-wsl]. ***Carefully read everything*** before you proceed to follow the steps therein.
 2.  At step 6 in the Microsoft guide, choose and install your preferred Linux distribution:
     -   Debian (Ubuntu): just install the latest Ubuntu you can find in the Microsoft Store
     -   Red Hat (Fedora): ***not recommended***. See `Installing other Linux distros` in this guide
@@ -53,13 +53,13 @@ Follow these steps:
     ```sh
     sudo apt update                         # Debian (Ubuntu)
     sudo dnf check-update                   # Red Hat (Fedora)
-    pacman -Syy                             # Arch (x86_64)
+    sudo pacman -Syy                        # Arch (x86_64)
     ```
 5.  Install `xinit`:
     ```sh
     sudo apt install -y xinit              # Debian (Ubuntu)
     sudo dnf -y install xinit              # Red Hat (Fedora)
-    pacman -Sy xorg-xinit                  # Arch (x86_64)
+    sudo pacman -Sy xorg-xinit             # Arch (x86_64)
     ```
 
 
@@ -86,7 +86,7 @@ Follow these steps:
         ```sh
         sudo apt install mesa-utils         # Debian (Ubuntu)
         sudo dnf -y install glx-utils       # Red Hat (Fedora)
-        pacman -Sy mesa-demos               # Arch (x86_64)
+        sudo pacman -Sy mesa-demos          # Arch (x86_64)
 
         glxgears
         ```
@@ -98,9 +98,11 @@ Follow these steps:
 That's it! :tada:
 
 
-## Installing other Linux distros
+## :hammer_and_wrench: Installing other Linux distros
 
-If you want to go even deeper, you can install other distributions such as Fedora or Arch. What follows is a series of instructions that may or may not work for you. ***By using them, you agree to do so at your own risk.*** In the future, we expect that these distros will have their own packages on the Microsoft Store.
+At the time of writing this guide, Fedora and Arch don't have official pacjages in the Microsoft Store, yet. We expect that this will change in the future.
+
+If you ***really*** want to go deeper, you can install these via WSL2 as well. What follows is a series of instructions that may or may not work for you. ***By using them, you agree to do so at your own risk.***
 
 
 ### WSL2 Fedora

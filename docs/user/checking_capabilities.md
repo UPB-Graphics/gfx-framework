@@ -6,7 +6,10 @@
 This guide assumes that your drivers are up-to-date, so before you do anything, please ***update your graphics drivers***. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
 
 
-# Finding what OpenGL versions your device supports
+## Finding supported OpenGL versions
+
+Use the steps this section to find out what OpenGL versions your device supports.
+
 
 ## Windows
 
@@ -21,6 +24,7 @@ This guide assumes that your drivers are up-to-date, so before you do anything, 
     ```
     [WGL] OpenGL (core profile) version string: 4.6.0 - Build 27.20.100.8681
     ```
+
 
 ## Linux, if installed directly on device, or in a virtual machine
 
@@ -37,9 +41,11 @@ This guide assumes that your drivers are up-to-date, so before you do anything, 
     OpenGL core profile version string: 3.3 (Core Profile) Mesa 20.0.8
     ```
 
+
 ## Linux, if installed via WSL2
 
 If you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2. This option is slightly more adventurous, and you should generally only try it if you know what you're doing. For more details, check the documentation.
+
 
 ## macOS
 
