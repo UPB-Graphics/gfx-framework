@@ -2,7 +2,11 @@
 
 # Running on WSL2
 
-This is a short guide on how to run this project on WSL2. This is arguably the most powerful method for project development, as it allows you to run Windows and Linux executables side by side. To avoid breaking your computer, please only attempt this method if you know what you're doing.
+## :information_source: Why would I want this?
+
+If you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2.
+
+This is arguably the most powerful method for project development, as it allows you to run Windows and Linux executables side by side. To avoid breaking your computer, please only attempt this method if you know what you're doing.
 
 
 ## :white_check_mark: Prerequisites
@@ -100,9 +104,11 @@ That's it! :tada:
 
 ## :hammer_and_wrench: Installing other Linux distros
 
+***This section is optional. Follow this section at your own risk.***
+
 At the time of writing this guide, Fedora and Arch don't have official packages in the Microsoft Store, yet. We expect that this will change in the future.
 
-If you ***really*** want to go deeper, you can install these via WSL2 as well. For this to work, keep in mind that you need to already have an existing WSL2 Linux distribution, such as, you guessed it, Ubuntu. What follows is a series of instructions that may or may not work for you. ***By using them, you agree to do so at your own risk.***
+If you want to go deeper, you can install these via WSL2 as well. For this to work, keep in mind that you need to already have an existing WSL2 Linux distribution, such as, you guessed it, Ubuntu. What follows is a series of instructions that may or may not work for you.
 
 
 ### WSL2 Fedora
