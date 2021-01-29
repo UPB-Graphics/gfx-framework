@@ -2,13 +2,14 @@
 
 # Checking your graphics capabilities
 
-
-This guide assumes that your drivers are up-to-date, so before you do anything, please ***update your graphics drivers***. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
+First things first, ***update your graphics drivers***. This guide assumes that your drivers are up-to-date. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
 
 
 ## Finding supported OpenGL versions
 
-Use the steps this section to find out what OpenGL versions your device supports.
+If your computer has a processor manufactured within the last few years, you should be safe: a modern CPU has [graphics capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. If you have a dedicated graphics card, you should be even safer.
+
+Use the steps in this section to find out what OpenGL versions your device supports.
 
 
 ## Windows
@@ -26,7 +27,7 @@ Use the steps this section to find out what OpenGL versions your device supports
     ```
 
 
-## Linux, if installed directly on device, or in a virtual machine
+## Linux
 
 1.  Run one of the following scripts:
     -   Debian (Ubuntu): `sudo apt install -y mesa-utils`
@@ -51,3 +52,7 @@ If you have Windows and want to use (or develop) this project on Linux, but don'
 
 -   Versions 10.9 (Mavericks) through 10.14 (Mojave) are expected to work out-of-the-box.
 -   Versions 10.15 (Catalina) and 11.0 (Big Sur) are also expected to work, even though Apple has deprecated OpenGL.
+
+
+[ref-igp-wiki]:         https://en.wikipedia.org/wiki/Graphics_processing_unit#Integrated_graphics_processing_unit
+[ref-intelhd-wiki]:     https://en.wikipedia.org/wiki/Intel_Graphics_Technology

@@ -28,33 +28,30 @@ This section describes ***what you need to do and install*** before actually bui
 
 ### Install a compiler
 
-The code is written in C++11. We ***strongly*** recommend building the code with the most recent available compiler versions.
-
--   minimum:
+-   Minimum:
     -   Windows: Visual Studio 2015 Update 3 with `Programming Languages -> Visual C++` checked when installing
-    -   Linux: GCC 5
-    -   macOS: clang 4
+    -   Linux: `gcc` 5
+    -   macOS: `clang` 4
 
--   recommended:
+-   ***Strongly*** recommended:
     -   Windows: Visual Studio 2019 with `Workloads -> Desktop development with C++` checked when installing
-    -   Linux: GCC latest
-    -   macOS: clang latest
+    -   Linux: `gcc` latest
+    -   macOS: `clang` latest
+        -   either use `brew install llvm` or install XCode
 
 
 ### Check your graphics capabilities
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
-This project requires OpenGL ***version 3.3 core profile***, or newer. If your computer has a processor manufactured within the last few years, you should be safe: a modern CPU has [graphics capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. If you have a dedicated graphics card, you should be even safer.
-
-***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+This project requires OpenGL ***version 3.3 core profile***, or newer. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
 
 
 ### Install the build tools
 
-This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, a Makefile on Linux, macOS, MinGW; a Visual Studio project on Windows; and so on).
+This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, it creates a Makefile on Linux and macOS, a Visual Studio project on Windows, and so on).
 
-The minimum compatible version is ***3.16***, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install CMake, follow these steps:
+The minimum compatible version is ***3.16***, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install it, follow these steps:
 
 -   Windows:
     1.  Go to the [CMake downloads page][ref-cmake-dl]
@@ -65,13 +62,13 @@ The minimum compatible version is ***3.16***, however, as with the compilers, it
     1.  Use your package manager to install `cmake`
     2.  Check the version using `cmake --version`
     3.  Depending on the version:
-        -   If it's the minimum required (see above), you're all set
-        -   Otherwise, run `./tools/install-cmake.sh && . ~/.profile` in a terminal
+        -   if it's the minimum required (see above), you're all set
+        -   otherwise, run `./tools/install-cmake.sh && . ~/.profile` in a terminal
 
 -   macOS:
     1.  `brew install cmake`
 
-After installation, check that `cmake` is in your `PATH` environment variable (it should happen automatically); for this, run `cmake --version` (again). Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
+After installation, run `cmake --version` (again) to check that it's in your `PATH` environment variable. This should happen automatically, but if it didn't, just add it manually. Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
 
 
 ### Install the third-party libraries
@@ -110,14 +107,15 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
         -   `cmake --build .`
         -   or just `make`
 
+That's it! :tada:
 
 ### Rebuilding
 
-Every time you modify source code and want to recompile, ***you only need to follow the last step***.
+It's very simple to rebuild:
 
-Every time you add/remove/rename a source code file on disk, ***you need to follow the last two steps***.
-
-If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then follow all the steps again.
+-   Every time you modify source code and want to recompile, you only need to follow ***the last step*** (for example, just `make` again)
+-   Every time you add/remove/rename a source code file on disk, you need to follow ***the last two steps*** (for example, just `cmake .. && make` again)
+-   If something goes wrong when generating the project, just delete the contents of the `build` folder, or the folder itself, then follow all the steps again
 
 
 ## :rocket: Running
@@ -149,7 +147,7 @@ To run a certain lab:
 
 ## :book: Documentation
 
-All user and developer documentation can be found in the `docs` directory. The top page is [`docs/home.md`](docs/home.md).
+All user and developer documentation can be found in the `docs` directory.
 
 
 ## :wrench: Contributing
@@ -167,6 +165,4 @@ This project also includes external libraries that are available under a variety
 [ref-cmake]:            https://github.com/Kitware/CMake/
 [ref-cmake-dl]:         https://github.com/Kitware/CMake/releases/
 [ref-cmake-build]:      https://github.com/Kitware/CMake#building-cmake-from-scratch
-[ref-igp-wiki]:         https://en.wikipedia.org/wiki/Graphics_processing_unit#Integrated_graphics_processing_unit
-[ref-intelhd-wiki]:     https://en.wikipedia.org/wiki/Intel_Graphics_Technology
 [ref-mit]:              https://opensource.org/licenses/MIT
