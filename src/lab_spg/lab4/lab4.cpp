@@ -30,19 +30,19 @@ void Laborator4::Init()
     camera->Update();
 
 
-    std::string texturePath = PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::TEXTURES, "cube");
-    std::string shaderPath = PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::SPG, "lab4", "shaders");
+    std::string texturePath = PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube");
+    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::SPG, "lab4", "shaders");
 
     {
         Mesh* mesh = new Mesh("bunny");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("cube");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }

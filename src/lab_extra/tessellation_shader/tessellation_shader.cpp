@@ -28,13 +28,13 @@ void TessellationShader::Init()
 
     {
         Mesh* mesh = new Mesh("quad");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     // Create a shader program for drawing face polygon with the color of the normal
     {
-        const string shaderPath = PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::EXTRA, "tesselation_shader", "shaders");
+        const string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::EXTRA, "tesselation_shader", "shaders");
         Shader *shader = new Shader("TessShader");
         shader->AddShader(PATH_JOIN(shaderPath, "VertexShader.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(shaderPath, "FragmentShader.glsl"), GL_FRAGMENT_SHADER);

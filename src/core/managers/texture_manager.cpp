@@ -9,14 +9,14 @@ std::unordered_map<std::string, Texture2D*> TextureManager::mapTextures;
 std::vector<Texture2D*> TextureManager::vTextures;
 
 
-void TextureManager::Init(const std::string &selfDirPath)
+void TextureManager::Init(const std::string &selfDir)
 {
-    LoadTexture(PATH_JOIN(selfDirPath, RESOURCE_PATH::TEXTURES), "default.png");
-    LoadTexture(PATH_JOIN(selfDirPath, RESOURCE_PATH::TEXTURES), "white.png");
-    LoadTexture(PATH_JOIN(selfDirPath, RESOURCE_PATH::TEXTURES), "black.jpg");
-    LoadTexture(PATH_JOIN(selfDirPath, RESOURCE_PATH::TEXTURES), "noise.png");
-    LoadTexture(PATH_JOIN(selfDirPath, RESOURCE_PATH::TEXTURES), "random.jpg");
-    LoadTexture(PATH_JOIN(selfDirPath, RESOURCE_PATH::TEXTURES), "particle.png");
+    LoadTexture(PATH_JOIN(selfDir, RESOURCE_PATH::TEXTURES), "default.png");
+    LoadTexture(PATH_JOIN(selfDir, RESOURCE_PATH::TEXTURES), "white.png");
+    LoadTexture(PATH_JOIN(selfDir, RESOURCE_PATH::TEXTURES), "black.jpg");
+    LoadTexture(PATH_JOIN(selfDir, RESOURCE_PATH::TEXTURES), "noise.png");
+    LoadTexture(PATH_JOIN(selfDir, RESOURCE_PATH::TEXTURES), "random.jpg");
+    LoadTexture(PATH_JOIN(selfDir, RESOURCE_PATH::TEXTURES), "particle.png");
 }
 
 

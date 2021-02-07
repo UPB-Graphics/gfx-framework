@@ -57,13 +57,13 @@ void Laborator5::Init()
 
     {
         Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     // Load textures
     {
-        TextureManager::LoadTexture(PATH_JOIN(window->props.selfDirPath, RESOURCE_PATH::TEXTURES), "particle2.png");
+        TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES), "particle2.png");
     }
 
     LoadShader("Simple", false);
@@ -150,7 +150,7 @@ void Laborator5::FrameEnd()
 
 void Laborator5::LoadShader(std::string name, bool hasGeomtery)
 {
-    std::string shaderPath = PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::SPG, "lab5", "shaders");
+    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::SPG, "lab5", "shaders");
 
     // Create a shader program for particle system
     {

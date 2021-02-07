@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     WindowProperties wp;
     wp.resolution = glm::ivec2(1280, 720);
     wp.vSync = true;
-    wp.selfDirPath = GetParentDir(std::string(argv[0]));
+    wp.selfDir = GetParentDir(std::string(argv[0]));
 
     // Init the Engine and create a new window with the defined properties
     WindowObject* window = Engine::Init(wp);
