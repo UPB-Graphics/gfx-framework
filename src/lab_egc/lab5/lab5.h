@@ -34,5 +34,8 @@ namespace egc
         implemented::Camera *camera;
         glm::mat4 projectionMatrix;
         bool renderCameraTarget;
+
+        // TODO(student): If you need any other class variables, define them here.
+
     };
 }   // namespace egc

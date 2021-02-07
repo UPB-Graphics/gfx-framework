@@ -40,7 +40,7 @@ void Laborator8::Init()
 
     // Create a shader program for drawing face polygon with the color of the normal
     {
-        Shader *shader = new Shader("ShaderLab8");
+        Shader *shader = new Shader("LabShader");
         shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::EGC, "lab8", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::EGC, "lab8", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
@@ -75,7 +75,9 @@ void Laborator8::Update(float deltaTimeSeconds)
     {
         glm::mat4 modelMatrix = glm::mat4(1);
         modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 1, 0));
-        RenderSimpleMesh(meshes["sphere"], shaders["ShaderLab8"], modelMatrix);
+        // TODO(student): Add or change the object colors
+        RenderSimpleMesh(meshes["sphere"], shaders["LabShader"], modelMatrix);
+
     }
 
     {
@@ -83,14 +85,16 @@ void Laborator8::Update(float deltaTimeSeconds)
         modelMatrix = glm::translate(modelMatrix, glm::vec3(2, 0.5f, 0));
         modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 0, 0));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
-        RenderSimpleMesh(meshes["box"], shaders["ShaderLab8"], modelMatrix);
+        // TODO(student): Add or change the object colors
+        RenderSimpleMesh(meshes["box"], shaders["LabShader"], modelMatrix);
+
     }
 
     {
         glm::mat4 modelMatrix = glm::mat4(1);
         modelMatrix = glm::translate(modelMatrix, glm::vec3(-2, 0.5f, 0));
         modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 1, 0));
-        RenderSimpleMesh(meshes["box"], shaders["ShaderLab8"], modelMatrix, glm::vec3(0, 0.5, 0));
+        RenderSimpleMesh(meshes["box"], shaders["LabShader"], modelMatrix, glm::vec3(0.25, 0.75, 0.75));
     }
 
     // Render ground
@@ -98,7 +102,9 @@ void Laborator8::Update(float deltaTimeSeconds)
         glm::mat4 modelMatrix = glm::mat4(1);
         modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0.01f, 0));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25f));
-        RenderSimpleMesh(meshes["plane"], shaders["ShaderLab8"], modelMatrix);
+        // TODO(student): Add or change the object colors
+        RenderSimpleMesh(meshes["plane"], shaders["LabShader"], modelMatrix);
+
     }
 
     // Render the point light in the scene
@@ -125,17 +131,19 @@ void Laborator8::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
     // Render an object using the specified shader and the specified position
     glUseProgram(shader->program);
 
-    // Set shader uniforms for light & material properties
+    // Set shader uniforms for light properties
     int light_position = glGetUniformLocation(shader->program, "light_position");
     glUniform3f(light_position, lightPosition.x, lightPosition.y, lightPosition.z);
 
     int light_direction = glGetUniformLocation(shader->program, "light_direction");
     glUniform3f(light_direction, lightDirection.x, lightDirection.y, lightDirection.z);
 
+    // Set eye position (camera position) uniform
     glm::vec3 eyePosition = GetSceneCamera()->m_transform->GetWorldPosition();
     int eye_position = glGetUniformLocation(shader->program, "eye_position");
     glUniform3f(eye_position, eyePosition.x, eyePosition.y, eyePosition.z);
 
+    // Set material property uniforms (shininess, kd, ks, object color) 
     int material_shininess = glGetUniformLocation(shader->program, "material_shininess");
     glUniform1i(material_shininess, materialShininess);
 
@@ -147,6 +155,8 @@ void Laborator8::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 
     int object_color = glGetUniformLocation(shader->program, "object_color");
     glUniform3f(object_color, color.r, color.g, color.b);
+
+    // TODO(student): Set any other shader uniforms that you need
 
     // Bind model matrix
     GLint loc_model_matrix = glGetUniformLocation(shader->program, "Model");
@@ -190,6 +200,9 @@ void Laborator8::OnInputUpdate(float deltaTime, int mods)
         if (window->KeyHold(GLFW_KEY_D)) lightPosition += right * deltaTime * speed;
         if (window->KeyHold(GLFW_KEY_E)) lightPosition += up * deltaTime * speed;
         if (window->KeyHold(GLFW_KEY_Q)) lightPosition -= up * deltaTime * speed;
+
+        // TODO(student): Set any other keys that you might need
+
     }
 }
 
@@ -197,6 +210,9 @@ void Laborator8::OnInputUpdate(float deltaTime, int mods)
 void Laborator8::OnKeyPress(int key, int mods)
 {
     // Add key press event
+
+    // TODO(student): Set keys that you might need
+
 }
 
 

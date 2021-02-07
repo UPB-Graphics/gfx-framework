@@ -17,7 +17,7 @@ out vec2 texcoord;
 
 void main()
 {
-    // TODO(student): pass v_texture_coord as output to Fragment Shader
+    // TODO(student): Pass v_texture_coord as output to fragment shader
 
     gl_Position = Projection * View * Model * vec4(v_position, 1.0);
 }

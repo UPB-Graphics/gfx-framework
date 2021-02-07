@@ -11,4 +11,5 @@ void main()
 {
     // TODO(student): Write pixel out color
     out_color = vec4(1);
+
 }

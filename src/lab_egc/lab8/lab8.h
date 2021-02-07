@@ -35,5 +35,8 @@ namespace egc
         unsigned int materialShininess;
         float materialKd;
         float materialKs;
+
+        // TODO(student): If you need any other class variables, define them here.
+
     };
 }   // namespace egc

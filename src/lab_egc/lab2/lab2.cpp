@@ -35,46 +35,59 @@ void Laborator2::Init()
     {
         vector<VertexFormat> vertices
         {
-            VertexFormat(glm::vec3(-1, -1,  1), glm::vec3(0, 1, 1)),
-            // TODO(student): Complete the information for the cube
+            VertexFormat(glm::vec3(-1, -1,  1), glm::vec3(0, 1, 1), glm::vec3(0.2, 0.8, 0.6)),
+            // TODO(student): Complete the vertices data for the cube mesh
+
         };
 
         vector<unsigned short> indices =
         {
             0, 1, 2,    // indices for first triangle
             1, 3, 2,    // indices for second triangle
-            // TODO(student): Complete indices data
+            // TODO(student): Complete indices data for the cube mesh
+
         };
 
-        meshes["cube1"] = new Mesh("generated cube 1");
-        meshes["cube1"]->InitFromData(vertices, indices);
+        meshes["cube_A"] = new Mesh("generated cube 1");
+        meshes["cube_A"]->InitFromData(vertices, indices);
 
-        // Create a new mesh from buffer data
-        Mesh *cube = CreateMesh("cube3", vertices, indices);
+        // Actually create the mesh from the data
+        CreateMesh("cube_B", vertices, indices);
     }
+
+    // TODO(student): Create a tetrahedron mesh. You can create it with
+    // only 4 vertices, or you can choose the harder route and create it
+    // with 12 vertices. Think about it, why would you want that, and how
+    // would you do it? After all, a tetrahedron has only 4 vertices
+    // by definition!
+
+    // TODO(student): Create a square using two triangles with
+    // opposing vertex orientations.
+
 }
 
 
-Mesh* Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
+void Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
 {
     unsigned int VAO = 0;
     // TODO(student): Create the VAO and bind it
 
-    // TODO(student): Create the VBO and bind it
     unsigned int VBO = 0;
+    // TODO(student): Create the VBO and bind it
 
     // TODO(student): Send vertices data into the VBO buffer
 
-    // TODO(student): Create the IBO and bind it
     unsigned int IBO = 0;
+    // TODO(student): Create the IBO and bind it
 
     // TODO(student): Send indices data into the IBO buffer
 
     // ========================================================================
-    // This section describes how the GPU Shader Vertex Shader program receives data
-    // It will be learned later, when GLSL shaders will be introduced
-    // For the moment just think that each property value from our vertex format needs to be send to a certain channel
-    // in order to know how to receive it in the GLSL vertex shader
+    // This section demonstrates how the GPU vertex shader program
+    // receives data. It will be learned later, when GLSL shaders will be
+    // introduced. For the moment, just think that each property value from
+    // our vertex format needs to be sent to a certain channel, in order to
+    // know how to receive it in the GLSL vertex shader.
 
     // Set vertex position attribute
     glEnableVertexAttribArray(0);
@@ -96,12 +109,15 @@ Mesh* Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &
     // TODO(student): Unbind the VAO
 
     // Check for OpenGL errors
-    CheckOpenGLError();
+    if (CheckOpenGLError() == GL_INVALID_OPERATION)
+    {
+        cout << "\t[NOTE] : For students : DON'T PANIC! This error should go away when completing the tasks." << std::endl;
+        cout << "\t[NOTE] : For developers : This happens because OpenGL core spec >=3.1 forbids null VAOs." << std::endl;
+    }
 
     // Mesh information is saved into a Mesh object
     meshes[name] = new Mesh(name);
     meshes[name]->InitFromBuffer(VAO, static_cast<unsigned short>(indices.size()));
-    return meshes[name];
 }
 
 
@@ -126,15 +142,22 @@ void Laborator2::Update(float deltaTimeSeconds)
 
     // TODO(student): Enable face culling
 
-    // TODO(student): Set face custom culling. Use the "cullFace" variable
+    // TODO(student): Set face custom culling. Use the `cullFace` variable.
 
     // Render an object using face normals for color
     RenderMesh(meshes["box"], shaders["VertexNormal"], glm::vec3(0, 0.5f, -1.5f), glm::vec3(0.75f));
 
     // Render an object using colors from vertex
-    RenderMesh(meshes["cube1"], shaders["VertexColor"], glm::vec3(-1.5f, 0.5f, 0), glm::vec3(0.25f));
+    RenderMesh(meshes["cube_A"], shaders["VertexColor"], glm::vec3(-1.5f, 0.5f, 0), glm::vec3(0.25f));
+
+    // TODO(student): Draw the mesh that was created with `CreateMesh()`
+
+    // TODO(student): Draw the tetrahedron
+
+    // TODO(student): Draw the square
 
     // TODO(student): Disable face culling
+
 }
 
 
@@ -151,8 +174,9 @@ void Laborator2::OnInputUpdate(float deltaTime, int mods)
 
 void Laborator2::OnKeyPress(int key, int mods)
 {
-    // TODO(student): Switch between GL_FRONT and GL_BACK culling
-    // Save the state in "cullFace" variable and apply it in the Update() method not here
+    // TODO(student): Switch between GL_FRONT and GL_BACK culling.
+    // Save the state in `cullFace` variable and apply it in the
+    // `Update()` method, NOT here!
 
     if (key == GLFW_KEY_SPACE)
     {

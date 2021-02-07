@@ -28,9 +28,13 @@ namespace egc
         void OnWindowResize(int width, int height) override;
 
      protected:
+        float cx, cy;
         glm::mat3 modelMatrix;
         float translateX, translateY;
         float scaleX, scaleY;
         float angularStep;
+
+        // TODO(student): If you need any other class variables, define them here.
+
     };
 }   // namespace egc

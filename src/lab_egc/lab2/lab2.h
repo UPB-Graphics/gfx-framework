@@ -16,7 +16,7 @@ namespace egc
         void Init() override;
 
      private:
-        Mesh *CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices);
+        void CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices);
 
         void FrameStart() override;
         void Update(float deltaTimeSeconds) override;

@@ -33,9 +33,10 @@ void Laborator3::Init()
     glm::vec3 corner = glm::vec3(0, 0, 0);
     float squareSide = 100;
 
-    // Compute coordinates of square center
-    float cx = corner.x + squareSide / 2;
-    float cy = corner.y + squareSide / 2;
+    // TODO(student): Compute coordinates of a square's center, and store
+    // then in the `cx` and `cy` class variables (see the header). Use
+    // `corner` and `squareSide`. These two class variables will be used
+    // in the `Update()` function. Think about it, why do you need them?
 
     // Initialize tx and ty (the translation steps)
     translateX = 0;
@@ -73,24 +74,33 @@ void Laborator3::FrameStart()
 
 void Laborator3::Update(float deltaTimeSeconds)
 {
-    // TODO(student): Update steps for translation, rotation, scale, in order to create animations
+    // TODO(student): Update steps for translation, rotation and scale,
+    // in order to create animations. Use the class variables in the
+    // class header, and if you need more of them to complete the task,
+    // add them over there!
 
     modelMatrix = glm::mat3(1);
     modelMatrix *= transform2D::Translate(150, 250);
-    // TODO(student): Create animations by multiplying current transform matrix with matrices from Transform 2D
+    // TODO(student): Create animations by multiplying the current
+    // transform matrix with the matrices you just implemented.
+    // Remember, the last matrix in the chain will take effect first!
 
     RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 
     modelMatrix = glm::mat3(1);
     modelMatrix *= transform2D::Translate(400, 250);
-    // TODO(student): Create animations by multiplying current transform matrix with matrices from Transform 2D
+    // TODO(student): Create animations by multiplying the current
+    // transform matrix with the matrices you just implemented
+    // Remember, the last matrix in the chain will take effect first!
 
     RenderMesh2D(meshes["square2"], shaders["VertexColor"], modelMatrix);
 
     modelMatrix = glm::mat3(1);
     modelMatrix *= transform2D::Translate(650, 250);
+    // TODO(student): Create animations by multiplying the current
+    // transform matrix with the matrices you just implemented
+    // Remember, the last matrix in the chain will take effect first!
 
-    // TODO(student): Create animations by multiplying current transform matrix with matrices from Transform 2D
     RenderMesh2D(meshes["square3"], shaders["VertexColor"], modelMatrix);
 }
 

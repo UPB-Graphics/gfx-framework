@@ -155,7 +155,9 @@ void Laborator3_Vis2D::DrawScene(glm::mat3 visMatrix)
 void Laborator3_Vis2D::OnInputUpdate(float deltaTime, int mods)
 {
     // TODO(student): Move the logic window with W, A, S, D (up, left, down, right)
+
     // TODO(student): Zoom in and zoom out logic window with Z and X
+
 }
 
 

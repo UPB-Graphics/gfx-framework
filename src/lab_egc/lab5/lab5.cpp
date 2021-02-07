@@ -37,7 +37,10 @@ void Laborator5::Init()
         meshes[mesh->GetMeshID()] = mesh;
     }
 
+    // TODO(student): After you implement the changing of the projection
+    // parameters, remove hardcodings of these parameters
     projectionMatrix = glm::perspective(RADIANS(60), window->props.aspectRatio, 0.01f, 200.0f);
+
 }
 
 
@@ -60,8 +63,6 @@ void Laborator5::Update(float deltaTimeSeconds)
         modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 1, 0));
         modelMatrix = glm::rotate(modelMatrix, RADIANS(45.0f), glm::vec3(0, 1, 0));
 
-        // Attention! The RenderMesh function overrides the usual RenderMesh that we used until now
-        // It uses the viewMatrix from Laborator::Camera instance and the local projectionMatrix
         RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
     }
 
@@ -78,7 +79,14 @@ void Laborator5::Update(float deltaTimeSeconds)
         RenderMesh(meshes["box"], shaders["Simple"], modelMatrix);
     }
 
-    // Render the camera target. Useful for understanding where is the rotation point in Third-person camera movement
+    // TODO(student): Draw more objects with different model matrices.
+    // Attention! The `RenderMesh()` function overrides the usual
+    // `RenderMesh()` that we've been using up until now. This new
+    // function uses the view matrix from the camera that you just
+    // implemented, and the local projection matrix.
+
+    // Render the camera target. This is useful for understanding where
+    // the rotation point is, when moving in third-person camera mode.
     if (renderCameraTarget)
     {
         glm::mat4 modelMatrix = glm::mat4(1);
@@ -123,28 +131,40 @@ void Laborator5::OnInputUpdate(float deltaTime, int mods)
 
         if (window->KeyHold(GLFW_KEY_W)) {
             // TODO(student): Translate the camera forward
+
         }
 
         if (window->KeyHold(GLFW_KEY_A)) {
             // TODO(student): Translate the camera to the left
+
         }
 
         if (window->KeyHold(GLFW_KEY_S)) {
-            // TODO(student): Translate the camera backwards
+            // TODO(student): Translate the camera backward
+
         }
 
         if (window->KeyHold(GLFW_KEY_D)) {
             // TODO(student): Translate the camera to the right
+
         }
 
         if (window->KeyHold(GLFW_KEY_Q)) {
-            // TODO(student): Translate the camera down
+            // TODO(student): Translate the camera downward
+
         }
 
         if (window->KeyHold(GLFW_KEY_E)) {
-            // TODO(student): Translate the camera up
+            // TODO(student): Translate the camera upward
+
         }
     }
+
+    // TODO(student): Change projection parameters. Declare any extra
+    // variables you might need in the class header. Inspect this file
+    // for any hardcoded projection arguments (can you find any?) and
+    // replace them with those extra variables.
+
 }
 
 
@@ -155,6 +175,8 @@ void Laborator5::OnKeyPress(int key, int mods)
     {
         renderCameraTarget = !renderCameraTarget;
     }
+    // TODO(student): Switch projections
+
 }
 
 
@@ -175,14 +197,18 @@ void Laborator5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 
         if (window->GetSpecialKeyState() == 0) {
             renderCameraTarget = false;
-            // TODO(student): Rotate the camera in First-person mode around OX and OY using deltaX and deltaY
-            // Use the sensitivity variables for setting up the rotation speed
+            // TODO(student): Rotate the camera in first-person mode around
+            // OX and OY using `deltaX` and `deltaY`. Use the sensitivity
+            // variables for setting up the rotation speed.
+
         }
 
         if (window->GetSpecialKeyState() && GLFW_MOD_CONTROL) {
             renderCameraTarget = true;
-            // TODO(student): Rotate the camera in Third-person mode around OX and OY using deltaX and deltaY
-            // Use the sensitivity variables for setting up the rotation speed
+            // TODO(student): Rotate the camera in third-person mode around
+            // OX and OY using `deltaX` and `deltaY`. Use the sensitivity
+            // variables for setting up the rotation speed.
+
         }
     }
 }

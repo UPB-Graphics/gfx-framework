@@ -75,24 +75,24 @@ void Shader::OnLoad(std::function<void()> onLoad)
 void Shader::GetUniforms()
 {
     // MVP
-    loc_model_matrix    = GetUniformLocation("Model");
-    loc_view_matrix        = GetUniformLocation("View");
-    loc_projection_matrix = GetUniformLocation("Projection");
+    loc_model_matrix        = GetUniformLocation("Model");
+    loc_view_matrix         = GetUniformLocation("View");
+    loc_projection_matrix   = GetUniformLocation("Projection");
 
-    // Lighting and Shadow
-    loc_light_pos = GetUniformLocation("light_position");
-    loc_light_color = GetUniformLocation("light_color");
-    loc_light_radius = GetUniformLocation("light_radius");
-    loc_light_direction = GetUniformLocation("light_direction");
+    // Lighting and shadows
+    loc_light_pos           = GetUniformLocation("light_position");
+    loc_light_color         = GetUniformLocation("light_color");
+    loc_light_radius        = GetUniformLocation("light_radius");
+    loc_light_direction     = GetUniformLocation("light_direction");
 
     // Camera
-    loc_eye_pos = GetUniformLocation("eye_position");
-    loc_eye_forward = GetUniformLocation("eye_forward");
-    loc_z_far = GetUniformLocation("zFar");
-    loc_z_near = GetUniformLocation("zNear");
+    loc_eye_pos             = GetUniformLocation("eye_position");
+    loc_eye_forward         = GetUniformLocation("eye_forward");
+    loc_z_far               = GetUniformLocation("zFar");
+    loc_z_near              = GetUniformLocation("zNear");
 
     // General
-    loc_resolution = GetUniformLocation("resolution");
+    loc_resolution          = GetUniformLocation("resolution");
 
     char buffer[64];
 
@@ -103,7 +103,7 @@ void Shader::GetUniforms()
     }
 
     // Text
-    text_color = GetUniformLocation("text_color");
+    text_color              = GetUniformLocation("text_color");
 
     BindTexturesUnits();
 
@@ -177,6 +177,24 @@ void Shader::ClearShaders()
 }
 
 
+static std::string InjectDefines(const std::string &shaderCode)
+{
+    std::string defines;
+    size_t pos = shaderCode.find_first_of("\n");
+
+#ifdef SOLVED
+    defines += "\n#define SOLVED";
+#endif
+
+    if (pos == std::string::npos)
+    {
+        return shaderCode + defines;
+    }
+
+    return shaderCode.substr(0, pos) + defines + shaderCode.substr(pos, std::string::npos);
+}
+
+
 unsigned int Shader::CreateShader(const std::string &shaderFile, GLenum shaderType)
 {
     std::string shader_code;
@@ -196,7 +214,7 @@ unsigned int Shader::CreateShader(const std::string &shaderFile, GLenum shaderTy
     file.read(&shader_code[0], shader_code.size());
     file.close();
 
-    return CompileShader(shader_code, shaderType);
+    return CompileShader(InjectDefines(shader_code), shaderType);
 }
 
 

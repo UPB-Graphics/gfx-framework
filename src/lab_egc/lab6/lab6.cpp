@@ -55,7 +55,7 @@ void Laborator6::Init()
 
     // Create a shader program for drawing face polygon with the color of the normal
     {
-        Shader *shader = new Shader("ShaderLab6");
+        Shader *shader = new Shader("LabShader");
         shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::EGC, "lab6", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(window->props.selfDirPath, SOURCE_PATH::EGC, "lab6", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
@@ -67,28 +67,41 @@ void Laborator6::Init()
 Mesh* Laborator6::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
 {
     unsigned int VAO = 0;
-    // TODO(student): Create the VAO and bind it
+    // Create the VAO and bind it
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    // TODO(student): Create the VBO and bind it
+    // Create the VBO and bind it
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    // TODO(student): Send vertices data into the VBO buffer
+    // Send vertices data into the VBO buffer
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices[0]) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
 
-    // TODO(student): Crete the IBO and bind it
+    // Create the IBO and bind it
     unsigned int IBO;
     glGenBuffers(1, &IBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 
-    // TODO(student): Send indices data into the IBO buffer
+    // Send indices data into the IBO buffer
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) * indices.size(), &indices[0], GL_STATIC_DRAW);
 
     // ========================================================================
-    // This section describes how the GPU Shader Vertex Shader program receives data
+    // This section demonstrates how the GPU vertex shader program
+    // receives data.
+
+    // TODO(student): If you look closely in the `Init()` and `Update()`
+    // functions, you will see that we have three objects which we load
+    // and use in three different ways:
+    // - LoadMesh   + LabShader (this lab's shader)
+    // - CreateMesh + VertexNormal (this shader is already implemented)
+    // - CreateMesh + LabShader (this lab's shader)
+    // To get an idea about how they're different from one another, do the
+    // following experiments. What happens if you switch the color pipe and
+    // normal pipe in this function (but not in the shader)? Now, what happens
+    // if you do the same thing in the shader (but not in this function)?
+    // Finally, what happens if you do the same thing in both places? Why?
 
     // Set vertex position attribute
     glEnableVertexAttribArray(0);
@@ -138,6 +151,13 @@ void Laborator6::Update(float deltaTimeSeconds)
 {
     {
         glm::mat4 modelMatrix = glm::mat4(1);
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(-2, 0.5f, 0));
+        modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 1, 0));
+        RenderMesh(meshes["box"], shaders["LabShader"], modelMatrix);
+    }
+
+    {
+        glm::mat4 modelMatrix = glm::mat4(1);
         modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 1, 0));
         modelMatrix = glm::rotate(modelMatrix, RADIANS(45.0f), glm::vec3(0, 1, 0));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
@@ -149,14 +169,7 @@ void Laborator6::Update(float deltaTimeSeconds)
         modelMatrix = glm::translate(modelMatrix, glm::vec3(2, 0.5f, 0));
         modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 0, 0));
         modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
-        RenderSimpleMesh(meshes["cube"], shaders["ShaderLab6"], modelMatrix);
-    }
-
-    {
-        glm::mat4 modelMatrix = glm::mat4(1);
-        modelMatrix = glm::translate(modelMatrix, glm::vec3(-2, 0.5f, 0));
-        modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 1, 0));
-        RenderMesh(meshes["box"], shaders["ShaderLab6"], modelMatrix);
+        RenderSimpleMesh(meshes["cube"], shaders["LabShader"], modelMatrix);
     }
 }
 

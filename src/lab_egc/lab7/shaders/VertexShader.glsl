@@ -36,8 +36,14 @@ void main()
     // TODO(student): Compute specular light component
     float specular_light = 0;
 
+    // It's important to distinguish between "reflection model" and
+    // "shading method". In this shader, we are experimenting with the Phong
+    // (1975) and Blinn-Phong (1977) reflection models, and we are using the
+    // Gouraud (1971) shading method. There is also the Phong (1975) shading
+    // method, which we'll use in the future. Don't mix them up!
     if (diffuse_light > 0)
     {
+
     }
 
     // TODO(student): Compute light

@@ -38,7 +38,7 @@ void Laborator4::Init()
     scaleY = 1;
     scaleZ = 1;
 
-    // Initialize angularSteps
+    // Initialize angular steps
     angularStepOX = 0;
     angularStepOY = 0;
     angularStepOZ = 0;
@@ -51,8 +51,8 @@ void Laborator4::FrameStart()
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glm::ivec2 resolution = window->GetResolution();
     // Sets the screen area where to draw
+    glm::ivec2 resolution = window->GetResolution();
     glViewport(0, 0, resolution.x, resolution.y);
 }
 
@@ -90,7 +90,8 @@ void Laborator4::FrameEnd()
 
 void Laborator4::OnInputUpdate(float deltaTime, int mods)
 {
-    // TODO(student): Add logic
+    // TODO(student): Add transformation logic
+
 }
 
 
