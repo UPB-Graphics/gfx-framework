@@ -44,14 +44,16 @@ This section describes ***what you need to do and install*** before actually bui
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
-This project requires OpenGL ***version 3.3 core profile***, or newer. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+This project requires OpenGL version ***3.3 core profile*** or newer for the most part, although certain advanced features may require version 4.3 core profile. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+
+In the future, we may increase the minimum required version, as hardware and driver support becomes more uniform.
 
 
 ### Install the build tools
 
 This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, it creates a Makefile on Linux and macOS, a Visual Studio project on Windows, and so on).
 
-The minimum compatible version is ***3.16***, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install it, follow these steps:
+This project requires version ***3.16*** or newer, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install it, follow these steps:
 
 -   Windows:
     1.  Go to the [CMake downloads page][ref-cmake-dl]
