@@ -17,6 +17,10 @@
 #endif
 
 
+PREFER_DISCRETE_GPU_NVIDIA;
+PREFER_DISCRETE_GPU_AMD;
+
+
 std::string GetParentDir(const std::string &filePath)
 {
     size_t pos = filePath.find_last_of("\\/");
