@@ -37,7 +37,7 @@ vec4 PhongLight(vec3 w_pos, vec3 w_N)
 
     float dist = distance(light_position, w_pos);
 
-    // TODO(student): Ignore fragments outside of the
+    // Ignore fragments outside of the
     // light influence zone (radius)
     if (dist > light_radius)
         return vec4(0);

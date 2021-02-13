@@ -12,9 +12,9 @@ layout(location = 0) out vec4 out_color;
 
 void main()
 {
-    // TODO(student): Apply texture
+    // TODO(student): Apply the texture
 
-    // TODO(student): Discard when alfa component < 0.75
+    // TODO(student): Discard when alpha component < 0.75
 
-    out_color = vec4(0, 0, 1, 0);
+    out_color = vec4(0.419, 0.584, 0.250, 0);
 }

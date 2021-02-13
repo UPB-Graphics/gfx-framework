@@ -67,8 +67,10 @@ void Laborator1::Update(float deltaTimeSeconds)
         int loc_instances = shader->GetUniformLocation("instances");
         glUniform1i(loc_instances, nrInstances);
 
-        // TODO(student): add a shrink parameter for scaling each triangle in geometry shader
+        // TODO(student): Add a shrinking parameter for scaling each
+        // triangle in the geometry shader
 
+        // Note that we only render a single mesh!
         RenderMesh(meshes["bamboo"], shaders["Instances"], glm::vec3(-3.3f, 0.5f, 0), glm::vec3(0.1f));
     }
 }
@@ -88,7 +90,8 @@ void Laborator1::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input with window->KeyHold()
 
-    // TODO(student): add update for modifying the shrink parameter
+    // TODO(student): Add events for modifying the shrinking parameter
+
 }
 
 

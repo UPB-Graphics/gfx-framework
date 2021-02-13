@@ -31,7 +31,7 @@ namespace spg
 
      protected:
         // Info about the generated surfaces
-        glm::vec3 control_p1, control_p2, control_p3, control_p4;
+        glm::vec3 control_p0, control_p1, control_p2, control_p3;
         unsigned int no_of_generated_points, no_of_instances;
         float max_translate, max_rotate;
     };

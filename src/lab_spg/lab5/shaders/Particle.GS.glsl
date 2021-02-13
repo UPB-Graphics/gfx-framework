@@ -1,9 +1,7 @@
 #version 430
 
-// Input
+// Input and output topologies
 layout(points) in;
-
-// Output
 layout(triangle_strip, max_vertices = 4) out;
 
 // Uniform properties
@@ -31,9 +29,9 @@ void EmitPoint(vec2 offset)
 
 void main()
 {
-    float ds = 0.05 ;
+    float ds = 0.05;
 
-    // Create a quad using triangle strip
+    // TODO(student): Create a quad based on `triangle_strip`.
     //
     //  3---------2
     //  | \       |

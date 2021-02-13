@@ -47,5 +47,8 @@ namespace spg
         FrameBuffer *lightBuffer;
         std::vector<LightInfo> lights;
         int outputType;
+
+        // TODO(student): Declare any class members you might need.
+
     };
 }   // namespace spg

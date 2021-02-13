@@ -38,7 +38,7 @@ namespace spg
         void OpenDialogue();
         void OnFileSelected(std::string fileName);
 
-        // Processing Effects
+        // Processing effects
         void GrayScale();
         void SaveImage(std::string fileName);
 

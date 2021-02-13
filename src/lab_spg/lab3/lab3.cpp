@@ -56,6 +56,7 @@ void Laborator3::Init()
     auto resolution = window->GetResolution();
 
     // TODO(student): Create a new framebuffer and generate attached textures
+
 }
 
 
@@ -79,12 +80,13 @@ void Laborator3::Update(float deltaTimeSeconds)
     glm::vec3 camPosition = camera->m_transform->GetWorldPosition();
     glm::quat camRotation = camera->m_transform->GetWorldRotation();
 
-    // TODO(student): Render scene view from the mirror point of view
-    // Use camera->SetPosition() and camera->SetRotation(glm::quat(euler_angles))
+    // TODO(student): Render scene view from a mirrorred point of view. Use
+    // `camera->SetPosition()` and `camera->SetRotation(glm::quat(euler_angles))`
     {
+
     }
 
-    // Render the scene normaly
+    // Render the scene normally
     {
         camera->SetPosition(camPosition);
         camera->SetRotation(camRotation);
@@ -92,10 +94,11 @@ void Laborator3::Update(float deltaTimeSeconds)
         DrawScene();
     }
 
-    // TODO(student): Render the mirror view
+    // Render the mirrored scene
     {
         auto shader = shaders["ShaderLab3"];
-        // TODO(student): Use mirror texture
+        
+        // TODO(student): Use the mirror texture
 
         glm::mat4 modelMatrix(1);
         modelMatrix = glm::translate(modelMatrix, mirrorPos);

@@ -7,6 +7,10 @@ using namespace std;
 using namespace spg;
 
 
+PREFER_DISCRETE_GPU_NVIDIA;
+PREFER_DISCRETE_GPU_AMD;
+
+
 struct Particle
 {
     glm::vec4 position;

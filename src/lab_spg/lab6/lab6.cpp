@@ -127,7 +127,7 @@ void Laborator6::Update(float deltaTimeSeconds)
     }
 
     // ------------------------------------------------------------------------
-    // Ligthing pass
+    // Lighting pass
     {
         lightBuffer->Bind();
 
@@ -161,13 +161,21 @@ void Laborator6::Update(float deltaTimeSeconds)
         int loc_resolution = shader->GetUniformLocation("resolution");
         glUniform2i(loc_resolution, resolution.x, resolution.y);
 
-        // Face culling for sphere ligth areas
-        // Test with both GL_BACK and GL_FRONT and see what's the diference when the camera goes through an area light
-        // When GL_BACK is culled the light area will dissapear if the camera enters the light sphere (from interior the sphere is not rendered)
-        // When GL_FRONT is culled the light area will always be visible. This is the desired effect.
-        // If no culling is active (both GL_BACK and GL_FRONT are rendered) then the light area will double the intensity for each pixel
-
-        // TODO(student): See instructions above
+        // TODO(student): This section controls face culling for the light
+        // areas of the spheres. Change the code so that you can switch
+        // programatically between no culling, front culling and back culling.
+        // This will allow you to observe the differences much more easily.
+        //
+        // When GL_BACK is culled, the light area of a sphere will disappear
+        // if the camera enters that light sphere. This happens because the
+        // inside of the sphere is not rendered.
+        //
+        // When GL_FRONT is culled, the light area will always be visible.
+        // This is the desired effect.
+        //
+        // If no culling is active (meaning that both GL_FRONT and GL_BACK
+        // faces are rendered), then the light area will double the intensity
+        // for each pixel.
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
 
@@ -181,7 +189,6 @@ void Laborator6::Update(float deltaTimeSeconds)
             RenderMesh(meshes["sphere"], shader, model);
         }
 
-        // TODO(student): See instructions above
         glDisable(GL_CULL_FACE);
 
         glDepthMask(GL_TRUE);
@@ -270,10 +277,18 @@ void Laborator6::OnInputUpdate(float deltaTime, int mods)
 void Laborator6::OnKeyPress(int key, int mods)
 {
     // Add key press event
+
+    // These are the key mappings for compositing different passes.
+    // What does each key seem to activate? Where can you find the
+    // answer? Examine the source code to find out!
     int index = key - GLFW_KEY_0;
     if (index >= 0 && index <= 9) {
         outputType = index;
     }
+
+    // TODO(student): Add key mappings for face culling. For example:
+    // Z: off, X: front, C: back, V: both
+
 }
 
 

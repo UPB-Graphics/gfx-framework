@@ -151,8 +151,8 @@ unsigned int Laborator4::UploadCubeMapTexture(const std::string &posx, const std
     unsigned char* data_negy = stbi_load(negy.c_str(), &width, &height, &chn, 0);
     unsigned char* data_negz = stbi_load(negz.c_str(), &width, &height, &chn, 0);
 
-    // TODO(student): Create OpenGL texture
     unsigned int textureID = 0;
+    // TODO(student): Create the texture
 
     // TODO(student): Bind the texture
 

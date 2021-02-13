@@ -46,17 +46,17 @@ void Laborator2::Init()
     max_rotate = glm::radians(360.0f);      // for the rotation surface, it's the angle between the first and the last curve
 
     // Define control points
-    control_p1 = glm::vec3(-4, -2.5, 1.0);
-    control_p2 = glm::vec3(-2.5, 1.5, 1.0);
-    control_p3 = glm::vec3(-1.5, 3.0, 1.0);
-    control_p4 = glm::vec3(-4.0, 5.5, 1.0);
+    control_p0 = glm::vec3(-4.0, -2.5,  1.0);
+    control_p1 = glm::vec3(-2.5,  1.5,  1.0);
+    control_p2 = glm::vec3(-1.5,  3.0,  1.0);
+    control_p3 = glm::vec3(-4.0,  5.5,  1.0);
 
     // Create a bogus mesh with 2 points (a line)
     {
         vector<VertexFormat> vertices
         {
-            VertexFormat(glm::vec3(-4.0, -2.5,  1.0), glm::vec3(0, 1, 0)),
-            VertexFormat(glm::vec3(-4.0, 5.5,  1.0), glm::vec3(0, 1, 0))
+            VertexFormat(control_p0, glm::vec3(0, 1, 1)),
+            VertexFormat(control_p3, glm::vec3(0, 1, 0))
         };
 
         vector<unsigned short> indices =
@@ -113,22 +113,24 @@ void Laborator2::RenderMeshInstanced(Mesh *mesh, Shader *shader, const glm::mat4
 
 void Laborator2::Update(float deltaTimeSeconds)
 {
-    ClearScreen();
+    ClearScreen(glm::vec3(0.121, 0.168, 0.372));
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     Shader *shader = shaders["SurfaceGeneration"];
     shader->Use();
 
     // Send uniforms to shaders
+    glUniform3f(glGetUniformLocation(shader->program, "control_p0"), control_p0.x, control_p0.y, control_p0.z);
     glUniform3f(glGetUniformLocation(shader->program, "control_p1"), control_p1.x, control_p1.y, control_p1.z);
     glUniform3f(glGetUniformLocation(shader->program, "control_p2"), control_p2.x, control_p2.y, control_p2.z);
     glUniform3f(glGetUniformLocation(shader->program, "control_p3"), control_p3.x, control_p3.y, control_p3.z);
-    glUniform3f(glGetUniformLocation(shader->program, "control_p4"), control_p4.x, control_p4.y, control_p4.z);
     glUniform1i(glGetUniformLocation(shader->program, "no_of_instances"), no_of_instances);
 
-    // TODO(student): send to the shaders the number of points that approximate
+    // TODO(student): Send to the shaders the number of points that approximate
     // a curve (no_of_generated_points), as well as the characteristics for
-    // creating the translation/rotation surfaces (max_translate, max_rotate)
+    // creating the translation/rotation surfaces (max_translate, max_rotate).
+    // NOTE: If you're feeling lost and need a frame of reference while doing
+    // this lab, go to `FrameEnd()` and activate `DrawCoordinateSystem()`.
 
     Mesh* mesh = meshes["surface"];
 
@@ -152,12 +154,51 @@ void Laborator2::FrameEnd()
 void Laborator2::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
+
+    // You can move the control points around by using the dedicated key,
+    // in combination with Ctrl, Shift, or both.
+    float delta = deltaTime;
+    auto keyMaps = std::vector<std::pair<glm::vec3 &, uint32_t>>
+    {
+        { control_p0, GLFW_KEY_1 },
+        { control_p1, GLFW_KEY_2 },
+        { control_p2, GLFW_KEY_3 },
+        { control_p3, GLFW_KEY_4 }
+    };
+
+    for (const auto &k : keyMaps)
+    {
+        if (window->KeyHold(k.second))
+        {
+            if (mods & GLFW_MOD_SHIFT && mods & GLFW_MOD_CONTROL)
+            {
+                k.first.y -= delta;
+            }
+            else if (mods & GLFW_MOD_CONTROL)
+            {
+                k.first.y += delta;
+            }
+            else if (mods & GLFW_MOD_SHIFT)
+            {
+                k.first.x -= delta;
+            }
+            else
+            {
+                k.first.x += delta;
+            }
+
+            std::cout << glm::vec2(control_p0) << glm::vec2(control_p1) << glm::vec2(control_p2) << glm::vec2(control_p3) << "\n";
+        }
+    }
 }
 
 
 void Laborator2::OnKeyPress(int key, int mods)
 {
-    // TODO(student): change the number of instances and the number of generated points
+    // TODO(student): Use keys to change the number of instances and the
+    // number of generated points. Avoid the camera keys, and avoid the
+    // the keys from `OnInputUpdate`.
+
 }
 
 
