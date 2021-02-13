@@ -44,7 +44,7 @@ This section describes ***what you need to do and install*** before actually bui
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
-This project requires OpenGL version ***3.3 core profile*** or newer for the simpler parts, and version ***4.1 core profile*** for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+This project requires OpenGL version ***3.3 core profile*** or newer for the simpler parts, and version ***4.1 core profile*** or newer for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
 
 
 ### Install the build tools
