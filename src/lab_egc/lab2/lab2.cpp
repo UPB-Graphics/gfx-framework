@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "core/engine.h"
+#include "utils/gl_utils.h"
 
 using namespace std;
 using namespace egc;
@@ -109,7 +110,7 @@ void Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &v
     // TODO(student): Unbind the VAO
 
     // Check for OpenGL errors
-    if (CheckOpenGLError() == GL_INVALID_OPERATION)
+    if (GetOpenGLError() == GL_INVALID_OPERATION)
     {
         cout << "\t[NOTE] : For students : DON'T PANIC! This error should go away when completing the tasks." << std::endl;
         cout << "\t[NOTE] : For developers : This happens because OpenGL core spec >=3.1 forbids null VAOs." << std::endl;

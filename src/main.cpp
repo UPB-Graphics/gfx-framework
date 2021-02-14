@@ -17,8 +17,10 @@
 #endif
 
 
-PREFER_DISCRETE_GPU_NVIDIA;
-PREFER_DISCRETE_GPU_AMD;
+#ifdef _WIN32
+    PREFER_DISCRETE_GPU_NVIDIA;
+    PREFER_DISCRETE_GPU_AMD;
+#endif
 
 
 std::string GetParentDir(const std::string &filePath)
@@ -42,7 +44,7 @@ int main(int argc, char **argv)
     (void)Engine::Init(wp);
 
     // Create a new 3D world and start running it
-    World *world = new extra::ShadowMapping();
+    World *world = new egc::Laborator2();
 
     world->Init();
     world->Run();

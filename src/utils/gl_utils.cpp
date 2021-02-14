@@ -21,16 +21,36 @@ void PrintGLErrorDescription(unsigned int glErr)
 }
 
 
-int gl_utils::CheckError(const char * file, int line, bool log)
+int gl_utils::CheckError(const char *file, int line)
 {
-    #ifdef _DEBUG
-        GLenum glErr = glGetError();
-        if (glErr != GL_NO_ERROR && log)
+    GLenum errLast = GL_NO_ERROR;
+
+    while (true)
+    {
+        GLenum err = glGetError();
+
+        if (err == GL_NO_ERROR)
         {
-            PrintGLErrorDescription(glErr);
-            std::cout << "\t[File] : " << file << "\t[Line] : " << line << std::endl;
-            return glErr;
+            break;
         }
-    #endif
-    return 0;
+
+        /*
+         *  Normally, the error is reset by the call to glGetError(), but
+         *  if glGetError() itself returns an error, we risk looping forever
+         *  here, so we check that we get a different error than the last
+         *  time.
+         */
+        if (err == errLast)
+        {
+            std::cout << "OpenGL error state couldn't be reset";
+            break;
+        }
+
+        errLast = err;
+
+        PrintGLErrorDescription(err);
+        std::cout << "\t[File] : " << file << "\t[Line] : " << line << std::endl;
+    }
+
+    return errLast;
 }
