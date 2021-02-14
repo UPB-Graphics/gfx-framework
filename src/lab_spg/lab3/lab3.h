@@ -31,6 +31,6 @@ namespace spg
         void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
         void OnWindowResize(int width, int height) override;
 
-        FrameBuffer *frameBuffer;
+        // TODO(student): Declare the frame buffer, and any other class members here.
     };
 }   // namespace spg

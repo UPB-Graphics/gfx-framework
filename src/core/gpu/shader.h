@@ -70,8 +70,6 @@ class Shader
     GLint text_color;
 
  private:
-    bool compileErrors;
-
     struct ShaderFile
     {
         std::string file;

@@ -63,7 +63,7 @@ class CDialogEventHandler : public IFileDialogEvents, public IFileDialogControlE
     CDialogEventHandler() : _cRef(1) { }
 
  private:
-    ~CDialogEventHandler() { }
+    virtual ~CDialogEventHandler() { }
     long _cRef;
 };
 

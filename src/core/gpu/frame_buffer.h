@@ -43,7 +43,6 @@ class FrameBuffer
 
     unsigned int FBO;
     unsigned int *DrawBuffers;          // TODO(developer): test if is necessary to declare
-    unsigned int depthRenderbuffer;
 
     int width;
     int height;

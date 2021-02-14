@@ -98,8 +98,6 @@ class Mesh
 
  private:
     std::string meshID;
-    glm::vec3 halfSize;
-    glm::vec3 meshCenter;
 
  public:
     std::vector<glm::vec3> positions;
