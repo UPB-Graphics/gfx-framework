@@ -36,6 +36,9 @@ ComputeShadersExt::ComputeShadersExt()
 
 ComputeShadersExt::~ComputeShadersExt()
 {
+    delete frameBuffer;
+    delete frameBufferBlur;
+    delete textureBlur;
 }
 
 
@@ -161,9 +164,10 @@ void ComputeShadersExt::Update(float deltaTimeSeconds)
         glFinish();
 #endif
 
+#if 0
         auto tEnd = std::chrono::high_resolution_clock::now();
         auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(tEnd - tStart).count();
-#if 0
+
         cout << "FB_Time: " << diff << " ms" << endl;
 #endif
     }
@@ -189,9 +193,10 @@ void ComputeShadersExt::Update(float deltaTimeSeconds)
         glFinish();
 #endif
 
+#if 0
         auto tEnd = std::chrono::high_resolution_clock::now();
         auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(tEnd - tStart).count();
-#if 0
+
         cout << "CS_Time: " << diff << " ms" << endl;
 #endif
     }

@@ -34,7 +34,7 @@ void TessellationShader::Init()
 
     // Create a shader program for drawing face polygon with the color of the normal
     {
-        const string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::EXTRA, "tesselation_shader", "shaders");
+        const string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::EXTRA, "tessellation_shader", "shaders");
         Shader *shader = new Shader("TessShader");
         shader->AddShader(PATH_JOIN(shaderPath, "VertexShader.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(shaderPath, "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
@@ -96,8 +96,9 @@ void TessellationShader::Update(float deltaTimeSeconds)
         glBindVertexArray(mesh->GetBuffers()->m_VAO);
 #if 0
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
-#endif
+#else
         glDrawElements(GL_PATCHES, 6, GL_UNSIGNED_SHORT, 0);
+#endif
     }
 }
 

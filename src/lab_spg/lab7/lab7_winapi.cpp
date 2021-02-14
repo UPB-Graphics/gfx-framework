@@ -79,6 +79,7 @@ HRESULT CDialogEventHandler::OnTypeChange(IFileDialog *pfd)
         if (SUCCEEDED(hr))
         {
             IPropertyDescriptionList *pdl = NULL;
+            (void)pdl;
         }
         pfsd->Release();
     }

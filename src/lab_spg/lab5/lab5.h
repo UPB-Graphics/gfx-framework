@@ -21,7 +21,7 @@ namespace spg
         void Update(float deltaTimeSeconds) override;
         void FrameEnd() override;
 
-        void LoadShader(std::string name, bool hasGeomtery = true);
+        void LoadShader(const std::string &name, bool hasGeomtery = true);
 
         void OnInputUpdate(float deltaTime, int mods) override;
         void OnKeyPress(int key, int mods) override;

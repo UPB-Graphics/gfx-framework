@@ -82,9 +82,6 @@ void Laborator7::Update(float deltaTimeSeconds)
     int outputMode_loc = shader->GetUniformLocation("outputMode");
     glUniform1i(outputMode_loc, outputMode);
 
-    int gpuProcessing_loc = shader->GetUniformLocation("outputMode");
-    glUniform1i(outputMode_loc, outputMode);
-
     int locTexture = shader->GetUniformLocation("textureImage");
     glUniform1i(locTexture, 0);
     auto textureImage = (gpuProcessing == true) ? originalImage : processedImage;
@@ -116,13 +113,13 @@ void Laborator7::FrameEnd()
 }
 
 
-void Laborator7::OnFileSelected(std::string fileName)
+void Laborator7::OnFileSelected(const std::string &fileName)
 {
     if (fileName.size())
     {
         std::cout << fileName << endl;
-        originalImage = TextureManager::LoadTexture(fileName.c_str(), nullptr, "image", true, true);
-        processedImage = TextureManager::LoadTexture(fileName.c_str(), nullptr, "newImage", true, true);
+        originalImage = TextureManager::LoadTexture(fileName, nullptr, "image", true, true);
+        processedImage = TextureManager::LoadTexture(fileName, nullptr, "newImage", true, true);
 
         float aspectRatio = static_cast<float>(originalImage->GetWidth()) / originalImage->GetHeight();
         window->SetSize(static_cast<int>(600 * aspectRatio), 600);
@@ -157,7 +154,7 @@ void Laborator7::GrayScale()
 }
 
 
-void Laborator7::SaveImage(std::string fileName)
+void Laborator7::SaveImage(const std::string &fileName)
 {
     cout << "Saving image! ";
     processedImage->SaveToFile((fileName + ".png").c_str());

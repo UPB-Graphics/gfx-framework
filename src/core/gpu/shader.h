@@ -15,7 +15,7 @@
 class Shader
 {
  public:
-    Shader(const char *name);
+    Shader(const std::string &name);
     ~Shader();
 
     const char *GetName() const;

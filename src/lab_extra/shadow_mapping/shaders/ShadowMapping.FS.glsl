@@ -34,11 +34,11 @@ void main()
     // Shadow 
 
     // NDC to Screen coordinates
-    // Check if pixel is in shadow
+    // TODO(student): Check if pixel is in shadow
     float visibility = 1.0;
 
     // ------------------------------------------------------------------------
-    // PhongLighting
+    // Phong lighting
 
     vec3 L = normalize(light_position - P);
     vec3 V = normalize(eye_position - P);
@@ -54,7 +54,7 @@ void main()
     if (diffuse_light > 0)
     {
         // specular_light = pow(max(dot(V, reflect(-L, N)), 0), material_shininess);    // Phong
-        specular_light = pow(max(dot(N, normalize(L + V)), 0), material_shininess);                    // Blinn - Phong
+        specular_light = pow(max(dot(N, normalize(L + V)), 0), material_shininess);     // Blinn-Phong
     }
 
     light = ambient_light + material_kd * diffuse_light + material_ks * specular_light;

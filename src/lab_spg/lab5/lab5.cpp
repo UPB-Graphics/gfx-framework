@@ -148,13 +148,13 @@ void Laborator5::FrameEnd()
 }
 
 
-void Laborator5::LoadShader(std::string name, bool hasGeomtery)
+void Laborator5::LoadShader(const std::string &name, bool hasGeomtery)
 {
     std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::SPG, "lab5", "shaders");
 
     // Create a shader program for particle system
     {
-        Shader *shader = new Shader(name.c_str());
+        Shader *shader = new Shader(name);
         shader->AddShader(PATH_JOIN(shaderPath, name + ".VS.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(shaderPath, name + ".FS.glsl"), GL_FRAGMENT_SHADER);
         if (hasGeomtery)

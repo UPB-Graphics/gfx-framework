@@ -203,7 +203,7 @@ void Laborator5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 
         }
 
-        if (window->GetSpecialKeyState() && GLFW_MOD_CONTROL) {
+        if (window->GetSpecialKeyState() & GLFW_MOD_CONTROL) {
             renderCameraTarget = true;
             // TODO(student): Rotate the camera in third-person mode around
             // OX and OY using `deltaX` and `deltaY`. Use the sensitivity

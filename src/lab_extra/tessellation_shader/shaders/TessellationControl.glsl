@@ -1,6 +1,6 @@
 #version 430
 
-// Output
+// Output topology
 layout(vertices = 3) out;
 
 // Uniform properties

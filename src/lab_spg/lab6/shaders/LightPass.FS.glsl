@@ -14,21 +14,9 @@ uniform float light_radius;
 layout(location = 0) out vec4 out_color;
 
 // Local variables and functions
-vec4 PhongLight(vec3 w_pos, vec3 w_N);
-
-
-void main()
-{
-    vec2 text_coord = gl_FragCoord.xy / resolution;
-    vec3 wPos = texture(texture_position, text_coord).xyz;
-    vec3 wNorm = texture(texture_normal, text_coord).xyz;
-    out_color.xyz = light_color * PhongLight(wPos, wNorm).xyz;
-}
-
-
-const vec3 ld = vec3 (0.3);             // diffuse factor
-const vec3 ls = vec3 (0.3);             // specular factor
-const float specular_exponent = 40.0;   // specular exponent
+const vec3 LD = vec3 (0.3);             // diffuse factor
+const vec3 LS = vec3 (0.3);             // specular factor
+const float SPECULAR_EXPONENT = 40.0;   // specular exponent
 
 
 vec4 PhongLight(vec3 w_pos, vec3 w_N)
@@ -50,10 +38,19 @@ vec4 PhongLight(vec3 w_pos, vec3 w_N)
     {
         vec3 V = normalize(eye_position - w_pos);
         vec3 H = normalize(L + V);
-        specular = ls * pow(max(dot(w_N, H), 0), specular_exponent);
+        specular = LS * pow(max(dot(w_N, H), 0), SPECULAR_EXPONENT);
     }
 
-    vec3 diffuse = ld * max(dot_specular, 0);
+    vec3 diffuse = LD * max(dot_specular, 0);
 
     return vec4(att * (diffuse + specular), 1.0);
+}
+
+
+void main()
+{
+    vec2 text_coord = gl_FragCoord.xy / resolution;
+    vec3 wPos = texture(texture_position, text_coord).xyz;
+    vec3 wNorm = texture(texture_normal, text_coord).xyz;
+    out_color.xyz = light_color * PhongLight(wPos, wNorm).xyz;
 }

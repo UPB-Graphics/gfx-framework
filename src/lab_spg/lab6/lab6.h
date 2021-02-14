@@ -40,7 +40,7 @@ namespace spg
         void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
         void OnWindowResize(int width, int height) override;
 
-        void LoadShader(std::string fileName);
+        void LoadShader(const std::string &fileName);
 
      private:
         FrameBuffer *frameBuffer;

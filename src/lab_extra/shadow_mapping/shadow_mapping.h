@@ -39,7 +39,7 @@ namespace extra
         void RenderSceneFromLigth(Shader *shader);
         void RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, const glm::vec3 &color = glm::vec3(1));
 
-        void LoadShader(std::string name);
+        void LoadShader(const std::string &name);
 
         void OnInputUpdate(float deltaTime, int mods) override;
         void OnKeyPress(int key, int mods) override;

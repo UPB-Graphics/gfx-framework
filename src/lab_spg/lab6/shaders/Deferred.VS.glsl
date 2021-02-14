@@ -8,6 +8,7 @@ layout(location = 2) in vec2 v_texture_coord;
 // Output
 layout(location = 0) out vec2 texture_coord;
 
+
 void main()
 {
     texture_coord = v_texture_coord;

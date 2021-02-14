@@ -158,6 +158,7 @@ void ShadowMapping::Update(float deltaTimeSeconds)
 
     // Render a debug quad for scene information
     FrameBuffer::BindDefault(window->GetResolution());
+
     {
         auto shader = shaders["ShadowMapping"];
         shader->Use();
@@ -280,13 +281,13 @@ void ShadowMapping::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4
 }
 
 
-void ShadowMapping::LoadShader(std::string name)
+void ShadowMapping::LoadShader(const std::string &name)
 {
     static string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::EXTRA, "shadow_mapping", "shaders");
 
     // Create a shader program for particle system
     {
-        Shader *shader = new Shader(name.c_str());
+        Shader *shader = new Shader(name);
         shader->AddShader(PATH_JOIN(shaderPath, name + ".VS.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(shaderPath, name + ".FS.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
@@ -301,8 +302,6 @@ void ShadowMapping::LoadShader(std::string name)
 
 void ShadowMapping::OnInputUpdate(float deltaTime, int mods)
 {
-    float speed = 2;
-
     if (!window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
     {
         glm::vec3 up = glm::vec3(0, 1, 0);
@@ -312,6 +311,8 @@ void ShadowMapping::OnInputUpdate(float deltaTime, int mods)
 
         // Control light position using on W, A, S, D, E, Q
 #if 0
+        float speed = 2;
+
         if (window->KeyHold(GLFW_KEY_W)) lightPosition -= forward * deltaTime * speed;
         if (window->KeyHold(GLFW_KEY_A)) lightPosition -= right * deltaTime * speed;
         if (window->KeyHold(GLFW_KEY_S)) lightPosition += forward * deltaTime * speed;

@@ -41,6 +41,7 @@ void SimpleScene::InitResources()
     window = Engine::GetWindow();
 
     SceneInput *SI = new SceneInput(this);
+    (void)SI;
 
     xozPlane = new Mesh("plane");
     xozPlane->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "plane50.obj");

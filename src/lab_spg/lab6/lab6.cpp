@@ -248,13 +248,13 @@ void Laborator6::FrameEnd()
 }
 
 
-void Laborator6::LoadShader(std::string name)
+void Laborator6::LoadShader(const std::string &name)
 {
     std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::SPG, "lab6", "shaders");
 
     // Create a shader program for particle system
     {
-        Shader *shader = new Shader(name.c_str());
+        Shader *shader = new Shader(name);
         shader->AddShader(PATH_JOIN(shaderPath, name + ".VS.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(shaderPath, name + ".FS.glsl"), GL_FRAGMENT_SHADER);
 

@@ -272,8 +272,6 @@ Texture2D* Laborator9::CreateRandomTexture(unsigned int width, unsigned int heig
 
 void Laborator9::OnInputUpdate(float deltaTime, int mods)
 {
-    float speed = 2;
-
     if (!window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
     {
         glm::vec3 up = glm::vec3(0, 1, 0);

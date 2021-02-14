@@ -35,6 +35,9 @@ ComputeShaders::ComputeShaders()
 
 ComputeShaders::~ComputeShaders()
 {
+    delete frameBuffer;
+    delete texture1;
+    delete texture2;
 }
 
 

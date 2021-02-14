@@ -39,10 +39,10 @@ int main(int argc, char **argv)
     wp.selfDir = GetParentDir(std::string(argv[0]));
 
     // Init the Engine and create a new window with the defined properties
-    WindowObject* window = Engine::Init(wp);
+    (void)Engine::Init(wp);
 
     // Create a new 3D world and start running it
-    World *world = new egc::Laborator6();
+    World *world = new extra::ShadowMapping();
 
     world->Init();
     world->Run();

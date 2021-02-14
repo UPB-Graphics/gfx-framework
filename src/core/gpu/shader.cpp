@@ -4,10 +4,10 @@
 #include <iostream>
 
 
-Shader::Shader(const char * name)
+Shader::Shader(const std::string &name)
 {
     program = 0;
-    shaderName = std::string(name);
+    shaderName = name;
     shaderFiles.reserve(5);
 }
 

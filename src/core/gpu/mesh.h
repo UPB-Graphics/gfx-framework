@@ -16,7 +16,6 @@ class Material
     Material()
     {
         texture = nullptr;
-        shininess = 0;
     }
 
     glm::vec4 ambient;
@@ -28,7 +27,7 @@ class Material
     Texture2D* texture;
 };
 
-static const unsigned int INVALID_MATERIAL = 0xFFFFFFFF;
+static const unsigned int INVALID_MATERIAL = std::numeric_limits<unsigned int>::max();
 
 class MeshEntry
 {

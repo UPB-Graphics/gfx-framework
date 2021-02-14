@@ -36,11 +36,11 @@ namespace spg
         void OnWindowResize(int width, int height) override;
 
         void OpenDialogue();
-        void OnFileSelected(std::string fileName);
+        void OnFileSelected(const std::string &fileName);
 
         // Processing effects
         void GrayScale();
-        void SaveImage(std::string fileName);
+        void SaveImage(const std::string &fileName);
 
      private:
         Texture2D *originalImage;

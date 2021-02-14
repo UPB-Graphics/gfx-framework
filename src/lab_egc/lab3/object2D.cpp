@@ -7,7 +7,7 @@
 
 
 Mesh* object2D::CreateSquare(
-    std::string name,
+    const std::string &name,
     glm::vec3 leftBottomCorner,
     float length,
     glm::vec3 color,
