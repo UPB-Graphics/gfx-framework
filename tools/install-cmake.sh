@@ -5,16 +5,37 @@ cmk_ver=3.17.5
 cmk_name=cmake-$cmk_ver-Linux-x86_64
 cmk_install_dir=~/opt
 
+
+# Define cleanup handler
+cleanup ()
+{
+    echo -n "Cleaning up... "
+
+    [ -f $cmk_install_dir/$cmk_name.sh ] &&
+        { rm -f $cmk_install_dir/$cmk_name.sh ; }
+
+    echo "done"
+}
+
 # Define error handler
-fail () {
+fail ()
+{
     ret_code=$?
+
+    echo -n "failed: "
     echo $1 >&2
+    cleanup $ret_code
+
     exit $ret_code
 }
 
+
 # Create install dir
 {
-    echo -n "Creating install dir... "
+    echo -n "Creating installation dir... "
+
+    [ -d $cmk_install_dir/$cmk_name ] &&
+        { fail "cmake subdir already exists" ; }
 
     mkdir -p $cmk_install_dir ||
         { fail "cannot create install dir" ; }
