@@ -45,9 +45,6 @@ pass ()
 {
     echo -n "Creating installation dir... "
 
-    [ -d $cmk_install_dir/$cmk_name ] &&
-        { fail "cmake subdir already exists" ; }
-
     mkdir -p $cmk_install_dir ||
         { fail "cannot create install dir" ; }
 
@@ -61,6 +58,9 @@ pass ()
 {
     echo -n "Downloading, please wait... "
 
+    [ -f $cmk_name.sh ] &&
+        { fail "cmake installer already exists" ; }
+
     wget https://github.com/Kitware/CMake/releases/download/v$cmk_ver/$cmk_name.sh >/dev/null 2>&1 ||
         { fail "cannot download" ; }
 
@@ -70,6 +70,9 @@ pass ()
 # Install
 {
     echo -n "Installing... "
+
+    [ -d $cmk_name ] &&
+        { fail "CMake subdir already exists" ; }
 
     chmod +x $cmk_name.sh ||
         { fail "cannot change installer permissions" ; }
