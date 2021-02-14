@@ -16,6 +16,7 @@ class Material
     Material()
     {
         texture = nullptr;
+        shininess = 0;
     }
 
     glm::vec4 ambient;
