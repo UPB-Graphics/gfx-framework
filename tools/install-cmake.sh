@@ -29,6 +29,17 @@ fail ()
     exit $ret_code
 }
 
+# Define success handler
+pass ()
+{
+    ret_code=$?
+
+    cleanup $ret_code
+    echo "Completed"
+
+    exit $ret_code
+}
+
 
 # Create install dir
 {
@@ -80,4 +91,4 @@ fail ()
 }
 
 # Exit
-echo "Completed"
+pass
