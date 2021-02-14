@@ -274,12 +274,12 @@ InputController * SimpleScene::GetCameraInput() const
 }
 
 
-void SimpleScene::ClearScreen()
+void SimpleScene::ClearScreen(const glm::vec3 &color)
 {
     glm::ivec2 resolution = window->props.resolution;
 
     // Sets the clear color for the color buffer
-    glClearColor(0, 0, 0, 1);
+    glClearColor(color.x, color.y, color.z, 1);
 
     // Clears the color buffer (using the previously set color) and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

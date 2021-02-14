@@ -51,7 +51,7 @@ namespace egx
             Camera *GetSceneCamera() const;
             InputController *GetCameraInput() const;
 
-            void ClearScreen();
+            void ClearScreen(const glm::vec3 &color = glm::vec3(0, 0, 0));
 
          private:
             void InitResources();
