@@ -203,7 +203,7 @@ target_compile_definitions(${target_name} PRIVATE ${EGXF_CXX_DEFS})
 if (MSVC)
     set(EGXF_CXX_FLAGS  /W4 /WX-)
     # TODO(developer): Fix these warnings
-    set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS} /wd4100 /wd4458 /wd4189 /wd4244)
+    set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS} /wd4100 /wd4458 /wd4189)
 else()
     set(EGXF_CXX_FLAGS  -Wall -Wextra -pedantic -Wno-error)
     # TODO(developer): Fix these warnings

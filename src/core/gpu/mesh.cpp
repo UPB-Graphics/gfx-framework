@@ -167,9 +167,9 @@ bool Mesh::InitFromScene(const aiScene* pScene)
     for (unsigned int i = 0 ; i < pScene->mNumMeshes ; i++)
     {
         meshEntries[i].materialIndex = pScene->mMeshes[i]->mMaterialIndex;
-        meshEntries[i].nrIndices = pScene->mMeshes[i]->mNumFaces * (glDrawMode == GL_TRIANGLES ? 3 : 4);
-        meshEntries[i].baseVertex = nrVertices;
-        meshEntries[i].baseIndex = nrIndices;
+        meshEntries[i].nrIndices = (unsigned short)(pScene->mMeshes[i]->mNumFaces * (glDrawMode == GL_TRIANGLES ? 3 : 4));
+        meshEntries[i].baseVertex = (unsigned short)nrVertices;
+        meshEntries[i].baseIndex = (unsigned short)nrIndices;
 
         nrVertices += pScene->mMeshes[i]->mNumVertices;
         nrIndices  += meshEntries[i].nrIndices;
@@ -215,11 +215,11 @@ void Mesh::InitMesh(const aiMesh* paiMesh)
     // Init the index buffer
     for (unsigned int i = 0; i < paiMesh->mNumFaces; i++) {
         const aiFace& Face = paiMesh->mFaces[i];
-        indices.push_back(Face.mIndices[0]);
-        indices.push_back(Face.mIndices[1]);
-        indices.push_back(Face.mIndices[2]);
+        indices.push_back((unsigned short)Face.mIndices[0]);
+        indices.push_back((unsigned short)Face.mIndices[1]);
+        indices.push_back((unsigned short)Face.mIndices[2]);
         if (Face.mNumIndices == 4)
-            indices.push_back(Face.mIndices[3]);
+            indices.push_back((unsigned short)Face.mIndices[3]);
     }
 }
 

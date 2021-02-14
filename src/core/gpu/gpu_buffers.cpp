@@ -20,7 +20,7 @@ GPUBuffers::GPUBuffers()
 
 void GPUBuffers::CreateBuffers(unsigned int size)
 {
-    this->m_size = size;
+    this->m_size = (unsigned short)size;
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(size, m_VBO);
 }
