@@ -226,7 +226,9 @@ void Texture2D::SetTextureParameters()
     glTexParameteri(targetType, GL_TEXTURE_MAG_FILTER, textureMagFilter);
     glTexParameteri(targetType, GL_TEXTURE_WRAP_S, wrappingMode);
     glTexParameteri(targetType, GL_TEXTURE_WRAP_T, wrappingMode);
-    glTexParameterf(targetType, GL_TEXTURE_MAX_ANISOTROPY_EXT, 4);
+    if (GLEW_EXT_texture_filter_anisotropic) {
+        glTexParameterf(targetType, GL_TEXTURE_MAX_ANISOTROPY_EXT, 4);
+    }
 }
 
 

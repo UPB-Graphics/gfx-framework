@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     (void)Engine::Init(wp);
 
     // Create a new 3D world and start running it
-    World *world = new egc::Laborator2();
+    World *world = new egc::Laborator9();
 
     world->Init();
     world->Run();
