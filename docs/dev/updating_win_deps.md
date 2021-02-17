@@ -223,7 +223,7 @@ Follow these steps:
     ```
 -   copy the API into our project:
     ```
-    dir:    spdlog/include/spdlog                   ->      deps/spdlog
+    dir:    spdlog/include/spdlog                   ->      deps/api/spdlog
     ```
 -   copy the binaries into our project:
     ```
