@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [[ $(command -v brew) == "" ]]; then
     # Package manager is not installed
     echo "Hombrew not installed, get it from https://brew.sh/"
