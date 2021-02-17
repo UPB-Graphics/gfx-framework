@@ -8,9 +8,11 @@
 # We strongly advise against using anything older than that.
 
 
+# Update package lists
+sudo apt update
+
 # Install basic development tools
 sudo apt install -y build-essential
 
-
-# Install required tools for this project.
-sudo apt install -y cmake g++ libglm-dev libglew-dev libassimp-dev libglfw3-dev pkg-config
+# Install required dependencies
+sudo apt install -y cmake g++ libglm-dev libglew-dev libassimp-dev libglfw3-dev libspdlog-dev pkg-config

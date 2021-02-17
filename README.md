@@ -25,7 +25,6 @@ Basically, it most likely works on your computer.
 
 This section describes ***what you need to do and install*** before actually building the code.
 
-
 ### Install a compiler
 
 -   Minimum:
@@ -83,8 +82,7 @@ There are some open-source libraries that this project uses. To install them:
         -   Red Hat (Fedora): `./tools/deps-fedora.sh`
         -   Arch (x86_64): `./tools/deps-arch.sh`
 
--   macOS:
-    1.  `brew install glew glfw assimp pkgconfig`
+-   macOS: `./tools/deps-macos.sh`
 
 
 ## :gear: Building

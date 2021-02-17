@@ -4,12 +4,14 @@
 # NOTE: You must run this script as superuser.
 
 
+# Update package lists
+sudo dnf check-update
+
 # Install basic development tools
 sudo dnf install -y @development-tools
 
-# Install graphics drivers and utilities, including glxinfo and glxgears.
+# Install graphics drivers and utilities, including glxinfo and glxgears
 sudo dnf install -y mesa-dri-drivers glx-utils
 
-# Install required tools for this project.
-# Package list originally prepared by Catalin Puscoci.
-sudo dnf install -y cmake g++ assimp-devel glfw-devel glew-devel glm-devel pkg-config
+# Install required dependencies
+sudo dnf install -y cmake g++ assimp-devel glfw-devel glew-devel glm-devel spdlog-devel pkg-config

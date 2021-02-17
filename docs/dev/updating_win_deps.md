@@ -35,6 +35,7 @@ Every time you update a dependency, make sure you also update this list.
 | [glfw](https://github.com/glfw/glfw)          | 0b9e48fa @ master
 | [glm](https://github.com/g-truc/glm)          | 3a25105d @ master
 | [stb](https://github.com/nothings/stb)        | b42009b3 @ master
+| [spdlog](https://github.com/gabime/spdlog)    | 42c5eb59 @ v1.x
 
 
 ## :bento: Dependencies
@@ -42,7 +43,7 @@ Every time you update a dependency, make sure you also update this list.
 ### `libEGXComp`
 
 The sources for these binaries are private. If you need builds for a certain architecture, platform etc.,
-file a Github issue and let us know. Even better, try implementing the hidden functionality!
+file a Github issue and let us know. Even better, take a shot at implementing the hidden functionality yourself!
 
 
 ### `assimp`
@@ -77,10 +78,10 @@ Follow these steps:
     ```
 -   copy the binaries into our project:
     ```
-    file:   assimp/build-32/lib/Release/assimp.lib  ->      deps/prebuilt/assimp/i686/Release
-    file:   assimp/build-32/bin/Release/assimp.dll  ->      deps/prebuilt/assimp/i686/Release
-    file:   assimp/build-64/lib/Release/assimp.lib  ->      deps/prebuilt/assimp/x86_64/Release
-    file:   assimp/build-64/bin/Release/assimp.dll  ->      deps/prebuilt/assimp/x86_64/Release
+    file:   assimp/build-32/lib/Release/assimp.lib  ->      deps/prebuilt/assimp/i686
+    file:   assimp/build-32/bin/Release/assimp.dll  ->      deps/prebuilt/assimp/i686
+    file:   assimp/build-64/lib/Release/assimp.lib  ->      deps/prebuilt/assimp/x86_64
+    file:   assimp/build-64/bin/Release/assimp.dll  ->      deps/prebuilt/assimp/x86_64
     ```
 
 
@@ -90,7 +91,7 @@ Follow these steps:
 
 -   clone the repo:
     ```
-    https://github.com/nigels-com/glew
+    git clone https://github.com/nigels-com/glew
     cd glew
     ```
 -   generate the source files:
@@ -119,10 +120,10 @@ Follow these steps:
     ```
 -   copy the binaries into our project:
     ```
-    file:   glew/build-32/lib/Release/glew32.lib    ->      deps/prebuilt/glew/i686/Release
-    file:   glew/build-32/bin/Release/glew32.dll    ->      deps/prebuilt/glew/i686/Release
-    file:   glew/build-64/lib/Release/glew32.lib    ->      deps/prebuilt/glew/x86_64/Release
-    file:   glew/build-64/bin/Release/glew32.dll    ->      deps/prebuilt/glew/x86_64/Release
+    file:   glew/build-32/lib/Release/glew32.lib    ->      deps/prebuilt/glew/i686
+    file:   glew/build-32/bin/Release/glew32.dll    ->      deps/prebuilt/glew/i686
+    file:   glew/build-64/lib/Release/glew32.lib    ->      deps/prebuilt/glew/x86_64
+    file:   glew/build-64/bin/Release/glew32.dll    ->      deps/prebuilt/glew/x86_64
     ```
 
 
@@ -132,7 +133,7 @@ Follow these steps:
 
 -   clone the repo:
     ```
-    https://github.com/glfw/glfw
+    git clone https://github.com/glfw/glfw
     cd glfw
     ```
 -   build the 32-bit binaries:
@@ -157,10 +158,10 @@ Follow these steps:
     ```
 -   copy the binaries into our project:
     ```
-    file:   glfw/build-32/src/Release/glfw3dll.lib  ->      deps/prebuilt/GLFW/i686/Release
-    file:   glfw/build-32/src/Release/glfw3.dll     ->      deps/prebuilt/GLFW/i686/Release
-    file:   glfw/build-64/src/Release/glfw3dll.lib  ->      deps/prebuilt/GLFW/x86_64/Release
-    file:   glfw/build-64/src/Release/glfw3.dll     ->      deps/prebuilt/GLFW/x86_64/Release
+    file:   glfw/build-32/src/Release/glfw3dll.lib  ->      deps/prebuilt/GLFW/i686
+    file:   glfw/build-32/src/Release/glfw3.dll     ->      deps/prebuilt/GLFW/i686
+    file:   glfw/build-64/src/Release/glfw3dll.lib  ->      deps/prebuilt/GLFW/x86_64
+    file:   glfw/build-64/src/Release/glfw3.dll     ->      deps/prebuilt/GLFW/x86_64
     ```
 
 
@@ -185,11 +186,49 @@ Follow these steps:
 
 -   clone the repo:
     ```
-    https://github.com/nothings/stb
+    git clone https://github.com/nothings/stb
     cd stb
     ```
 -   copy the API into our project (only the components we need):
     ```
     file:   stb/stb_image.h                         ->      deps/api/stb
     file:   stb/stb_image_write.h                   ->      deps/api/stb
+    ```
+
+
+### `spdlog`
+
+Follow these steps:
+
+-   clone the repo:
+    ```
+    git clone https://github.com/gabime/spdlog
+    cd spdlog
+    ```
+-   build the 32-bit binaries:
+    ```
+    mkdir build-32
+    cd build-32
+    cmake .. -A Win32 -DSPDLOG_BUILD_SHARED=ON
+    cmake --build . --config Release
+    cd ..
+    ```
+-   build the 64-bit binaries:
+    ```
+    mkdir build-64
+    cd build-64
+    cmake .. -A x64 -DSPDLOG_BUILD_SHARED=ON
+    cmake --build . --config Release
+    cd ..
+    ```
+-   copy the API into our project:
+    ```
+    dir:    spdlog/include/spdlog                   ->      deps/spdlog
+    ```
+-   copy the binaries into our project:
+    ```
+    file:   spdlog/build-32/Release/spdlog.lib      ->      deps/prebuilt/spdlog/i686
+    file:   spdlog/build-32/Release/spdlog.dll      ->      deps/prebuilt/spdlog/i686
+    file:   spdlog/build-64/Release/spdlog.lib      ->      deps/prebuilt/spdlog/x86_64
+    file:   spdlog/build-64/Release/spdlog.dll      ->      deps/prebuilt/spdlog/x86_64
     ```

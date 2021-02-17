@@ -40,6 +40,7 @@ if (NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
     find_package(PkgConfig REQUIRED)
     pkg_search_module(GLFW REQUIRED glfw3)
     find_package(ASSIMP REQUIRED)
+    find_package(spdlog REQUIRED)
 endif()
 
 
@@ -135,17 +136,19 @@ target_link_libraries(${target_name} PRIVATE
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(${target_name} PRIVATE
-        ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3dll.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.lib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.lib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3dll.lib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.lib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.lib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.lib
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(${target_name} PRIVATE
         GLEW
         glfw
         assimp
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.so
+        spdlog
+        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.so
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     # Fix linking on 10.14+. See https://stackoverflow.com/questions/54068035
@@ -156,7 +159,8 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
         GLEW
         glfw
         assimp
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.dylib
+        spdlog
+        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dylib
     )
 endif()
 
@@ -241,10 +245,11 @@ function(post_build)
             COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${src_dir}"
             COMMAND mklink /J "${OUTPUT_DIR_BS}\\${src_dir}" "${EGXF_ROOT_DIR_BS}\\${src_dir}"
 
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/Release/glew32.dll       ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/Release/glfw3.dll      ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/Release/assimp.dll   ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/Release/libEGXComp.dll ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.dll          ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3.dll         ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.dll      ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll      ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dll ${output_dir}
         )
     else()
         add_custom_command(TARGET ${target_name} POST_BUILD

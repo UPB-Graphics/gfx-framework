@@ -15,8 +15,8 @@
 # you can install `lib32-nvidia-utils`.
 
 
-# Script originally prepared by Silviu-Alexandru Stefan.
-
+# Update package lists
+sudo pacman -Syy
 
 # Install basic development tools
 # Contents: https://archlinux.org/groups/x86_64/base-devel/
@@ -27,5 +27,5 @@ sudo pacman -Sy base-devel
 sudo pacman -Sy mesa mesa-demos
 # pacman -Sy lib32-mesa lib32-mesa-demos
 
-# Install required tools for this project
-sudo pacman -Sy cmake assimp glm glew glfw-x11 pkgconf
+# Install required dependencies
+sudo pacman -Sy cmake assimp glm glew glfw-x11 spdlog pkgconf
