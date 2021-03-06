@@ -28,4 +28,4 @@ sudo pacman -Sy mesa mesa-demos
 # pacman -Sy lib32-mesa lib32-mesa-demos
 
 # Install required dependencies
-sudo pacman -Sy cmake assimp glm glew glfw-x11 spdlog pkgconf
+sudo pacman -Sy cmake assimp glm glew glfw-x11 spdlog freetype2 pkgconf

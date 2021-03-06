@@ -36,6 +36,7 @@ Every time you update a dependency, make sure you also update this list.
 | [glm](https://github.com/g-truc/glm)          | 3a25105d @ master
 | [stb](https://github.com/nothings/stb)        | b42009b3 @ master
 | [spdlog](https://github.com/gabime/spdlog)    | 42c5eb59 @ v1.x
+| [freetype](https://gitlab.freedesktop.org/freetype/freetype)  | 7227aabb @ master
 
 
 ## :bento: Dependencies
@@ -57,19 +58,13 @@ Follow these steps:
     ```
 -   build the 32-bit binaries:
     ```
-    mkdir build-32
-    cd build-32
-    cmake .. -A Win32 -DLIBRARY_SUFFIX="" -DCMAKE_DEBUG_POSTFIX=""
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-32 -S . -A Win32 -D LIBRARY_SUFFIX="" -D CMAKE_DEBUG_POSTFIX=""
+    cmake --build build-32 --config Release
     ```
 -   build the 64-bit binaries:
     ```
-    mkdir build-64
-    cd build-64
-    cmake .. -A x64 -DLIBRARY_SUFFIX="" -DCMAKE_DEBUG_POSTFIX=""
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-64 -S . -A x64 -D LIBRARY_SUFFIX="" -D CMAKE_DEBUG_POSTFIX=""
+    cmake --build build-64 --config Release
     ```
 -   copy the API into our project:
     ```
@@ -100,19 +95,13 @@ Follow these steps:
     ```
 -   build the 32-bit binaries:
     ```
-    mkdir build-32
-    cd build-32
-    cmake ..\build\cmake -A Win32
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-32 -S build\cmake -A Win32
+    cmake --build build-32 --config Release
     ```
 -   build the 64-bit binaries:
     ```
-    mkdir build-64
-    cd build-64
-    cmake ..\build\cmake -A x64
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-64 -S build\cmake -A x64
+    cmake --build build-64 --config Release
     ```
 -   copy the API into our project:
     ```
@@ -138,19 +127,13 @@ Follow these steps:
     ```
 -   build the 32-bit binaries:
     ```
-    mkdir build-32
-    cd build-32
-    cmake .. -A Win32 -DBUILD_SHARED_LIBS=ON
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-32 -S . -A Win32 -D BUILD_SHARED_LIBS=ON
+    cmake --build build-32 --config Release
     ```
 -   build the 64-bit binaries:
     ```
-    mkdir build-64
-    cd build-64
-    cmake .. -A x64 -DBUILD_SHARED_LIBS=ON
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-64 -S . -A x64 -D BUILD_SHARED_LIBS=ON
+    cmake --build build-64 --config Release
     ```
 -   copy the API into our project:
     ```
@@ -207,19 +190,13 @@ Follow these steps:
     ```
 -   build the 32-bit binaries:
     ```
-    mkdir build-32
-    cd build-32
-    cmake .. -A Win32 -DSPDLOG_BUILD_SHARED=ON
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-32 -S . -A Win32 -D SPDLOG_BUILD_SHARED=ON
+    cmake --build build-32 --config Release
     ```
 -   build the 64-bit binaries:
     ```
-    mkdir build-64
-    cd build-64
-    cmake .. -A x64 -DSPDLOG_BUILD_SHARED=ON
-    cmake --build . --config Release
-    cd ..
+    cmake -B build-64 -S . -A x64 -D SPDLOG_BUILD_SHARED=ON
+    cmake --build build-64 --config Release
     ```
 -   copy the API into our project:
     ```
@@ -231,4 +208,37 @@ Follow these steps:
     file:   spdlog/build-32/Release/spdlog.dll      ->      deps/prebuilt/spdlog/i686
     file:   spdlog/build-64/Release/spdlog.lib      ->      deps/prebuilt/spdlog/x86_64
     file:   spdlog/build-64/Release/spdlog.dll      ->      deps/prebuilt/spdlog/x86_64
+    ```
+
+
+### `freetype`
+
+Follow these steps:
+
+-   clone the repo:
+    ```
+    git clone https://gitlab.freedesktop.org/freetype/freetype.git
+    cd freetype
+    ```
+-   build the 32-bit binaries:
+    ```
+    cmake -B build-32 -S . -A Win32 -D BUILD_SHARED_LIBS=ON -D CMAKE_DEBUG_POSTFIX=""
+    cmake --build build-32 --config Release
+    ```
+-   build the 64-bit binaries:
+    ```
+    cmake -B build-64 -S . -A x64 -D BUILD_SHARED_LIBS=ON -D CMAKE_DEBUG_POSTFIX=""
+    cmake --build build-64 --config Release
+    ```
+-   copy the API into our project:
+    ```
+    dir:    freetype/include/freetype               ->      deps/api
+    file:   freetype/include/ft2build.h             ->      deps/api
+    ```
+-   copy the binaries into our project:
+    ```
+    file:   freetype/build-32/Release/freetype.lib  ->      deps/prebuilt/freetype/i686
+    file:   freetype/build-32/Release/freetype.dll  ->      deps/prebuilt/freetype/i686
+    file:   freetype/build-64/Release/freetype.lib  ->      deps/prebuilt/freetype/x86_64
+    file:   freetype/build-64/Release/freetype.dll  ->      deps/prebuilt/freetype/x86_64
     ```

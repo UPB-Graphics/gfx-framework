@@ -15,4 +15,4 @@ sudo apt update
 sudo apt install -y build-essential
 
 # Install required dependencies
-sudo apt install -y cmake g++ libglm-dev libglew-dev libassimp-dev libglfw3-dev libspdlog-dev pkg-config
+sudo apt install -y cmake g++ libglm-dev libglew-dev libassimp-dev libglfw3-dev libspdlog-dev libfreetype-dev pkg-config

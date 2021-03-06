@@ -14,4 +14,4 @@ sudo dnf install -y @development-tools
 sudo dnf install -y mesa-dri-drivers glx-utils
 
 # Install required dependencies
-sudo dnf install -y cmake g++ assimp-devel glfw-devel glew-devel glm-devel spdlog-devel pkg-config
+sudo dnf install -y cmake g++ assimp-devel glfw-devel glew-devel glm-devel spdlog-devel freetype-devel pkg-config

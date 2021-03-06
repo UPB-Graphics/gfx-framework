@@ -8,5 +8,5 @@ else
     brew update
 
     # Install required dependencies
-    brew install glew glfw assimp spdlog pkgconfig
+    brew install glew glfw assimp spdlog freetype pkgconfig
 fi

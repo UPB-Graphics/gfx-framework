@@ -41,6 +41,7 @@ if (NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
     pkg_search_module(GLFW REQUIRED glfw3)
     find_package(ASSIMP REQUIRED)
     find_package(spdlog REQUIRED)
+    find_package(Freetype REQUIRED)
 endif()
 
 
@@ -140,6 +141,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3dll.lib
         ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.lib
         ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.lib
+        ${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.lib
         ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.lib
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -148,6 +150,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
         glfw
         assimp
         spdlog
+        freetype
         ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.so
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -160,6 +163,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
         glfw
         assimp
         spdlog
+        freetype
         ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dylib
     )
 endif()
@@ -249,6 +253,7 @@ function(post_build)
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3.dll         ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.dll      ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll      ${output_dir}
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll  ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dll ${output_dir}
         )
     else()
