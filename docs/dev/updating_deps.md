@@ -1,6 +1,6 @@
 -   **[Docs home](../home.md)**
 
-# Updating Windows dependencies
+# Updating dependencies
 
 This is a short guide on how to update the third-party code in the `deps` directory.
 
@@ -27,16 +27,17 @@ This is a short guide on how to update the third-party code in the `deps` direct
 
 Every time you update a dependency, make sure you also update this list.
 
-| Dependency    | Version
-| :---          | :---
-| libEGXComp    | private
-| [assimp](https://github.com/assimp/assimp)    | 88e5f341 @ master
-| [glew](https://github.com/nigels-com/glew)    | 3cdab58d @ master
-| [glfw](https://github.com/glfw/glfw)          | 0b9e48fa @ master
-| [glm](https://github.com/g-truc/glm)          | 3a25105d @ master
-| [stb](https://github.com/nothings/stb)        | b42009b3 @ master
-| [spdlog](https://github.com/gabime/spdlog)    | 42c5eb59 @ v1.x
-| [freetype](https://gitlab.freedesktop.org/freetype/freetype)  | 7227aabb @ master
+| Dependency                                    | Version           | Needed on
+| :---                                          | :---              | :---
+| libEGXComp                                    | private           | Windows
+| [assimp](https://github.com/assimp/assimp)    | 88e5f341 @ master | Windows
+| [glew](https://github.com/nigels-com/glew)    | 3cdab58d @ master | Windows
+| [glfw](https://github.com/glfw/glfw)          | 0b9e48fa @ master | Windows
+| [glm](https://github.com/g-truc/glm)          | 3a25105d @ master | Windows
+| [stb](https://github.com/nothings/stb)        | b42009b3 @ master | Windows
+| [spdlog](https://github.com/gabime/spdlog)    | 42c5eb59 @ v1.x   | Windows
+| [freetype](https://gitlab.freedesktop.org/freetype/freetype)  | 7227aabb @ master | Windows
+| [pfd](https://github.com/samhocevar/portable-file-dialogs)    | b8ed26a2 @ master | all
 
 
 ## :bento: Dependencies
@@ -68,15 +69,15 @@ Follow these steps:
     ```
 -   copy the API into our project:
     ```
-    dir:    assimp/include/assimp                   ->      deps/api
-    file:   assimp/build-64/include/assimp/config.h ->      deps/api/assimp
+    dir:    include/assimp                      ->      deps/api
+    file:   build-64/include/assimp/config.h    ->      deps/api/assimp
     ```
 -   copy the binaries into our project:
     ```
-    file:   assimp/build-32/lib/Release/assimp.lib  ->      deps/prebuilt/assimp/i686
-    file:   assimp/build-32/bin/Release/assimp.dll  ->      deps/prebuilt/assimp/i686
-    file:   assimp/build-64/lib/Release/assimp.lib  ->      deps/prebuilt/assimp/x86_64
-    file:   assimp/build-64/bin/Release/assimp.dll  ->      deps/prebuilt/assimp/x86_64
+    file:   build-32/lib/Release/assimp.lib     ->      deps/prebuilt/assimp/i686
+    file:   build-32/bin/Release/assimp.dll     ->      deps/prebuilt/assimp/i686
+    file:   build-64/lib/Release/assimp.lib     ->      deps/prebuilt/assimp/x86_64
+    file:   build-64/bin/Release/assimp.dll     ->      deps/prebuilt/assimp/x86_64
     ```
 
 
@@ -105,14 +106,14 @@ Follow these steps:
     ```
 -   copy the API into our project:
     ```
-    dir:    glew/include/GL                         ->      deps/api
+    dir:    include/GL                          ->      deps/api
     ```
 -   copy the binaries into our project:
     ```
-    file:   glew/build-32/lib/Release/glew32.lib    ->      deps/prebuilt/glew/i686
-    file:   glew/build-32/bin/Release/glew32.dll    ->      deps/prebuilt/glew/i686
-    file:   glew/build-64/lib/Release/glew32.lib    ->      deps/prebuilt/glew/x86_64
-    file:   glew/build-64/bin/Release/glew32.dll    ->      deps/prebuilt/glew/x86_64
+    file:   build-32/lib/Release/glew32.lib     ->      deps/prebuilt/glew/i686
+    file:   build-32/bin/Release/glew32.dll     ->      deps/prebuilt/glew/i686
+    file:   build-64/lib/Release/glew32.lib     ->      deps/prebuilt/glew/x86_64
+    file:   build-64/bin/Release/glew32.dll     ->      deps/prebuilt/glew/x86_64
     ```
 
 
@@ -137,14 +138,14 @@ Follow these steps:
     ```
 -   copy the API into our project:
     ```
-    dir:    glfw/include/GLFW                       ->      deps/api
+    dir:    include/GLFW                        ->      deps/api
     ```
 -   copy the binaries into our project:
     ```
-    file:   glfw/build-32/src/Release/glfw3dll.lib  ->      deps/prebuilt/GLFW/i686
-    file:   glfw/build-32/src/Release/glfw3.dll     ->      deps/prebuilt/GLFW/i686
-    file:   glfw/build-64/src/Release/glfw3dll.lib  ->      deps/prebuilt/GLFW/x86_64
-    file:   glfw/build-64/src/Release/glfw3.dll     ->      deps/prebuilt/GLFW/x86_64
+    file:   build-32/src/Release/glfw3dll.lib   ->      deps/prebuilt/GLFW/i686
+    file:   build-32/src/Release/glfw3.dll      ->      deps/prebuilt/GLFW/i686
+    file:   build-64/src/Release/glfw3dll.lib   ->      deps/prebuilt/GLFW/x86_64
+    file:   build-64/src/Release/glfw3.dll      ->      deps/prebuilt/GLFW/x86_64
     ```
 
 
@@ -159,7 +160,7 @@ Follow these steps:
     ```
 -   copy the API into our project:
     ```
-    dir:    glm/glm                                 ->      deps/api
+    dir:    glm                                 ->      deps/api
     ```
 
 
@@ -174,8 +175,8 @@ Follow these steps:
     ```
 -   copy the API into our project (only the components we need):
     ```
-    file:   stb/stb_image.h                         ->      deps/api/stb
-    file:   stb/stb_image_write.h                   ->      deps/api/stb
+    file:   stb_image.h                         ->      deps/api/stb
+    file:   stb_image_write.h                   ->      deps/api/stb
     ```
 
 
@@ -200,14 +201,14 @@ Follow these steps:
     ```
 -   copy the API into our project:
     ```
-    dir:    spdlog/include/spdlog                   ->      deps/api/spdlog
+    dir:    include/spdlog                      ->      deps/api
     ```
 -   copy the binaries into our project:
     ```
-    file:   spdlog/build-32/Release/spdlog.lib      ->      deps/prebuilt/spdlog/i686
-    file:   spdlog/build-32/Release/spdlog.dll      ->      deps/prebuilt/spdlog/i686
-    file:   spdlog/build-64/Release/spdlog.lib      ->      deps/prebuilt/spdlog/x86_64
-    file:   spdlog/build-64/Release/spdlog.dll      ->      deps/prebuilt/spdlog/x86_64
+    file:   build-32/Release/spdlog.lib         ->      deps/prebuilt/spdlog/i686
+    file:   build-32/Release/spdlog.dll         ->      deps/prebuilt/spdlog/i686
+    file:   build-64/Release/spdlog.lib         ->      deps/prebuilt/spdlog/x86_64
+    file:   build-64/Release/spdlog.dll         ->      deps/prebuilt/spdlog/x86_64
     ```
 
 
@@ -232,13 +233,28 @@ Follow these steps:
     ```
 -   copy the API into our project:
     ```
-    dir:    freetype/include/freetype               ->      deps/api
-    file:   freetype/include/ft2build.h             ->      deps/api
+    dir:    include/freetype                    ->      deps/api
+    file:   include/ft2build.h                  ->      deps/api
     ```
 -   copy the binaries into our project:
     ```
-    file:   freetype/build-32/Release/freetype.lib  ->      deps/prebuilt/freetype/i686
-    file:   freetype/build-32/Release/freetype.dll  ->      deps/prebuilt/freetype/i686
-    file:   freetype/build-64/Release/freetype.lib  ->      deps/prebuilt/freetype/x86_64
-    file:   freetype/build-64/Release/freetype.dll  ->      deps/prebuilt/freetype/x86_64
+    file:   build-32/Release/freetype.lib       ->      deps/prebuilt/freetype/i686
+    file:   build-32/Release/freetype.dll       ->      deps/prebuilt/freetype/i686
+    file:   build-64/Release/freetype.lib       ->      deps/prebuilt/freetype/x86_64
+    file:   build-64/Release/freetype.dll       ->      deps/prebuilt/freetype/x86_64
+    ```
+
+
+### `portable-file-dialogs`
+
+Follow these steps:
+
+-   clone the repo:
+    ```
+    git clone https://github.com/samhocevar/portable-file-dialogs
+    cd portable-file-dialogs
+    ```
+-   copy the API into our project:
+    ```
+    dir:    portable-file-dialogs.h             ->      deps/api/pfd
     ```

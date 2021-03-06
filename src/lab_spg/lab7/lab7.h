@@ -6,11 +6,6 @@
 #include "core/gpu/frame_buffer.h"
 
 
-#if defined(_WIN32)
-#   define WIN_API_FILE_BROWSING
-#endif
-
-
 namespace spg
 {
     class Laborator7 : public egx::comp::SimpleScene
@@ -35,7 +30,7 @@ namespace spg
         void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
         void OnWindowResize(int width, int height) override;
 
-        void OpenDialogue();
+        void OpenDialog();
         void OnFileSelected(const std::string &fileName);
 
         // Processing effects

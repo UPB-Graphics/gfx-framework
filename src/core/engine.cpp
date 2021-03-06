@@ -4,7 +4,6 @@
 
 #include "core/managers/texture_manager.h"
 #include "utils/gl_utils.h"
-#include "utils/window_utils.h"
 
 
 WindowObject* Engine::window = nullptr;

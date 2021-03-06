@@ -14,7 +14,6 @@
 #include "core/managers/texture_manager.h"
 
 #include "utils/text_utils.h"
-#include "utils/window_utils.h"
 #include "utils/memory_utils.h"
 #include "utils/gl_utils.h"
 #include "utils/math_utils.h"

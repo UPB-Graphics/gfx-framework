@@ -11,5 +11,5 @@ Welcome! This is the home page for user documentation (in the `user` directory) 
 
 ## Developer documentation
 
--   [Updating Windows dependencies](dev/updating_win_deps.md)
+-   [Updating dependencies](dev/updating_deps.md)
 -   [Running on WSL2](dev/running_on_wsl2.md)

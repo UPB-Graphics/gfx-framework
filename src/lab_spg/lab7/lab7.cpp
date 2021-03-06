@@ -3,6 +3,9 @@
 #include <vector>
 #include <iostream>
 
+#undef APIENTRY
+#include "pfd/portable-file-dialogs.h"
+
 using namespace std;
 using namespace spg;
 
@@ -23,9 +26,6 @@ Laborator7::Laborator7()
 Laborator7::~Laborator7()
 {
 }
-
-
-FrameBuffer *processed;
 
 
 void Laborator7::Init()
@@ -84,6 +84,7 @@ void Laborator7::Update(float deltaTimeSeconds)
 
     int locTexture = shader->GetUniformLocation("textureImage");
     glUniform1i(locTexture, 0);
+
     auto textureImage = (gpuProcessing == true) ? originalImage : processedImage;
     textureImage->BindToTextureUnit(GL_TEXTURE0);
 
@@ -92,11 +93,13 @@ void Laborator7::Update(float deltaTimeSeconds)
     if (saveScreenToImage)
     {
         saveScreenToImage = false;
+
         GLenum format = GL_RGB;
         if (originalImage->GetNrChannels() == 4)
         {
             format = GL_RGBA;
         }
+
         glReadPixels(0, 0, originalImage->GetWidth(), originalImage->GetHeight(), format, GL_UNSIGNED_BYTE, processedImage->GetImageData());
         processedImage->UploadNewData(processedImage->GetImageData());
         SaveImage("shader_processing_" + std::to_string(outputMode));
@@ -162,6 +165,24 @@ void Laborator7::SaveImage(const std::string &fileName)
 }
 
 
+void Laborator7::OpenDialog()
+{
+    std::vector<std::string> filters =
+    {
+        "Image Files", "*.png *.jpg *.jpeg *.bmp",
+        "All Files", "*"
+    };
+
+    auto selection = pfd::open_file("Select a file", ".", filters).result();
+    if (!selection.empty())
+    {
+        std::cout << "User selected file " << selection[0] << "\n";
+    }
+
+    OnFileSelected(selection[0]);
+}
+
+
 // Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or
 // https://github.com/UPB-Graphics/SPG-Framework/blob/master/Source/Core/Window/InputController.h
 
@@ -177,7 +198,7 @@ void Laborator7::OnKeyPress(int key, int mods)
     // Add key press event
     if (key == GLFW_KEY_F || key == GLFW_KEY_ENTER || key == GLFW_KEY_SPACE)
     {
-        OpenDialogue();
+        OpenDialog();
     }
 
     if (key == GLFW_KEY_E)

@@ -4,7 +4,6 @@
 
 #include "core/engine.h"
 #include "utils/memory_utils.h"
-#include "utils/window_utils.h"
 
 
 egx::comp::CameraInput::CameraInput(Camera *camera)
