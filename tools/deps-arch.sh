@@ -25,7 +25,6 @@ sudo pacman -Sy base-devel
 # Install graphics drivers and utilities, including glxinfo and glxgears.
 # For 32-bit application support, also install the `lib32-*` packages.
 sudo pacman -Sy mesa mesa-demos
-# pacman -Sy lib32-mesa lib32-mesa-demos
 
 # Install required dependencies
 sudo pacman -Sy cmake assimp glm glew glfw-x11 spdlog freetype2 pkgconf

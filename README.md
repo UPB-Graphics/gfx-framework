@@ -15,7 +15,7 @@ It has missing and closed-source functionality that you will need to implement.
 The code is cross-platform, and you can build it natively on:
 
 -   Windows: `i686`, `x86_64`
--   Linux: `x86_64`, `arm64`
+-   Linux: `x86_64`, `aarch64`/`arm64`
 -   macOS: `x86_64`
 
 Basically, it most likely works on your computer.
