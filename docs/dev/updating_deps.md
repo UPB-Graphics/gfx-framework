@@ -245,7 +245,7 @@ Follow these steps:
     ```
 
 
-### `portable-file-dialogs`
+### `pfd`
 
 Follow these steps:
 
