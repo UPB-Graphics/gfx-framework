@@ -177,9 +177,8 @@ void Laborator7::OpenDialog()
     if (!selection.empty())
     {
         std::cout << "User selected file " << selection[0] << "\n";
+        OnFileSelected(selection[0]);
     }
-
-    OnFileSelected(selection[0]);
 }
 
 
