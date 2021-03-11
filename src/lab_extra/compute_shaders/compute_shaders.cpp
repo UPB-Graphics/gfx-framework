@@ -14,7 +14,7 @@ static inline GLuint NumGroupSize(int dataSize, int groupSize)
 }
 
 
-void DispatchCompute(uint sizeX, uint sizeY, uint sizeZ, uint workGroupSize, bool synchronize = true)
+static void DispatchCompute(uint sizeX, uint sizeY, uint sizeZ, uint workGroupSize, bool synchronize = true)
 {
     glDispatchCompute(NumGroupSize(sizeX, workGroupSize), NumGroupSize(sizeY, workGroupSize), NumGroupSize(sizeZ, workGroupSize));
     if (synchronize) {
@@ -24,8 +24,10 @@ void DispatchCompute(uint sizeX, uint sizeY, uint sizeZ, uint workGroupSize, boo
 }
 
 
-// Order of function calling can be seen in "Source/Core/World.cpp::LoopUpdate()"
-// https://github.com/UPB-Graphics/SPG-Framework/blob/master/Source/Core/World.cpp
+/*
+ *  To find out more about `FrameStart`, `Update`, `FrameEnd`
+ *  and the order in which they are called, see `world.cpp`.
+ */
 
 
 ComputeShaders::ComputeShaders()
@@ -201,8 +203,10 @@ void ComputeShaders::FrameEnd()
 }
 
 
-// Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or
-// https://github.com/UPB-Graphics/SPG-Framework/blob/master/Source/Core/Window/InputController.h
+/*
+ *  These are callback functions. To find more about callbacks and
+ *  how they behave, see `input_controller.h.`
+ */
 
 
 void ComputeShaders::OnInputUpdate(float deltaTime, int mods)

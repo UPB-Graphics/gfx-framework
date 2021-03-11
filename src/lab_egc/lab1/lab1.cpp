@@ -7,8 +7,10 @@ using namespace std;
 using namespace egc;
 
 
-// Order of function calling can be seen in "Source/Core/World.cpp::LoopUpdate()"
-// https://github.com/UPB-Graphics/Framework-EGC/blob/master/Source/Core/World.cpp
+/*
+ *  To find out more about `FrameStart`, `Update`, `FrameEnd`
+ *  and the order in which they are called, see `world.cpp`.
+ */
 
 
 Laborator1::Laborator1()
@@ -81,8 +83,10 @@ void Laborator1::FrameEnd()
 }
 
 
-// Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or
-// https://github.com/UPB-Graphics/Framework-EGC/blob/master/Source/Core/Window/InputController.h
+/*
+ *  These are callback functions. To find more about callbacks and
+ *  how they behave, see `input_controller.h.`
+ */
 
 
 void Laborator1::OnInputUpdate(float deltaTime, int mods)

@@ -10,6 +10,12 @@ using namespace std;
 using namespace egc;
 
 
+/*
+ *  To find out more about `FrameStart`, `Update`, `FrameEnd`
+ *  and the order in which they are called, see `world.cpp`.
+ */
+
+
 Laborator3_Vis2D::Laborator3_Vis2D()
 {
 }
@@ -150,6 +156,12 @@ void Laborator3_Vis2D::DrawScene(glm::mat3 visMatrix)
     modelMatrix = visMatrix * transform2D::Translate(3, 3);
     RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 }
+
+
+/*
+ *  These are callback functions. To find more about callbacks and
+ *  how they behave, see `input_controller.h.`
+ */
 
 
 void Laborator3_Vis2D::OnInputUpdate(float deltaTime, int mods)

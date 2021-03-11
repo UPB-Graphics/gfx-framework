@@ -8,6 +8,12 @@ using namespace std;
 using namespace egc;
 
 
+/*
+ *  To find out more about `FrameStart`, `Update`, `FrameEnd`
+ *  and the order in which they are called, see `world.cpp`.
+ */
+
+
 Laborator5::Laborator5()
 {
 }
@@ -118,8 +124,10 @@ void Laborator5::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & mode
 }
 
 
-// Documentation for the input functions can be found in: "/Source/Core/Window/InputController.h" or
-// https://github.com/UPB-Graphics/Framework-EGC/blob/master/Source/Core/Window/InputController.h
+/*
+ *  These are callback functions. To find more about callbacks and
+ *  how they behave, see `input_controller.h.`
+ */
 
 
 void Laborator5::OnInputUpdate(float deltaTime, int mods)

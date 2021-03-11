@@ -10,6 +10,12 @@ using namespace std;
 using namespace egc;
 
 
+/*
+ *  To find out more about `FrameStart`, `Update`, `FrameEnd`
+ *  and the order in which they are called, see `world.cpp`.
+ */
+
+
 Laborator4::Laborator4()
 {
 }
@@ -86,6 +92,12 @@ void Laborator4::FrameEnd()
 {
     DrawCoordinateSystem();
 }
+
+
+/*
+ *  These are callback functions. To find more about callbacks and
+ *  how they behave, see `input_controller.h.`
+ */
 
 
 void Laborator4::OnInputUpdate(float deltaTime, int mods)

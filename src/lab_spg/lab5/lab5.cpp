@@ -35,8 +35,10 @@ struct Particle
 ParticleEffect<Particle> *particleEffect;
 
 
-// Order of function calling can be seen in "Source/Core/World.cpp::LoopUpdate()"
-// https://github.com/UPB-Graphics/SPG-Framework/blob/master/Source/Core/World.cpp
+/*
+ *  To find out more about `FrameStart`, `Update`, `FrameEnd`
+ *  and the order in which they are called, see `world.cpp`.
+ */
 
 
 Laborator5::Laborator5()
@@ -168,8 +170,10 @@ void Laborator5::LoadShader(const std::string &name, bool hasGeomtery)
 }
 
 
-// Read the documentation of the following functions in: "Source/Core/Window/InputController.h" or
-// https://github.com/UPB-Graphics/SPG-Framework/blob/master/Source/Core/Window/InputController.h
+/*
+ *  These are callback functions. To find more about callbacks and
+ *  how they behave, see `input_controller.h.`
+ */
 
 
 void Laborator5::OnInputUpdate(float deltaTime, int mods)
