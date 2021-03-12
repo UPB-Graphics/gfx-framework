@@ -45,6 +45,7 @@ endif()
 option(WITH_LAB_EGC "With EGC labs" ON)
 option(WITH_LAB_SPG "With SPG labs" ON)
 option(WITH_LAB_EXTRA "With extra labs" ON)
+option(USE_DEV_COMPONENTS "Use dev components" OFF)
 
 
 # Set the suffixes for directories, depending on how we want to include
@@ -97,10 +98,18 @@ file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
 # Gather the include directories
 set(EGXF_INCLUDE_DIRS_PRIVATE
     ${EGXF_ROOT_DIR}/deps/api
-    ${EGXF_ROOT_DIR}/deps/api/libEGXComp/internal
-    #
     ${CMAKE_CURRENT_LIST_DIR}/src
 )
+
+if (USE_DEV_COMPONENTS)
+    set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
+        ${EGXF_ROOT_DIR}/libEGXComp/internal
+    )
+else()
+    set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
+        ${EGXF_ROOT_DIR}/deps/api/libEGXComp/internal
+    )
+endif()
 
 
 # Add the executable
@@ -138,7 +147,6 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.lib
         ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.lib
         ${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.lib
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(${target_name} PRIVATE
@@ -147,7 +155,6 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
         assimp
         spdlog
         freetype
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.so
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     # Fix linking on 10.14+. See https://stackoverflow.com/questions/54068035
@@ -160,8 +167,19 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
         assimp
         spdlog
         freetype
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dylib
     )
+endif()
+
+if (USE_DEV_COMPONENTS)
+    if (NOT TARGET libEGXComp)
+        add_subdirectory(libEGXComp)
+        target_link_libraries(${target_name} PRIVATE libEGXComp)
+    endif()
+else()
+    target_link_directories(${target_name} PRIVATE 
+        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}
+    )
+    target_link_libraries(${target_name} PRIVATE libEGXComp)
 endif()
 
 
@@ -229,6 +247,12 @@ endif()
 target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
 
 
+if (NOT TARGET libEGXComp)
+    add_subdirectory(libEGXComp)
+    target_link_libraries(${target_name} PRIVATE libEGXComp)
+endif()
+
+
 # Define post-build events
 function(post_build)
     get_target_property(output_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
@@ -250,8 +274,12 @@ function(post_build)
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.dll      ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll      ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll  ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dll ${output_dir}
         )
+        if (NOT USE_DEV_COMPONENTS)
+            add_custom_command(TARGET ${target_name} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dll ${output_dir}
+            )
+        endif()
     else()
         add_custom_command(TARGET ${target_name} POST_BUILD
             COMMAND rm -rf ${output_dir}/${res_dir}
