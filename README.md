@@ -14,28 +14,29 @@ It has missing and closed-source functionality that you will need to implement.
 
 The code is cross-platform, and you can build it natively on:
 
--   Windows: `i686`, `x86_64`
--   Linux: `x86_64`, `aarch64`/`arm64`
+-   Windows: `i686`, `x86_64`, `aarch64`
+-   Linux: `i686`, `x86_64`, `aarch64`
 -   macOS: `x86_64`
 
-Basically, it most likely works on your computer.
+Basically, it works on your computer.
 
 
 ## :white_check_mark: Prerequisites
 
 This section describes ***what you need to do and install*** before actually building the code.
 
+
 ### Install a compiler
 
 -   Minimum:
     -   Windows: Visual Studio 2015 Update 3 with `Programming Languages -> Visual C++` checked when installing
-    -   Linux: `gcc` 5
-    -   macOS: `clang` 4
+    -   Linux: `gcc g++` version 5
+    -   macOS: `clang clang++` version 4
 
 -   ***Strongly*** recommended:
     -   Windows: Visual Studio 2019 with `Workloads -> Desktop development with C++` checked when installing
-    -   Linux: `gcc` latest
-    -   macOS: `clang` latest
+    -   Linux: `g++` latest
+    -   macOS: `clang++` latest
         -   either use `brew install llvm` or install XCode
 
 
@@ -106,6 +107,7 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
         -   or just `make`
 
 That's it! :tada:
+
 
 ### Rebuilding
 
