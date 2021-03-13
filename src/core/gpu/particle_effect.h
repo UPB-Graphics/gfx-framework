@@ -68,8 +68,8 @@ void ParticleEffect<T>::Render(egxc::Camera *camera, Shader *shader, unsigned in
 {
     // Bind MVP
     glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(source->GetModel()));
-    glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->m_view));
-    glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->m_projection));
+    glUniformMatrix4fv(shader->loc_view_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
+    glUniformMatrix4fv(shader->loc_projection_matrix, 1, false, glm::value_ptr(camera->GetProjectionMatrix()));
     glUniform3fv(shader->loc_eye_pos, 1, glm::value_ptr(camera->m_transform->GetWorldPosition()));
 
     // Bind Particle Storage

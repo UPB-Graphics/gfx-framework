@@ -25,7 +25,7 @@ namespace egxc
     {
         friend class SceneInput;
 
-        public:
+     public:
         SimpleScene();
         ~SimpleScene();
 
@@ -50,7 +50,7 @@ namespace egxc
 
         void ClearScreen(const glm::vec3 &color = glm::vec3(0, 0, 0));
 
-        private:
+     private:
         void InitResources();
         void Update(float deltaTimeSeconds) override;
 
@@ -58,7 +58,7 @@ namespace egxc
         std::unordered_map<std::string, Mesh *> meshes;
         std::unordered_map<std::string, Shader *> shaders;
 
-        private:
+     private:
         Camera *camera;
         InputController *cameraInput;
 

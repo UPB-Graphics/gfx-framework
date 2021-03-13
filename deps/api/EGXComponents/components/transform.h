@@ -1,8 +1,8 @@
 #ifndef EGXC_TRANSFORM_H
 #define EGXC_TRANSFORM_H
 
-#include "../exports.h"
-#include "../glm_wrapper.h"
+#include "../utils/exports.h"
+#include "../utils/glm_wrapper.h"
 
 #include <list>
 
@@ -11,9 +11,23 @@ namespace egxc
 {
     class EGXC_API Transform
     {
-    public:
+     public:
+
+        /**
+         * Default constructor.
+         */
         Transform();
-        Transform(const Transform &trasform);
+
+        /**
+         * Copy constructor.
+         * 
+         * \param transform The other instance
+         */
+        Transform(const Transform &transform);
+
+        /**
+         * Destructor.
+         */
         virtual ~Transform();
 
         // ****************************
@@ -38,7 +52,7 @@ namespace egxc
         virtual glm::vec3 GetLocalOZVector() const;
 
         virtual glm::vec3 GetScale() const;
-        virtual const glm::mat4 &GetModel();
+        virtual const glm::mat4& GetModel();
 
         virtual float GetMoveSpeed() const;
         virtual float GetScaleSpeed() const;
@@ -71,22 +85,15 @@ namespace egxc
         virtual void SetReleativeRotation(const glm::vec3 &eulerAngles360);
         virtual void SetReleativeRotation(const glm::quat &localRotationQ);
 
+        // Scales
         virtual void SetScale(glm::vec3 scale);
-        virtual void ForceUpdate();
 
         // ****************************
         // Transform properties
 
-        virtual void Copy(const Transform &source);
         virtual void SetMoveSpeed(float unitsPerSecond);
         virtual void SetScaleSpeed(float unitsPerSecond);
         virtual void SetRotationSpeed(float degreesPerSecond);
-
-        // ****************************
-        // Hierarchy chain
-
-        void AddChild(Transform *transform);
-        void RemoveChild(Transform *transform);
 
         // ****************************
         // Transform operations
@@ -94,14 +101,18 @@ namespace egxc
         float DistanceTo(const glm::vec3 &position);
         float Distance2To(Transform *transform);
         float Distance2To(const glm::vec3 &position);
-        glm::vec3 GetRelativePositionOf(const Transform &transform);
-        //glm::vec3 GetDirectionTowards(Transform *transform);
 
-    protected:
+        // ****************************
+        // Hierarchy chain
+
+        void AddChild(Transform *transform);
+        void RemoveChild(Transform *transform);
+
+     protected:
         virtual void Init();
 
         // ****************************
-        // Should be called only by the owner
+        // Should only be called by the owner
 
         virtual void ComputeWorldModel();
         virtual void UpdateWorldModel();
@@ -110,37 +121,38 @@ namespace egxc
         virtual void UpdateRelativeRotation();
 
         virtual void UpdateWorldInfo();
-        virtual void UpdateChildsPosition();
+        virtual void UpdateChildrenPosition();
         virtual void UpdateChildrenRotation();
 
-    private:
+     private:
         virtual void UpdateModelPosition();
 
-    protected:
-        glm::mat4                m_worldModel;
+     protected:
+        glm::mat4               m_worldModel;
 
         // Rotations
-        glm::quat                m_worldRotation;
-        glm::quat                m_relativeRotation;
-        glm::quat                m_invWorldRotation;
+        glm::quat               m_worldRotation;
+        glm::quat               m_relativeRotation;
+        glm::quat               m_invWorldRotation;
 
         // Positions
-        glm::vec3                m_worldPosition;
-        glm::vec3                m_localPosition;
+        glm::vec3               m_worldPosition;
+        glm::vec3               m_localPosition;
 
         // Scale relative to the object, not influenced by rotations
-        glm::vec3                m_localScale;
+        glm::vec3               m_localScalingFactor;
 
-        float                    m_rotateSpeed;
-        float                    m_moveSpeed;
-        float                    m_scaleSpeed;
+        // Speeds
+        float                   m_rotationSpeed;
+        float                   m_translationSpeed;
+        float                   m_scalingSpeed;
 
-        bool                    m_motionState;
-        bool                    m_modelIsOutdated;
+        bool                    m_isInMotion;
+        bool                    m_isModelOutdated;
         bool                    m_updateHierarchy;
 
-        Transform *m_parentNode;
-        std::list<Transform *>    m_childNodes;
+        Transform *             m_parentNode;
+        std::list<Transform *>  m_childNodes;
     };
 }
 

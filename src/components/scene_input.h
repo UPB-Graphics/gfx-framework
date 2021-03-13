@@ -8,11 +8,11 @@ namespace egxc
 {
     class SceneInput : public InputController
     {
-        public:
+     public:
         explicit SceneInput(SimpleScene *camera);
         void OnKeyPress(int key, int mods) override;
 
-        public:
+     public:
         SimpleScene *scene;
     };
 }

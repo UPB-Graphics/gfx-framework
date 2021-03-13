@@ -8,7 +8,7 @@ namespace egxc
 {
     class CameraInput : public InputController
     {
-        public:
+     public:
         explicit CameraInput(Camera *camera);
         void OnInputUpdate(float deltaTime, int mods) override;
         void OnKeyPress(int key, int mods) override;
@@ -16,7 +16,7 @@ namespace egxc
         void OnMouseBtnPress(int mouseX, int mouseY, int button, int mods) override;
         void OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods) override;
 
-        public:
+     public:
         Camera *camera;
     };
 }

@@ -1,8 +1,8 @@
 #ifndef EGXC_CAMERA_H
 #define EGXC_CAMERA_H
 
-#include "../exports.h"
-#include "../glm_wrapper.h"
+#include "../utils/exports.h"
+#include "../utils/glm_wrapper.h"
 
 #include <vector>
 
@@ -12,8 +12,8 @@ namespace egxc
     class Transform;
 
     enum class CameraType {
-        FirstPerson,
-        ThirdPerson
+        FIRST_PERSON,
+        THIRD_PERSON
     };
 
     struct ProjectionInfo
@@ -29,7 +29,7 @@ namespace egxc
 
     class EGXC_API Camera
     {
-    public:
+     public:
         Camera();
         ~Camera();
 
@@ -37,9 +37,8 @@ namespace egxc
         void Log() const;
         virtual void Update();
 
-    public:
-        const glm::mat4 &GetViewMatrix() const;
-        const glm::mat4 &GetProjectionMatrix() const;
+        const glm::mat4& GetViewMatrix() const;
+        const glm::mat4& GetProjectionMatrix() const;
 
         // Rotation
         void RotateOX(float deltaTime);
@@ -66,45 +65,47 @@ namespace egxc
         void SetPerspective(float FoVy, float aspectRatio, float zNear, float zFar);
         void SetOrthographic(float width, float height, float zNear, float zFar);
         void SetOrthographic(float left, float right, float bottom, float top, float zNear, float zFar);
-        void SetProjection(const ProjectionInfo &PI);
+
+        void SetProjection(const ProjectionInfo& projInfo);
         ProjectionInfo GetProjectionInfo() const;
+
         float GetFieldOfViewY() const;
         float GetFieldOfViewX() const;
 
-    protected:
+     protected:
         // FPS Rotation Mode
-        void UpdatePitch(float deltaAngle);
-        void SetYaw(float deltaAngle);
         void UpdateRoll(float deltaAngle);
+        void UpdateYaw(float deltaAngle);
+        void UpdatePitch(float deltaAngle);
 
-    public:
-        Transform *m_transform;
+     public:
+        // Other components can be public, as we're not using inheritance
+        Transform *     m_transform;
 
+     protected:
         // Camera Type
-        CameraType  m_type;
+        CameraType      m_type;
 
-        glm::mat4     m_view;
-        glm::mat4     m_projection;
-
-    protected:
+        glm::mat4       m_view;
+        glm::mat4       m_projection;
 
         // Control settings
-        float         m_minSpeed;
-        float         m_maxSpeed;
-        float         m_sensitivityOX;
-        float         m_sensitivityOY;
+        float           m_minSpeed;
+        float           m_maxSpeed;
+        float           m_sensitivityOX;
+        float           m_sensitivityOY;
 
         // Rotation OX constrains
-        float         m_limitUp;
-        float         m_limitDown;
+        float           m_limitUp;
+        float           m_limitDown;
 
         // Perspective properties
-        float         m_zNear;
-        float         m_zFar;
-        float         m_FoVy;
-        float         m_aspectRatio;
-        bool         m_isPerspective;
-        float         m_ortographicWidth;
+        float           m_zNear;
+        float           m_zFar;
+        float           m_FoVy;
+        float           m_aspectRatio;
+        bool            m_isPerspective;
+        float           m_ortographicWidth;
     };
 }
 
