@@ -6,7 +6,7 @@
 
 // TODO(developer): Investigate compiler warnings
 #if 0
-    #include "spdlog/spdlog.h"
+#   include "spdlog/spdlog.h"
 #   include "spdlog/sinks/stdout_color_sinks.h"
 #endif
 

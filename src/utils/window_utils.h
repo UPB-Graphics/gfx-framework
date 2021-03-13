@@ -9,3 +9,5 @@
 #endif
 
 #include "GLFW/glfw3.h"
+
+#undef APIENTRY

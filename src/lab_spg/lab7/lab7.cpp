@@ -3,7 +3,6 @@
 #include <vector>
 #include <iostream>
 
-#undef APIENTRY
 #include "pfd/portable-file-dialogs.h"
 
 using namespace std;

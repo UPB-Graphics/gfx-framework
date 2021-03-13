@@ -78,7 +78,7 @@ class SSBO
     void ClearBuffer() const
     {
         Bind();
-        uint value = 0;
+        unsigned int value = 0;
         glClearBufferData(GL_SHADER_STORAGE_BUFFER, GL_R32UI, GL_RED, GL_UNSIGNED_INT, &value);
         Unbind();
         CheckOpenGLError();

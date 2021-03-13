@@ -14,7 +14,7 @@ static inline GLuint NumGroupSize(int dataSize, int groupSize)
 }
 
 
-static void DispatchCompute(uint sizeX, uint sizeY, uint sizeZ, uint workGroupSize, bool synchronize = true)
+static void DispatchCompute(unsigned int sizeX, unsigned int sizeY, unsigned int sizeZ, unsigned int workGroupSize, bool synchronize = true)
 {
     glDispatchCompute(NumGroupSize(sizeX, workGroupSize), NumGroupSize(sizeY, workGroupSize), NumGroupSize(sizeZ, workGroupSize));
     if (synchronize) {

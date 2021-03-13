@@ -8,11 +8,10 @@
 #include "stb/stb_image.h"
 #include "stb/stb_image_write.h"
 
-#include "utils/types.h"
 #include "utils/memory_utils.h"
 
 
-void write_image_thread(const char* fileName, uint width, uint height, uint channels, const uchar *data)
+void write_image_thread(const char* fileName, unsigned int width, unsigned int height, unsigned int channels, const unsigned char *data)
 {
     stbi_write_png(fileName, width, height, channels, data, width * channels);
     delete data;
@@ -116,7 +115,7 @@ void Texture2D::CacheInMemory(bool state)
 }
 
 
-void Texture2D::UploadNewData(const uchar *img)
+void Texture2D::UploadNewData(const unsigned char *img)
 {
     Bind();
     glTexSubImage2D(targetType, 0, 0, 0, width, height, pixelFormat[channels], GL_UNSIGNED_BYTE, img);
@@ -125,7 +124,7 @@ void Texture2D::UploadNewData(const uchar *img)
 }
 
 
-void Texture2D::UploadNewData(const ushort *img)
+void Texture2D::UploadNewData(const unsigned short *img)
 {
     Bind();
     glTexSubImage2D(targetType, 0, 0, 0, width, height, pixelFormat[channels], GL_UNSIGNED_SHORT, img);
@@ -150,7 +149,7 @@ void Texture2D::CreateU16(const unsigned short *img, int width, int height, int 
 }
 
 
-void Texture2D::CreateCubeTexture(const float *data, uint width, uint height, uint chn)
+void Texture2D::CreateCubeTexture(const float *data, unsigned int width, unsigned int height, unsigned int chn)
 {
     this->width = width;
     this->height = height;
@@ -179,7 +178,7 @@ void Texture2D::CreateCubeTexture(const float *data, uint width, uint height, ui
 }
 
 
-void Texture2D::CreateFrameBufferTexture(uint width, uint height, uint targetID, uint precision)
+void Texture2D::CreateFrameBufferTexture(unsigned int width, unsigned int height, unsigned int targetID, unsigned int precision)
 {
     bitsPerPixel = precision;
     int prec = precision / 8 - 1;
@@ -190,7 +189,7 @@ void Texture2D::CreateFrameBufferTexture(uint width, uint height, uint targetID,
 }
 
 
-void Texture2D::CreateDepthBufferTexture(uint width, uint height)
+void Texture2D::CreateDepthBufferTexture(unsigned int width, unsigned int height)
 {
     Init2DTexture(width, height, 1);
     glTexImage2D(targetType, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);

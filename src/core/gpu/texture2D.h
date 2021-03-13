@@ -1,7 +1,6 @@
 #pragma once
 
 #include "utils/gl_utils.h"
-#include "utils/types.h"
 
 
 class Texture2D
@@ -14,16 +13,16 @@ class Texture2D
     void BindToTextureUnit(GLenum TextureUnit) const;
     void UnBind() const;
 
-    void UploadNewData(const uchar *img);
-    void UploadNewData(const ushort *img);
+    void UploadNewData(const unsigned char *img);
+    void UploadNewData(const unsigned short *img);
 
     void Init(GLuint gpuTextureID, unsigned int width, unsigned int height, unsigned int channels);
     void Create(const unsigned char* img, int width, int height, int chn);
     void CreateU16(const unsigned short* img, int width, int height, int chn);
 
-    void CreateCubeTexture(const float *data, uint width, uint height, uint chn);
-    void CreateFrameBufferTexture(uint width, uint height, uint targetID, uint precision = 32);
-    void CreateDepthBufferTexture(uint width, uint height);
+    void CreateCubeTexture(const float *data, unsigned int width, unsigned int height, unsigned int chn);
+    void CreateFrameBufferTexture(unsigned int width, unsigned int height, unsigned int targetID, unsigned int precision = 32);
+    void CreateDepthBufferTexture(unsigned int width, unsigned int height);
 
     bool Load2D(const char* fileName, GLenum wrappingMode = GL_REPEAT);
     void SaveToFile(const char* fileName);

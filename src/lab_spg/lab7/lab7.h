@@ -41,7 +41,6 @@ namespace spg
         Texture2D *originalImage;
         Texture2D *processedImage;
 
-        bool flip;
         int outputMode;
         bool gpuProcessing;
         bool saveScreenToImage;
