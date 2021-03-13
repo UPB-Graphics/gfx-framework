@@ -147,10 +147,13 @@ endif()
 # Set library suffic
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     set(__cmake_shared_suffix dll)
+    set(__cmake_import_suffix lib)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(__cmake_shared_suffix so)
+    set(__cmake_import_suffix so)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(__cmake_shared_suffix dylib)
+    set(__cmake_import_suffix dylib)
 endif()
 
 
@@ -196,7 +199,7 @@ if (USE_DEV_COMPONENTS)
     endif()
 else()
     target_link_libraries(${target_name} PRIVATE
-        ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix}
+        ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_import_suffix}
     )
 endif()
 

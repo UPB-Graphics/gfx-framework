@@ -1,6 +1,6 @@
 #pragma once
 
-#include <fstream>
+#include <ostream>
 
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"

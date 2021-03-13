@@ -1,8 +1,8 @@
 #ifndef EGXC_TRANSFORM_H
 #define EGXC_TRANSFORM_H
 
-#include "../utils/exports.h"
-#include "../utils/glm_wrapper.h"
+#include "utils/exports.h"
+#include "utils/glm_wrapper.h"
 
 #include <list>
 
@@ -13,21 +13,8 @@ namespace egxc
     {
      public:
 
-        /**
-         * Default constructor.
-         */
         Transform();
-
-        /**
-         * Copy constructor.
-         * 
-         * \param transform The other instance
-         */
         Transform(const Transform &transform);
-
-        /**
-         * Destructor.
-         */
         virtual ~Transform();
 
         // ****************************

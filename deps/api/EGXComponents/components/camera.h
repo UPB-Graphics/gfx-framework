@@ -1,8 +1,8 @@
 #ifndef EGXC_CAMERA_H
 #define EGXC_CAMERA_H
 
-#include "../utils/exports.h"
-#include "../utils/glm_wrapper.h"
+#include "utils/exports.h"
+#include "utils/glm_wrapper.h"
 
 #include <vector>
 
