@@ -1,9 +1,7 @@
 #pragma once
 
-#ifndef GL_DISABLE_GLEW
-#   define GLEW_ENABLED
-#   include <GL/glew.h>
-#endif
+#include <GL/glew.h>
+#undef APIENTRY
 
 
 // -------------------------------------------------------------------------
