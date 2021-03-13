@@ -48,6 +48,15 @@ option(WITH_LAB_EXTRA "With extra labs" ON)
 option(USE_DEV_COMPONENTS "Use dev components" OFF)
 
 
+# Set RPATH to avoid using LD_LIBRARY_PATH
+set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+if (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(CMAKE_INSTALL_RPATH "@executable_path")
+else()
+    set(CMAKE_INSTALL_RPATH "$ORIGIN")
+endif()
+
+
 # Set the suffixes for directories, depending on how we want to include
 # sources and headers for different courses. If the suffix variables remain
 # empty, the GLOB_RECURSE will look for files in the directory called `lab_`
@@ -103,11 +112,11 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
 
 if (USE_DEV_COMPONENTS)
     set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
-        ${EGXF_ROOT_DIR}/EGXComponents/internal
+        ${EGXF_ROOT_DIR}/EGXComponents
     )
 else()
     set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
-        ${EGXF_ROOT_DIR}/deps/api/EGXComponents/internal
+        ${EGXF_ROOT_DIR}/deps/api/EGXComponents
     )
 endif()
 
@@ -132,6 +141,16 @@ elseif (CMAKE_SIZEOF_VOID_P EQUAL 4)
     else()
         set(__cmake_arch i686)
     endif()
+endif()
+
+
+# Set library suffic
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(__cmake_shared_suffix dll)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(__cmake_shared_suffix so)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(__cmake_shared_suffix dylib)
 endif()
 
 
@@ -176,10 +195,9 @@ if (USE_DEV_COMPONENTS)
         target_link_libraries(${target_name} PRIVATE EGXComponents)
     endif()
 else()
-    target_link_directories(${target_name} PRIVATE 
-        ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}
+    target_link_libraries(${target_name} PRIVATE
+        ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix}
     )
-    target_link_libraries(${target_name} PRIVATE EGXComponents)
 endif()
 
 
@@ -247,12 +265,6 @@ endif()
 target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
 
 
-if (NOT TARGET EGXComponents)
-    add_subdirectory(EGXComponents)
-    target_link_libraries(${target_name} PRIVATE EGXComponents)
-endif()
-
-
 # Define post-build events
 function(post_build)
     get_target_property(output_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
@@ -275,17 +287,18 @@ function(post_build)
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll      ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll  ${output_dir}
         )
-        if (NOT USE_DEV_COMPONENTS)
-            add_custom_command(TARGET ${target_name} POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.dll ${output_dir}
-            )
-        endif()
     else()
         add_custom_command(TARGET ${target_name} POST_BUILD
             COMMAND rm -rf ${output_dir}/${res_dir}
             COMMAND ln -s ${EGXF_ROOT_DIR}/${res_dir} ${output_dir}/${res_dir}
             COMMAND rm -rf ${output_dir}/${src_dir}
             COMMAND ln -s ${EGXF_ROOT_DIR}/${src_dir} ${output_dir}/${src_dir}
+        )
+    endif()
+
+    if (NOT USE_DEV_COMPONENTS)
+        add_custom_command(TARGET ${target_name} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix} ${output_dir}
         )
     endif()
 endfunction()
