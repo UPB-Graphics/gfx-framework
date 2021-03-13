@@ -19,56 +19,52 @@
 #include "utils/math_utils.h"
 
 
-namespace egx
+namespace egxc
 {
-    namespace comp
+    class SimpleScene : public World
     {
-        class SimpleScene : public World
-        {
-            friend class SceneInput;
+        friend class SceneInput;
 
-         public:
-            SimpleScene();
-            ~SimpleScene();
+        public:
+        SimpleScene();
+        ~SimpleScene();
 
-            bool ToggleGroundPlane();
-            void ReloadShaders() const;
+        bool ToggleGroundPlane();
+        void ReloadShaders() const;
 
-         protected:
-            virtual void AddMeshToList(Mesh *mesh);
-            virtual void DrawCoordinateSystem();
-            virtual void DrawCoordinateSystem(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMaxtix);
+        protected:
+        virtual void AddMeshToList(Mesh *mesh);
+        virtual void DrawCoordinateSystem();
+        virtual void DrawCoordinateSystem(const glm::mat4 &viewMatrix, const glm::mat4 &projectionMaxtix);
 
-            virtual void RenderMesh(Mesh *mesh, Shader *shader, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
-            virtual void RenderMesh(Mesh *mesh, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
+        virtual void RenderMesh(Mesh *mesh, Shader *shader, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
+        virtual void RenderMesh(Mesh *mesh, glm::vec3 position, glm::vec3 scale = glm::vec3(1));
 
-            virtual void RenderMesh2D(Mesh *mesh, Shader *shader, const glm::mat3 &modelMatrix);
-            virtual void RenderMesh2D(Mesh *mesh, const glm::mat3 &modelMatrix, const glm::vec3 &color) const;
+        virtual void RenderMesh2D(Mesh *mesh, Shader *shader, const glm::mat3 &modelMatrix);
+        virtual void RenderMesh2D(Mesh *mesh, const glm::mat3 &modelMatrix, const glm::vec3 &color) const;
 
-            virtual void RenderMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix);
+        virtual void RenderMesh(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix);
 
-            Camera *GetSceneCamera() const;
-            InputController *GetCameraInput() const;
+        Camera *GetSceneCamera() const;
+        InputController *GetCameraInput() const;
 
-            void ClearScreen(const glm::vec3 &color = glm::vec3(0, 0, 0));
+        void ClearScreen(const glm::vec3 &color = glm::vec3(0, 0, 0));
 
-         private:
-            void InitResources();
-            void Update(float deltaTimeSeconds) override;
+        private:
+        void InitResources();
+        void Update(float deltaTimeSeconds) override;
 
-         protected:
-            std::unordered_map<std::string, Mesh *> meshes;
-            std::unordered_map<std::string, Shader *> shaders;
+        protected:
+        std::unordered_map<std::string, Mesh *> meshes;
+        std::unordered_map<std::string, Shader *> shaders;
 
-         private:
-            Camera *camera;
-            InputController *cameraInput;
+        private:
+        Camera *camera;
+        InputController *cameraInput;
 
-            bool drawGroundPlane;
-            Mesh *xozPlane;
-            Mesh *simpleLine;
-            Transform *objectModel;
-        };
-
-    }
+        bool drawGroundPlane;
+        Mesh *xozPlane;
+        Mesh *simpleLine;
+        Transform *objectModel;
+    };
 }

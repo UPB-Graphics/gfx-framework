@@ -14,7 +14,7 @@
 #include "core/gpu/ssbo.h"
 
 
-// TODO(developer): Decouple egx::comp components from this class
+// TODO(developer): Decouple egxc components from this class
 template <class T>
 class ParticleEffect
 {
@@ -24,7 +24,7 @@ class ParticleEffect
 
     virtual void Generate(unsigned int particleCount, bool createLocalBuffer = false);
     virtual void FillRandomData(std::function<T(void)> generator);
-    virtual void Render(egx::comp::Camera *camera, Shader *shader, unsigned int nrParticles = -1);
+    virtual void Render(egxc::Camera *camera, Shader *shader, unsigned int nrParticles = -1);
 
     virtual SSBO<T>* GetParticleBuffer() const
     {
@@ -37,7 +37,7 @@ class ParticleEffect
     }
 
  public:
-    egx::comp::Transform * source;
+    egxc::Transform * source;
 
  protected:
     unsigned int particleCount;
@@ -50,7 +50,7 @@ class ParticleEffect
 template <class T>
 ParticleEffect<T>::ParticleEffect()
 {
-    source = new egx::comp::Transform();
+    source = new egxc::Transform();
     particles = nullptr;
 }
 
@@ -64,7 +64,7 @@ ParticleEffect<T>::~ParticleEffect()
 
 
 template <class T>
-void ParticleEffect<T>::Render(egx::comp::Camera *camera, Shader *shader, unsigned int nrParticles)
+void ParticleEffect<T>::Render(egxc::Camera *camera, Shader *shader, unsigned int nrParticles)
 {
     // Bind MVP
     glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(source->GetModel()));

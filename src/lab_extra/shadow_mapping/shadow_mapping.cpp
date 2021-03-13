@@ -112,14 +112,14 @@ void ShadowMapping::Init()
     }
 
     {
-        lightCamera = new egx::comp::Camera();
+        lightCamera = new egxc::Camera();
         lightCamera->SetPerspective(60, window->props.aspectRatio, 0.01f, 200);
         lightCamera->SetOrthographic(10, 10, 0.01f, 100);
         lightCamera->m_transform->SetWorldPosition(glm::vec3(0, 3, 1));
         lightCamera->m_transform->SetMoveSpeed(2);
         lightCamera->Update();
 
-        lightCameraInput = new egx::comp::CameraInput(lightCamera);
+        lightCameraInput = new egxc::CameraInput(lightCamera);
         lightCameraInput->SetActive(false);
     }
 }

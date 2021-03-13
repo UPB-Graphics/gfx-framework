@@ -4,18 +4,15 @@
 #include "core/window/input_controller.h"
 
 
-namespace egx
+namespace egxc
 {
-    namespace comp
+    class SceneInput : public InputController
     {
-        class SceneInput : public InputController
-        {
-         public:
-            explicit SceneInput(SimpleScene *camera);
-            void OnKeyPress(int key, int mods) override;
+        public:
+        explicit SceneInput(SimpleScene *camera);
+        void OnKeyPress(int key, int mods) override;
 
-         public:
-            SimpleScene *scene;
-        };
-    }
+        public:
+        SimpleScene *scene;
+    };
 }

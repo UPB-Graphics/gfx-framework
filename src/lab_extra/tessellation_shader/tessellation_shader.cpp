@@ -71,7 +71,7 @@ void TessellationShader::Update(float deltaTimeSeconds)
 
     {
         auto camera = GetSceneCamera();
-        egx::comp::Transform T;
+        egxc::Transform T;
         T.SetWorldRotation(glm::vec3(90, 0, 0));
 
         auto shader = shaders["TessShader"];

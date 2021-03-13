@@ -103,11 +103,11 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
 
 if (USE_DEV_COMPONENTS)
     set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
-        ${EGXF_ROOT_DIR}/libEGXComp/internal
+        ${EGXF_ROOT_DIR}/EGXComponents/internal
     )
 else()
     set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
-        ${EGXF_ROOT_DIR}/deps/api/libEGXComp/internal
+        ${EGXF_ROOT_DIR}/deps/api/EGXComponents/internal
     )
 endif()
 
@@ -171,15 +171,15 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 
 if (USE_DEV_COMPONENTS)
-    if (NOT TARGET libEGXComp)
-        add_subdirectory(libEGXComp)
-        target_link_libraries(${target_name} PRIVATE libEGXComp)
+    if (NOT TARGET EGXComponents)
+        add_subdirectory(EGXComponents)
+        target_link_libraries(${target_name} PRIVATE EGXComponents)
     endif()
 else()
     target_link_directories(${target_name} PRIVATE 
-        ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}
+        ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}
     )
-    target_link_libraries(${target_name} PRIVATE libEGXComp)
+    target_link_libraries(${target_name} PRIVATE EGXComponents)
 endif()
 
 
@@ -247,9 +247,9 @@ endif()
 target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
 
 
-if (NOT TARGET libEGXComp)
-    add_subdirectory(libEGXComp)
-    target_link_libraries(${target_name} PRIVATE libEGXComp)
+if (NOT TARGET EGXComponents)
+    add_subdirectory(EGXComponents)
+    target_link_libraries(${target_name} PRIVATE EGXComponents)
 endif()
 
 
@@ -277,7 +277,7 @@ function(post_build)
         )
         if (NOT USE_DEV_COMPONENTS)
             add_custom_command(TARGET ${target_name} POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/libEGXComp/${__cmake_arch}/libEGXComp.dll ${output_dir}
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.dll ${output_dir}
             )
         endif()
     else()
