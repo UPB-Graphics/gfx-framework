@@ -31,7 +31,7 @@ void BasicText::Init()
 
     // Create the text renderer object
     glm::ivec2 resolution = window->GetResolution();
-    textRenderer = new egx::comp::TextRenderer(window->props.selfDir, resolution.x, resolution.y);
+    textRenderer = new egxc::TextRenderer(window->props.selfDir, resolution.x, resolution.y);
 
     textRenderer->Load(PATH_JOIN(RESOURCE_PATH::FONTS, "arial.ttf"), 18);
 }

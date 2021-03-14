@@ -6,7 +6,7 @@
 
 namespace extra
 {
-    class BasicText : public egx::comp::SimpleScene
+    class BasicText : public egxc::SimpleScene
     {
      public:
         BasicText();
@@ -33,7 +33,7 @@ namespace extra
 
      private:
         // The actual renderer object
-        egx::comp::TextRenderer *textRenderer;
+        egxc::TextRenderer *textRenderer;
 
         // Draw primitives mode
         GLenum polygonMode;

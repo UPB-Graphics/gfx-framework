@@ -18,27 +18,22 @@
 #include FT_FREETYPE_H
 
 
-egx::comp::TextRenderer::TextRenderer(const std::string &selfDir, GLuint width, GLuint height)
+egxc::TextRenderer::TextRenderer(const std::string &selfDir, GLuint width, GLuint height)
 {
     // Load and configure shader
     Shader *shader = new Shader("ShaderText");
     shader->AddShader(PATH_JOIN(selfDir, RESOURCE_PATH::SHADERS, "Text.VS.glsl"), GL_VERTEX_SHADER);
     shader->AddShader(PATH_JOIN(selfDir, RESOURCE_PATH::SHADERS, "Text.FS.glsl"), GL_FRAGMENT_SHADER);
     shader->CreateAndLink();
-    this->TextShader = shader;
-    //shaders[shader->GetName()] = shader;
+    this->m_textShader = shader;
 
-    //int loc_projection_matrix = glGetUniformLocation(shader->program, "Projection");
-    //glUniformMatrix4fv(loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
     
-    //glUniformMatrix4fv()
     int loc_projection_matrix = glGetUniformLocation(shader->program, "projection");
     glUniformMatrix4fv(loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(glm::ortho(0.0f, static_cast<GLfloat>(width), static_cast<GLfloat>(height), 0.0f)));
-    //this->TextShader.SetMatrix4("projection", glm::ortho(0.0f, static_cast<GLfloat>(width), static_cast<GLfloat>(height), 0.0f), GL_TRUE);
 
     int loc_text = glGetUniformLocation(shader->program, "text");
     glUniform1i(loc_text, 0);
-    //this->TextShader.SetInteger("text", 0);
+
     // Configure VAO/VBO for texture quads
     glGenVertexArrays(1, &this->VAO);
     glGenBuffers(1, &this->VBO);
@@ -52,24 +47,35 @@ egx::comp::TextRenderer::TextRenderer(const std::string &selfDir, GLuint width, 
 }
 
 
-void egx::comp::TextRenderer::Load(std::string font, GLuint fontSize)
+void egxc::TextRenderer::Load(std::string font, GLuint fontSize)
 {
     // First clear the previously loaded Characters
     this->Characters.clear();
-    // Then initialize and load the FreeType library
+
+    // Initialize and load the freetype library. All freetype functions
+    // return a value different than 0 whenever an error occurs.
     FT_Library ft;
-    if (FT_Init_FreeType(&ft)) // All functions return a value different than 0 whenever an error occurred
+
+    if (FT_Init_FreeType(&ft))
+    {
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+    }
+
     // Load font as face
     FT_Face face;
     if (FT_New_Face(ft, font.c_str(), 0, &face))
+    {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+    }
+
     // Set size to load glyphs as
     FT_Set_Pixel_Sizes(face, 0, fontSize);
+
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
     // Then for the first 128 ASCII characters, pre-load/compile their characters and store them
-    for (GLubyte c = 0; c < 128; c++) // lol see what I did there 
+    for (GLubyte c = 0; c < 128; c++)
     {
         // Load character glyph 
         if (FT_Load_Char(face, c, FT_LOAD_RENDER))
@@ -93,6 +99,7 @@ void egx::comp::TextRenderer::Load(std::string font, GLuint fontSize)
             GL_UNSIGNED_BYTE,
             face->glyph->bitmap.buffer
         );
+
         // Set texture options
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -112,32 +119,30 @@ void egx::comp::TextRenderer::Load(std::string font, GLuint fontSize)
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    // Destroy FreeType once we're finished
+    // Destroy freetype once we're finished
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 }
 
 
-void egx::comp::TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
+void egxc::TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 {
     // Activate corresponding render state    
-    //this->TextShader.Use();
-    if (this->TextShader)
+    if (this->m_textShader)
     {
-        glUseProgram(this->TextShader->program);
+        glUseProgram(this->m_textShader->program);
         CheckOpenGLError();
     }
 
     // TODO(developer): Update this class
-    int loc_text_color = glGetUniformLocation(this->TextShader->program, "textColor");
+    int loc_text_color = glGetUniformLocation(this->m_textShader->program, "textColor");
     glUniform3f(loc_text_color, color.r, color.g, color.b);
-    //this->TextShader.SetVector3f("textColor", color);
+
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(this->VAO);
 
     // Iterate through all characters
-    std::string::const_iterator c;
-    for (c = text.begin(); c != text.end(); c++)
+    for (auto c = text.cbegin(); c != text.cend(); c++)
     {
         Character ch = Characters[*c];
 
@@ -146,6 +151,7 @@ void egx::comp::TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y,
 
         GLfloat w = ch.Size.x * scale;
         GLfloat h = ch.Size.y * scale;
+
         // Update VBO for each character
         GLfloat vertices[6][4] = {
             { xpos,     ypos + h,   0.0, 1.0 },
@@ -156,21 +162,26 @@ void egx::comp::TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y,
             { xpos + w, ypos + h,   1.0, 1.0 },
             { xpos + w, ypos,       1.0, 0.0 }
         };
+
         // Render glyph texture over quad
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+
         // Update content of VBO memory
         glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
+
         // Render quad
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDrawArrays(GL_TRIANGLES, 0, 6);
         glDisable(GL_BLEND);
-        // Now advance cursors for next glyph
-        x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (1/64th times 2^6 = 64)
+
+        // Now advance cursors for next glyph. Bitshift by 6
+        // to get value in pixels.
+        x += (ch.Advance >> 6) * scale; 
     }
 
     glBindVertexArray(0);
