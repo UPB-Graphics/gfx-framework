@@ -1,4 +1,4 @@
-#include "lab_extra/basic_text/basic_text.h"
+﻿#include "lab_extra/basic_text/basic_text.h"
 
 #include <vector>
 #include <iostream>
@@ -33,32 +33,38 @@ void BasicText::Init()
     glm::ivec2 resolution = window->GetResolution();
     textRenderer = new egxc::TextRenderer(window->props.selfDir, resolution.x, resolution.y);
 
-    textRenderer->Load(PATH_JOIN(RESOURCE_PATH::FONTS, "arial.ttf"), 18);
+    textRenderer->Load(PATH_JOIN(RESOURCE_PATH::FONTS, "Hack-Bold.ttf"), 18);
 }
 
 
 void BasicText::DrawHUD()
 {
-    textRenderer->RenderText("Keys", 5.0f, 5.0f, 1.0f, glm::vec3(0.0, 1.0, 0.0));
-    textRenderer->RenderText("'space'  : Toggle Solid/Wireframe/Points", 5.0f, 25.0f, 1.0f, glm::vec3(0.0, 1.0, 0.0));
+    const float kTopY = 10.f;
+    const float kRowHeight = 25.f;
 
+    int rowIndex = 0;
     std::string polygonModeText = "";
+
     if (polygonMode == GL_LINE)
     {
-        polygonModeText = "WIREFRAME";
+        polygonModeText = "wireframe";
     }
     if (polygonMode == GL_FILL)
     {
-        polygonModeText = "SOLID";
+        polygonModeText = "solid";
     }
     if (polygonMode == GL_POINT)
     {
-        polygonModeText = "POINTS";
+        polygonModeText = "points";
     }
 
-    textRenderer->RenderText("'z'  : Draw in wireframe mode (current mode " + polygonModeText + ")", 5.0f, 50.0f, 1.0f, glm::vec3(0.0, 1.0, 0.0));
-    textRenderer->RenderText("'x'  : Draw in points mode (current mode " + polygonModeText + ")", 5.0f, 75.0f, 1.0f, glm::vec3(0.0, 1.0, 0.0));
-    textRenderer->RenderText("'c'  : Draw in solid mode (current mode " + polygonModeText + ")", 5.0f, 100.0f, 1.0f, glm::vec3(0.0, 1.0, 0.0));
+    textRenderer->RenderText("Keys",                                    5.0f, kTopY + kRowHeight * rowIndex++, 1.0f, kTextColor);
+    textRenderer->RenderText("space : toggle solid/wireframe/points",   5.0f, kTopY + kRowHeight * rowIndex++, 1.0f, kTextColor);
+    textRenderer->RenderText("    z : draw in wireframe mode",          5.0f, kTopY + kRowHeight * rowIndex++, 1.0f, kTextColor);
+    textRenderer->RenderText("    x : draw in points mode",             5.0f, kTopY + kRowHeight * rowIndex++, 1.0f, kTextColor);
+    textRenderer->RenderText("    c : draw in solid mode",              5.0f, kTopY + kRowHeight * rowIndex++, 1.0f, kTextColor);
+    
+    textRenderer->RenderText("Current mode: " + polygonModeText,        5.0f, kTopY + kRowHeight * rowIndex++, 1.0f, kTextColor);
 }
 
 
@@ -74,7 +80,7 @@ void BasicText::Update(float deltaTimeSeconds)
     glm::ivec2 resolution = window->props.resolution;
 
     // Sets the clear color for the color buffer
-    glClearColor(0, 0, 0, 1);
+    glClearColor(kBackgroundColor.r, kBackgroundColor.g, kBackgroundColor.b, 1);
 
     // Clears the color buffer (using the previously set color) and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

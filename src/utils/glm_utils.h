@@ -9,6 +9,11 @@
 #include "glm/gtx/quaternion.hpp"
 
 
+inline glm::vec3 NormalizedRGB(unsigned char r, unsigned char g, unsigned char b) {
+    return glm::vec3(r / 255.f, g / 255.f, b / 255.f);
+}
+
+
 /**
  *  overload ostream operator << for easy printing glm classes
  */

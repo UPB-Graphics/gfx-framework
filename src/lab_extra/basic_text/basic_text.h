@@ -37,5 +37,9 @@ namespace extra
 
         // Draw primitives mode
         GLenum polygonMode;
+
+        // Colors
+        const glm::vec3 kTextColor = NormalizedRGB(166, 172, 205);
+        const glm::vec3 kBackgroundColor = NormalizedRGB(41, 45, 62);
     };
 }   // namespace extra
