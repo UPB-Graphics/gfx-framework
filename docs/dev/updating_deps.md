@@ -30,7 +30,7 @@ Every time you update a dependency, make sure you also update this list.
 | Dependency                                    | Version           | Needed on
 | :---                                          | :---              | :---
 | EGXComponents                                 | private           | Windows
-| [assimp](https://github.com/assimp/assimp)    | 88e5f34 @ master | Windows
+| [assimp](https://github.com/assimp/assimp)    | 525213a @ master | Windows
 | [glew](https://github.com/nigels-com/glew)    | 3cdab58 @ master | Windows
 | [glfw](https://github.com/glfw/glfw)          | 0b9e48f @ master | Windows
 | [glm](https://github.com/g-truc/glm)          | 3a25105 @ master | Windows
@@ -59,12 +59,12 @@ Follow these steps:
     ```
 -   build the 32-bit binaries:
     ```
-    cmake -B build-32 -S . -A Win32 -D LIBRARY_SUFFIX="" -D CMAKE_DEBUG_POSTFIX=""
+    cmake -B build-32 -S . -A Win32 -D LIBRARY_SUFFIX="" -D CMAKE_DEBUG_POSTFIX="" -D ASSIMP_BUILD_ZLIB=ON
     cmake --build build-32 --config Release
     ```
 -   build the 64-bit binaries:
     ```
-    cmake -B build-64 -S . -A x64 -D LIBRARY_SUFFIX="" -D CMAKE_DEBUG_POSTFIX=""
+    cmake -B build-64 -S . -A x64 -D LIBRARY_SUFFIX="" -D CMAKE_DEBUG_POSTFIX="" -D ASSIMP_BUILD_ZLIB=ON
     cmake --build build-64 --config Release
     ```
 -   copy the API into our project:

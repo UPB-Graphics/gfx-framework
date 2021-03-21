@@ -258,11 +258,7 @@ else()
                                                 -Wno-missing-field-initializers -Wno-sign-compare)
     elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
         set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
-                                                -Wno-missing-field-initializers -Wno-sign-compare
-                                                # Apple clang
-                                                -Wno-unknown-warning-option
-                                                # Windows clang
-                                                -Wno-microsoft-enum-value -Wno-language-extension-token)
+                                                -Wno-missing-field-initializers -Wno-sign-compare)
     endif()
 endif()
 target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
