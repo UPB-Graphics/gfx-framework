@@ -258,7 +258,11 @@ else()
                                                 -Wno-missing-field-initializers -Wno-sign-compare)
     elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
         set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
-                                                -Wno-missing-field-initializers -Wno-sign-compare)
+                                                -Wno-missing-field-initializers -Wno-sign-compare
+                                                # Apple clang
+                                                -Wno-unknown-warning-option
+                                                # Windows clang
+                                                -Wno-microsoft-enum-value -Wno-language-extension-token)
     endif()
 endif()
 target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
@@ -269,16 +273,19 @@ function(post_build)
     get_target_property(output_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
     set(res_dir "res")
     set(src_dir "src")
+    if (NOT MSVC)
+        set(error_sink || rem)
+    endif()
 
     if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
         string(REPLACE "/" "\\" OUTPUT_DIR_BS "${output_dir}")
         string(REPLACE "/" "\\" EGXF_ROOT_DIR_BS "${EGXF_ROOT_DIR}")
 
         add_custom_command(TARGET ${target_name} POST_BUILD
-            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${res_dir}"
-            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${res_dir}" "${EGXF_ROOT_DIR_BS}\\${res_dir}"
-            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${src_dir}"
-            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${src_dir}" "${EGXF_ROOT_DIR_BS}\\${src_dir}"
+            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${res_dir}" ${error_sink}
+            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${res_dir}" "${EGXF_ROOT_DIR_BS}\\${res_dir}" ${error_sink}
+            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${src_dir}" ${error_sink}
+            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${src_dir}" "${EGXF_ROOT_DIR_BS}\\${src_dir}" ${error_sink}
 
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.dll          ${output_dir}
             COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3.dll         ${output_dir}
