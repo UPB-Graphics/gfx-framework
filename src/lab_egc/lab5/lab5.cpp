@@ -126,7 +126,7 @@ void Laborator5::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & mode
 
 /*
  *  These are callback functions. To find more about callbacks and
- *  how they behave, see `input_controller.h.`
+ *  how they behave, see `input_controller.h`.
  */
 
 

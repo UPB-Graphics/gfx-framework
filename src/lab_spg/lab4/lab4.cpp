@@ -196,7 +196,7 @@ unsigned int Laborator4::UploadCubeMapTexture(const std::string &posx, const std
 
 /*
  *  These are callback functions. To find more about callbacks and
- *  how they behave, see `input_controller.h.`
+ *  how they behave, see `input_controller.h`.
  */
 
 

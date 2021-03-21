@@ -304,7 +304,7 @@ void ShadowMapping::LoadShader(const std::string &name)
 
 /*
  *  These are callback functions. To find more about callbacks and
- *  how they behave, see `input_controller.h.`
+ *  how they behave, see `input_controller.h`.
  */
 
 

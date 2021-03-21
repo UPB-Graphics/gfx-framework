@@ -276,7 +276,7 @@ Texture2D* Laborator9::CreateRandomTexture(unsigned int width, unsigned int heig
 
 /*
  *  These are callback functions. To find more about callbacks and
- *  how they behave, see `input_controller.h.`
+ *  how they behave, see `input_controller.h`.
  */
 
 

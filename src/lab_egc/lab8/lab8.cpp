@@ -186,7 +186,7 @@ void Laborator8::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 
 /*
  *  These are callback functions. To find more about callbacks and
- *  how they behave, see `input_controller.h.`
+ *  how they behave, see `input_controller.h`.
  */
 
 

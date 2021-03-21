@@ -160,7 +160,7 @@ void Laborator3_Vis2D::DrawScene(glm::mat3 visMatrix)
 
 /*
  *  These are callback functions. To find more about callbacks and
- *  how they behave, see `input_controller.h.`
+ *  how they behave, see `input_controller.h`.
  */
 
 
