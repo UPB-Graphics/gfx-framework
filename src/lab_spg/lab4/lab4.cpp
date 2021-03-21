@@ -31,7 +31,6 @@ void Laborator4::Init()
     camera->SetPositionAndRotation(glm::vec3(0, 2, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
     camera->Update();
 
-
     std::string texturePath = PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube");
     std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::SPG, "lab4", "shaders");
 
@@ -166,15 +165,22 @@ unsigned int Laborator4::UploadCubeMapTexture(const std::string &posx, const std
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    float maxAnisotropy;
-    glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
+    if (GLEW_EXT_texture_filter_anisotropic) {
+        float maxAnisotropy;
+
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
+    }
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     // TODO(student): Load texture information for each face
 
     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    if (GetOpenGLError() == GL_INVALID_OPERATION)
+    {
+        cout << "\t[NOTE] : For students : DON'T PANIC! This error should go away when completing the tasks." << std::endl;
+    }
 
     // Free memory
     SAFE_FREE(data_posx);

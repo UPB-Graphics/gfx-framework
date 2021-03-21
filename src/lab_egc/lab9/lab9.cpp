@@ -250,7 +250,9 @@ Texture2D* Laborator9::CreateRandomTexture(unsigned int width, unsigned int heig
 
     // TODO(student): Generate and bind the new texture ID
 
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 4);
+    if (GLEW_EXT_texture_filter_anisotropic) {
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 4);
+    }
     // TODO(student): Set the texture parameters (MIN_FILTER, MAG_FILTER and WRAPPING MODE) using glTexParameteri
 
     glPixelStorei(GL_PACK_ALIGNMENT, 1);
