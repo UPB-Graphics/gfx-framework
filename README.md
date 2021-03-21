@@ -18,8 +18,6 @@ The code is cross-platform, and you can build it natively on:
 -   Linux: `i686`, `x86_64`, `aarch64`
 -   macOS: `x86_64`
 
-Basically, it most likely works on your device.
-
 
 ## :white_check_mark: Prerequisites
 
