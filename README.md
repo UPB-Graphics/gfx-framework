@@ -18,7 +18,7 @@ The code is cross-platform, and you can build it natively on:
 -   Linux: `i686`, `x86_64`, `aarch64`
 -   macOS: `x86_64`
 
-Basically, it works on your computer.
+Basically, it most likely works on your device.
 
 
 ## :white_check_mark: Prerequisites
@@ -30,14 +30,13 @@ This section describes ***what you need to do and install*** before actually bui
 
 -   Minimum:
     -   Windows: Visual Studio 2015 Update 3 with `Programming Languages -> Visual C++` checked when installing
-    -   Linux: `gcc g++` version 5
-    -   macOS: `clang clang++` version 4
+    -   Linux: `g++` version 5
+    -   macOS: `clang++` version 4
 
 -   ***Strongly*** recommended:
     -   Windows: Visual Studio 2019 with `Workloads -> Desktop development with C++` checked when installing
     -   Linux: `g++` latest
-    -   macOS: `clang++` latest
-        -   either use `brew install llvm` or install XCode
+    -   macOS: `clang++` latest (either use `brew install llvm` or install XCode)
 
 
 ### Check your graphics capabilities
