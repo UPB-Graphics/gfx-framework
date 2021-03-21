@@ -30,14 +30,14 @@ Every time you update a dependency, make sure you also update this list.
 | Dependency                                    | Version           | Needed on
 | :---                                          | :---              | :---
 | EGXComponents                                 | private           | Windows
-| [assimp](https://github.com/assimp/assimp)    | 88e5f341 @ master | Windows
-| [glew](https://github.com/nigels-com/glew)    | 3cdab58d @ master | Windows
-| [glfw](https://github.com/glfw/glfw)          | 0b9e48fa @ master | Windows
-| [glm](https://github.com/g-truc/glm)          | 3a25105d @ master | Windows
-| [stb](https://github.com/nothings/stb)        | b42009b3 @ master | Windows
-| [spdlog](https://github.com/gabime/spdlog)    | 42c5eb59 @ v1.x   | Windows
-| [freetype](https://gitlab.freedesktop.org/freetype/freetype)  | 7227aabb @ master | Windows
-| [pfd](https://github.com/samhocevar/portable-file-dialogs)    | b8ed26a2 @ master | all
+| [assimp](https://github.com/assimp/assimp)    | 88e5f34 @ master | Windows
+| [glew](https://github.com/nigels-com/glew)    | 3cdab58 @ master | Windows
+| [glfw](https://github.com/glfw/glfw)          | 0b9e48f @ master | Windows
+| [glm](https://github.com/g-truc/glm)          | 3a25105 @ master | Windows
+| [stb](https://github.com/nothings/stb)        | b42009b @ master | Windows
+| [spdlog](https://github.com/gabime/spdlog)    | c1af0a3 @ v1.x   | Windows
+| [freetype](https://gitlab.freedesktop.org/freetype/freetype)  | 7227aab @ master | Windows
+| [pfd](https://github.com/samhocevar/portable-file-dialogs)    | 0049adb @ master | all
 
 
 ## :bento: Dependencies

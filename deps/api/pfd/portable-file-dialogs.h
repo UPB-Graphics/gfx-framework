@@ -1200,8 +1200,8 @@ inline std::string internal::file_dialog::string_result()
     auto ret = m_async->result();
     // Strip potential trailing newline (zenity). Also strip trailing slash
     // added by osascript for consistency with other backends.
-    while (ret.back() == '\n' || ret.back() == '/')
-        ret = ret.substr(0, ret.size() - 1);
+    while (!ret.empty() && (ret.back() == '\n' || ret.back() == '/'))
+        ret.pop_back();
     return ret;
 #endif
 }
@@ -1417,7 +1417,9 @@ inline message::message(std::string const &title,
                         icon _icon /* = icon::info */)
 {
 #if _WIN32
-    UINT style = MB_TOPMOST;
+    // Use MB_SYSTEMMODAL rather than MB_TOPMOST to ensure the message window is brought
+    // to front. See https://github.com/samhocevar/portable-file-dialogs/issues/52
+    UINT style = MB_SYSTEMMODAL;
     switch (_icon)
     {
         case icon::warning: style |= MB_ICONWARNING; break;
@@ -1444,7 +1446,7 @@ inline message::message(std::string const &title,
     m_mappings[IDRETRY] = button::retry;
     m_mappings[IDIGNORE] = button::ignore;
 
-    m_async->start_func([this, text, title, style](int* exit_code) -> std::string
+    m_async->start_func([text, title, style](int* exit_code) -> std::string
     {
         auto wtext = internal::str2wstr(text);
         auto wtitle = internal::str2wstr(title);
