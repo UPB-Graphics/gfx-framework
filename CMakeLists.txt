@@ -110,20 +110,11 @@ set(EGXF_INCLUDE_DIRS_PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src
 )
 
-if (USE_DEV_COMPONENTS)
-    set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
-        ${EGXF_ROOT_DIR}/EGXComponents
-    )
-else()
-    set(EGXF_INCLUDE_DIRS_PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE}
-        ${EGXF_ROOT_DIR}/deps/api/EGXComponents
-    )
-endif()
-
 
 # Add the executable
 custom_add_executable(${target_name}
     ${EGXF_SOURCES}
+    ${EGXF_SOURCES_HIDDEN}
     ${EGXF_HEADERS_PRIVATE}
 )
 
@@ -131,7 +122,7 @@ custom_add_executable(${target_name}
 # Detect architecture
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch")
-        set(__cmake_arch aarch64)
+        set(__cmake_arch arm64)
     else()
         set(__cmake_arch x86_64)
     endif()
@@ -194,7 +185,7 @@ endif()
 
 if (USE_DEV_COMPONENTS)
     if (NOT TARGET EGXComponents)
-        add_subdirectory(EGXComponents)
+        add_subdirectory(src/components_hidden)
         target_link_libraries(${target_name} PRIVATE EGXComponents)
     endif()
 else()
@@ -222,6 +213,7 @@ set_source_files_properties(${EGXF_HEADERS_PRIVATE}  PROPERTIES HEADER_FILE_ONLY
 # Group files under logical folders (mainly for IDEs)
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES
     ${EGXF_SOURCES}
+    ${EGXF_SOURCES_HIDDEN}
     ${EGXF_HEADERS_PRIVATE}
 )
 

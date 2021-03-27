@@ -2,4 +2,4 @@ bin
 build*
 Visual Studio/.vs
 Visual Studio/obj
-/EGXComponents
+components_hidden

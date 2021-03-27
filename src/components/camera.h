@@ -1,8 +1,13 @@
 #ifndef EGXC_CAMERA_H
 #define EGXC_CAMERA_H
 
-#include "utils/exports.h"
-#include "utils/glm_wrapper.h"
+#include "components/exports.h"
+
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/quaternion.hpp"
+#include "glm/gtx/quaternion.hpp"
 
 #include <vector>
 
