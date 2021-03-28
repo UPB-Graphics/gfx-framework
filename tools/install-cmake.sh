@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Variables
-cmk_ver=3.17.5
-cmk_name=cmake-$cmk_ver-Linux-x86_64
+cmk_ver=3.20.0
+cmk_name=cmake-$cmk_ver-linux-x86_64
 cmk_install_dir=~/opt
 
 
