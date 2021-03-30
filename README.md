@@ -16,7 +16,7 @@ The code is cross-platform, and you can build it natively on:
 
 -   Windows: `i686`, `x86_64`, `arm64`
 -   Linux: `i686`, `x86_64`, `arm64`
--   macOS: `x86_64`
+-   macOS: `x86_64`, `arm64`
 
 
 ## :white_check_mark: Prerequisites
