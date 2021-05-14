@@ -20,11 +20,11 @@ sudo pacman -Syu
 
 # Install basic development tools
 # Contents: https://archlinux.org/groups/x86_64/base-devel/
-sudo pacman -Syu base-devel
+sudo pacman -S base-devel
 
 # Install graphics drivers and utilities, including glxinfo and glxgears.
 # For 32-bit application support, also install the `lib32-*` packages.
-sudo pacman -Syu mesa mesa-demos
+sudo pacman -S mesa mesa-demos
 
 # Install required dependencies
-sudo pacman -Syu cmake assimp glm glew glfw-x11 spdlog freetype2 pkgconf
+sudo pacman -S cmake assimp glm glew glfw-x11 spdlog freetype2 pkgconf
