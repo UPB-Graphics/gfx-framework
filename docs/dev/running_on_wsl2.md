@@ -57,13 +57,13 @@ Follow these steps:
     ```sh
     sudo apt update                         # Debian (Ubuntu)
     sudo dnf check-update                   # Red Hat (Fedora)
-    sudo pacman -Syy                        # Arch (x86_64)
+    sudo pacman -Syu                        # Arch (x86_64)
     ```
 5.  Install `xinit`:
     ```sh
     sudo apt install -y xinit              # Debian (Ubuntu)
     sudo dnf -y install xinit              # Red Hat (Fedora)
-    sudo pacman -Sy xorg-xinit             # Arch (x86_64)
+    sudo pacman -S xorg-xinit             # Arch (x86_64)
     ```
 
 
@@ -90,7 +90,7 @@ Follow these steps:
         ```sh
         sudo apt install -y mesa-utils      # Debian (Ubuntu)
         sudo dnf -y install glx-utils       # Red Hat (Fedora)
-        sudo pacman -Sy mesa-demos          # Arch (x86_64)
+        sudo pacman -S mesa-demos          # Arch (x86_64)
 
         glxgears
         ```
@@ -167,8 +167,7 @@ Use the following instructions as a starting point:
     ```
 6.  Install basic stuff:
     ```sh
-    pacman -Syu
-    pacman -Sy base-devel
+    pacman -Syu base-devel
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
     locale-gen
     ```
