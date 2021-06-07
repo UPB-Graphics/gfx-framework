@@ -32,7 +32,7 @@ Use the steps in this section to find out what OpenGL versions your device suppo
 1.  Run one of the following commands:
     -   Debian (Ubuntu): `sudo apt install -y mesa-utils`
     -   Red Hat (Fedora): `sudo dnf install -y glx-utils`
-    -   Arch (x86_64): `sudo pacman -Sy mesa-demos`
+    -   Arch (x86_64): `sudo pacman -S mesa-demos`
 2.  Run the following command:
     ```bash
     glxinfo | grep "core profile version string"
