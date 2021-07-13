@@ -12,7 +12,7 @@ You can read more about it [in the docs](docs/home.md).
 
 It has missing and closed-source functionality that you will need to implement.
 
-The code is cross-platform, and you can build it natively on:
+The code is cross-platform, and supports the following architectures:
 
 -   Windows: `i686`, `x86_64`, `arm64`
 -   Linux: `i686`, `x86_64`, `arm64`
@@ -26,12 +26,14 @@ This section describes ***what you need to do and install*** before actually bui
 
 ### Install a compiler
 
+The compiler requirements are listed below. We strongly recommend to always use the latest compiler versions.
+
 -   Minimum:
     -   Windows: Visual Studio 2015 Update 3 with `Programming Languages -> Visual C++` checked when installing
     -   Linux: `g++` version 5
     -   macOS: `clang++` version 4
 
--   ***Strongly*** recommended:
+-   Recommended:
     -   Windows: Visual Studio 2019 with `Workloads -> Desktop development with C++` checked when installing
     -   Linux: `g++` latest
     -   macOS: `clang++` latest (either use `brew install llvm` or install XCode)
@@ -41,14 +43,14 @@ This section describes ***what you need to do and install*** before actually bui
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
-This project requires OpenGL version ***3.3 core profile*** or newer for the simpler parts, and version ***4.1 core profile*** or newer for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+This project requires OpenGL version ***3.3 core profile, or newer*** for the simpler parts, and version ***4.1 core profile, or newer***  for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
 
 
 ### Install the build tools
 
-This project uses [CMake][ref-cmake]. It a nutshell, CMake doesn't compile your code, instead it creates files that you then use to compile your code (for example, it creates a Makefile on Linux and macOS, a Visual Studio project on Windows, and so on).
+This project uses [CMake][ref-cmake]. It a nutshell, CMake does not compile source code, instead it creates files that you then use to compile your code (for example, it creates a Makefile on Linux and macOS, a Visual Studio project on Windows, and so on).
 
-This project requires version ***3.16*** or newer, however, as with the compilers, it is ***strongly*** recommended to use the latest version. To install it, follow these steps:
+This project requires CMake ***3.16 or newer,*** however, as with the compilers, we strongly recommend that you use the latest version. To install it, follow these steps:
 
 -   Windows:
     1.  Go to the [CMake downloads page][ref-cmake-dl]
