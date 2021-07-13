@@ -260,47 +260,59 @@ endif()
 target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
 
 
-# Define post-build events
-function(post_build)
-    get_target_property(output_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
-    set(res_dir "res")
-    set(src_dir "src")
-    if (NOT MSVC)
-        set(error_sink || rem)
-    endif()
+# Post-build events. First, we get the directory where the target was
+# just built. We will then copy several files and create several symlinks
+# into the target's parent directory.
+get_target_property(target_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
 
+# On Windows, we copy required binary files next to the target.
+if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
+    add_custom_command(TARGET ${target_name} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.dll"
+            "${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3.dll"
+            "${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.dll"
+            "${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll"
+            "${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll"
+
+            # Destination directory
+            "${target_dir}"
+    )
+endif()
+
+# This bit is necessary to allow building via Clang on Windows
+if (NOT MSVC)
+    set(__error_sink || rem)
+endif()
+
+# We create symbolic links of several directories next to the target.
+# Note for developers: a much more elegant solution would be to use
+# `cmake -E rm` and `cmake -E create_symlink` and avoid using OS-specific
+# commands. Unfortunately, `create_symlink` will fail if the user is not
+# an administrator of the device, as it uses `mklink /D` under the hood.
+foreach (dir IN ITEMS "src" "assets")
     if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
-        string(REPLACE "/" "\\" OUTPUT_DIR_BS "${output_dir}")
-        string(REPLACE "/" "\\" EGXF_ROOT_DIR_BS "${EGXF_ROOT_DIR}")
+        string(REPLACE "/" "\\" target_dir "${target_dir}")
+        string(REPLACE "/" "\\" EGXF_ROOT_DIR "${EGXF_ROOT_DIR}")
 
         add_custom_command(TARGET ${target_name} POST_BUILD
-            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${res_dir}" ${error_sink}
-            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${res_dir}" "${EGXF_ROOT_DIR_BS}\\${res_dir}" ${error_sink}
-            COMMAND rmdir /S /Q "${OUTPUT_DIR_BS}\\${src_dir}" ${error_sink}
-            COMMAND mklink /J "${OUTPUT_DIR_BS}\\${src_dir}" "${EGXF_ROOT_DIR_BS}\\${src_dir}" ${error_sink}
-
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.dll          ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3.dll         ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.dll      ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll      ${output_dir}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll  ${output_dir}
+            COMMAND rmdir /S /Q "${target_dir}\\${dir}" ${__error_sink}
+            COMMAND mklink /J "${target_dir}\\${dir}" "${EGXF_ROOT_DIR}\\${dir}" ${__error_sink}
         )
     else()
         add_custom_command(TARGET ${target_name} POST_BUILD
-            COMMAND rm -rf ${output_dir}/${res_dir}
-            COMMAND ln -s ${EGXF_ROOT_DIR}/${res_dir} ${output_dir}/${res_dir}
-            COMMAND rm -rf ${output_dir}/${src_dir}
-            COMMAND ln -s ${EGXF_ROOT_DIR}/${src_dir} ${output_dir}/${src_dir}
+            COMMAND rm -rf "${target_dir}/${dir}"
+            COMMAND ln -s "${EGXF_ROOT_DIR}/${dir}" "${target_dir}/${dir}"
         )
     endif()
+endforeach()
 
-    if (NOT USE_DEV_COMPONENTS)
-        add_custom_command(TARGET ${target_name} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix} ${output_dir}
-        )
-    endif()
-endfunction()
-
-
-# Call post-build events
-post_build()
+# For builds that are supplied with closed-source modules,
+# we copy those modules next to the target. If you already
+# have access to the original source code, there's no need
+# for this step.
+if (NOT USE_DEV_COMPONENTS)
+    add_custom_command(TARGET ${target_name} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix}" "__target_dir"
+    )
+endif()
