@@ -263,7 +263,7 @@ target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
 # Post-build events. First, we get the directory where the target was
 # just built. We will then copy several files and create several symlinks
 # into the target's parent directory.
-get_target_property(target_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
+get_target_property(__target_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
 
 # On Windows, we copy required binary files next to the target.
 if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
@@ -276,7 +276,7 @@ if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
             "${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll"
 
             # Destination directory
-            "${target_dir}"
+            "${__target_dir}"
     )
 endif()
 
@@ -292,17 +292,17 @@ endif()
 # an administrator of the device, as it uses `mklink /D` under the hood.
 foreach (dir IN ITEMS "src" "assets")
     if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
-        string(REPLACE "/" "\\" target_dir "${target_dir}")
+        string(REPLACE "/" "\\" __target_dir "${__target_dir}")
         string(REPLACE "/" "\\" EGXF_ROOT_DIR "${EGXF_ROOT_DIR}")
 
         add_custom_command(TARGET ${target_name} POST_BUILD
-            COMMAND rmdir /S /Q "${target_dir}\\${dir}" ${__error_sink}
-            COMMAND mklink /J "${target_dir}\\${dir}" "${EGXF_ROOT_DIR}\\${dir}" ${__error_sink}
+            COMMAND rmdir /S /Q "${__target_dir}\\${dir}" ${__error_sink}
+            COMMAND mklink /J "${__target_dir}\\${dir}" "${EGXF_ROOT_DIR}\\${dir}" ${__error_sink}
         )
     else()
         add_custom_command(TARGET ${target_name} POST_BUILD
-            COMMAND rm -rf "${target_dir}/${dir}"
-            COMMAND ln -s "${EGXF_ROOT_DIR}/${dir}" "${target_dir}/${dir}"
+            COMMAND rm -rf "${__target_dir}/${dir}"
+            COMMAND ln -s "${EGXF_ROOT_DIR}/${dir}" "${__target_dir}/${dir}"
         )
     endif()
 endforeach()
@@ -313,6 +313,6 @@ endforeach()
 # for this step.
 if (NOT USE_DEV_COMPONENTS)
     add_custom_command(TARGET ${target_name} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix}" "__target_dir"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix}" "${__target_dir}"
     )
 endif()
