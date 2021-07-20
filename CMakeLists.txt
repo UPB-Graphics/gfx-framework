@@ -42,8 +42,8 @@ endif()
 
 
 # Set options
-option(WITH_LAB_EGC "With EGC labs" ON)
-option(WITH_LAB_SPG "With SPG labs" ON)
+option(WITH_LAB_M1 "With module 1 labs" ON)
+option(WITH_LAB_M2 "With module 2 labs" ON)
 option(WITH_LAB_EXTRA "With extra labs" ON)
 option(USE_DEV_COMPONENTS "Use dev components" OFF)
 
@@ -61,11 +61,11 @@ endif()
 # sources and headers for different courses. If the suffix variables remain
 # empty, the GLOB_RECURSE will look for files in the directory called `lab_`
 # which does not actually exist, but will not fail.
-if (WITH_LAB_EGC)
-    set(SUFFIX_LAB_EGC "egc")
+if (WITH_LAB_M1)
+    set(SUFFIX_LAB_M1 "m1")
 endif()
-if (WITH_LAB_SPG)
-    set(SUFFIX_LAB_SPG "spg")
+if (WITH_LAB_M2)
+    set(SUFFIX_LAB_M2 "m2")
 endif()
 if (WITH_LAB_EXTRA)
     set(SUFFIX_LAB_EXTRA "extra")
@@ -80,8 +80,8 @@ file(GLOB_RECURSE EGXF_SOURCES
     #
     ${CMAKE_CURRENT_LIST_DIR}/src/main.cpp
     #
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.c*
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_M1}/*.c*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_M2}/*.c*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EXTRA}/*.c*
 )
 
@@ -94,12 +94,12 @@ file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
     #
     ${CMAKE_CURRENT_LIST_DIR}/res/*.glsl
     #
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.h*
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_M1}/*.h*
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_M2}/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EXTRA}/*.h*
     #
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EGC}/*.glsl
-    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_SPG}/*.glsl
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_M1}/*.glsl
+    ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_M2}/*.glsl
     ${CMAKE_CURRENT_LIST_DIR}/src/lab_${SUFFIX_LAB_EXTRA}/*.glsl
 )
 
@@ -221,11 +221,11 @@ source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES
 # Add definitions (specific to this project)
 # Recommended reading: so@a/24470998/5922876, so@a/11437693/5922876
 set(EGXF_CXX_DEFS       LIBEGXC_EXPORTS GLM_FORCE_SILENT_WARNINGS _CRT_SECURE_NO_WARNINGS SOLVED $<$<CONFIG:Debug>:DEBUG>)
-if (WITH_LAB_EGC)
-    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_EGC)
+if (WITH_LAB_M1)
+    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_M1)
 endif()
-if (WITH_LAB_SPG)
-    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_SPG)
+if (WITH_LAB_M2)
+    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_M2)
 endif()
 if (WITH_LAB_EXTRA)
     set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_EXTRA)

@@ -4,12 +4,12 @@
 #include "core/engine.h"
 #include "components/simple_scene.h"
 
-#if defined(WITH_LAB_EGC)
-#   include "lab_egc/lab_list.h"
+#if defined(WITH_LAB_M1)
+#   include "lab_m1/lab_list.h"
 #endif
 
-#if defined(WITH_LAB_SPG)
-#   include "lab_spg/lab_list.h"
+#if defined(WITH_LAB_M2)
+#   include "lab_m2/lab_list.h"
 #endif
 
 #if defined(WITH_LAB_EXTRA)

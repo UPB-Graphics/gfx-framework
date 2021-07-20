@@ -1,5 +1,5 @@
-bin
 build*
-Visual Studio/.vs
-Visual Studio/obj
+/**/bin
+/**/.vs
+/**/obj
 components_hidden

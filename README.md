@@ -5,8 +5,10 @@
 This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
 It is currently used as teaching and study material for a number of courses of increasing complexity, including:
 
--   **`egc`** Elements of Computer Graphics, BSc year 3 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/egc)
--   **`spg`** Graphics Processing Systems, BSc year 4 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/spg)
+-   **`EGC`** Elements of Computer Graphics, BSc year 3 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/egc)
+-   **`SPG`** Graphics Processing Systems, BSc year 4 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/spg)
+
+The functionality is split into several modules of increasing difficulty (`m1`, `m2`, etc.).
 
 You can read more about it [in the docs](docs/home.md).
 
@@ -93,10 +95,10 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
 1.  `mkdir build`
 2.  `cd build`
 3.  Generate the project:
-    -   for EGC labs (default): `cmake ..`
-    -   for SPG labs: `cmake .. -DWITH_LAB_EGC=0 -DWITH_LAB_SPG=1`
-    -   for extra labs: `cmake .. -DWITH_LAB_EGC=0 -DWITH_LAB_EXTRA=1`
-    -   for none (`SimpleScene` only): `cmake .. -DWITH_LAB_EGC=0`
+    -   for module 1 labs (default): `cmake ..`
+    -   for module 2 labs: `cmake .. -DWITH_LAB_M1=0 -DWITH_LAB_M2=1`
+    -   for extra labs: `cmake .. -DWITH_LAB_M1=0 -DWITH_LAB_EXTRA=1`
+    -   for none (`SimpleScene` only): `cmake .. -DWITH_LAB_M1=0`
 4.  Build the project:
     -   Windows, one of the following:
         -   `cmake --build .`
@@ -137,8 +139,8 @@ To run a certain lab:
     ```
 -   Replace it with whatever you want to run, for example:
     ```cpp
-    World *world = new level1::Lab1();
-    World *world = new level2::Lab1();
+    World *world = new m1::Lab1();
+    World *world = new m2::Lab1();
     World *world = new extra::TessellationShader();
     // etc.
     ```

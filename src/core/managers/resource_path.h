@@ -16,7 +16,7 @@ namespace RESOURCE_PATH
 
 namespace SOURCE_PATH
 {
-    const std::string EGC       = PATH_JOIN("src", "lab_egc");
-    const std::string SPG       = PATH_JOIN("src", "lab_spg");
+    const std::string M1        = PATH_JOIN("src", "lab_m1");
+    const std::string M2        = PATH_JOIN("src", "lab_m2");
     const std::string EXTRA     = PATH_JOIN("src", "lab_extra");
 }
