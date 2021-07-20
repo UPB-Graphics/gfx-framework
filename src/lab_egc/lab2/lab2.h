@@ -5,13 +5,13 @@
 #include "components/simple_scene.h"
 
 
-namespace egc
+namespace level1
 {
-    class Laborator2 : public egxc::SimpleScene
+    class Lab2 : public egxc::SimpleScene
     {
      public:
-        Laborator2();
-        ~Laborator2();
+        Lab2();
+        ~Lab2();
 
         void Init() override;
 

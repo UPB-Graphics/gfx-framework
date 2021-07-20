@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace spg;
+using namespace level2;
 
 
 struct Particle
@@ -41,17 +41,17 @@ ParticleEffect<Particle> *particleEffect;
  */
 
 
-Laborator5::Laborator5()
+Lab5::Lab5()
 {
 }
 
 
-Laborator5::~Laborator5()
+Lab5::~Lab5()
 {
 }
 
 
-void Laborator5::Init()
+void Lab5::Init()
 {
     auto camera = GetSceneCamera();
     camera->SetPositionAndRotation(glm::vec3(0, 8, 8), glm::quat(glm::vec3(-40 * TO_RADIANS, 0, 0)));
@@ -101,7 +101,7 @@ void Laborator5::Init()
 }
 
 
-void Laborator5::FrameStart()
+void Lab5::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -113,7 +113,7 @@ void Laborator5::FrameStart()
 }
 
 
-void Laborator5::Update(float deltaTimeSeconds)
+void Lab5::Update(float deltaTimeSeconds)
 {
     glLineWidth(3);
 
@@ -142,7 +142,7 @@ void Laborator5::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator5::FrameEnd()
+void Lab5::FrameEnd()
 {
 #if 0
     DrawCoordinateSystem();
@@ -150,7 +150,7 @@ void Laborator5::FrameEnd()
 }
 
 
-void Laborator5::LoadShader(const std::string &name, bool hasGeomtery)
+void Lab5::LoadShader(const std::string &name, bool hasGeomtery)
 {
     std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::SPG, "lab5", "shaders");
 
@@ -176,48 +176,48 @@ void Laborator5::LoadShader(const std::string &name, bool hasGeomtery)
  */
 
 
-void Laborator5::OnInputUpdate(float deltaTime, int mods)
+void Lab5::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
 }
 
 
-void Laborator5::OnKeyPress(int key, int mods)
+void Lab5::OnKeyPress(int key, int mods)
 {
 }
 
 
-void Laborator5::OnKeyRelease(int key, int mods)
+void Lab5::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator5::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab5::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator5::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab5::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator5::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab5::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
     // Treat mouse scroll event
 }
 
 
-void Laborator5::OnWindowResize(int width, int height)
+void Lab5::OnWindowResize(int width, int height)
 {
     // Treat window resize event
 }

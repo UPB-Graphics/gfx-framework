@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace spg;
+using namespace level2;
 
 
 static float angle = 0;
@@ -16,17 +16,17 @@ static float angle = 0;
  */
 
 
-Laborator3::Laborator3()
+Lab3::Lab3()
 {
 }
 
 
-Laborator3::~Laborator3()
+Lab3::~Lab3()
 {
 }
 
 
-void Laborator3::Init()
+void Lab3::Init()
 {
     auto camera = GetSceneCamera();
     camera->SetPositionAndRotation(glm::vec3(0, 5, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
@@ -62,12 +62,12 @@ void Laborator3::Init()
 }
 
 
-void Laborator3::FrameStart()
+void Lab3::FrameStart()
 {
 }
 
 
-void Laborator3::Update(float deltaTimeSeconds)
+void Lab3::Update(float deltaTimeSeconds)
 {
     static glm::vec3 mirrorPos(0, 4, -6);
     static glm::vec3 mirrorRotation = glm::vec3(0, RADIANS(180), 0);
@@ -110,7 +110,7 @@ void Laborator3::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator3::DrawScene()
+void Lab3::DrawScene()
 {
     for (int i = 0; i < 16; i++)
     {
@@ -126,7 +126,7 @@ void Laborator3::DrawScene()
 }
 
 
-void Laborator3::FrameEnd()
+void Lab3::FrameEnd()
 {
     DrawCoordinateSystem();
 }
@@ -138,49 +138,49 @@ void Laborator3::FrameEnd()
  */
 
 
-void Laborator3::OnInputUpdate(float deltaTime, int mods)
+void Lab3::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
 }
 
 
-void Laborator3::OnKeyPress(int key, int mods)
+void Lab3::OnKeyPress(int key, int mods)
 {
     // Add key press event
 }
 
 
-void Laborator3::OnKeyRelease(int key, int mods)
+void Lab3::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator3::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab3::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator3::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab3::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator3::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab3::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator3::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab3::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
     // Treat mouse scroll event
 }
 
 
-void Laborator3::OnWindowResize(int width, int height)
+void Lab3::OnWindowResize(int width, int height)
 {
     // Treat window resize event
 }

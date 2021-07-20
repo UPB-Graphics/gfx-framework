@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace spg;
+using namespace level2;
 
 
 #define rand01 (rand() / static_cast<float>(RAND_MAX))
@@ -16,17 +16,17 @@ using namespace spg;
  */
 
 
-Laborator6::Laborator6()
+Lab6::Lab6()
 {
 }
 
 
-Laborator6::~Laborator6()
+Lab6::~Lab6()
 {
 }
 
 
-void Laborator6::Init()
+void Lab6::Init()
 {
     outputType = 0;
 
@@ -92,12 +92,12 @@ void Laborator6::Init()
 }
 
 
-void Laborator6::FrameStart()
+void Lab6::FrameStart()
 {
 }
 
 
-void Laborator6::Update(float deltaTimeSeconds)
+void Lab6::Update(float deltaTimeSeconds)
 {
     ClearScreen();
 
@@ -244,13 +244,13 @@ void Laborator6::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator6::FrameEnd()
+void Lab6::FrameEnd()
 {
     DrawCoordinateSystem();
 }
 
 
-void Laborator6::LoadShader(const std::string &name)
+void Lab6::LoadShader(const std::string &name)
 {
     std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::SPG, "lab6", "shaders");
 
@@ -272,13 +272,13 @@ void Laborator6::LoadShader(const std::string &name)
  */
 
 
-void Laborator6::OnInputUpdate(float deltaTime, int mods)
+void Lab6::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
 }
 
 
-void Laborator6::OnKeyPress(int key, int mods)
+void Lab6::OnKeyPress(int key, int mods)
 {
     // Add key press event
 
@@ -296,37 +296,37 @@ void Laborator6::OnKeyPress(int key, int mods)
 }
 
 
-void Laborator6::OnKeyRelease(int key, int mods)
+void Lab6::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator6::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab6::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator6::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab6::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator6::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab6::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator6::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab6::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
     // Treat mouse scroll event
 }
 
 
-void Laborator6::OnWindowResize(int width, int height)
+void Lab6::OnWindowResize(int width, int height)
 {
     // Treat window resize event
     frameBuffer->Resize(width, height, 32);

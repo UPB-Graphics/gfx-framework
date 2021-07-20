@@ -3,9 +3,9 @@
 #include "components/simple_scene.h"
 
 
-namespace egc
+namespace level1
 {
-    class Laborator3_Vis2D : public egxc::SimpleScene
+    class Lab3_Vis2D : public egxc::SimpleScene
     {
      public:
         struct ViewportSpace
@@ -31,8 +31,8 @@ namespace egc
         };
 
      public:
-        Laborator3_Vis2D();
-        ~Laborator3_Vis2D();
+        Lab3_Vis2D();
+        ~Lab3_Vis2D();
 
         void Init() override;
 

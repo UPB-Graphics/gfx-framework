@@ -7,13 +7,13 @@
 #include "components/transform.h"
 
 
-namespace egc
+namespace level1
 {
-    class Laborator9 : public egxc::SimpleScene
+    class Lab9 : public egxc::SimpleScene
     {
      public:
-        Laborator9();
-        ~Laborator9();
+        Lab9();
+        ~Lab9();
 
         void Init() override;
 

@@ -7,7 +7,7 @@
 #include "lab_egc/lab3/object2D.h"
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -16,17 +16,17 @@ using namespace egc;
  */
 
 
-Laborator3_Vis2D::Laborator3_Vis2D()
+Lab3_Vis2D::Lab3_Vis2D()
 {
 }
 
 
-Laborator3_Vis2D::~Laborator3_Vis2D()
+Lab3_Vis2D::~Lab3_Vis2D()
 {
 }
 
 
-void Laborator3_Vis2D::Init()
+void Lab3_Vis2D::Init()
 {
     auto camera = GetSceneCamera();
     camera->SetPosition(glm::vec3(0, 0, 50));
@@ -48,7 +48,7 @@ void Laborator3_Vis2D::Init()
 
 
 // 2D visualization matrix
-glm::mat3 Laborator3_Vis2D::VisualizationTransf2D(const LogicSpace & logicSpace, const ViewportSpace & viewSpace)
+glm::mat3 Lab3_Vis2D::VisualizationTransf2D(const LogicSpace & logicSpace, const ViewportSpace & viewSpace)
 {
     float sx, sy, tx, ty;
     sx = viewSpace.width / logicSpace.width;
@@ -64,7 +64,7 @@ glm::mat3 Laborator3_Vis2D::VisualizationTransf2D(const LogicSpace & logicSpace,
 
 
 // Uniform 2D visualization matrix (same scale factor on x and y axes)
-glm::mat3 Laborator3_Vis2D::VisualizationTransf2DUnif(const LogicSpace & logicSpace, const ViewportSpace & viewSpace)
+glm::mat3 Lab3_Vis2D::VisualizationTransf2DUnif(const LogicSpace & logicSpace, const ViewportSpace & viewSpace)
 {
     float sx, sy, tx, ty, smin;
     sx = viewSpace.width / logicSpace.width;
@@ -83,7 +83,7 @@ glm::mat3 Laborator3_Vis2D::VisualizationTransf2DUnif(const LogicSpace & logicSp
 }
 
 
-void Laborator3_Vis2D::SetViewportArea(const ViewportSpace & viewSpace, glm::vec3 colorColor, bool clear)
+void Lab3_Vis2D::SetViewportArea(const ViewportSpace & viewSpace, glm::vec3 colorColor, bool clear)
 {
     glViewport(viewSpace.x, viewSpace.y, viewSpace.width, viewSpace.height);
 
@@ -100,7 +100,7 @@ void Laborator3_Vis2D::SetViewportArea(const ViewportSpace & viewSpace, glm::vec
 }
 
 
-void Laborator3_Vis2D::FrameStart()
+void Lab3_Vis2D::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -108,7 +108,7 @@ void Laborator3_Vis2D::FrameStart()
 }
 
 
-void Laborator3_Vis2D::Update(float deltaTimeSeconds)
+void Lab3_Vis2D::Update(float deltaTimeSeconds)
 {
     glm::ivec2 resolution = window->GetResolution();
 
@@ -134,12 +134,12 @@ void Laborator3_Vis2D::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator3_Vis2D::FrameEnd()
+void Lab3_Vis2D::FrameEnd()
 {
 }
 
 
-void Laborator3_Vis2D::DrawScene(glm::mat3 visMatrix)
+void Lab3_Vis2D::DrawScene(glm::mat3 visMatrix)
 {
     modelMatrix = visMatrix * transform2D::Translate(0, 0);
     RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
@@ -164,7 +164,7 @@ void Laborator3_Vis2D::DrawScene(glm::mat3 visMatrix)
  */
 
 
-void Laborator3_Vis2D::OnInputUpdate(float deltaTime, int mods)
+void Lab3_Vis2D::OnInputUpdate(float deltaTime, int mods)
 {
     // TODO(student): Move the logic window with W, A, S, D (up, left, down, right)
 
@@ -173,35 +173,35 @@ void Laborator3_Vis2D::OnInputUpdate(float deltaTime, int mods)
 }
 
 
-void Laborator3_Vis2D::OnKeyPress(int key, int mods)
+void Lab3_Vis2D::OnKeyPress(int key, int mods)
 {
 }
 
 
-void Laborator3_Vis2D::OnKeyRelease(int key, int mods)
+void Lab3_Vis2D::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator3_Vis2D::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab3_Vis2D::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator3_Vis2D::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab3_Vis2D::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator3_Vis2D::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab3_Vis2D::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator3_Vis2D::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab3_Vis2D::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }

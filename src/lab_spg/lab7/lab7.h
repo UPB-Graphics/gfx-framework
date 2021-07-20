@@ -6,13 +6,13 @@
 #include "core/gpu/frame_buffer.h"
 
 
-namespace spg
+namespace level2
 {
-    class Laborator7 : public egxc::SimpleScene
+    class Lab7 : public egxc::SimpleScene
     {
      public:
-        Laborator7();
-        ~Laborator7();
+        Lab7();
+        ~Lab7();
 
         void Init() override;
 

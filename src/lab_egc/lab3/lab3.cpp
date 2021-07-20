@@ -7,7 +7,7 @@
 #include "lab_egc/lab3/object2D.h"
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -16,17 +16,17 @@ using namespace egc;
  */
 
 
-Laborator3::Laborator3()
+Lab3::Lab3()
 {
 }
 
 
-Laborator3::~Laborator3()
+Lab3::~Lab3()
 {
 }
 
 
-void Laborator3::Init()
+void Lab3::Init()
 {
     glm::ivec2 resolution = window->GetResolution();
     auto camera = GetSceneCamera();
@@ -66,7 +66,7 @@ void Laborator3::Init()
 }
 
 
-void Laborator3::FrameStart()
+void Lab3::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -78,7 +78,7 @@ void Laborator3::FrameStart()
 }
 
 
-void Laborator3::Update(float deltaTimeSeconds)
+void Lab3::Update(float deltaTimeSeconds)
 {
     // TODO(student): Update steps for translation, rotation and scale,
     // in order to create animations. Use the class variables in the
@@ -111,7 +111,7 @@ void Laborator3::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator3::FrameEnd()
+void Lab3::FrameEnd()
 {
 }
 
@@ -122,46 +122,46 @@ void Laborator3::FrameEnd()
  */
 
 
-void Laborator3::OnInputUpdate(float deltaTime, int mods)
+void Lab3::OnInputUpdate(float deltaTime, int mods)
 {
 }
 
 
-void Laborator3::OnKeyPress(int key, int mods)
+void Lab3::OnKeyPress(int key, int mods)
 {
     // Add key press event
 }
 
 
-void Laborator3::OnKeyRelease(int key, int mods)
+void Lab3::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator3::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab3::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator3::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab3::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator3::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab3::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator3::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab3::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
 
-void Laborator3::OnWindowResize(int width, int height)
+void Lab3::OnWindowResize(int width, int height)
 {
 }

@@ -3,13 +3,13 @@
 #include "components/simple_scene.h"
 
 
-namespace spg
+namespace level2
 {
-    class Laborator1 : public egxc::SimpleScene
+    class Lab1 : public egxc::SimpleScene
     {
      public:
-        Laborator1();
-        ~Laborator1();
+        Lab1();
+        ~Lab1();
 
         void Init() override;
 

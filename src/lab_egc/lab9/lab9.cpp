@@ -5,7 +5,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -14,17 +14,17 @@ using namespace egc;
  */
 
 
-Laborator9::Laborator9()
+Lab9::Lab9()
 {
 }
 
 
-Laborator9::~Laborator9()
+Lab9::~Lab9()
 {
 }
 
 
-void Laborator9::Init()
+void Lab9::Init()
 {
     const string sourceTextureDir = PATH_JOIN(window->props.selfDir, SOURCE_PATH::EGC, "lab9", "textures");
 
@@ -123,7 +123,7 @@ void Laborator9::Init()
 }
 
 
-void Laborator9::FrameStart()
+void Lab9::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -135,7 +135,7 @@ void Laborator9::FrameStart()
 }
 
 
-void Laborator9::Update(float deltaTimeSeconds)
+void Lab9::Update(float deltaTimeSeconds)
 {
     // TODO(student): Choose an object and add a second texture to it.
     // For example, for the sphere, you can have the "earth" texture
@@ -185,13 +185,13 @@ void Laborator9::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator9::FrameEnd()
+void Lab9::FrameEnd()
 {
     DrawCoordinateSystem();
 }
 
 
-void Laborator9::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix, Texture2D* texture1, Texture2D* texture2)
+void Lab9::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix, Texture2D* texture1, Texture2D* texture2)
 {
     if (!mesh || !shader || !shader->GetProgramID())
         return;
@@ -239,7 +239,7 @@ void Laborator9::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 }
 
 
-Texture2D* Laborator9::CreateRandomTexture(unsigned int width, unsigned int height)
+Texture2D* Lab9::CreateRandomTexture(unsigned int width, unsigned int height)
 {
     GLuint textureID = 0;
     unsigned int channels = 3;
@@ -280,7 +280,7 @@ Texture2D* Laborator9::CreateRandomTexture(unsigned int width, unsigned int heig
  */
 
 
-void Laborator9::OnInputUpdate(float deltaTime, int mods)
+void Lab9::OnInputUpdate(float deltaTime, int mods)
 {
     if (!window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
     {
@@ -292,41 +292,41 @@ void Laborator9::OnInputUpdate(float deltaTime, int mods)
 }
 
 
-void Laborator9::OnKeyPress(int key, int mods)
+void Lab9::OnKeyPress(int key, int mods)
 {
     // Add key press event
 }
 
 
-void Laborator9::OnKeyRelease(int key, int mods)
+void Lab9::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator9::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab9::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator9::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab9::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator9::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab9::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator9::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab9::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
 
-void Laborator9::OnWindowResize(int width, int height)
+void Lab9::OnWindowResize(int width, int height)
 {
 }

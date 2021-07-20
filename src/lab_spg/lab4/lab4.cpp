@@ -6,7 +6,7 @@
 #include "stb/stb_image.h"
 
 using namespace std;
-using namespace spg;
+using namespace level2;
 
 
 /*
@@ -15,17 +15,17 @@ using namespace spg;
  */
 
 
-Laborator4::Laborator4()
+Lab4::Lab4()
 {
 }
 
 
-Laborator4::~Laborator4()
+Lab4::~Lab4()
 {
 }
 
 
-void Laborator4::Init()
+void Lab4::Init()
 {
     auto camera = GetSceneCamera();
     camera->SetPositionAndRotation(glm::vec3(0, 2, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
@@ -76,12 +76,12 @@ void Laborator4::Init()
 }
 
 
-void Laborator4::FrameStart()
+void Lab4::FrameStart()
 {
 }
 
 
-void Laborator4::Update(float deltaTimeSeconds)
+void Lab4::Update(float deltaTimeSeconds)
 {
     ClearScreen();
 
@@ -135,13 +135,13 @@ void Laborator4::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator4::FrameEnd()
+void Lab4::FrameEnd()
 {
     DrawCoordinateSystem();
 }
 
 
-unsigned int Laborator4::UploadCubeMapTexture(const std::string &posx, const std::string &posy, const std::string &posz, const std::string& negx, const std::string& negy, const std::string& negz)
+unsigned int Lab4::UploadCubeMapTexture(const std::string &posx, const std::string &posy, const std::string &posz, const std::string& negx, const std::string& negy, const std::string& negz)
 {
     int width, height, chn;
 
@@ -200,49 +200,49 @@ unsigned int Laborator4::UploadCubeMapTexture(const std::string &posx, const std
  */
 
 
-void Laborator4::OnInputUpdate(float deltaTime, int mods)
+void Lab4::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
 }
 
 
-void Laborator4::OnKeyPress(int key, int mods)
+void Lab4::OnKeyPress(int key, int mods)
 {
     // Add key press event
 }
 
 
-void Laborator4::OnKeyRelease(int key, int mods)
+void Lab4::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator4::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab4::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator4::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab4::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator4::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab4::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator4::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab4::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
     // Treat mouse scroll event
 }
 
 
-void Laborator4::OnWindowResize(int width, int height)
+void Lab4::OnWindowResize(int width, int height)
 {
     // Treat window resize event
 }

@@ -7,7 +7,7 @@
 #include "utils/gl_utils.h"
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -16,17 +16,17 @@ using namespace egc;
  */
 
 
-Laborator2::Laborator2()
+Lab2::Lab2()
 {
 }
 
 
-Laborator2::~Laborator2()
+Lab2::~Lab2()
 {
 }
 
 
-void Laborator2::Init()
+void Lab2::Init()
 {
     cullFace = GL_BACK;
     polygonMode = GL_FILL;
@@ -74,7 +74,7 @@ void Laborator2::Init()
 }
 
 
-void Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
+void Lab2::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
 {
     unsigned int VAO = 0;
     // TODO(student): Create the VAO and bind it
@@ -128,7 +128,7 @@ void Laborator2::CreateMesh(const char *name, const std::vector<VertexFormat> &v
 }
 
 
-void Laborator2::FrameStart()
+void Lab2::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -141,7 +141,7 @@ void Laborator2::FrameStart()
 }
 
 
-void Laborator2::Update(float deltaTimeSeconds)
+void Lab2::Update(float deltaTimeSeconds)
 {
     glLineWidth(3);
     glPointSize(5);
@@ -168,7 +168,7 @@ void Laborator2::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator2::FrameEnd()
+void Lab2::FrameEnd()
 {
     DrawCoordinateSystem();
 }
@@ -180,12 +180,12 @@ void Laborator2::FrameEnd()
  */
 
 
-void Laborator2::OnInputUpdate(float deltaTime, int mods)
+void Lab2::OnInputUpdate(float deltaTime, int mods)
 {
 }
 
 
-void Laborator2::OnKeyPress(int key, int mods)
+void Lab2::OnKeyPress(int key, int mods)
 {
     // TODO(student): Switch between GL_FRONT and GL_BACK culling.
     // Save the state in `cullFace` variable and apply it in the
@@ -209,35 +209,35 @@ void Laborator2::OnKeyPress(int key, int mods)
 }
 
 
-void Laborator2::OnKeyRelease(int key, int mods)
+void Lab2::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator2::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab2::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
 
-void Laborator2::OnWindowResize(int width, int height)
+void Lab2::OnWindowResize(int width, int height)
 {
 }

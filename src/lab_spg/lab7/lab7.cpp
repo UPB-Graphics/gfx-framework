@@ -6,7 +6,7 @@
 #include "pfd/portable-file-dialogs.h"
 
 using namespace std;
-using namespace spg;
+using namespace level2;
 
 
 /*
@@ -15,7 +15,7 @@ using namespace spg;
  */
 
 
-Laborator7::Laborator7()
+Lab7::Lab7()
 {
     outputMode = 0;
     gpuProcessing = false;
@@ -24,12 +24,12 @@ Laborator7::Laborator7()
 }
 
 
-Laborator7::~Laborator7()
+Lab7::~Lab7()
 {
 }
 
 
-void Laborator7::Init()
+void Lab7::Init()
 {
     // Load default texture fore imagine processing
     originalImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "posx.png"), nullptr, "image", true, true);
@@ -56,12 +56,12 @@ void Laborator7::Init()
 }
 
 
-void Laborator7::FrameStart()
+void Lab7::FrameStart()
 {
 }
 
 
-void Laborator7::Update(float deltaTimeSeconds)
+void Lab7::Update(float deltaTimeSeconds)
 {
     ClearScreen();
 
@@ -111,13 +111,13 @@ void Laborator7::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator7::FrameEnd()
+void Lab7::FrameEnd()
 {
     DrawCoordinateSystem();
 }
 
 
-void Laborator7::OnFileSelected(const std::string &fileName)
+void Lab7::OnFileSelected(const std::string &fileName)
 {
     if (fileName.size())
     {
@@ -131,7 +131,7 @@ void Laborator7::OnFileSelected(const std::string &fileName)
 }
 
 
-void Laborator7::GrayScale()
+void Lab7::GrayScale()
 {
     unsigned int channels = originalImage->GetNrChannels();
     unsigned char* data = originalImage->GetImageData();
@@ -158,7 +158,7 @@ void Laborator7::GrayScale()
 }
 
 
-void Laborator7::SaveImage(const std::string &fileName)
+void Lab7::SaveImage(const std::string &fileName)
 {
     cout << "Saving image! ";
     processedImage->SaveToFile((fileName + ".png").c_str());
@@ -166,7 +166,7 @@ void Laborator7::SaveImage(const std::string &fileName)
 }
 
 
-void Laborator7::OpenDialog()
+void Lab7::OpenDialog()
 {
     std::vector<std::string> filters =
     {
@@ -189,13 +189,13 @@ void Laborator7::OpenDialog()
  */
 
 
-void Laborator7::OnInputUpdate(float deltaTime, int mods)
+void Lab7::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
 }
 
 
-void Laborator7::OnKeyPress(int key, int mods)
+void Lab7::OnKeyPress(int key, int mods)
 {
     // Add key press event
     if (key == GLFW_KEY_F || key == GLFW_KEY_ENTER || key == GLFW_KEY_SPACE)
@@ -236,37 +236,37 @@ void Laborator7::OnKeyPress(int key, int mods)
 }
 
 
-void Laborator7::OnKeyRelease(int key, int mods)
+void Lab7::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator7::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab7::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator7::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab7::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator7::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab7::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator7::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab7::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
     // Treat mouse scroll event
 }
 
 
-void Laborator7::OnWindowResize(int width, int height)
+void Lab7::OnWindowResize(int width, int height)
 {
     // Treat window resize event
 }

@@ -5,7 +5,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -14,17 +14,17 @@ using namespace egc;
  */
 
 
-Laborator5::Laborator5()
+Lab5::Lab5()
 {
 }
 
 
-Laborator5::~Laborator5()
+Lab5::~Lab5()
 {
 }
 
 
-void Laborator5::Init()
+void Lab5::Init()
 {
     renderCameraTarget = false;
 
@@ -50,7 +50,7 @@ void Laborator5::Init()
 }
 
 
-void Laborator5::FrameStart()
+void Lab5::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -62,7 +62,7 @@ void Laborator5::FrameStart()
 }
 
 
-void Laborator5::Update(float deltaTimeSeconds)
+void Lab5::Update(float deltaTimeSeconds)
 {
     {
         glm::mat4 modelMatrix = glm::mat4(1);
@@ -103,13 +103,13 @@ void Laborator5::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator5::FrameEnd()
+void Lab5::FrameEnd()
 {
     DrawCoordinateSystem(camera->GetViewMatrix(), projectionMatrix);
 }
 
 
-void Laborator5::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & modelMatrix)
+void Lab5::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & modelMatrix)
 {
     if (!mesh || !shader || !shader->program)
         return;
@@ -130,7 +130,7 @@ void Laborator5::RenderMesh(Mesh * mesh, Shader * shader, const glm::mat4 & mode
  */
 
 
-void Laborator5::OnInputUpdate(float deltaTime, int mods)
+void Lab5::OnInputUpdate(float deltaTime, int mods)
 {
     // move the camera only if MOUSE_RIGHT button is pressed
     if (window->MouseHold(GLFW_MOUSE_BUTTON_RIGHT))
@@ -176,7 +176,7 @@ void Laborator5::OnInputUpdate(float deltaTime, int mods)
 }
 
 
-void Laborator5::OnKeyPress(int key, int mods)
+void Lab5::OnKeyPress(int key, int mods)
 {
     // Add key press event
     if (key == GLFW_KEY_T)
@@ -188,13 +188,13 @@ void Laborator5::OnKeyPress(int key, int mods)
 }
 
 
-void Laborator5::OnKeyRelease(int key, int mods)
+void Lab5::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 
@@ -222,23 +222,23 @@ void Laborator5::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 }
 
 
-void Laborator5::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab5::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator5::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab5::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator5::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab5::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
 
-void Laborator5::OnWindowResize(int width, int height)
+void Lab5::OnWindowResize(int width, int height)
 {
 }

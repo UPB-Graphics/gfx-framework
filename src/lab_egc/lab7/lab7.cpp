@@ -5,7 +5,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -14,17 +14,17 @@ using namespace egc;
  */
 
 
-Laborator7::Laborator7()
+Lab7::Lab7()
 {
 }
 
 
-Laborator7::~Laborator7()
+Lab7::~Lab7()
 {
 }
 
 
-void Laborator7::Init()
+void Lab7::Init()
 {
     {
         Mesh* mesh = new Mesh("box");
@@ -63,7 +63,7 @@ void Laborator7::Init()
 }
 
 
-void Laborator7::FrameStart()
+void Lab7::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -75,7 +75,7 @@ void Laborator7::FrameStart()
 }
 
 
-void Laborator7::Update(float deltaTimeSeconds)
+void Lab7::Update(float deltaTimeSeconds)
 {
     {
         glm::mat4 modelMatrix = glm::mat4(1);
@@ -116,13 +116,13 @@ void Laborator7::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator7::FrameEnd()
+void Lab7::FrameEnd()
 {
     DrawCoordinateSystem();
 }
 
 
-void Laborator7::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix, const glm::vec3 &color)
+void Lab7::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix, const glm::vec3 &color)
 {
     if (!mesh || !shader || !shader->GetProgramID())
         return;
@@ -164,7 +164,7 @@ void Laborator7::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
  */
 
 
-void Laborator7::OnInputUpdate(float deltaTime, int mods)
+void Lab7::OnInputUpdate(float deltaTime, int mods)
 {
     float speed = 2;
 
@@ -186,41 +186,41 @@ void Laborator7::OnInputUpdate(float deltaTime, int mods)
 }
 
 
-void Laborator7::OnKeyPress(int key, int mods)
+void Lab7::OnKeyPress(int key, int mods)
 {
     // Add key press event
 }
 
 
-void Laborator7::OnKeyRelease(int key, int mods)
+void Lab7::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator7::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab7::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator7::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab7::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator7::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab7::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator7::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab7::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
 
-void Laborator7::OnWindowResize(int width, int height)
+void Lab7::OnWindowResize(int width, int height)
 {
 }

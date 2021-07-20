@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace spg;
+using namespace level2;
 
 
 /*
@@ -13,17 +13,17 @@ using namespace spg;
  */
 
 
-Laborator1::Laborator1()
+Lab1::Lab1()
 {
 }
 
 
-Laborator1::~Laborator1()
+Lab1::~Lab1()
 {
 }
 
 
-void Laborator1::Init()
+void Lab1::Init()
 {
     nrInstances = 0;
     maxInstances = 50;
@@ -52,12 +52,12 @@ void Laborator1::Init()
 }
 
 
-void Laborator1::FrameStart()
+void Lab1::FrameStart()
 {
 }
 
 
-void Laborator1::Update(float deltaTimeSeconds)
+void Lab1::Update(float deltaTimeSeconds)
 {
     ClearScreen();
 
@@ -78,7 +78,7 @@ void Laborator1::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator1::FrameEnd()
+void Lab1::FrameEnd()
 {
     DrawCoordinateSystem();
 }
@@ -90,7 +90,7 @@ void Laborator1::FrameEnd()
  */
 
 
-void Laborator1::OnInputUpdate(float deltaTime, int mods)
+void Lab1::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input with window->KeyHold()
 
@@ -99,7 +99,7 @@ void Laborator1::OnInputUpdate(float deltaTime, int mods)
 }
 
 
-void Laborator1::OnKeyPress(int key, int mods)
+void Lab1::OnKeyPress(int key, int mods)
 {
     // Add key press event
 
@@ -117,37 +117,37 @@ void Laborator1::OnKeyPress(int key, int mods)
 }
 
 
-void Laborator1::OnKeyRelease(int key, int mods)
+void Lab1::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab1::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab1::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab1::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator1::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab1::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
     // Treat mouse scroll event
 }
 
 
-void Laborator1::OnWindowResize(int width, int height)
+void Lab1::OnWindowResize(int width, int height)
 {
     // Treat window resize event
 }

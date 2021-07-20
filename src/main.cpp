@@ -4,12 +4,6 @@
 #include "core/engine.h"
 #include "components/simple_scene.h"
 
-// TODO(developer): Investigate compiler warnings
-#if 0
-#   include "spdlog/spdlog.h"
-#   include "spdlog/sinks/stdout_color_sinks.h"
-#endif
-
 #if defined(WITH_LAB_EGC)
 #   include "lab_egc/lab_list.h"
 #endif

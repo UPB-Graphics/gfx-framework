@@ -5,7 +5,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -14,17 +14,17 @@ using namespace egc;
  */
 
 
-Laborator6::Laborator6()
+Lab6::Lab6()
 {
 }
 
 
-Laborator6::~Laborator6()
+Lab6::~Lab6()
 {
 }
 
 
-void Laborator6::Init()
+void Lab6::Init()
 {
     {
         Mesh* mesh = new Mesh("box");
@@ -70,7 +70,7 @@ void Laborator6::Init()
 }
 
 
-Mesh* Laborator6::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
+Mesh* Lab6::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
 {
     unsigned int VAO = 0;
     // Create the VAO and bind it
@@ -141,7 +141,7 @@ Mesh* Laborator6::CreateMesh(const char *name, const std::vector<VertexFormat> &
 }
 
 
-void Laborator6::FrameStart()
+void Lab6::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -153,7 +153,7 @@ void Laborator6::FrameStart()
 }
 
 
-void Laborator6::Update(float deltaTimeSeconds)
+void Lab6::Update(float deltaTimeSeconds)
 {
     {
         glm::mat4 modelMatrix = glm::mat4(1);
@@ -180,13 +180,13 @@ void Laborator6::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator6::FrameEnd()
+void Lab6::FrameEnd()
 {
     DrawCoordinateSystem();
 }
 
 
-void Laborator6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix)
+void Lab6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelMatrix)
 {
     if (!mesh || !shader || !shader->GetProgramID())
         return;
@@ -220,47 +220,47 @@ void Laborator6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
  */
 
 
-void Laborator6::OnInputUpdate(float deltaTime, int mods)
+void Lab6::OnInputUpdate(float deltaTime, int mods)
 {
     // Add key press event
 }
 
 
-void Laborator6::OnKeyPress(int key, int mods)
+void Lab6::OnKeyPress(int key, int mods)
 {
     // Add key press event
 }
 
 
-void Laborator6::OnKeyRelease(int key, int mods)
+void Lab6::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator6::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab6::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator6::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab6::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator6::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab6::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator6::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab6::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
 
-void Laborator6::OnWindowResize(int width, int height)
+void Lab6::OnWindowResize(int width, int height)
 {
 }

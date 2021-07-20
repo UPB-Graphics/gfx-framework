@@ -4,13 +4,13 @@
 #include "lab_egc/lab5/lab_camera.h"
 
 
-namespace egc
+namespace level1
 {
-    class Laborator5 : public egxc::SimpleScene
+    class Lab5 : public egxc::SimpleScene
     {
      public:
-        Laborator5();
-        ~Laborator5();
+        Lab5();
+        ~Lab5();
 
         void Init() override;
 

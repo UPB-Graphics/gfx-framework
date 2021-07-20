@@ -3,7 +3,7 @@
 ## :sparkles: Introduction
 
 This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
-It is currently used as teaching and study material for a number of courses of increasing complexity:
+It is currently used as teaching and study material for a number of courses of increasing complexity, including:
 
 -   **`egc`** Elements of Computer Graphics, BSc year 3 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/egc)
 -   **`spg`** Graphics Processing Systems, BSc year 4 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/spg)
@@ -137,8 +137,8 @@ To run a certain lab:
     ```
 -   Replace it with whatever you want to run, for example:
     ```cpp
-    World *world = new egc::Laborator1();
-    World *world = new spg::Laborator1();
+    World *world = new level1::Lab1();
+    World *world = new level2::Lab1();
     World *world = new extra::TessellationShader();
     // etc.
     ```

@@ -8,7 +8,7 @@
 #include "core/gpu/frame_buffer.h"
 
 
-namespace spg
+namespace level2
 {
     struct LightInfo
     {
@@ -18,11 +18,11 @@ namespace spg
         float radius;
     };
 
-    class Laborator6 : public egxc::SimpleScene
+    class Lab6 : public egxc::SimpleScene
     {
      public:
-        Laborator6();
-        ~Laborator6();
+        Lab6();
+        ~Lab6();
 
         void Init() override;
 

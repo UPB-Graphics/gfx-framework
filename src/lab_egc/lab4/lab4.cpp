@@ -7,7 +7,7 @@
 #include "lab_egc/lab4/transform3D.h"
 
 using namespace std;
-using namespace egc;
+using namespace level1;
 
 
 /*
@@ -16,17 +16,17 @@ using namespace egc;
  */
 
 
-Laborator4::Laborator4()
+Lab4::Lab4()
 {
 }
 
 
-Laborator4::~Laborator4()
+Lab4::~Lab4()
 {
 }
 
 
-void Laborator4::Init()
+void Lab4::Init()
 {
     polygonMode = GL_FILL;
 
@@ -51,7 +51,7 @@ void Laborator4::Init()
 }
 
 
-void Laborator4::FrameStart()
+void Lab4::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -63,7 +63,7 @@ void Laborator4::FrameStart()
 }
 
 
-void Laborator4::Update(float deltaTimeSeconds)
+void Lab4::Update(float deltaTimeSeconds)
 {
     glLineWidth(3);
     glPointSize(5);
@@ -88,7 +88,7 @@ void Laborator4::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator4::FrameEnd()
+void Lab4::FrameEnd()
 {
     DrawCoordinateSystem();
 }
@@ -100,14 +100,14 @@ void Laborator4::FrameEnd()
  */
 
 
-void Laborator4::OnInputUpdate(float deltaTime, int mods)
+void Lab4::OnInputUpdate(float deltaTime, int mods)
 {
     // TODO(student): Add transformation logic
 
 }
 
 
-void Laborator4::OnKeyPress(int key, int mods)
+void Lab4::OnKeyPress(int key, int mods)
 {
     // Add key press event
     if (key == GLFW_KEY_SPACE)
@@ -128,35 +128,35 @@ void Laborator4::OnKeyPress(int key, int mods)
 }
 
 
-void Laborator4::OnKeyRelease(int key, int mods)
+void Lab4::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator4::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab4::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator4::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab4::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator4::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab4::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator4::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab4::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
 }
 
 
-void Laborator4::OnWindowResize(int width, int height)
+void Lab4::OnWindowResize(int width, int height)
 {
 }

@@ -6,13 +6,13 @@
 #include <string>
 
 
-namespace spg
+namespace level2
 {
-    class Laborator4 : public egxc::SimpleScene
+    class Lab4 : public egxc::SimpleScene
     {
      public:
-        Laborator4();
-        ~Laborator4();
+        Lab4();
+        ~Lab4();
 
         void Init() override;
 

@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace spg;
+using namespace level2;
 
 
 /*
@@ -13,17 +13,17 @@ using namespace spg;
  */
 
 
-Laborator2::Laborator2()
+Lab2::Lab2()
 {
 }
 
 
-Laborator2::~Laborator2()
+Lab2::~Lab2()
 {
 }
 
 
-void Laborator2::Init()
+void Lab2::Init()
 {
     auto camera = GetSceneCamera();
     camera->SetPositionAndRotation(glm::vec3(0, 8, 8), glm::quat(glm::vec3(-40 * TO_RADIANS, 0, 0)));
@@ -73,7 +73,7 @@ void Laborator2::Init()
 }
 
 
-void Laborator2::FrameStart()
+void Lab2::FrameStart()
 {
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
@@ -85,7 +85,7 @@ void Laborator2::FrameStart()
 }
 
 
-void Laborator2::RenderMeshInstanced(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, int instances, const glm::vec3 &color)
+void Lab2::RenderMeshInstanced(Mesh *mesh, Shader *shader, const glm::mat4 &modelMatrix, int instances, const glm::vec3 &color)
 {
     if (!mesh || !shader || !shader->GetProgramID())
         return;
@@ -113,7 +113,7 @@ void Laborator2::RenderMeshInstanced(Mesh *mesh, Shader *shader, const glm::mat4
 }
 
 
-void Laborator2::Update(float deltaTimeSeconds)
+void Lab2::Update(float deltaTimeSeconds)
 {
     ClearScreen(glm::vec3(0.121, 0.168, 0.372));
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -141,7 +141,7 @@ void Laborator2::Update(float deltaTimeSeconds)
 }
 
 
-void Laborator2::FrameEnd()
+void Lab2::FrameEnd()
 {
 #if 0
     DrawCoordinateSystem();
@@ -155,7 +155,7 @@ void Laborator2::FrameEnd()
  */
 
 
-void Laborator2::OnInputUpdate(float deltaTime, int mods)
+void Lab2::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
 
@@ -197,7 +197,7 @@ void Laborator2::OnInputUpdate(float deltaTime, int mods)
 }
 
 
-void Laborator2::OnKeyPress(int key, int mods)
+void Lab2::OnKeyPress(int key, int mods)
 {
     // TODO(student): Use keys to change the number of instances and the
     // number of generated points. Avoid the camera keys, and avoid the
@@ -206,37 +206,37 @@ void Laborator2::OnKeyPress(int key, int mods)
 }
 
 
-void Laborator2::OnKeyRelease(int key, int mods)
+void Lab2::OnKeyRelease(int key, int mods)
 {
     // Add key release event
 }
 
 
-void Laborator2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
+void Lab2::OnMouseMove(int mouseX, int mouseY, int deltaX, int deltaY)
 {
     // Add mouse move event
 }
 
 
-void Laborator2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
+void Lab2::OnMouseBtnPress(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button press event
 }
 
 
-void Laborator2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
+void Lab2::OnMouseBtnRelease(int mouseX, int mouseY, int button, int mods)
 {
     // Add mouse button release event
 }
 
 
-void Laborator2::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
+void Lab2::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 {
     // Treat mouse scroll event
 }
 
 
-void Laborator2::OnWindowResize(int width, int height)
+void Lab2::OnWindowResize(int width, int height)
 {
     // Treat window resize event
 }
