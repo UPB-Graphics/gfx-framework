@@ -6,7 +6,7 @@
 
 namespace extra
 {
-    class ComputeShadersExt : public egxc::SimpleScene
+    class ComputeShadersExt : public gfxc::SimpleScene
     {
      public:
         ComputeShadersExt();

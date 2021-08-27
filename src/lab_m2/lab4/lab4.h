@@ -8,7 +8,7 @@
 
 namespace m2
 {
-    class Lab4 : public egxc::SimpleScene
+    class Lab4 : public gfxc::SimpleScene
     {
      public:
         Lab4();
@@ -21,7 +21,7 @@ namespace m2
         void Update(float deltaTimeSeconds) override;
         void FrameEnd() override;
 
-        unsigned int UploadCubeMapTexture(const std::string &posx, const std::string &posy, const std::string &posz, const std::string &negx, const std::string &negy, const std::string &negz);
+        unsigned int UploadCubeMapTexture(const std::string &pos_x, const std::string &pos_y, const std::string &pos_z, const std::string &neg_x, const std::string &neg_y, const std::string &neg_z);
 
         void OnInputUpdate(float deltaTime, int mods) override;
         void OnKeyPress(int key, int mods) override;

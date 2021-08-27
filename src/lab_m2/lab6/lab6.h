@@ -18,7 +18,7 @@ namespace m2
         float radius;
     };
 
-    class Lab6 : public egxc::SimpleScene
+    class Lab6 : public gfxc::SimpleScene
     {
      public:
         Lab6();

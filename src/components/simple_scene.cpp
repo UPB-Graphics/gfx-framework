@@ -7,7 +7,7 @@
 #include "components/scene_input.h"
 #include "components/transform.h"
 
-using namespace egxc;
+using namespace gfxc;
 
 
 SimpleScene::SimpleScene()

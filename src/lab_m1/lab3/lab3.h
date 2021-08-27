@@ -5,7 +5,7 @@
 
 namespace m1
 {
-    class Lab3 : public egxc::SimpleScene
+    class Lab3 : public gfxc::SimpleScene
     {
      public:
         Lab3();

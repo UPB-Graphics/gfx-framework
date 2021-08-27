@@ -4,7 +4,7 @@
 #include "core/window/input_controller.h"
 
 
-namespace egxc
+namespace gfxc
 {
     class CameraInput : public InputController
     {

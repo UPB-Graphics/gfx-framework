@@ -1,5 +1,5 @@
-#ifndef EGXC_TRANSFORM_H
-#define EGXC_TRANSFORM_H
+#ifndef GFXC_TRANSFORM_H
+#define GFXC_TRANSFORM_H
 
 #include "components/exports.h"
 
@@ -12,9 +12,9 @@
 #include <list>
 
 
-namespace egxc
+namespace gfxc
 {
-    class EGXC_API Transform
+    class GFXC_API Transform
     {
      public:
 

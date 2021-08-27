@@ -1,5 +1,5 @@
-#ifndef EGXC_CAMERA_H
-#define EGXC_CAMERA_H
+#ifndef GFXC_CAMERA_H
+#define GFXC_CAMERA_H
 
 #include "components/exports.h"
 
@@ -12,7 +12,7 @@
 #include <vector>
 
 
-namespace egxc
+namespace gfxc
 {
     class Transform;
 
@@ -32,7 +32,7 @@ namespace egxc
         bool isPerspective;
     };
 
-    class EGXC_API Camera
+    class GFXC_API Camera
     {
      public:
         Camera();

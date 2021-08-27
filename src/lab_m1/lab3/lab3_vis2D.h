@@ -5,7 +5,7 @@
 
 namespace m1
 {
-    class Lab3_Vis2D : public egxc::SimpleScene
+    class Lab3_Vis2D : public gfxc::SimpleScene
     {
      public:
         struct ViewportSpace

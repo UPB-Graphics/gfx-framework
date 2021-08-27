@@ -9,7 +9,7 @@
 
 namespace m1
 {
-    class Lab9 : public egxc::SimpleScene
+    class Lab9 : public gfxc::SimpleScene
     {
      public:
         Lab9();

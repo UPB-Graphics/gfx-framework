@@ -1,4 +1,4 @@
-# EGX Framework
+# GFX Framework
 
 ## :sparkles: Introduction
 
@@ -124,18 +124,18 @@ It's very simple to rebuild:
 You can run the project from an IDE, as well as standalone, from anywhere on disk. For example:
 
 -   Windows, one of the following:
-    -   `.\bin\Debug\EGXFramework`
+    -   `.\bin\Debug\GFXFramework`
     -   or just open the `.sln` file in Visual Studio, then press `F5` to run it
 
 -   Linux and macOS:
-    -   `./bin/Debug/EGXFramework`
+    -   `./bin/Debug/GFXFramework`
 
 To run a certain lab:
 
 -   Go into `main.cpp`
 -   Find this line:
     ```cpp
-    World *world = new egxc::SimpleScene();
+    World *world = new gfxc::SimpleScene();
     ```
 -   Replace it with whatever you want to run, for example:
     ```cpp

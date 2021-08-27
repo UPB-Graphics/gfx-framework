@@ -37,7 +37,7 @@ void BasicText::Init()
 
     // Create the text renderer object
     glm::ivec2 resolution = window->GetResolution();
-    textRenderer = new egxc::TextRenderer(window->props.selfDir, resolution.x, resolution.y);
+    textRenderer = new gfxc::TextRenderer(window->props.selfDir, resolution.x, resolution.y);
 
     textRenderer->Load(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::FONTS, "Hack-Bold.ttf"), 18);
 }

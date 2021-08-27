@@ -20,7 +20,7 @@
 #include "core/engine.h"
 
 
-namespace egxc
+namespace gfxc
 {
     /// Holds all state information relevant to a character as loaded using FreeType
     struct Character

@@ -19,7 +19,7 @@
 #include "utils/math_utils.h"
 
 
-namespace egxc
+namespace gfxc
 {
     class SimpleScene : public World
     {

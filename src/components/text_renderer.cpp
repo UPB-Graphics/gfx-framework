@@ -18,7 +18,7 @@
 #include FT_FREETYPE_H
 
 
-egxc::TextRenderer::TextRenderer(const std::string &selfDir, GLuint width, GLuint height)
+gfxc::TextRenderer::TextRenderer(const std::string &selfDir, GLuint width, GLuint height)
 {
     // Load and configure shader
     Shader *shader = new Shader("ShaderText");
@@ -47,7 +47,7 @@ egxc::TextRenderer::TextRenderer(const std::string &selfDir, GLuint width, GLuin
 }
 
 
-void egxc::TextRenderer::Load(std::string font, GLuint fontSize)
+void gfxc::TextRenderer::Load(std::string font, GLuint fontSize)
 {
     // First clear the previously loaded Characters
     this->Characters.clear();
@@ -125,7 +125,7 @@ void egxc::TextRenderer::Load(std::string font, GLuint fontSize)
 }
 
 
-void egxc::TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
+void gfxc::TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 {
     // Activate corresponding render state    
     if (this->m_textShader)

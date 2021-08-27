@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.16)
 
 
 # Set root directory, if needed
-if (NOT EGXF_ROOT_DIR)
-    set(EGXF_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
+if (NOT GFXF_ROOT_DIR)
+    set(GFXF_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
 endif()
 
 
 # Set the name of the project
-set(target_name EGXFramework)
+set(target_name GFXFramework)
 project(${target_name} C CXX)
 
 
@@ -21,7 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 # Include helper scripts
-include(${EGXF_ROOT_DIR}/infra/utils.cmake)
+include(${GFXF_ROOT_DIR}/infra/utils.cmake)
 custom_set_build_type()
 
 
@@ -73,7 +73,7 @@ endif()
 
 
 # Gather the source files
-file(GLOB_RECURSE EGXF_SOURCES
+file(GLOB_RECURSE GFXF_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/src/components/*.c*
     ${CMAKE_CURRENT_LIST_DIR}/src/core/*.c*
     ${CMAKE_CURRENT_LIST_DIR}/src/utils/*.c*
@@ -87,7 +87,7 @@ file(GLOB_RECURSE EGXF_SOURCES
 
 
 # Gather the header files
-file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
+file(GLOB_RECURSE GFXF_HEADERS_PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src/components/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/core/*.h*
     ${CMAKE_CURRENT_LIST_DIR}/src/utils/*.h*
@@ -105,17 +105,17 @@ file(GLOB_RECURSE EGXF_HEADERS_PRIVATE
 
 
 # Gather the include directories
-set(EGXF_INCLUDE_DIRS_PRIVATE
-    ${EGXF_ROOT_DIR}/deps/api
+set(GFXF_INCLUDE_DIRS_PRIVATE
+    ${GFXF_ROOT_DIR}/deps/api
     ${CMAKE_CURRENT_LIST_DIR}/src
 )
 
 
 # Add the executable
 custom_add_executable(${target_name}
-    ${EGXF_SOURCES}
-    ${EGXF_SOURCES_HIDDEN}
-    ${EGXF_HEADERS_PRIVATE}
+    ${GFXF_SOURCES}
+    ${GFXF_SOURCES_HIDDEN}
+    ${GFXF_HEADERS_PRIVATE}
 )
 
 
@@ -155,11 +155,11 @@ target_link_libraries(${target_name} PRIVATE
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_link_libraries(${target_name} PRIVATE
-        ${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3dll.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.lib
-        ${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.lib
+        ${GFXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.lib
+        ${GFXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3dll.lib
+        ${GFXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.lib
+        ${GFXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.lib
+        ${GFXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.lib
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(${target_name} PRIVATE
@@ -184,19 +184,19 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 endif()
 
 if (USE_DEV_COMPONENTS)
-    if (NOT TARGET EGXComponents)
+    if (NOT TARGET GFXComponents)
         add_subdirectory(src/components_hidden)
-        target_link_libraries(${target_name} PRIVATE EGXComponents)
+        target_link_libraries(${target_name} PRIVATE GFXComponents)
     endif()
 else()
     target_link_libraries(${target_name} PRIVATE
-        ${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_import_suffix}
+        ${GFXF_ROOT_DIR}/deps/prebuilt/GFXComponents/${__cmake_arch}/GFXComponents.${__cmake_import_suffix}
     )
 endif()
 
 
 # Set target properties
-target_include_directories(${target_name} PRIVATE ${EGXF_INCLUDE_DIRS_PRIVATE})
+target_include_directories(${target_name} PRIVATE ${GFXF_INCLUDE_DIRS_PRIVATE})
 
 
 # For Visual Studio, set the working directory and the startup project
@@ -207,49 +207,49 @@ endif()
 
 
 # Set source file properties
-set_source_files_properties(${EGXF_HEADERS_PRIVATE}  PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties(${GFXF_HEADERS_PRIVATE}  PROPERTIES HEADER_FILE_ONLY TRUE)
 
 
 # Group files under logical folders (mainly for IDEs)
 source_group(TREE ${CMAKE_CURRENT_LIST_DIR} FILES
-    ${EGXF_SOURCES}
-    ${EGXF_SOURCES_HIDDEN}
-    ${EGXF_HEADERS_PRIVATE}
+    ${GFXF_SOURCES}
+    ${GFXF_SOURCES_HIDDEN}
+    ${GFXF_HEADERS_PRIVATE}
 )
 
 
 # Add definitions (specific to this project)
 # Recommended reading: so@a/24470998/5922876, so@a/11437693/5922876
-set(EGXF_CXX_DEFS       LIBEGXC_EXPORTS GLM_FORCE_SILENT_WARNINGS _CRT_SECURE_NO_WARNINGS SOLVED $<$<CONFIG:Debug>:DEBUG>)
+set(GFXF_CXX_DEFS       LIBGFXC_EXPORTS GLM_FORCE_SILENT_WARNINGS _CRT_SECURE_NO_WARNINGS SOLVED $<$<CONFIG:Debug>:DEBUG>)
 if (WITH_LAB_M1)
-    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_M1)
+    set(GFXF_CXX_DEFS   ${GFXF_CXX_DEFS} WITH_LAB_M1)
 endif()
 if (WITH_LAB_M2)
-    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_M2)
+    set(GFXF_CXX_DEFS   ${GFXF_CXX_DEFS} WITH_LAB_M2)
 endif()
 if (WITH_LAB_EXTRA)
-    set(EGXF_CXX_DEFS   ${EGXF_CXX_DEFS} WITH_LAB_EXTRA)
+    set(GFXF_CXX_DEFS   ${GFXF_CXX_DEFS} WITH_LAB_EXTRA)
 endif()
-target_compile_definitions(${target_name} PRIVATE ${EGXF_CXX_DEFS})
+target_compile_definitions(${target_name} PRIVATE ${GFXF_CXX_DEFS})
 
 
 # Add compile options (specific to this project)
 # Recommended reading: so@a/23995391/5922876
 if (MSVC)
-    set(EGXF_CXX_FLAGS  /W4 /WX-)
+    set(GFXF_CXX_FLAGS  /W4 /WX-)
     # TODO(developer): Maybe address these warnings, see discussion below.
-    set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS} /wd4100 /wd4458 /wd4189)
+    set(GFXF_CXX_FLAGS  ${GFXF_CXX_FLAGS} /wd4100 /wd4458 /wd4189)
 else()
-    set(EGXF_CXX_FLAGS  -Wall -Wextra -pedantic -Wno-error)
+    set(GFXF_CXX_FLAGS  -Wall -Wextra -pedantic -Wno-error)
     # TODO(developer): Addressing these warnings might make the source code
     # more convoluted, since they are generated by missing code that needs
     # to be implemented. Some of the warnings are caused by dependencies.
     if (CMAKE_C_COMPILER_ID MATCHES "GNU")
-        set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
+        set(GFXF_CXX_FLAGS  ${GFXF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
                                                 -Wno-unused-but-set-variable
                                                 -Wno-missing-field-initializers -Wno-sign-compare)
     elseif (CMAKE_C_COMPILER_ID MATCHES "Clang")
-        set(EGXF_CXX_FLAGS  ${EGXF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
+        set(GFXF_CXX_FLAGS  ${GFXF_CXX_FLAGS}   -Wno-unused-parameter -Wno-unused-variable
                                                 -Wno-missing-field-initializers -Wno-sign-compare
                                                 # Apple clang
                                                 -Wno-unknown-warning-option
@@ -257,7 +257,7 @@ else()
                                                 -Wno-microsoft-enum-value -Wno-language-extension-token)
     endif()
 endif()
-target_compile_options(${target_name} PRIVATE ${EGXF_CXX_FLAGS})
+target_compile_options(${target_name} PRIVATE ${GFXF_CXX_FLAGS})
 
 
 # Post-build events. First, we get the directory where the target was
@@ -269,11 +269,11 @@ get_target_property(__target_dir ${target_name} RUNTIME_OUTPUT_DIRECTORY)
 if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
     add_custom_command(TARGET ${target_name} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${EGXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.dll"
-            "${EGXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3.dll"
-            "${EGXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.dll"
-            "${EGXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll"
-            "${EGXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll"
+            "${GFXF_ROOT_DIR}/deps/prebuilt/GL/${__cmake_arch}/glew32.dll"
+            "${GFXF_ROOT_DIR}/deps/prebuilt/GLFW/${__cmake_arch}/glfw3.dll"
+            "${GFXF_ROOT_DIR}/deps/prebuilt/assimp/${__cmake_arch}/assimp.dll"
+            "${GFXF_ROOT_DIR}/deps/prebuilt/spdlog/${__cmake_arch}/spdlog.dll"
+            "${GFXF_ROOT_DIR}/deps/prebuilt/freetype/${__cmake_arch}/freetype.dll"
 
             # Destination directory
             "${__target_dir}"
@@ -293,16 +293,16 @@ endif()
 foreach (dir IN ITEMS "src" "assets")
     if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
         string(REPLACE "/" "\\" __target_dir "${__target_dir}")
-        string(REPLACE "/" "\\" EGXF_ROOT_DIR "${EGXF_ROOT_DIR}")
+        string(REPLACE "/" "\\" GFXF_ROOT_DIR "${GFXF_ROOT_DIR}")
 
         add_custom_command(TARGET ${target_name} POST_BUILD
             COMMAND rmdir /S /Q "${__target_dir}\\${dir}" ${__error_sink}
-            COMMAND mklink /J "${__target_dir}\\${dir}" "${EGXF_ROOT_DIR}\\${dir}" ${__error_sink}
+            COMMAND mklink /J "${__target_dir}\\${dir}" "${GFXF_ROOT_DIR}\\${dir}" ${__error_sink}
         )
     else()
         add_custom_command(TARGET ${target_name} POST_BUILD
             COMMAND rm -rf "${__target_dir}/${dir}"
-            COMMAND ln -s "${EGXF_ROOT_DIR}/${dir}" "${__target_dir}/${dir}"
+            COMMAND ln -s "${GFXF_ROOT_DIR}/${dir}" "${__target_dir}/${dir}"
         )
     endif()
 endforeach()
@@ -313,6 +313,6 @@ endforeach()
 # for this step.
 if (NOT USE_DEV_COMPONENTS)
     add_custom_command(TARGET ${target_name} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${EGXF_ROOT_DIR}/deps/prebuilt/EGXComponents/${__cmake_arch}/EGXComponents.${__cmake_shared_suffix}" "${__target_dir}"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${GFXF_ROOT_DIR}/deps/prebuilt/GFXComponents/${__cmake_arch}/GFXComponents.${__cmake_shared_suffix}" "${__target_dir}"
     )
 endif()

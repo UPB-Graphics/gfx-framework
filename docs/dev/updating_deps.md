@@ -29,7 +29,7 @@ Every time you update a dependency, make sure you also update this list.
 
 | Dependency                                    | Version           | Needed on
 | :---                                          | :---              | :---
-| EGXComponents                                 | private           | Windows
+| GFXComponents                                 | private           | Windows
 | [assimp](https://github.com/assimp/assimp)    | 525213a @ master | Windows
 | [glew](https://github.com/nigels-com/glew)    | 3cdab58 @ master | Windows
 | [glfw](https://github.com/glfw/glfw)          | 0b9e48f @ master | Windows
@@ -42,7 +42,7 @@ Every time you update a dependency, make sure you also update this list.
 
 ## :bento: Dependencies
 
-### `EGXComponents`
+### `GFXComponents`
 
 The sources for these binaries are private. If you need builds for a certain architecture, platform etc.,
 file a Github issue and let us know. Even better, take a shot at implementing the hidden functionality yourself!

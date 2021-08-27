@@ -1,14 +1,14 @@
-#ifndef EGXC_EXPORTS_H
-#define EGXC_EXPORTS_H
+#ifndef GFXC_EXPORTS_H
+#define GFXC_EXPORTS_H
 
 #if defined(_WIN32)
-#    ifdef EGXC_EXPORTS
-#        define EGXC_API __declspec(dllexport)
+#    ifdef GFXC_EXPORTS
+#        define GFXC_API __declspec(dllexport)
 #    else
-#        define EGXC_API __declspec(dllimport)
+#        define GFXC_API __declspec(dllimport)
 #    endif
 #else
-#    define EGXC_API
+#    define GFXC_API
 #endif
 
 #if defined(_MSC_VER)

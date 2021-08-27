@@ -67,12 +67,12 @@ void Lab4::Init()
     }
 
     cubeMapTextureID = UploadCubeMapTexture(
-        PATH_JOIN(texturePath, "posx.png"),
-        PATH_JOIN(texturePath, "posy.png"),
-        PATH_JOIN(texturePath, "posz.png"),
-        PATH_JOIN(texturePath, "negx.png"),
-        PATH_JOIN(texturePath, "negy.png"),
-        PATH_JOIN(texturePath, "negz.png"));
+        PATH_JOIN(texturePath, "pos_x.png"),
+        PATH_JOIN(texturePath, "pos_y.png"),
+        PATH_JOIN(texturePath, "pos_z.png"),
+        PATH_JOIN(texturePath, "neg_x.png"),
+        PATH_JOIN(texturePath, "neg_y.png"),
+        PATH_JOIN(texturePath, "neg_z.png"));
 }
 
 
@@ -141,16 +141,16 @@ void Lab4::FrameEnd()
 }
 
 
-unsigned int Lab4::UploadCubeMapTexture(const std::string &posx, const std::string &posy, const std::string &posz, const std::string& negx, const std::string& negy, const std::string& negz)
+unsigned int Lab4::UploadCubeMapTexture(const std::string &pos_x, const std::string &pos_y, const std::string &pos_z, const std::string& neg_x, const std::string& neg_y, const std::string& neg_z)
 {
     int width, height, chn;
 
-    unsigned char* data_posx = stbi_load(posx.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_posy = stbi_load(posy.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_posz = stbi_load(posz.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_negx = stbi_load(negx.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_negy = stbi_load(negy.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_negz = stbi_load(negz.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_pos_x = stbi_load(pos_x.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_pos_y = stbi_load(pos_y.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_pos_z = stbi_load(pos_z.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_x = stbi_load(neg_x.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_y = stbi_load(neg_y.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_z = stbi_load(neg_z.c_str(), &width, &height, &chn, 0);
 
     unsigned int textureID = 0;
     // TODO(student): Create the texture
@@ -183,12 +183,12 @@ unsigned int Lab4::UploadCubeMapTexture(const std::string &posx, const std::stri
     }
 
     // Free memory
-    SAFE_FREE(data_posx);
-    SAFE_FREE(data_posy);
-    SAFE_FREE(data_posz);
-    SAFE_FREE(data_negx);
-    SAFE_FREE(data_negy);
-    SAFE_FREE(data_negz);
+    SAFE_FREE(data_pos_x);
+    SAFE_FREE(data_pos_y);
+    SAFE_FREE(data_pos_z);
+    SAFE_FREE(data_neg_x);
+    SAFE_FREE(data_neg_y);
+    SAFE_FREE(data_neg_z);
 
     return textureID;
 }

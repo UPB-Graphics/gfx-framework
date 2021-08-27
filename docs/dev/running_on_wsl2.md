@@ -96,7 +96,7 @@ Follow these steps:
         ```
 3.  You can now run ***any*** graphical application from inside Linux, including this project:
     ```sh
-    ./bin/Debug/EGXFramework
+    ./bin/Debug/GFXFramework
     ```
 
 That's it! :tada:

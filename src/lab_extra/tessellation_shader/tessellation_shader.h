@@ -6,7 +6,7 @@
 
 namespace extra
 {
-    class TessellationShader : public egxc::SimpleScene
+    class TessellationShader : public gfxc::SimpleScene
     {
      public:
         TessellationShader();
