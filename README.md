@@ -38,7 +38,9 @@ The compiler requirements are listed below. We strongly recommend to always use 
 -   Recommended:
     -   Windows: Visual Studio 2019 with `Workloads -> Desktop development with C++` checked when installing
     -   Linux: `g++` latest
-    -   macOS: `clang++` latest (either use `brew install llvm` or install XCode)
+    -   macOS: `clang++` latest, by doing one of the following:
+        -   install [`brew`](https://brew.sh/) then use `brew install llvm`
+        -   install XCode
 
 
 ### Check your graphics capabilities
@@ -56,7 +58,7 @@ This project requires CMake ***3.16 or newer,*** however, as with the compilers,
 
 -   Windows:
     1.  Go to the [CMake downloads page][ref-cmake-dl]
-    2.  Download the latest version of the file called `cmake-<VERSION>-win64-x64.msi`
+    2.  Download the latest version of the file called `cmake-<VERSION>-windows-x86_64.msi`
     3.  Install it
 
 -   Linux:
