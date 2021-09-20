@@ -10,14 +10,14 @@ This is a project that aims to give you a basic understanding of:
 
 -   How a graphics API works
 -   How to develop game logic in an object-oriented way
--   How algebra and geometry is used in graphics
+-   How algebra and geometry are used in graphics
 -   How to use parallel computing via shaders
 -   And more!
 
 
 ### What is a graphics API?
 
-It's just a technical name for a set of functions that allow you to communicate with the graphics hardware of your computer. You don't know, and you shouldn't care, how these functions are actually implemented under the hood. All that's important is that you can call them from your language of choice. These functions allow you to draw geometric shapes, play with 2D or 3D models, add effects and much more. There are many competing graphics APIs out there, designed by different corporations and manufacturers.
+It's nothing more than a technical name for a set of functions that allow you to communicate with the graphics hardware of your computer. You do not know, and you should not care, how these functions are actually implemented under the hood. All that's important is that you can call them from your language of choice (C++ in this case). These functions allow you to draw geometric shapes, play with 2D or 3D models, add effects and much more. There are many competing graphics APIs out there, designed by different corporations and manufacturers.
 
 
 ## Technical choices
