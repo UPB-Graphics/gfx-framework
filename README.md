@@ -2,7 +2,7 @@
 
 ## :sparkles: Introduction
 
-This project is a tiny graphics framework used by the Graphics Department of the Polytechnic University of Bucharest.
+This project is a tiny graphics framework used by the Computer Graphics Department of the Polytechnic University of Bucharest.
 It is currently used as teaching and study material for a number of courses of increasing complexity, including:
 
 -   **`EGC`** Elements of Computer Graphics, BSc year 3 &mdash; [course materials (RO)](https://ocw.cs.pub.ro/courses/egc)
