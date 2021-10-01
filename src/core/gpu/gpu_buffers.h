@@ -20,7 +20,7 @@ class GPUBuffers
     GLuint m_VBO[6];
 
  private:
-    unsigned short m_size;
+    unsigned int m_size;
 };
 
 
@@ -28,13 +28,13 @@ namespace gpu_utils
 {
     GPUBuffers UploadData(const std::vector<glm::vec3> &positions,
                           const std::vector<glm::vec3> &normals,
-                          const std::vector<unsigned short>& indices);
+                          const std::vector<unsigned int>& indices);
 
     GPUBuffers UploadData(const std::vector<glm::vec3> &positions,
                           const std::vector<glm::vec3> &normals,
                           const std::vector<glm::vec2> &text_coords,
-                          const std::vector<unsigned short> &indices);
+                          const std::vector<unsigned int> &indices);
 
     GPUBuffers UploadData(const std::vector<VertexFormat> &vertices,
-                          const std::vector<unsigned short>& indices);
+                          const std::vector<unsigned int>& indices);
 }   // namespace gpu_utils

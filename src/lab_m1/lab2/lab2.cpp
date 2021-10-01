@@ -47,7 +47,7 @@ void Lab2::Init()
 
         };
 
-        vector<unsigned short> indices =
+        vector<unsigned int> indices =
         {
             0, 1, 2,    // indices for first triangle
             1, 3, 2,    // indices for second triangle
@@ -74,7 +74,7 @@ void Lab2::Init()
 }
 
 
-void Lab2::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
+void Lab2::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned int> &indices)
 {
     unsigned int VAO = 0;
     // TODO(student): Create the VAO and bind it
@@ -124,7 +124,7 @@ void Lab2::CreateMesh(const char *name, const std::vector<VertexFormat> &vertice
 
     // Mesh information is saved into a Mesh object
     meshes[name] = new Mesh(name);
-    meshes[name]->InitFromBuffer(VAO, static_cast<unsigned short>(indices.size()));
+    meshes[name]->InitFromBuffer(VAO, static_cast<unsigned int>(indices.size()));
 }
 
 

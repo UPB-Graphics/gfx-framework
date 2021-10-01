@@ -32,8 +32,8 @@ Lab7::~Lab7()
 void Lab7::Init()
 {
     // Load default texture fore imagine processing
-    originalImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "posx.png"), nullptr, "image", true, true);
-    processedImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "posx.png"), nullptr, "newImage", true, true);
+    originalImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "image", true, true);
+    processedImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "newImage", true, true);
 
     {
         Mesh* mesh = new Mesh("quad");

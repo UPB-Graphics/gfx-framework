@@ -24,7 +24,7 @@ Mesh* object2D::CreateSquare(
     };
 
     Mesh* square = new Mesh(name);
-    std::vector<unsigned short> indices = { 0, 1, 2, 3 };
+    std::vector<unsigned int> indices = { 0, 1, 2, 3 };
 
     if (!fill) {
         square->SetDrawMode(GL_LINE_LOOP);

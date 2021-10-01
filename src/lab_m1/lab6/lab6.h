@@ -15,7 +15,7 @@ namespace m1
 
         void Init() override;
 
-        Mesh *CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices);
+        Mesh *CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned int> &indices);
 
      private:
         void FrameStart() override;

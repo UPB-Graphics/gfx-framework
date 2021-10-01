@@ -97,9 +97,9 @@ void TessellationShader::Update(float deltaTimeSeconds)
         auto mesh = meshes["quad"];
         glBindVertexArray(mesh->GetBuffers()->m_VAO);
 #if 0
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 #else
-        glDrawElements(GL_PATCHES, 6, GL_UNSIGNED_SHORT, 0);
+        glDrawElements(GL_PATCHES, 6, GL_UNSIGNED_INT, 0);
 #endif
     }
 }

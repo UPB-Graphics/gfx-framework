@@ -39,9 +39,9 @@ class MeshEntry
         baseIndex = 0;
         materialIndex = INVALID_MATERIAL;
     }
-    unsigned short nrIndices;
-    unsigned short baseVertex;
-    unsigned short baseIndex;
+    unsigned int nrIndices;
+    unsigned int baseVertex;
+    unsigned int baseIndex;
     unsigned int materialIndex;
 };
 
@@ -57,22 +57,22 @@ class Mesh
 
     // Initializes the mesh object using a VAO GPU buffer that contains the specified number of indices
     bool InitFromBuffer(unsigned int VAO,
-                        unsigned short nrIndices);
+                        unsigned int nrIndices);
 
     // Initializes the mesh object and upload data to GPU using the provided data buffers
     bool InitFromData(const std::vector<VertexFormat> &vertices,
-                      const std::vector<unsigned short>& indices);
+                      const std::vector<unsigned int>& indices);
 
     // Initializes the mesh object and upload data to GPU using the provided data buffers
     bool InitFromData(const std::vector<glm::vec3>& positions,
                       const std::vector<glm::vec3>& normals,
-                      const std::vector<unsigned short>& indices);
+                      const std::vector<unsigned int>& indices);
 
     // Initializes the mesh object and upload data to GPU using the provided data buffers
     bool InitFromData(const std::vector<glm::vec3>& positions,
                       const std::vector<glm::vec3>& normals,
                       const std::vector<glm::vec2>& texCoords,
-                      const std::vector<unsigned short>& indices);
+                      const std::vector<unsigned int>& indices);
 
     bool LoadMesh(const std::string& fileLocation,
                   const std::string& fileName);
@@ -104,7 +104,7 @@ class Mesh
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> texCoords;
     std::vector<VertexFormat> vertices;
-    std::vector<unsigned short> indices;
+    std::vector<unsigned int> indices;
 
  protected:
     std::string fileLocation;

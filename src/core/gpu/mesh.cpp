@@ -87,7 +87,8 @@ void Mesh::InitFromData()
     meshEntries.clear();
 
     MeshEntry M;
-    M.nrIndices = static_cast<unsigned short>(indices.size());
+
+    M.nrIndices = (unsigned int)indices.size();
     meshEntries.push_back(M);
 
     buffers->ReleaseMemory();
@@ -95,7 +96,7 @@ void Mesh::InitFromData()
 
 
 bool Mesh::InitFromBuffer(unsigned int VAO,
-                          unsigned short nrIndices)
+                          unsigned int nrIndices)
 {
     if (VAO == 0 || nrIndices == 0)
         return false;
@@ -114,7 +115,7 @@ bool Mesh::InitFromBuffer(unsigned int VAO,
 
 
 bool Mesh::InitFromData(const std::vector<VertexFormat> &vertices,
-                        const std::vector<unsigned short>& indices)
+                        const std::vector<unsigned int>& indices)
 {
     this->vertices = vertices;
     this->indices = indices;
@@ -127,7 +128,7 @@ bool Mesh::InitFromData(const std::vector<VertexFormat> &vertices,
 
 bool Mesh::InitFromData(const std::vector<glm::vec3>& positions,
                         const std::vector<glm::vec3>& normals,
-                        const std::vector<unsigned short>& indices)
+                        const std::vector<unsigned int>& indices)
 {
     this->positions = positions;
     this->normals = normals;
@@ -142,7 +143,7 @@ bool Mesh::InitFromData(const std::vector<glm::vec3>& positions,
 bool Mesh::InitFromData(const std::vector<glm::vec3>& positions,
                         const std::vector<glm::vec3>& normals,
                         const std::vector<glm::vec2>& texCoords,
-                        const std::vector<unsigned short>& indices)
+                        const std::vector<unsigned int>& indices)
 {
     this->positions = positions;
     this->normals = normals;
@@ -167,9 +168,9 @@ bool Mesh::InitFromScene(const aiScene* pScene)
     for (unsigned int i = 0 ; i < pScene->mNumMeshes ; i++)
     {
         meshEntries[i].materialIndex = pScene->mMeshes[i]->mMaterialIndex;
-        meshEntries[i].nrIndices = (unsigned short)(pScene->mMeshes[i]->mNumFaces * (glDrawMode == GL_TRIANGLES ? 3 : 4));
-        meshEntries[i].baseVertex = (unsigned short)nrVertices;
-        meshEntries[i].baseIndex = (unsigned short)nrIndices;
+        meshEntries[i].nrIndices = (pScene->mMeshes[i]->mNumFaces * (glDrawMode == GL_TRIANGLES ? 3 : 4));
+        meshEntries[i].baseVertex = nrVertices;
+        meshEntries[i].baseIndex = nrIndices;
 
         nrVertices += pScene->mMeshes[i]->mNumVertices;
         nrIndices  += meshEntries[i].nrIndices;
@@ -215,11 +216,11 @@ void Mesh::InitMesh(const aiMesh* paiMesh)
     // Init the index buffer
     for (unsigned int i = 0; i < paiMesh->mNumFaces; i++) {
         const aiFace& Face = paiMesh->mFaces[i];
-        indices.push_back((unsigned short)Face.mIndices[0]);
-        indices.push_back((unsigned short)Face.mIndices[1]);
-        indices.push_back((unsigned short)Face.mIndices[2]);
+        indices.push_back(Face.mIndices[0]);
+        indices.push_back(Face.mIndices[1]);
+        indices.push_back(Face.mIndices[2]);
         if (Face.mNumIndices == 4)
-            indices.push_back((unsigned short)Face.mIndices[3]);
+            indices.push_back(Face.mIndices[3]);
     }
 }
 
@@ -296,7 +297,7 @@ void Mesh::Render() const
         }
 
         glDrawElementsBaseVertex(glDrawMode, meshEntries[i].nrIndices,
-            GL_UNSIGNED_SHORT, (void*)(sizeof(unsigned short) * meshEntries[i].baseIndex),
+            GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * meshEntries[i].baseIndex),
             meshEntries[i].baseVertex);
     }
     glBindVertexArray(0);

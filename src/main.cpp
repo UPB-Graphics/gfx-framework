@@ -18,8 +18,8 @@
 
 
 #ifdef _WIN32
-    PREFER_DISCRETE_GPU_NVIDIA;
-    PREFER_DISCRETE_GPU_AMD;
+    //PREFER_DISCRETE_GPU_NVIDIA;
+    //PREFER_DISCRETE_GPU_AMD;
 #endif
 
 
@@ -44,7 +44,7 @@ int main(int argc, char **argv)
     (void)Engine::Init(wp);
 
     // Create a new 3D world and start running it
-    World *world = new extra::BasicText();
+    World *world = new m2::Lab5();
 
     world->Init();
     world->Run();

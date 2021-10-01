@@ -46,7 +46,7 @@ void Lab6::Init()
             VertexFormat(glm::vec3( 1,  1, -1), glm::vec3(0, 0, 1), glm::vec3(0.1, 0.5, 0.8)),
         };
 
-        vector<unsigned short> indices =
+        vector<unsigned int> indices =
         {
             0, 1, 2,        1, 3, 2,
             2, 3, 7,        2, 7, 6,
@@ -70,7 +70,7 @@ void Lab6::Init()
 }
 
 
-Mesh* Lab6::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned short> &indices)
+Mesh* Lab6::CreateMesh(const char *name, const std::vector<VertexFormat> &vertices, const std::vector<unsigned int> &indices)
 {
     unsigned int VAO = 0;
     // Create the VAO and bind it
@@ -134,7 +134,7 @@ Mesh* Lab6::CreateMesh(const char *name, const std::vector<VertexFormat> &vertic
 
     // Mesh information is saved into a Mesh object
     meshes[name] = new Mesh(name);
-    meshes[name]->InitFromBuffer(VAO, static_cast<unsigned short>(indices.size()));
+    meshes[name]->InitFromBuffer(VAO, static_cast<unsigned int>(indices.size()));
     meshes[name]->vertices = vertices;
     meshes[name]->indices = indices;
     return meshes[name];
@@ -210,7 +210,7 @@ void Lab6::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & modelM
 
     // Draw the object
     glBindVertexArray(mesh->GetBuffers()->m_VAO);
-    glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
+    glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
 }
 
 
