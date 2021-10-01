@@ -161,8 +161,9 @@ A future roadmap is ***TBD***.
 
 ## :page_facing_up: License
 
-This project is available under the [MIT][ref-mit] license. See [LICENSE.md](LICENSE.md) for the full license text.
-This project also includes external libraries that are available under a variety of licenses. 
+This project is available under the [MIT][ref-mit] license; see [LICENSE.md](LICENSE.md) for the full license text.
+This project also includes external libraries that are available under a variety of licenses; see [LEGAL.txt](LEGAL.txt)
+for the full license texts and legal notices.
 
 
 [ref-cmake]:            https://github.com/Kitware/CMake/
