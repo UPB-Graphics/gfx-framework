@@ -20,7 +20,7 @@ GPUBuffers::GPUBuffers()
 
 void GPUBuffers::CreateBuffers(unsigned int size)
 {
-    this->m_size = (unsigned short)size;
+    this->m_size = size;
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(size, m_VBO);
 }
@@ -39,7 +39,7 @@ void GPUBuffers::ReleaseMemory()
 
 GPUBuffers gpu_utils::UploadData(const std::vector<glm::vec3> &positions,
                                  const std::vector<glm::vec3> &normals,
-                                 const std::vector<unsigned short>& indices)
+                                 const std::vector<unsigned int>& indices)
 {
     GPUBuffers buffers;
     buffers.CreateBuffers(3);
@@ -71,7 +71,7 @@ GPUBuffers gpu_utils::UploadData(const std::vector<glm::vec3> &positions,
 GPUBuffers gpu_utils::UploadData(const std::vector<glm::vec3> &positions,
                                  const std::vector<glm::vec3> &normals,
                                  const std::vector<glm::vec2> &text_coords,
-                                 const std::vector<unsigned short> &indices)
+                                 const std::vector<unsigned int> &indices)
 {
     // Create the VAO
     GPUBuffers buffers;
@@ -106,7 +106,7 @@ GPUBuffers gpu_utils::UploadData(const std::vector<glm::vec3> &positions,
 
 
 GPUBuffers gpu_utils::UploadData(const std::vector<VertexFormat> &vertices,
-                                 const std::vector<unsigned short>& indices)
+                                 const std::vector<unsigned int>& indices)
     {
         // Create the VAO
         GPUBuffers buffers;

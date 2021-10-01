@@ -14,11 +14,11 @@ class Texture2D
     void UnBind() const;
 
     void UploadNewData(const unsigned char *img);
-    void UploadNewData(const unsigned short *img);
+    void UploadNewData(const unsigned int *img);
 
     void Init(GLuint gpuTextureID, unsigned int width, unsigned int height, unsigned int channels);
     void Create(const unsigned char* img, int width, int height, int chn);
-    void CreateU16(const unsigned short* img, int width, int height, int chn);
+    void CreateU16(const unsigned int* img, int width, int height, int chn);
 
     void CreateCubeTexture(const float *data, unsigned int width, unsigned int height, unsigned int chn);
     void CreateFrameBufferTexture(unsigned int width, unsigned int height, unsigned int targetID, unsigned int precision = 32);

@@ -124,10 +124,10 @@ void Texture2D::UploadNewData(const unsigned char *img)
 }
 
 
-void Texture2D::UploadNewData(const unsigned short *img)
+void Texture2D::UploadNewData(const unsigned int *img)
 {
     Bind();
-    glTexSubImage2D(targetType, 0, 0, 0, width, height, pixelFormat[channels], GL_UNSIGNED_SHORT, img);
+    glTexSubImage2D(targetType, 0, 0, 0, width, height, pixelFormat[channels], GL_UNSIGNED_INT, img);
     glGenerateMipmap(targetType);
     UnBind();
 }
@@ -141,10 +141,10 @@ void Texture2D::Create(const unsigned char *img, int width, int height, int chn)
 }
 
 
-void Texture2D::CreateU16(const unsigned short *img, int width, int height, int chn)
+void Texture2D::CreateU16(const unsigned int *img, int width, int height, int chn)
 {
     Init2DTexture(width, height, chn);
-    glTexImage2D(targetType, 0, internalFormat[1][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_SHORT, (void *)img);
+    glTexImage2D(targetType, 0, internalFormat[1][chn], width, height, 0, pixelFormat[chn], GL_UNSIGNED_INT, (void *)img);
     UnBind();
 }
 

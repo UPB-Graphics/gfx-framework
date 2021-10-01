@@ -61,7 +61,7 @@ void Lab2::Init()
             VertexFormat(control_p3, glm::vec3(0, 1, 0))
         };
 
-        vector<unsigned short> indices =
+        vector<unsigned int> indices =
         {
             0, 1
         };

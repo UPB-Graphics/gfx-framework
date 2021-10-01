@@ -52,7 +52,7 @@ void SimpleScene::InitResources()
             VertexFormat(glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)),
             VertexFormat(glm::vec3(0, 1, 0), glm::vec3(0, 1, 0)),
         };
-        std::vector<unsigned short> indices = { 0, 1 };
+        std::vector<unsigned int> indices = { 0, 1 };
 
         simpleLine = new Mesh("line");
         simpleLine->InitFromData(vertices, indices);
