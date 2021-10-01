@@ -39,15 +39,29 @@ The compiler requirements are listed below. We strongly recommend to always use 
     -   Windows: Visual Studio 2019 with `Workloads -> Desktop development with C++` checked when installing
     -   Linux: `g++` latest
     -   macOS: `clang++` latest, by doing one of the following:
-        -   install [`brew`](https://brew.sh/) then use `brew install llvm`
-        -   install XCode
+        -   for LLVM/Clang: install [`brew`](https://brew.sh/) then run `brew install llvm`
+        -   for Apple Clang: install XCode
 
 
 ### Check your graphics capabilities
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
-This project requires OpenGL version ***3.3 core profile, or newer*** for the simpler parts, and version ***4.1 core profile, or newer***  for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+This project requires OpenGL version ***3.3 core profile, or newer*** for the simpler parts, and version ***4.3 core profile, or newer***  for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+
+
+### Install the third-party libraries
+
+There are some open-source libraries that this project uses. To install them:
+
+-   Windows: you don't need to do anything - all necessary libraries are already provided with the code
+
+-   Linux: depending on your distribution, run one of the following scripts as superuser:
+    -   Debian (Ubuntu): `./tools/deps-ubuntu.sh`
+    -   Red Hat (Fedora): `./tools/deps-fedora.sh`
+    -   Arch (x86_64): `./tools/deps-arch.sh`
+
+-   macOS: install [`brew`](https://brew.sh/) then run `./tools/deps-macos.sh`
 
 
 ### Install the build tools
@@ -57,36 +71,21 @@ This project uses [CMake][ref-cmake]. It a nutshell, CMake does not compile sour
 This project requires CMake ***3.16 or newer,*** however, as with the compilers, we strongly recommend that you use the latest version. To install it, follow these steps:
 
 -   Windows:
-    1.  Go to the [CMake downloads page][ref-cmake-dl]
-    2.  Download the latest version of the file called `cmake-<VERSION>-windows-x86_64.msi`
-    3.  Install it
+    1.  go to the [CMake downloads page][ref-cmake-dl]
+    2.  download the latest version of the file called `cmake-<VERSION>-windows-x86_64.msi`
+    3.  install it
 
 -   Linux:
-    1.  Use your package manager to install `cmake`
-    2.  Check the version using `cmake --version`
-    3.  Depending on the version:
+    1.  use your package manager to install `cmake`
+    2.  check the version using `cmake --version`
+    3.  depending on the version:
         -   if it's the minimum required (see above), you're all set
         -   otherwise, run `./tools/install-cmake.sh && . ~/.profile` in a terminal
 
 -   macOS:
-    1.  `brew install cmake`
+    1.  run `brew install cmake`
 
 After installation, run `cmake --version` (again) to check that it's in your `PATH` environment variable. This should happen automatically, but if it didn't, just add it manually. Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
-
-
-### Install the third-party libraries
-
-There are some open-source libraries that this project uses. To install them:
-
--   Windows: you don't need to do anything - all necessary libraries are already provided with the code
-
--   Linux:
-    1.  Depending on your distribution, run one of the following scripts as superuser:
-        -   Debian (Ubuntu): `./tools/deps-ubuntu.sh`
-        -   Red Hat (Fedora): `./tools/deps-fedora.sh`
-        -   Arch (x86_64): `./tools/deps-arch.sh`
-
--   macOS: `./tools/deps-macos.sh`
 
 
 ## :gear: Building
