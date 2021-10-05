@@ -58,6 +58,14 @@ namespace gfxc
         std::unordered_map<std::string, Mesh *> meshes;
         std::unordered_map<std::string, Shader *> shaders;
 
+        /*
+         * The OpenGL implementation of `glLineWidth` on Apple devices
+         * does not allow line widths greater than 1. As a workaround,
+         * we shadow the native `glLineWidth` API call with our own.
+         * See https://stackoverflow.com/a/8794400 for more details.
+         */
+        void glLineWidth(GLfloat width);
+
      private:
         Camera *camera;
         InputController *cameraInput;

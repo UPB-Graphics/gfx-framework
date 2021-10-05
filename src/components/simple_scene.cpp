@@ -21,6 +21,16 @@ SimpleScene::~SimpleScene()
 }
 
 
+void SimpleScene::glLineWidth(GLfloat width)
+{
+#ifdef __APPLE__
+    ::glLineWidth(1);
+#else
+    ::glLineWidth(width);
+#endif
+}
+
+
 void SimpleScene::InitResources()
 {
     // Sets common GL states
