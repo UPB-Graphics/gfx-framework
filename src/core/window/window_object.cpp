@@ -399,9 +399,11 @@ void WindowObject::MakeCurrentContext() const
 
 void WindowObject::SetSize(int width, int height)
 {
+    int frameBufferWidth, frameBufferHeight;
     glfwSetWindowSize(window->handle, width, height);
+    glfwGetFramebufferSize(window->handle, &frameBufferWidth, &frameBufferHeight);
 
-    props.resolution = glm::ivec2(width, height);
+    props.resolution = glm::ivec2(frameBufferWidth, frameBufferHeight);
     props.aspectRatio = float(width) / height;
     resizeEvent = true;
 }
