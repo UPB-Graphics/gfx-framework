@@ -18,6 +18,7 @@ class WindowProperties
     std::string selfDir;
     std::string name;
     glm::ivec2 resolution;
+    float scaleFactor;
     glm::ivec2 position;
     glm::ivec2 cursorPos;
     float aspectRatio;
@@ -71,7 +72,10 @@ class WindowObject
 
     // Window Information
     void SetSize(int width, int height);
-    glm::ivec2 GetResolution() const;
+
+    // Use scaled resolution for setting the viewport.
+    // Use unscaled resolution when working with mouse coordinates.
+    glm::ivec2 GetResolution(bool unscaled = false) const;
 
     // Window Event
     void PollEvents() const;
@@ -80,6 +84,8 @@ class WindowObject
     bool KeyHold(int keyCode) const;
     bool MouseHold(int button) const;
     int GetSpecialKeyState() const;
+
+    // Use unscaled resolution when working with mouse coordinates.
     glm::ivec2 GetCursorPosition() const;
 
     // Update event listeners (key press / mouse move / window events)

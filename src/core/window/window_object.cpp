@@ -23,6 +23,7 @@ WindowProperties::WindowProperties()
 {
     name = "WindowName";
     resolution = glm::ivec2(1280, 720);
+    scaleFactor = 1.f;
     aspectRatio = 1280.0f / 720.0f;
     cursorPos = resolution / 2;
     position = glm::ivec2(0);
@@ -400,18 +401,28 @@ void WindowObject::MakeCurrentContext() const
 void WindowObject::SetSize(int width, int height)
 {
     int frameBufferWidth, frameBufferHeight;
+
+    glfwGetFramebufferSize(window->handle, &frameBufferWidth, &frameBufferHeight);
     glfwSetWindowSize(window->handle, width, height);
     glfwGetFramebufferSize(window->handle, &frameBufferWidth, &frameBufferHeight);
 
-    props.resolution = glm::ivec2(frameBufferWidth, frameBufferHeight);
+    props.scaleFactor = frameBufferWidth * 1. / width;
+    props.resolution = glm::ivec2(width, height);
     props.aspectRatio = float(width) / height;
     resizeEvent = true;
 }
 
 
-glm::ivec2 WindowObject::GetResolution() const
+glm::ivec2 WindowObject::GetResolution(bool unscaled) const
 {
-    return props.resolution;
+    glm::ivec2 resolution = props.resolution;
+
+    if (unscaled == false)
+    {
+        resolution *= props.scaleFactor;
+    }
+
+    return resolution;
 }
 
 
