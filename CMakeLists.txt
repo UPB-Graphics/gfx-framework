@@ -174,6 +174,13 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     target_link_directories(${target_name} PRIVATE
         /usr/local/lib
     )
+
+    if (CMAKE_SYSTEM_PROCESSOR MATCHES "arm|aarch")
+        target_link_directories(${target_name} PRIVATE
+        /opt/homebrew/lib
+    )
+    endif ()
+
     target_link_libraries(${target_name} PRIVATE
         GLEW
         glfw
