@@ -48,8 +48,11 @@ void Lab4::Init()
     angularStepOX = 0;
     angularStepOY = 0;
     angularStepOZ = 0;
-}
 
+    // Sets the resolution of the small viewport
+    glm::ivec2 resolution = window->GetResolution();
+    miniViewportArea = ViewportArea(50, 50, resolution.x / 5.f, resolution.y / 5.f);
+}
 
 void Lab4::FrameStart()
 {
@@ -62,13 +65,7 @@ void Lab4::FrameStart()
     glViewport(0, 0, resolution.x, resolution.y);
 }
 
-
-void Lab4::Update(float deltaTimeSeconds)
-{
-    glLineWidth(3);
-    glPointSize(5);
-    glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
-
+void Lab4::RenderScene() {
     modelMatrix = glm::mat4(1);
     modelMatrix *= transform3D::Translate(-2.5f, 0.5f, -1.5f);
     modelMatrix *= transform3D::Translate(translateX, translateY, translateZ);
@@ -87,10 +84,24 @@ void Lab4::Update(float deltaTimeSeconds)
     RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
 }
 
+void Lab4::Update(float deltaTimeSeconds)
+{
+    glLineWidth(3);
+    glPointSize(5);
+    glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
+
+    RenderScene();
+    DrawCoordinateSystem();
+
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glViewport(miniViewportArea.x, miniViewportArea.y, miniViewportArea.width, miniViewportArea.height);
+
+    // TODO(student): render the scene again, in the new viewport
+    DrawCoordinateSystem();
+}
 
 void Lab4::FrameEnd()
 {
-    DrawCoordinateSystem();
 }
 
 
@@ -125,6 +136,8 @@ void Lab4::OnKeyPress(int key, int mods)
             break;
         }
     }
+    
+    // TODO(student): Add viewport movement and scaling logic
 }
 
 
