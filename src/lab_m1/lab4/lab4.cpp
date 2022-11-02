@@ -59,10 +59,6 @@ void Lab4::FrameStart()
     // Clears the color buffer (using the previously set color) and depth buffer
     glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Sets the screen area where to draw
-    glm::ivec2 resolution = window->GetResolution();
-    glViewport(0, 0, resolution.x, resolution.y);
 }
 
 void Lab4::RenderScene() {
@@ -89,6 +85,10 @@ void Lab4::Update(float deltaTimeSeconds)
     glLineWidth(3);
     glPointSize(5);
     glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
+
+    // Sets the screen area where to draw
+    glm::ivec2 resolution = window->GetResolution();
+    glViewport(0, 0, resolution.x, resolution.y);
 
     RenderScene();
     DrawCoordinateSystem();
