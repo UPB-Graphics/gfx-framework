@@ -7,3 +7,4 @@
 #include "lab_m2/lab5/lab5.h"
 #include "lab_m2/lab6/lab6.h"
 #include "lab_m2/lab7/lab7.h"
+#include "lab_m2/lab8/lab8.h"

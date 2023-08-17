@@ -3,8 +3,6 @@
 #include <vector>
 #include <iostream>
 
-#include "pfd/portable-file-dialogs.h"
-
 using namespace std;
 using namespace m2;
 
@@ -17,10 +15,6 @@ using namespace m2;
 
 Lab7::Lab7()
 {
-    outputMode = 0;
-    gpuProcessing = false;
-    saveScreenToImage = false;
-    window->SetSize(600, 600);
 }
 
 
@@ -31,27 +25,24 @@ Lab7::~Lab7()
 
 void Lab7::Init()
 {
-    // Load default texture fore imagine processing
-    originalImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "image", true, true);
-    processedImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "newImage", true, true);
+    auto camera = GetSceneCamera();
+    camera->SetPositionAndRotation(glm::vec3(0, 3.5, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
+    camera->Update();
 
+    // Create a shader program for rendering to texture
     {
-        Mesh* mesh = new Mesh("quad");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
-        mesh->UseMaterials(false);
-        meshes[mesh->GetMeshID()] = mesh;
-    }
-
-    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab7", "shaders");
-
-    // Create a shader program for particle system
-    {
-        Shader *shader = new Shader("ImageProcessing");
-        shader->AddShader(PATH_JOIN(shaderPath, "VertexShader.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(shaderPath, "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
-
+        Shader* shader = new Shader("Skinning");
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "Lab7", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "Lab7", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
+    }
+
+    // Load a mesh from file into GPU memory
+    {
+        Mesh* mesh = new Mesh("animation");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "skinning"), "boblampclean.md5mesh");
+        meshes[mesh->GetMeshID()] = mesh;
     }
 }
 
@@ -64,122 +55,270 @@ void Lab7::FrameStart()
 void Lab7::Update(float deltaTimeSeconds)
 {
     ClearScreen();
-
-    auto shader = shaders["ImageProcessing"];
+    auto shader = shaders["Skinning"];
     shader->Use();
 
-    if (saveScreenToImage)
+    glm::mat4 modelMatrix = glm::mat4(1);
+    modelMatrix = glm::translate(modelMatrix, glm::vec3(0, 0, 0));
+    modelMatrix = glm::rotate(modelMatrix, RADIANS(-90.0f), glm::vec3(1, 0, 0));
+    modelMatrix = glm::scale(modelMatrix, glm::vec3(0.05f));
+    RenderSimpleMesh(meshes["animation"], shader, modelMatrix);
+
+    float runningTime = (float)((double)Engine::GetElapsedTime());
+    BoneTransform(meshes["animation"], runningTime);
+}
+
+void Lab7::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& modelMatrix)
+{
+    if (!mesh || !shader || !shader->program)
+        return;
+
+    // Render an object using the specified shader and the specified position
+    shader->Use();
+    glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(GetSceneCamera()->GetViewMatrix()));
+    glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(GetSceneCamera()->GetProjectionMatrix()));
+    glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+    glm::mat4 bones[200];
+
+    for (int i = 0; i < mesh->m_BoneInfo.size(); i++)
     {
-        window->SetSize(originalImage->GetWidth(), originalImage->GetHeight());
+        bones[i] = mesh->m_BoneInfo[i].finalTransformation;
     }
 
-    int flip_loc = shader->GetUniformLocation("flipVertical");
-    glUniform1i(flip_loc, saveScreenToImage ? 0 : 1);
+    // TODO (student): send the bone final transformation to the shader
+    int location = glGetUniformLocation(shader->program, "Bones");
+    glUniformMatrix4fv(location, 100, GL_FALSE, glm::value_ptr(bones[0]));
 
-    int screenSize_loc = shader->GetUniformLocation("screenSize");
-    glm::ivec2 resolution = window->GetResolution();
-    glUniform2i(screenSize_loc, resolution.x, resolution.y);
+    mesh->Render();
+}
 
-    int outputMode_loc = shader->GetUniformLocation("outputMode");
-    glUniform1i(outputMode_loc, outputMode);
+void Lab7::BoneTransform(Mesh* mesh, float timeInSeconds)
+{
+    glm::mat4 Identity = glm::mat4(1.0f);
 
-    int locTexture = shader->GetUniformLocation("textureImage");
-    glUniform1i(locTexture, 0);
+    // Compute the duration of the animation
+    float ticksPerSecond = mesh->anim[0]->mTicksPerSecond != 0 ? mesh->anim[0]->mTicksPerSecond : 25.0f;
+    float timeInTicks = timeInSeconds * ticksPerSecond;
+    float animationTime = fmod(timeInTicks, mesh->anim[0]->mDuration);
 
-    auto textureImage = (gpuProcessing == true) ? originalImage : processedImage;
-    textureImage->BindToTextureUnit(GL_TEXTURE0);
+    // Compute the final transformations for each bone at the current time stamp
+	// starting from the root node
+    ReadNodeHierarchy(mesh, animationTime, mesh->rootNode, Identity, mesh->anim);
+}
 
-    RenderMesh(meshes["quad"], shader, glm::mat4(1));
+void Lab7::ReadNodeHierarchy(Mesh* mesh, float animationTime, const aiNode* pNode, const glm::mat4& parentTransform, aiAnimation** anim)
+{
+    std::string NodeName(pNode->mName.data);
 
-    if (saveScreenToImage)
-    {
-        saveScreenToImage = false;
+	// Our model has only one animation, which is stored in anim[0].
+	// If we had more animations, we would need to select what animation we want 
+    const aiAnimation* pAnimation = anim[0];
 
-        GLenum format = GL_RGB;
-        if (originalImage->GetNrChannels() == 4)
-        {
-            format = GL_RGBA;
-        }
+    glm::mat4 NodeTransformation(mesh->ConvertMatrix(pNode->mTransformation));
 
-        glReadPixels(0, 0, originalImage->GetWidth(), originalImage->GetHeight(), format, GL_UNSIGNED_BYTE, processedImage->GetImageData());
-        processedImage->UploadNewData(processedImage->GetImageData());
-        SaveImage("shader_processing_" + std::to_string(outputMode));
+    const aiNodeAnim* pNodeAnim = FindNodeAnim(pAnimation, NodeName);
 
-        float aspectRatio = static_cast<float>(originalImage->GetWidth()) / originalImage->GetHeight();
-        window->SetSize(static_cast<int>(600 * aspectRatio), 600);
+    if (pNodeAnim) {
+        // Interpolate scaling and generate scaling transformation matrix
+        aiVector3D Scaling;
+        ComputeInterpolatedScaling(Scaling, animationTime, pNodeAnim);
+        glm::mat4 ScalingM = glm::transpose(glm::mat4(Scaling.x, 0, 0, 0,
+            										  0, Scaling.y, 0, 0,
+            										  0, 0, Scaling.z, 0,
+            										  0, 0, 0, 1));
+
+        // Interpolate rotation and generate rotation transformation matrix
+        aiQuaternion RotationQ;
+        ComputeInterpolatedRotation(RotationQ, animationTime, pNodeAnim);
+        glm::quat rotation(RotationQ.w, RotationQ.x, RotationQ.y, RotationQ.z);
+        glm::mat4 RotationM = glm::toMat4(rotation);
+
+        // Interpolate translation and generate translation transformation matrix
+        aiVector3D Translation;
+        ComputeInterpolatedPosition(Translation, animationTime, pNodeAnim);
+        glm::mat4 TranslationM = glm::transpose(glm::mat4(1, 0, 0, Translation.x,
+        												  0, 1, 0, Translation.y,
+            											  0, 0, 1, Translation.z,
+            											  0, 0, 0, 1));
+
+        // Combine the above transformations
+        NodeTransformation = TranslationM * RotationM * ScalingM;
+    }
+
+    // TODO (student): apply parent transformation to the current transformation
+    glm::mat4 GlobalTransformation = parentTransform * NodeTransformation;
+
+    if (mesh->m_BoneMapping.find(NodeName) != mesh->m_BoneMapping.end()) {
+	    // Bring the vertices from their local space position into their node space.
+        // Multiply the result with the combined transformations of all the node parents plus the current transformation.
+        // Bring the result back into local space.
+
+        unsigned int BoneIndex = mesh->m_BoneMapping[NodeName];
+        mesh->m_BoneInfo[BoneIndex].finalTransformation = mesh->m_GlobalInverseTransform * GlobalTransformation *
+                                                          mesh->m_BoneInfo[BoneIndex].boneOffset;
+    }
+
+    // Compute the transformations of the children of the current node
+    for (unsigned int i = 0; i < pNode->mNumChildren; i++) {
+        ReadNodeHierarchy(mesh, animationTime, pNode->mChildren[i], GlobalTransformation, anim);
     }
 }
 
+const aiNodeAnim* Lab7::FindNodeAnim(const aiAnimation* pAnimation, const std::string NodeName)
+{
+    for (unsigned int i = 0; i < pAnimation->mNumChannels; i++) {
+        const aiNodeAnim* pNodeAnim = pAnimation->mChannels[i];
+
+        if (std::string(pNodeAnim->mNodeName.data) == NodeName) {
+            return pNodeAnim;
+        }
+    }
+
+    return NULL;
+}
+
+unsigned int Lab7::FindRotation(float animationTime, const aiNodeAnim* pNodeAnim)
+{
+    assert(pNodeAnim->mNumRotationKeys > 0);
+
+    // TODO (student): Inside the aiNodeAnim variable we have the mRotationKeys array which stores
+    // the rotation transformation of the vertex at different time stamps. The data is sorted. Find
+    // the last rotation transformation which is at a lower time stamp so that we can compute the
+    // interpolation of the rotation transformation of the bone. Return the index.
+    for (unsigned int i = 0; i < pNodeAnim->mNumRotationKeys - 1; i++) {
+        if (animationTime < (float)pNodeAnim->mRotationKeys[i + 1].mTime) {
+            return i;
+        }
+    }
+
+    assert(0);
+}
+
+void Lab7::ComputeInterpolatedRotation(aiQuaternion& out, float animationTime, const aiNodeAnim* pNodeAnim)
+{
+    if (pNodeAnim->mNumRotationKeys == 1) {
+        out = pNodeAnim->mRotationKeys[0].mValue;
+        return;
+    }
+
+    // Find the time stamps at which we should interpolate
+    unsigned int rotationIndex = FindRotation(animationTime, pNodeAnim);
+    unsigned int nextRotationIndex = (rotationIndex + 1);
+    assert(nextRotationIndex < pNodeAnim->mNumRotationKeys);
+
+    // TODO (student): compute the duration between the two selected time stamps
+    // HINT! An entry from the mRotationKeys array has an mTime field
+    float deltaTime = pNodeAnim->mRotationKeys[nextRotationIndex].mTime - pNodeAnim->mRotationKeys[rotationIndex].mTime;
+
+    // Compute the factor of interpolation for a frame
+    float factor = (animationTime - (float)pNodeAnim->mRotationKeys[rotationIndex].mTime) / deltaTime;
+    assert(factor >= 0.0f && factor <= 1.0f);
+
+    // TODO (student): compute the final rotation factor by interpolating the values from the two selected key frames
+    // HINT! Use the Interpolate method from the aiQuaternion class! Don't forget to normalize the result!
+    // Save the result in the out variable
+    const aiQuaternion& startRotationQ = pNodeAnim->mRotationKeys[rotationIndex].mValue;
+    const aiQuaternion& endRotationQ = pNodeAnim->mRotationKeys[nextRotationIndex].mValue;
+    aiQuaternion::Interpolate(out, startRotationQ, endRotationQ, factor);
+    out = out.Normalize();
+}
+
+unsigned int Lab7::FindScaling(float animationTime, const aiNodeAnim* pNodeAnim)
+{
+    assert(pNodeAnim->mNumScalingKeys > 0);
+
+    // TODO (student): Inside the aiNodeAnim variable we have the mScalingKeys array which stores
+    // the scaling transformation of the vertex at different time stamps. The data is sorted. Find
+    // the last scale transformation which is at a lower time stamp so that we can compute the
+    // interpolation of the scaling transformation of the bone. Return the index.
+    for (unsigned int i = 0; i < pNodeAnim->mNumScalingKeys - 1; i++) {
+        if (animationTime < (float)pNodeAnim->mScalingKeys[i + 1].mTime) {
+            return i;
+        }
+    }
+
+    assert(0);
+}
+
+
+void Lab7::ComputeInterpolatedScaling(aiVector3D& out, float animationTime, const aiNodeAnim* pNodeAnim)
+{
+    if (pNodeAnim->mNumScalingKeys == 1) {
+        out = pNodeAnim->mScalingKeys[0].mValue;
+        return;
+    }
+
+    // Find the time stamps at which we should interpolate
+    unsigned int scalingIndex = FindScaling(animationTime, pNodeAnim);
+    unsigned int nextScalingIndex = (scalingIndex + 1);
+    assert(nextScalingIndex < pNodeAnim->mNumScalingKeys);
+
+    // TODO (student): compute the duration between the two selected time stamps
+    // HINT! An entry from the mScalingKeys array has an mTime field
+    float deltaTime = (float)(pNodeAnim->mScalingKeys[nextScalingIndex].mTime - pNodeAnim->mScalingKeys[scalingIndex].mTime);
+
+    // Compute the factor of interpolation for a frame
+    float factor = (animationTime - (float)pNodeAnim->mScalingKeys[scalingIndex].mTime) / deltaTime;
+    assert(factor >= 0.0f && factor <= 1.0f);
+
+    // TODO (student): compute the final scale factor by interpolating the values from the two selected key frames
+    // Save the result in the out variable
+    const aiVector3D& start = pNodeAnim->mScalingKeys[scalingIndex].mValue;
+    const aiVector3D& end = pNodeAnim->mScalingKeys[nextScalingIndex].mValue;
+    aiVector3D delta = end - start;
+    out = start + factor * delta;
+}
+
+
+unsigned int Lab7::FindPosition(float animationTime, const aiNodeAnim* pNodeAnim)
+{
+    assert(pNodeAnim->mNumPositionKeys > 0);
+
+    // TODO (student): Inside the aiNodeAnim variable we have the mPositionKeys array which stores
+    // the translation transformation of the vertex at different time stamps. The data is sorted. Find
+    // the last translation transformation which is at a lower time stamp so that we can compute the
+    // interpolation of the translation transformation of the bone. Return the index.
+    for (unsigned int i = 0; i < pNodeAnim->mNumPositionKeys - 1; i++) {
+        if (animationTime < (float)pNodeAnim->mPositionKeys[i + 1].mTime) {
+            return i;
+        }
+    }
+
+    assert(0);
+}
+
+void Lab7::ComputeInterpolatedPosition(aiVector3D& out, float animationTime, const aiNodeAnim* pNodeAnim)
+{
+    if (pNodeAnim->mNumPositionKeys == 1) {
+        out = pNodeAnim->mPositionKeys[0].mValue;
+        return;
+    }
+
+    // Find the time stamps at which we should interpolate
+    unsigned int positionIndex = FindPosition(animationTime, pNodeAnim);
+    unsigned int nextPositionIndex = (positionIndex + 1);
+    assert(nextPositionIndex < pNodeAnim->mNumPositionKeys);
+
+    // TODO (student): compute the duration between the two selected time stamps
+    // HINT! An entry from the mPositionKeys array has an mTime field
+    float deltaTime = (float)(pNodeAnim->mPositionKeys[nextPositionIndex].mTime - pNodeAnim->mPositionKeys[positionIndex].mTime);
+
+    // Compute the factor of interpolation for a frame
+    float factor = (animationTime - (float)pNodeAnim->mPositionKeys[positionIndex].mTime) / deltaTime;
+    assert(factor >= 0.0f && factor <= 1.0f);
+
+    // TODO (student): compute the final translation factor by interpolating the values from the two selected key frames
+    // Save the result in the out variable
+    const aiVector3D& start = pNodeAnim->mPositionKeys[positionIndex].mValue;
+    const aiVector3D& end = pNodeAnim->mPositionKeys[nextPositionIndex].mValue;
+    aiVector3D delta = end - start;
+    out = start + factor * delta;
+}
 
 void Lab7::FrameEnd()
 {
     DrawCoordinateSystem();
-}
-
-
-void Lab7::OnFileSelected(const std::string &fileName)
-{
-    if (fileName.size())
-    {
-        std::cout << fileName << endl;
-        originalImage = TextureManager::LoadTexture(fileName, nullptr, "image", true, true);
-        processedImage = TextureManager::LoadTexture(fileName, nullptr, "newImage", true, true);
-
-        float aspectRatio = static_cast<float>(originalImage->GetWidth()) / originalImage->GetHeight();
-        window->SetSize(static_cast<int>(600 * aspectRatio), 600);
-    }
-}
-
-
-void Lab7::GrayScale()
-{
-    unsigned int channels = originalImage->GetNrChannels();
-    unsigned char* data = originalImage->GetImageData();
-    unsigned char* newData = processedImage->GetImageData();
-
-    if (channels < 3)
-        return;
-
-    glm::ivec2 imageSize = glm::ivec2(originalImage->GetWidth(), originalImage->GetHeight());
-
-    for (int i = 0; i < imageSize.y; i++)
-    {
-        for (int j = 0; j < imageSize.x; j++)
-        {
-            int offset = channels * (i * imageSize.x + j);
-
-            // Reset save image data
-            char value = static_cast<char>(data[offset + 0] * 0.2f + data[offset + 1] * 0.71f + data[offset + 2] * 0.07);
-            memset(&newData[offset], value, 3);
-        }
-    }
-
-    processedImage->UploadNewData(newData);
-}
-
-
-void Lab7::SaveImage(const std::string &fileName)
-{
-    cout << "Saving image! ";
-    processedImage->SaveToFile((fileName + ".png").c_str());
-    cout << "[Done]" << endl;
-}
-
-
-void Lab7::OpenDialog()
-{
-    std::vector<std::string> filters =
-    {
-        "Image Files", "*.png *.jpg *.jpeg *.bmp",
-        "All Files", "*"
-    };
-
-    auto selection = pfd::open_file("Select a file", ".", filters).result();
-    if (!selection.empty())
-    {
-        std::cout << "User selected file " << selection[0] << "\n";
-        OnFileSelected(selection[0]);
-    }
 }
 
 
@@ -191,48 +330,15 @@ void Lab7::OpenDialog()
 
 void Lab7::OnInputUpdate(float deltaTime, int mods)
 {
-    // Treat continuous update based on input
+    // Treat continuous update based on input with window->KeyHold()
+
 }
 
 
 void Lab7::OnKeyPress(int key, int mods)
 {
     // Add key press event
-    if (key == GLFW_KEY_F || key == GLFW_KEY_ENTER || key == GLFW_KEY_SPACE)
-    {
-        OpenDialog();
-    }
 
-    if (key == GLFW_KEY_E)
-    {
-        gpuProcessing = !gpuProcessing;
-        if (gpuProcessing == false)
-        {
-            outputMode = 0;
-        }
-        cout << "Processing on GPU: " << (gpuProcessing ? "true" : "false") << endl;
-    }
-
-    if (key - GLFW_KEY_0 >= 0 && key < GLFW_KEY_3)
-    {
-        outputMode = key - GLFW_KEY_0;
-
-        if (gpuProcessing == false)
-        {
-            outputMode = 0;
-            GrayScale();
-        }
-    }
-
-    if (key == GLFW_KEY_S && mods & GLFW_MOD_CONTROL)
-    {
-        if (!gpuProcessing)
-        {
-            SaveImage("processCPU_" + std::to_string(outputMode));
-        } else {
-            saveScreenToImage = true;
-        }
-    }
 }
 
 
