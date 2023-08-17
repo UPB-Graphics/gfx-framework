@@ -15,7 +15,7 @@ uniform mat4 View;
 uniform mat4 Projection;
 // TODO (student): declare a new uniform variable array, which will
 // receive the bone transformations
-uniform mat4 Bones[MAX_BONES];
+
 
 // Output
 layout(location = 0) out vec2 texture_coord;
