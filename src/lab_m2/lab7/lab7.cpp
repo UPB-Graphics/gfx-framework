@@ -87,8 +87,6 @@ void Lab7::RenderSimpleMesh(Mesh* mesh, Shader* shader, const glm::mat4& modelMa
     }
 
     // TODO (student): send the bone final transformation to the shader
-    int location = glGetUniformLocation(shader->program, "Bones");
-    glUniformMatrix4fv(location, 100, GL_FALSE, glm::value_ptr(bones[0]));
 
     mesh->Render();
 }
@@ -147,7 +145,7 @@ void Lab7::ReadNodeHierarchy(Mesh* mesh, float animationTime, const aiNode* pNod
     }
 
     // TODO (student): apply parent transformation to the current transformation
-    glm::mat4 GlobalTransformation = parentTransform * NodeTransformation;
+    glm::mat4 GlobalTransformation = glm::mat4(1.0f);
 
     if (mesh->m_BoneMapping.find(NodeName) != mesh->m_BoneMapping.end()) {
 	    // Bring the vertices from their local space position into their node space.
@@ -186,11 +184,6 @@ unsigned int Lab7::FindRotation(float animationTime, const aiNodeAnim* pNodeAnim
     // the rotation transformation of the vertex at different time stamps. The data is sorted. Find
     // the last rotation transformation which is at a lower time stamp so that we can compute the
     // interpolation of the rotation transformation of the bone. Return the index.
-    for (unsigned int i = 0; i < pNodeAnim->mNumRotationKeys - 1; i++) {
-        if (animationTime < (float)pNodeAnim->mRotationKeys[i + 1].mTime) {
-            return i;
-        }
-    }
 
     assert(0);
 }
@@ -209,7 +202,7 @@ void Lab7::ComputeInterpolatedRotation(aiQuaternion& out, float animationTime, c
 
     // TODO (student): compute the duration between the two selected time stamps
     // HINT! An entry from the mRotationKeys array has an mTime field
-    float deltaTime = pNodeAnim->mRotationKeys[nextRotationIndex].mTime - pNodeAnim->mRotationKeys[rotationIndex].mTime;
+    float deltaTime = 0.0f;
 
     // Compute the factor of interpolation for a frame
     float factor = (animationTime - (float)pNodeAnim->mRotationKeys[rotationIndex].mTime) / deltaTime;
@@ -218,10 +211,6 @@ void Lab7::ComputeInterpolatedRotation(aiQuaternion& out, float animationTime, c
     // TODO (student): compute the final rotation factor by interpolating the values from the two selected key frames
     // HINT! Use the Interpolate method from the aiQuaternion class! Don't forget to normalize the result!
     // Save the result in the out variable
-    const aiQuaternion& startRotationQ = pNodeAnim->mRotationKeys[rotationIndex].mValue;
-    const aiQuaternion& endRotationQ = pNodeAnim->mRotationKeys[nextRotationIndex].mValue;
-    aiQuaternion::Interpolate(out, startRotationQ, endRotationQ, factor);
-    out = out.Normalize();
 }
 
 unsigned int Lab7::FindScaling(float animationTime, const aiNodeAnim* pNodeAnim)
@@ -232,11 +221,6 @@ unsigned int Lab7::FindScaling(float animationTime, const aiNodeAnim* pNodeAnim)
     // the scaling transformation of the vertex at different time stamps. The data is sorted. Find
     // the last scale transformation which is at a lower time stamp so that we can compute the
     // interpolation of the scaling transformation of the bone. Return the index.
-    for (unsigned int i = 0; i < pNodeAnim->mNumScalingKeys - 1; i++) {
-        if (animationTime < (float)pNodeAnim->mScalingKeys[i + 1].mTime) {
-            return i;
-        }
-    }
 
     assert(0);
 }
@@ -256,7 +240,7 @@ void Lab7::ComputeInterpolatedScaling(aiVector3D& out, float animationTime, cons
 
     // TODO (student): compute the duration between the two selected time stamps
     // HINT! An entry from the mScalingKeys array has an mTime field
-    float deltaTime = (float)(pNodeAnim->mScalingKeys[nextScalingIndex].mTime - pNodeAnim->mScalingKeys[scalingIndex].mTime);
+    float deltaTime = 0.0f;
 
     // Compute the factor of interpolation for a frame
     float factor = (animationTime - (float)pNodeAnim->mScalingKeys[scalingIndex].mTime) / deltaTime;
@@ -264,10 +248,6 @@ void Lab7::ComputeInterpolatedScaling(aiVector3D& out, float animationTime, cons
 
     // TODO (student): compute the final scale factor by interpolating the values from the two selected key frames
     // Save the result in the out variable
-    const aiVector3D& start = pNodeAnim->mScalingKeys[scalingIndex].mValue;
-    const aiVector3D& end = pNodeAnim->mScalingKeys[nextScalingIndex].mValue;
-    aiVector3D delta = end - start;
-    out = start + factor * delta;
 }
 
 
@@ -279,11 +259,6 @@ unsigned int Lab7::FindPosition(float animationTime, const aiNodeAnim* pNodeAnim
     // the translation transformation of the vertex at different time stamps. The data is sorted. Find
     // the last translation transformation which is at a lower time stamp so that we can compute the
     // interpolation of the translation transformation of the bone. Return the index.
-    for (unsigned int i = 0; i < pNodeAnim->mNumPositionKeys - 1; i++) {
-        if (animationTime < (float)pNodeAnim->mPositionKeys[i + 1].mTime) {
-            return i;
-        }
-    }
 
     assert(0);
 }
@@ -302,18 +277,14 @@ void Lab7::ComputeInterpolatedPosition(aiVector3D& out, float animationTime, con
 
     // TODO (student): compute the duration between the two selected time stamps
     // HINT! An entry from the mPositionKeys array has an mTime field
-    float deltaTime = (float)(pNodeAnim->mPositionKeys[nextPositionIndex].mTime - pNodeAnim->mPositionKeys[positionIndex].mTime);
-
+    float deltaTime = 0.0f;
+    
     // Compute the factor of interpolation for a frame
     float factor = (animationTime - (float)pNodeAnim->mPositionKeys[positionIndex].mTime) / deltaTime;
     assert(factor >= 0.0f && factor <= 1.0f);
 
     // TODO (student): compute the final translation factor by interpolating the values from the two selected key frames
     // Save the result in the out variable
-    const aiVector3D& start = pNodeAnim->mPositionKeys[positionIndex].mValue;
-    const aiVector3D& end = pNodeAnim->mPositionKeys[nextPositionIndex].mValue;
-    aiVector3D delta = end - start;
-    out = start + factor * delta;
 }
 
 void Lab7::FrameEnd()

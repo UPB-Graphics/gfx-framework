@@ -2,7 +2,7 @@
 
 // Input
 layout(location = 0) in vec2 texture_coord;
-layout(location = 1) in vec3 normal;
+// TODO (student): wait for the normal input
 
 // Uniform properties
 uniform sampler2D text;
