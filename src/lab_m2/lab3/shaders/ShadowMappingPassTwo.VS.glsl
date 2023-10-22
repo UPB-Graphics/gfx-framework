@@ -11,7 +11,7 @@ uniform mat4 View;
 uniform mat4 Projection;
 
 // Output
-layout(location = 0) out vec2 texture_coord;
+out vec2 texture_coord;
 
 out vec3 world_position;
 out vec3 world_normal;
