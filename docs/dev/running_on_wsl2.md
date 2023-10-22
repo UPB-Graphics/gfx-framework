@@ -6,135 +6,93 @@
 
 If you have Windows and want to use (or develop) this project on Linux, but don't feel like using a virtual machine or installing Linux directly on your device, then you can use WSL2.
 
-This is arguably the most powerful method for project development, as it allows you to run Windows and Linux executables side by side. To avoid breaking your computer, please only attempt this method if you know what you're doing.
+This is arguably the most powerful method for project development, as it allows you to run Windows and Linux executables side by side.
 
 
 ## :white_check_mark: Prerequisites
 
-### General stuff
+This guide has been written for **Windows 11 22H2**. The installation process for WSL2 may differ for Windows 10, and even for older versions of Windows 11, and is not described here.
 
--   Update your Windows 10. It needs to be version 1903 or higher, with Build 18362 or higher
-    -   Run `winver.exe` from a terminal to find out your version
--   Chocolatey: https://chocolatey.org/install
+This guide also assumes that you have the most recent graphics drivers. In particular:
 
-
-### WSL2
-
-Follow these steps:
-
-1.  Follow steps 1 through 5 in [this Microsoft guide][ref-ms-wsl]. ***Carefully read everything*** before you proceed to follow the steps therein.
-2.  At step 6 in the Microsoft guide, choose and install your preferred Linux distribution:
-    -   Debian (Ubuntu): just install the latest Ubuntu you can find in the Microsoft Store
-    -   Red Hat (Fedora): ***not recommended***. See `Installing other Linux distros` in this guide
-    -   Arch (x86_64): ***not recommended***. See `Installing other Linux distros` in this guide
-3.  Check that you actually have WSL2, by following [this guide][ref-askubuntu-wsl].
+-   If you have an Intel CPU, the graphics driver must be version `31.0.101.xxxx` or later. Update the driver from:
+        Settings
+        -> Windows Update
+        -> Advanced options
+        -> Optional updates
+        -> Intel Corporation - Display - `<version>`
 
 
-### Windows software
+## :hammer_and_wrench: Installing WSL2 + Ubuntu
 
-Follow these steps:
+This method allows you to install Ubuntu on Windows.
 
-1.  Open the Start menu
-2.  Type `cmd` but do ***not*** hit Enter
-3.  Right-click on `cmd` and choose `Run as administrator`, and a terminal should appear
-4.  Install `vcxsrv`:
-    ```bat
-    choco install -y vcxsrv
-    ```
-5.  Add an exception to the firewall: 
-    ```bat
-    netsh advfirewall firewall add rule name="vcxsrv" dir=in action=allow enable=yes profile=any program="C:\Program Files\VcXsrv\vcxsrv.exe"
-    ```
-
-
-### Linux software
-
-Follow these steps:
-
-1.  Open the Start menu
-2.  Type `wsl` and hit Enter, and a Linux terminal should appear
-3.  Update your package list
-    ```sh
-    sudo apt update                         # Debian (Ubuntu)
-    sudo dnf check-update                   # Red Hat (Fedora)
-    sudo pacman -Syu                        # Arch (x86_64)
-    ```
-5.  Install `xinit`:
-    ```sh
-    sudo apt install -y xinit              # Debian (Ubuntu)
-    sudo dnf -y install xinit              # Red Hat (Fedora)
-    sudo pacman -S xorg-xinit             # Arch (x86_64)
-    ```
-
-
-## :rocket: Running
-
-At this point, you may ask what you just installed. `vcxsrv` (on Windows) and `xinit` (on Linux) are two graphical servers that work together, so that you can run graphical apps from a command-line connection. Now we need to link one another.
-
-Follow these steps:
-
-1.  From a Windows terminal, run:
-    ```bat
-    "C:\Program Files\VcXsrv\vcxsrv.exe" :0 -ac -terminate -lesspointer -multiwindow -clipboard -nowgl
-    ```
-2.  From a Linux terminal:
-    1.  Run this command:
-        ```sh
-        export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
+-   Open a terminal and run `wsl -l -v`
+    -   If you get a table similar to this one, then you already have WSL2 + Ubuntu:
         ```
-    2.  Optionally, run `glxinfo` to check your OpenGL version:
-        ```sh
-        glxinfo | grep "version"
+          NAME      STATE           VERSION
+        * Ubuntu    Running         2
         ```
-    3.  Optionally, run a random graphical application to check that everything works. For example:
-        ```sh
-        sudo apt install -y mesa-utils      # Debian (Ubuntu)
-        sudo dnf -y install glx-utils       # Red Hat (Fedora)
-        sudo pacman -S mesa-demos          # Arch (x86_64)
-
-        glxgears
-        ```
-3.  You can now run ***any*** graphical application from inside Linux, including this project:
-    ```sh
-    ./bin/Debug/GFXFramework
-    ```
-
-That's it! :tada:
+    -   Otherwise, follow the next steps
+-   Run `wsl --install Ubuntu`
+-   If prompted, restart your computer
+-   Wait for the installation to complete
+-   Choose your username and password
+-   To access Ubuntu from Windows:
+    -   Start menu -> type `Ubuntu` -> open the app
+    -   or, open a terminal and run `wsl`
 
 
-## :hammer_and_wrench: Installing other Linux distros
+## :hammer_and_wrench: Installing other Linux distributions (the easy way)
 
-***This section is optional. Follow this section at your own risk.***
+This method allows you to install Linux distributions from the Microsoft Store.
 
-At the time of writing this guide, Fedora and Arch don't have official packages in the Microsoft Store, yet. We expect that this will change in the future.
+-   Open a terminal and run `wsl -l -o`
+-   Choose your preferred distribution and run `wsl --install <NAME>`, for example `wsl --install Debian`
+-   To access it from Windows:
+    -   Start menu -> type the name -> open the app
+    -   or, open a terminal and run `wsl -d <NAME>`, for example `wsl -d Debian`
 
-If you want to go deeper, you can install these via WSL2 as well. For this to work, keep in mind that you need to already have an existing WSL2 Linux distribution, such as, you guessed it, Ubuntu. What follows is a series of instructions that may or may not work for you.
+
+## :hammer_and_wrench: Installing other Linux distributions (the hard way)
+
+You can install any Linux distribution on Windows. Some examples are given below. Note that you must already have WSL2 + Ubuntu installed for this to work.
+
+Follow this section at your own risk, as the instructions herein are not thoroughly explained, and neither are all situations when something may go wrong. To avoid breaking your computer, please only attempt this method if you know what you're doing.
 
 
 ### WSL2 Fedora
 
 Use the following instructions as a starting point:
 
-1.  Go here: https://github.com/fedora-cloud/docker-brew-fedora/tree/33/x86_64
-2.  Download this file: `fedora-33.20210106-x86_64.tar.xz`
-3.  Prepare the image, from an already existing Linux terminal:
+1.  From a WSL2 Ubuntu terminal, download the OS image using the following commands:
     ```sh
-    unxz fedora-33.20210106-x86_64.tar.xz
-    mv fedora-33.20210106-x86_64.tar fedora-33.tar
+    distro_url=https://github.com/fedora-cloud/docker-brew-fedora/
+    latest_version=$(git ls-remote ${distro_url} 'refs/heads/*' | awk '{print $2}' | grep "[0-9]" | sort | tail -1 | tr -d -c 0-9)
+    temp_dir=/mnt/c/LinuxDistroDownloads/Fedora_${latest_version}
+    ar_name=fedora-${latest_version}-x86_64.tar.xz
+    download_url=https://raw.githubusercontent.com/fedora-cloud/docker-brew-fedora/${latest_version}/x86_64/${ar_name}
+
+    mkdir -p ${temp_dir}
+    cd ${temp_dir}
+    curl -O ${download_url}
     ```
-4.  Install and start the image, from a Windows terminal:
+
+2.  From a Windows terminal, install the OS image using following commands. Make sure to set `latest_version` to the proper value:
     ```bat
-    mkdir c:\distros
-    wsl --import fedora-33 c:\distros\fedora-33 fedora-33.tar
-    wsl -d fedora-33
+    set latest_version=40
+    mkdir C:\LinuxDistroInstallations
+    wsl --import Fedora_%latest_version% C:\LinuxDistroInstallations\Fedora_%latest_version% C:\LinuxDistroDownloads\Fedora_%latest_version%\fedora-%latest_version%-x86_64.tar.xz
+    wsl -d Fedora_%latest_version%
     ```
-5.  Install basic stuff:
+
+3.  From the distribution's terminal, prepare the OS:
     ```sh
+    # install basic packages
     sudo dnf check-update
     sudo dnf -y install wget curl sudo ncurses dnf-plugins-core dnf-utils passwd findutils
-    ```
-6.  Install any missing graphics drivers:
-    ```sh
+    
+    # install the graphics drivers
     sudo dnf -y install mesa-dri-drivers
     ```
 
@@ -143,36 +101,48 @@ Use the following instructions as a starting point:
 
 Use the following instructions as a starting point:
 
-1.  Go here: http://archlinux.uk.mirror.allworldit.com/archlinux/iso/2021.01.01/
-2.  Download this file: `archlinux-bootstrap-2021.01.01-x86_64.tar.gz`
-3.  Prepare the image, from an already existing Linux terminal:
-    ```bat
-    sudo tar xzf archlinux-bootstrap-2020.12.01-x86_64.tar.gz
-    sudo tar czf arch-2020.12.01.tar.gz -C root.x86_64/ $(cd root.x86_64/ && ls)
-    sudo rm -rf root.x86_64/
-    sudo rm archlinux-bootstrap-2020.12.01-x86_64.tar.gz
-    ```
-4.  Install and start the image, from a Windows terminal:
-    ```bat
-    mkdir c:\distros
-    wsl --import arch-2020.12.01 "c:\distros\arch-2020.12.01" arch-2020.12.01.tar.gz
-    wsl -d arch-2020.12.01
-    ```
-5.  Set up the package sources:
+1.  From a WSL2 Ubuntu terminal, download the OS image using the following commands:
     ```sh
+    distro_url=https://archlinux.uk.mirror.allworldit.com/archlinux/iso/latest/
+    latest_version=$(curl -s ${distro_url} | grep -o '[0-9]*\.[0-9]*\.[0-9]*' | sort | tail -1)
+    temp_dir=/mnt/c/LinuxDistroDownloads/Arch_${latest_version}
+    ar_name=archlinux-bootstrap-${latest_version}-x86_64.tar.gz
+    download_url=https://archlinux.uk.mirror.allworldit.com/archlinux/iso/latest/${ar_name}
+
+    mkdir -p ${temp_dir}
+    cd ${temp_dir}
+    curl -O ${download_url}
+
+    tar xzf ${ar_name}
+    tar czf _${ar_name} -C root.x86_64/ $(cd root.x86_64/ && ls)
+    rm -rf root.x86_64/
+    rm ${ar_name}
+    ```
+
+2.  From a Windows terminal, install the OS image using following commands. Make sure to set `latest_version` to the proper value:
+    ```bat
+    set latest_version=2023.09.01
+    mkdir C:\LinuxDistroInstallations
+    wsl --import Arch_%latest_version% C:\LinuxDistroInstallations\Arch_%latest_version% C:\LinuxDistroDownloads\Arch_%latest_version%\_archlinux-bootstrap-%latest_version%-x86_64.tar.gz
+    wsl -d Arch_%latest_version%
+    ```
+
+3.  From the distribution's terminal, prepare the OS:
+    ```sh
+    # set up the package sources
     cd ~
-    curl -s "https://git.archlinux.org/pacman-contrib.git/plain/src/rankmirrors.sh.in" > rankmirrors.sh
+    curl -s "https://gitlab.archlinux.org/pacman/pacman-contrib/-/raw/master/src/rankmirrors.sh.in" > rankmirrors.sh
     chmod +x rankmirrors.sh
     curl -s "https://archlinux.org/mirrorlist/?country=US&protocol=http&protocol=https&ip_version=4" | cut -b 2- | ./rankmirrors.sh -n 10 - > /etc/pacman.d/mirrorlist
-    ```
-6.  Install basic stuff:
-    ```sh
-    pacman -Syu base-devel
+
+    # set up various things
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
     locale-gen
+    pacman-key --init
+    pacman-key --populate archlinux
+    sudo chmod 755 -R /usr
+
+    # install basic packages
+    pacman -Syu base-devel
     ```
-
-
-[ref-ms-wsl]:           https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
-[ref-ms-wsl-req]:       https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-2---check-requirements-for-running-wsl-2
-[ref-askubuntu-wsl]:    https://askubuntu.com/a/1177730
+    

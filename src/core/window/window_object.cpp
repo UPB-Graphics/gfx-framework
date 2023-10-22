@@ -407,7 +407,7 @@ void WindowObject::SetSize(int width, int height)
     glfwGetFramebufferSize(window->handle, &frameBufferWidth, &frameBufferHeight);
 
     props.scaleFactor = frameBufferWidth * 1. / width;
-    props.resolution = glm::ivec2(width, height);
+    props.resolution = glm::ivec2(frameBufferWidth, frameBufferHeight);
     props.aspectRatio = float(width) / height;
     resizeEvent = true;
 }
