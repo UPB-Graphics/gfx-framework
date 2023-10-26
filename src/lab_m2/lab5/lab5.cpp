@@ -3,36 +3,10 @@
 #include <vector>
 #include <iostream>
 
+#include "stb/stb_image.h"
+
 using namespace std;
 using namespace m2;
-
-
-struct Particle
-{
-    glm::vec4 position;
-    glm::vec4 speed;
-    glm::vec4 initialPos;
-    glm::vec4 initialSpeed;
-
-    Particle() {}
-
-    Particle(const glm::vec4 &pos, const glm::vec4 &speed)
-    {
-        SetInitial(pos, speed);
-    }
-
-    void SetInitial(const glm::vec4 &pos, const glm::vec4 &speed)
-    {
-        position = pos;
-        initialPos = pos;
-
-        this->speed = speed;
-        initialSpeed = speed;
-    }
-};
-
-
-ParticleEffect<Particle> *particleEffect;
 
 
 /*
@@ -54,119 +28,169 @@ Lab5::~Lab5()
 void Lab5::Init()
 {
     auto camera = GetSceneCamera();
-    camera->SetPositionAndRotation(glm::vec3(0, 8, 8), glm::quat(glm::vec3(-40 * TO_RADIANS, 0, 0)));
+    camera->SetPositionAndRotation(glm::vec3(0, 2, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
     camera->Update();
 
+    std::string texturePath = PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube");
+    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab5", "shaders");
+
     {
-        Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        Mesh* mesh = new Mesh("bunny");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
+        mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
-    // Load textures
     {
-        TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES), "particle2.png");
+        Mesh* mesh = new Mesh("cube");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->UseMaterials(false);
+        meshes[mesh->GetMeshID()] = mesh;
     }
 
-    LoadShader("Simple", false);
-    LoadShader("Particle");
-
-    unsigned int nrParticles = 50000;
-
-    particleEffect = new ParticleEffect<Particle>();
-    particleEffect->Generate(nrParticles, true);
-
-    auto particleSSBO = particleEffect->GetParticleBuffer();
-    Particle* data = const_cast<Particle*>(particleSSBO->GetBuffer());
-
-    int cubeSize = 20;
-    int hSize = cubeSize / 2;
-
-    for (unsigned int i = 0; i < nrParticles; i++)
+    // Create a shader program for rendering to texture
     {
-        glm::vec4 pos(1);
-        pos.x = (rand() % cubeSize - hSize) / 10.0f;
-        pos.y = (rand() % cubeSize - hSize) / 10.0f;
-        pos.z = (rand() % cubeSize - hSize) / 10.0f;
-
-        glm::vec4 speed(0);
-        speed.x = (rand() % 20 - 10) / 10.0f;
-        speed.z = (rand() % 20 - 10) / 10.0f;
-        speed.y = rand() % 2 + 2.0f;
-
-        data[i].SetInitial(pos, speed);
+        Shader *shader = new Shader("CubeMap");
+        shader->AddShader(PATH_JOIN(shaderPath, "CubeMap.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "CubeMap.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
     }
 
-    particleSSBO->SetBufferData(data);
+    // Create a shader program for rendering to texture
+    {
+        Shader *shader = new Shader("ShaderNormal");
+        shader->AddShader(PATH_JOIN(shaderPath, "Normal.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "Normal.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
+
+    cubeMapTextureID = UploadCubeMapTexture(
+        PATH_JOIN(texturePath, "pos_x.png"),
+        PATH_JOIN(texturePath, "pos_y.png"),
+        PATH_JOIN(texturePath, "pos_z.png"),
+        PATH_JOIN(texturePath, "neg_x.png"),
+        PATH_JOIN(texturePath, "neg_y.png"),
+        PATH_JOIN(texturePath, "neg_z.png"));
 }
 
 
 void Lab5::FrameStart()
 {
-    // Clears the color buffer (using the previously set color) and depth buffer
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glm::ivec2 resolution = window->GetResolution();
-    // Sets the screen area where to draw
-    glViewport(0, 0, resolution.x, resolution.y);
 }
 
 
 void Lab5::Update(float deltaTimeSeconds)
 {
-    glLineWidth(3);
+    ClearScreen();
 
-    glEnable(GL_BLEND);
-    glDisable(GL_DEPTH_TEST);
-    glBlendFunc(GL_ONE, GL_ONE);
-    glBlendEquation(GL_FUNC_ADD);
+    auto camera = GetSceneCamera();
 
+    // Clear the screen
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Draw the cubemap
     {
-        auto shader = shaders["Particle"];
-        if (shader->GetProgramID())
-        {
-            shader->Use();
-            TextureManager::GetTexture("particle2.png")->BindToTextureUnit(GL_TEXTURE0);
-            particleEffect->Render(GetSceneCamera(), shader);
-        }
+        Shader *shader = shaders["ShaderNormal"];
+        shader->Use();
+
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(30));
+
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
+        int loc_texture = shader->GetUniformLocation("texture_cubemap");
+        glUniform1i(loc_texture, 0);
+
+        meshes["cube"]->Render();
     }
 
-    glEnable(GL_DEPTH_TEST);
-    glDisable(GL_BLEND);
-
+    // Draw the reflection on the mesh
     {
-        glm::mat4 model = glm::translate(glm::mat4(1), glm::vec3(3, 0, 0));
-        RenderMesh(meshes["box"], shaders["Simple"], model);
+        Shader *shader = shaders["CubeMap"];
+        shader->Use();
+
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(0.1f));
+
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+        auto cameraPosition = camera->m_transform->GetWorldPosition();
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
+        int loc_texture = shader->GetUniformLocation("texture_cubemap");
+        glUniform1i(loc_texture, 0);
+
+        int loc_camera = shader->GetUniformLocation("camera_position");
+        glUniform3f(loc_camera, cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+        meshes["bunny"]->Render();
     }
 }
 
 
 void Lab5::FrameEnd()
 {
-#if 0
     DrawCoordinateSystem();
-#endif
 }
 
 
-void Lab5::LoadShader(const std::string &name, bool hasGeomtery)
+unsigned int Lab5::UploadCubeMapTexture(const std::string &pos_x, const std::string &pos_y, const std::string &pos_z, const std::string& neg_x, const std::string& neg_y, const std::string& neg_z)
 {
-    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab5", "shaders");
+    int width, height, chn;
 
-    // Create a shader program for particle system
-    {
-        Shader *shader = new Shader(name);
-        shader->AddShader(PATH_JOIN(shaderPath, name + ".VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(shaderPath, name + ".FS.glsl"), GL_FRAGMENT_SHADER);
-        if (hasGeomtery)
-        {
-            shader->AddShader(PATH_JOIN(shaderPath, name + ".GS.glsl"), GL_GEOMETRY_SHADER);
-        }
+    unsigned char* data_pos_x = stbi_load(pos_x.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_pos_y = stbi_load(pos_y.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_pos_z = stbi_load(pos_z.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_x = stbi_load(neg_x.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_y = stbi_load(neg_y.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_z = stbi_load(neg_z.c_str(), &width, &height, &chn, 0);
 
-        shader->CreateAndLink();
-        shaders[shader->GetName()] = shader;
+    unsigned int textureID = 0;
+    // TODO(student): Create the texture
+
+    // TODO(student): Bind the texture
+
+    glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    if (GLEW_EXT_texture_filter_anisotropic) {
+        float maxAnisotropy;
+
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
     }
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // TODO(student): Load texture information for each face
+
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    if (GetOpenGLError() == GL_INVALID_OPERATION)
+    {
+        cout << "\t[NOTE] : For students : DON'T PANIC! This error should go away when completing the tasks." << std::endl;
+    }
+
+    // Free memory
+    SAFE_FREE(data_pos_x);
+    SAFE_FREE(data_pos_y);
+    SAFE_FREE(data_pos_z);
+    SAFE_FREE(data_neg_x);
+    SAFE_FREE(data_neg_y);
+    SAFE_FREE(data_neg_z);
+
+    return textureID;
 }
 
 
@@ -184,6 +208,7 @@ void Lab5::OnInputUpdate(float deltaTime, int mods)
 
 void Lab5::OnKeyPress(int key, int mods)
 {
+    // Add key press event
 }
 
 
