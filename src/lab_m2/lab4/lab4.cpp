@@ -2,11 +2,49 @@
 
 #include <vector>
 #include <iostream>
-
-#include "stb/stb_image.h"
+#include <limits>
 
 using namespace std;
 using namespace m2;
+
+
+struct Particle
+{
+    glm::vec4 position;
+    glm::vec4 speed;
+    glm::vec4 initialPos;
+    glm::vec4 initialSpeed;
+    float delay;
+    float initialDelay;
+    float lifetime;
+    float initialLifetime;
+
+    Particle() {}
+
+    Particle(const glm::vec4 &pos, const glm::vec4 &speed)
+    {
+        SetInitial(pos, speed);
+    }
+
+    void SetInitial(const glm::vec4 &pos, const glm::vec4 &speed,
+        float delay = 0, float lifetime = 0)
+    {
+        position = pos;
+        initialPos = pos;
+
+        this->speed = speed;
+        initialSpeed = speed;
+
+        this->delay = delay;
+        initialDelay = delay;
+
+        this->lifetime = lifetime;
+        initialLifetime = lifetime;
+    }
+};
+
+
+ParticleEffect<Particle> *particleEffect;
 
 
 /*
@@ -28,169 +66,260 @@ Lab4::~Lab4()
 void Lab4::Init()
 {
     auto camera = GetSceneCamera();
-    camera->SetPositionAndRotation(glm::vec3(0, 2, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
+    camera->SetPositionAndRotation(glm::vec3(0, 8, 8), glm::quat(glm::vec3(-40 * TO_RADIANS, 0, 0)));
     camera->Update();
 
-    std::string texturePath = PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube");
-    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab4", "shaders");
-
     {
-        Mesh* mesh = new Mesh("bunny");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
-        mesh->UseMaterials(false);
-        meshes[mesh->GetMeshID()] = mesh;
-    }
-
-    {
-        Mesh* mesh = new Mesh("cube");
+        Mesh* mesh = new Mesh("box");
         mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
-        mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
-    // Create a shader program for rendering to texture
+    // Load textures
     {
-        Shader *shader = new Shader("CubeMap");
-        shader->AddShader(PATH_JOIN(shaderPath, "CubeMap.VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(shaderPath, "CubeMap.FS.glsl"), GL_FRAGMENT_SHADER);
-        shader->CreateAndLink();
-        shaders[shader->GetName()] = shader;
+        TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES), "particle2.png");
+
+        // TODO(student): Load images "rain.png", "snowflake.png" and "fire.png" as
+        // textures, similar to "particle2.png", loaded above. The images can be
+        // found in the same directory as "particle2.png"
+
     }
 
-    // Create a shader program for rendering to texture
+    LoadShader("Fireworks", "Particle_fireworks", "Particle_simple", "Particle", true);
+    LoadShader("RainSnow", "Particle_rain_snow", "Particle_simple", "Particle", true);
+    LoadShader("Fire", "Particle_fire", "Particle_multiple_textures", "Particle", true);
+
+    ResetParticlesFireworks(20,20,20);
+
+    generator_position = glm::vec3(0, 0, 0);
+    scene = 0;
+    offset = 0.05;
+}
+
+void Lab4::ResetParticlesFireworks(int xSize, int ySize, int zSize)
+{
+    unsigned int nrParticles = 5000;
+
+    particleEffect = new ParticleEffect<Particle>();
+    particleEffect->Generate(nrParticles, true);
+
+    auto particleSSBO = particleEffect->GetParticleBuffer();
+    Particle* data = const_cast<Particle*>(particleSSBO->GetBuffer());
+
+    int xhSize = xSize / 2;
+    int yhSize = ySize / 2;
+    int zhSize = zSize / 2;
+
+    for (unsigned int i = 0; i < nrParticles; i++)
     {
-        Shader *shader = new Shader("ShaderNormal");
-        shader->AddShader(PATH_JOIN(shaderPath, "Normal.VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(shaderPath, "Normal.FS.glsl"), GL_FRAGMENT_SHADER);
-        shader->CreateAndLink();
-        shaders[shader->GetName()] = shader;
+        glm::vec4 pos(1);
+        pos.x = (rand() % xSize - xhSize) / 10.0f;
+        pos.y = (rand() % ySize - yhSize) / 10.0f;
+        pos.z = (rand() % zSize - zhSize) / 10.0f;
+
+        glm::vec4 speed(0);
+        speed.x = (rand() % 20 - 10) / 10.0f;
+        speed.z = (rand() % 20 - 10) / 10.0f;
+        speed.y = rand() % 2 + 2.0f;
+
+        data[i].SetInitial(pos, speed);
     }
 
-    cubeMapTextureID = UploadCubeMapTexture(
-        PATH_JOIN(texturePath, "pos_x.png"),
-        PATH_JOIN(texturePath, "pos_y.png"),
-        PATH_JOIN(texturePath, "pos_z.png"),
-        PATH_JOIN(texturePath, "neg_x.png"),
-        PATH_JOIN(texturePath, "neg_y.png"),
-        PATH_JOIN(texturePath, "neg_z.png"));
+    particleSSBO->SetBufferData(data);
+}
+
+void Lab4::ResetParticlesRainSnow(int xSize, int ySize, int zSize)
+{
+    unsigned int nrParticles = 5000;
+
+    particleEffect = new ParticleEffect<Particle>();
+    particleEffect->Generate(nrParticles, true);
+
+    auto particleSSBO = particleEffect->GetParticleBuffer();
+    Particle* data = const_cast<Particle*>(particleSSBO->GetBuffer());
+
+
+    int xhSize = xSize / 2;
+    int yhSize = ySize / 2;
+    int zhSize = zSize / 2;
+
+    for (unsigned int i = 0; i < nrParticles; i++)
+    {
+        glm::vec4 pos(1);
+        pos.x = (rand() % xSize - xhSize) / 10.0f;
+        pos.y = (rand() % ySize - yhSize) / 10.0f;
+        pos.z = (rand() % zSize - zhSize) / 10.0f;
+
+        glm::vec4 speed(0);
+        speed.x = - (rand() % 20 - 10) / 10.0f;
+        speed.z = - (rand() % 20 - 10) / 10.0f;
+        speed.y = - (rand() % 2 + 2.0f);
+
+        float delay = (rand() % 100 / 100.0f) * 3.0f;
+
+        data[i].SetInitial(pos, speed, delay);
+    }
+
+    particleSSBO->SetBufferData(data);
 }
 
 
+void Lab4::ResetParticlesFire(float radius)
+{
+    unsigned int nrParticles = 5000;
+
+    particleEffect = new ParticleEffect<Particle>();
+    particleEffect->Generate(nrParticles, true);
+
+    auto particleSSBO = particleEffect->GetParticleBuffer();
+    Particle* data = const_cast<Particle*>(particleSSBO->GetBuffer());
+
+    for (unsigned int i = 0; i < nrParticles; i++)
+    {
+        glm::vec3 pos(1);
+        pos.x = (rand() % 100 - 50)/ 100.0f ;
+        pos.y = (rand() % 100 - 50)/ 100.0f;
+        pos.z = (rand() % 100 - 50)/ 100.0f;
+        pos = glm::normalize(pos) * radius ;
+
+        glm::vec3 speed(0);
+        speed = glm::normalize(glm::vec3(0, 5, 0) - glm::vec3(pos));
+        speed *= (rand() % 100 / 100.0f);
+        speed += glm::vec3(rand() % 5 / 5.0f, rand() % 5 / 5.0f, rand() % 5 / 5.0f) * 0.2f;
+
+        float lifetime = 1 + (rand() % 100 / 100.0f);
+
+        data[i].SetInitial(glm::vec4 (pos, 1), glm::vec4 (speed, 0), 0, lifetime);
+    }
+
+    particleSSBO->SetBufferData(data);
+}
+
 void Lab4::FrameStart()
 {
+    // Clears the color buffer (using the previously set color) and depth buffer
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glm::ivec2 resolution = window->GetResolution();
+    // Sets the screen area where to draw
+    glViewport(0, 0, resolution.x, resolution.y);
 }
 
 
 void Lab4::Update(float deltaTimeSeconds)
 {
-    ClearScreen();
+    glLineWidth(3);
 
-    auto camera = GetSceneCamera();
-
-    // Clear the screen
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Draw the cubemap
+    glEnable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+    glBlendFunc(GL_ONE, GL_ONE);
+    glBlendEquation(GL_FUNC_ADD);
+    if (scene == 0)
     {
-        Shader *shader = shaders["ShaderNormal"];
-        shader->Use();
+        auto shader = shaders["Fireworks"];
+        if (shader->GetProgramID())
+        {
+            shader->Use();
 
-        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(30));
+            TextureManager::GetTexture("particle2.png")->BindToTextureUnit(GL_TEXTURE0);
+            particleEffect->Render(GetSceneCamera(), shader);
 
-        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
-        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+            // TODO(student): Send uniforms generator_position,
+            // deltaTime and offset to the shader
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
-        int loc_texture = shader->GetUniformLocation("texture_cubemap");
-        glUniform1i(loc_texture, 0);
-
-        meshes["cube"]->Render();
+        }
     }
 
-    // Draw the reflection on the mesh
+    if (scene == 1)
     {
-        Shader *shader = shaders["CubeMap"];
-        shader->Use();
+        auto shader = shaders["RainSnow"];
+        if (shader->GetProgramID())
+        {
+            shader->Use();
 
-        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(0.1f));
+            // TODO(student): Send correct texture for snow
+            TextureManager::GetTexture("particle2.png")->BindToTextureUnit(GL_TEXTURE0);
+            particleEffect->Render(GetSceneCamera(), shader);
 
-        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
-        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+            // TODO(student): Send uniforms generator_position,
+            // deltaTime and offset to the shader
 
-        auto cameraPosition = camera->m_transform->GetWorldPosition();
+        }
+    }
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
-        int loc_texture = shader->GetUniformLocation("texture_cubemap");
-        glUniform1i(loc_texture, 0);
+    if (scene == 2)
+    {
+        auto shader = shaders["RainSnow"];
+        if (shader->GetProgramID())
+        {
+            shader->Use();
 
-        int loc_camera = shader->GetUniformLocation("camera_position");
-        glUniform3f(loc_camera, cameraPosition.x, cameraPosition.y, cameraPosition.z);
+            // TODO(student): Send correct texture for rain
+            TextureManager::GetTexture("particle2.png")->BindToTextureUnit(GL_TEXTURE0);
+            particleEffect->Render(GetSceneCamera(), shader);
 
-        meshes["bunny"]->Render();
+            // TODO(student): Send uniforms generator_position,
+            // deltaTime and offset to the shader
+
+        }
+    }
+
+    if (scene == 3)
+    {
+        auto shader = shaders["Fire"];
+        if (shader->GetProgramID())
+        {
+            shader->Use();
+            // TODO(student): Send correct texture for fire
+            TextureManager::GetTexture("particle2.png")->BindToTextureUnit(GL_TEXTURE0);
+            particleEffect->Render(GetSceneCamera(), shader);
+
+            // TODO(student): Send uniforms generator_position,
+            // deltaTime and offset to the shader
+
+        }
+    }
+
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
+
+    {
+        glm::mat4 model = glm::translate(glm::mat4(1), generator_position);
+        if (scene == 1 || scene == 2)
+            model = glm::scale(model, glm::vec3(10,0.5,0.5));
+        else
+            model = glm::scale(model, glm::vec3(0.5, 0.5, 0.5));
+        RenderMesh(meshes["box"], shaders["Simple"], model);
     }
 }
 
 
 void Lab4::FrameEnd()
 {
+#if 0
     DrawCoordinateSystem();
+#endif
 }
 
 
-unsigned int Lab4::UploadCubeMapTexture(const std::string &pos_x, const std::string &pos_y, const std::string &pos_z, const std::string& neg_x, const std::string& neg_y, const std::string& neg_z)
+void Lab4::LoadShader(const std::string& name, const std::string &VS, const std::string& FS, const std::string& GS,  bool hasGeomtery)
 {
-    int width, height, chn;
+    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab4", "shaders");
 
-    unsigned char* data_pos_x = stbi_load(pos_x.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_pos_y = stbi_load(pos_y.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_pos_z = stbi_load(pos_z.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_neg_x = stbi_load(neg_x.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_neg_y = stbi_load(neg_y.c_str(), &width, &height, &chn, 0);
-    unsigned char* data_neg_z = stbi_load(neg_z.c_str(), &width, &height, &chn, 0);
-
-    unsigned int textureID = 0;
-    // TODO(student): Create the texture
-
-    // TODO(student): Bind the texture
-
-    glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
-
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    if (GLEW_EXT_texture_filter_anisotropic) {
-        float maxAnisotropy;
-
-        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
-    }
-
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    // TODO(student): Load texture information for each face
-
-    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-    if (GetOpenGLError() == GL_INVALID_OPERATION)
+    // Create a shader program for particle system
     {
-        cout << "\t[NOTE] : For students : DON'T PANIC! This error should go away when completing the tasks." << std::endl;
+        Shader *shader = new Shader(name);
+        shader->AddShader(PATH_JOIN(shaderPath, VS + ".VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, FS + ".FS.glsl"), GL_FRAGMENT_SHADER);
+        if (hasGeomtery)
+        {
+            shader->AddShader(PATH_JOIN(shaderPath, GS + ".GS.glsl"), GL_GEOMETRY_SHADER);
+        }
+
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
     }
-
-    // Free memory
-    SAFE_FREE(data_pos_x);
-    SAFE_FREE(data_pos_y);
-    SAFE_FREE(data_pos_z);
-    SAFE_FREE(data_neg_x);
-    SAFE_FREE(data_neg_y);
-    SAFE_FREE(data_neg_z);
-
-    return textureID;
 }
 
 
@@ -203,12 +332,59 @@ unsigned int Lab4::UploadCubeMapTexture(const std::string &pos_x, const std::str
 void Lab4::OnInputUpdate(float deltaTime, int mods)
 {
     // Treat continuous update based on input
+
+    if (!window->MouseHold(GLFW_MOUSE_BUTTON_2)) {
+        const float speed = 2;
+
+        if (window->KeyHold(GLFW_KEY_A))
+            generator_position.x -= deltaTime * speed;
+        if (window->KeyHold(GLFW_KEY_D))
+            generator_position.x += deltaTime * speed;
+        if (window->KeyHold(GLFW_KEY_W))
+            generator_position.y += deltaTime * speed;
+        if (window->KeyHold(GLFW_KEY_S))
+            generator_position.y -= deltaTime * speed;
+        if (window->KeyHold(GLFW_KEY_R))
+            generator_position.z -= deltaTime * speed;
+        if (window->KeyHold(GLFW_KEY_F))
+            generator_position.z += deltaTime * speed;
+    }
+
+    if (window->KeyHold(GLFW_KEY_Z))
+        offset += deltaTime * 0.1;
+    if (window->KeyHold(GLFW_KEY_X))
+        offset -= deltaTime * 0.1;
+
+
 }
 
 
 void Lab4::OnKeyPress(int key, int mods)
 {
-    // Add key press event
+    if (key == GLFW_KEY_1)
+    {
+        scene = 0;
+        ResetParticlesFireworks(20,20,20);
+        generator_position = glm::vec3(0, 0, 0);
+    }
+    if (key == GLFW_KEY_2)
+    {
+        scene = 1;
+        ResetParticlesRainSnow(100,10,10);
+        generator_position = glm::vec3(0, 0, 0);
+    }
+    if (key == GLFW_KEY_3)
+    {
+        scene = 2;
+        ResetParticlesRainSnow(100, 10, 10);
+        generator_position = glm::vec3(0, 0, 0);
+    }
+    if (key == GLFW_KEY_4)
+    {
+        scene = 3;
+        ResetParticlesFire(0.25);
+        generator_position = glm::vec3(0, 0, 0);
+    }
 }
 
 

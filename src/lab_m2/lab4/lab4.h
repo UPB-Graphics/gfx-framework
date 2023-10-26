@@ -1,9 +1,9 @@
 #pragma once
 
-#include "components/simple_scene.h"
-#include "components/transform.h"
-
 #include <string>
+
+#include "components/simple_scene.h"
+#include "core/gpu/particle_effect.h"
 
 
 namespace m2
@@ -21,7 +21,9 @@ namespace m2
         void Update(float deltaTimeSeconds) override;
         void FrameEnd() override;
 
-        unsigned int UploadCubeMapTexture(const std::string &pos_x, const std::string &pos_y, const std::string &pos_z, const std::string &neg_x, const std::string &neg_y, const std::string &neg_z);
+        void LoadShader(const std::string& name, 
+            const std::string& VS, const std::string& FS, const std::string& GS="",
+            bool hasGeomtery = false);
 
         void OnInputUpdate(float deltaTime, int mods) override;
         void OnKeyPress(int key, int mods) override;
@@ -32,7 +34,16 @@ namespace m2
         void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
         void OnWindowResize(int width, int height) override;
 
-     private:
-        int cubeMapTextureID;
+        void ResetParticlesFireworks(int xSize, int ySize, int zSize);
+        void ResetParticlesRainSnow(int xSize, int ySize, int zSize);
+        void ResetParticlesFire(float radius);
+
+     protected:
+        glm::mat4 modelMatrix;
+        glm::vec3 generator_position;
+        GLenum polygonMode;
+        int scene;
+        float offset;
+
     };
 }   // namespace m2

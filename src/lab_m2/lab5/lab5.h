@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>
-
 #include "components/simple_scene.h"
-#include "core/gpu/particle_effect.h"
+#include "components/transform.h"
+
+#include <string>
 
 
 namespace m2
@@ -21,7 +21,7 @@ namespace m2
         void Update(float deltaTimeSeconds) override;
         void FrameEnd() override;
 
-        void LoadShader(const std::string &name, bool hasGeomtery = true);
+        unsigned int UploadCubeMapTexture(const std::string &pos_x, const std::string &pos_y, const std::string &pos_z, const std::string &neg_x, const std::string &neg_y, const std::string &neg_z);
 
         void OnInputUpdate(float deltaTime, int mods) override;
         void OnKeyPress(int key, int mods) override;
@@ -32,12 +32,7 @@ namespace m2
         void OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY) override;
         void OnWindowResize(int width, int height) override;
 
-
-     protected:
-        glm::mat4 modelMatrix;
-        float translateX, translateY, translateZ;
-        float scaleX, scaleY, scaleZ;
-        float angularStepOX, angularStepOY, angularStepOZ;
-        GLenum polygonMode;
+     private:
+        int cubeMapTextureID;
     };
 }   // namespace m2
