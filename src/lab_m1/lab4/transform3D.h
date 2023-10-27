@@ -9,7 +9,7 @@ namespace transform3D
     inline glm::mat4 Translate(float translateX, float translateY, float translateZ)
     {
         // TODO(student): Implement the translation matrix
-        return glm::mat3(1);
+        return glm::mat4(1);
 
     }
 
@@ -17,7 +17,7 @@ namespace transform3D
     inline glm::mat4 Scale(float scaleX, float scaleY, float scaleZ)
     {
         // TODO(student): Implement the scaling matrix
-        return glm::mat3(1);
+        return glm::mat4(1);
 
     }
 
@@ -25,7 +25,7 @@ namespace transform3D
     inline glm::mat4 RotateOZ(float radians)
     {
         // TODO(student): Implement the rotation matrix
-        return glm::mat3(1);
+        return glm::mat4(1);
 
     }
 
@@ -33,7 +33,7 @@ namespace transform3D
     inline glm::mat4 RotateOY(float radians)
     {
         // TODO(student): Implement the rotation matrix
-        return glm::mat3(1);
+        return glm::mat4(1);
 
     }
 
