@@ -30,9 +30,9 @@ void GPUBuffers::ReleaseMemory()
 {
     if (m_size)
     {
-        m_size = 0;
         glDeleteVertexArrays(1, &m_VAO);
         glDeleteBuffers(m_size, m_VBO);
+        m_size = 0;
     }
 }
 
