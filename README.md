@@ -53,16 +53,11 @@ We recommend the following editors:
 -    macOS: Visual Studio Code (***do not*** use Visual Studio for Mac, as it's discontinued)
 
 
-### Check your graphics capabilities
+### Install or update your graphics drivers
 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
 This project requires OpenGL version ***3.3 core profile, or newer*** for the simpler parts, and version ***4.3 core profile, or newer***  for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
-
-***Note:*** When you run this project, if the app window is white, there may be an issue with your drivers. You must install and/or update the drivers for your integrated graphics processor (e.g. Intel Graphics XXXX) and the drivers for your video card, for example:
-
--    for Nvidia: https://www.nvidia.com/Download/index.aspx
--    for AMD: https://www.amd.com/en/support
 
 
 ### Install the third-party libraries
@@ -100,7 +95,7 @@ This project requires CMake ***3.16 or newer,*** however, as with the compilers,
 -   macOS:
     1.  run `brew install cmake`
 
-After installation, run `cmake --version` (again) to check that it's in your `PATH` environment variable. This should happen automatically, but if it didn't, just add it manually. Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
+After installation, run `cmake --version` to check that it's in your `PATH` environment variable. This should happen automatically, but if it didn't, just add it manually. Instructions on how to add an executable to your `PATH` differ across operating systems and are ***not*** covered here.
 
 
 ## :gear: Building
