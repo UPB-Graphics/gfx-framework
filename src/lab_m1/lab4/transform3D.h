@@ -41,7 +41,7 @@ namespace transform3D
     inline glm::mat4 RotateOX(float radians)
     {
         // TODO(student): Implement the rotation matrix
-        return glm::mat3(1);
+        return glm::mat4(1);
 
     }
 }   // namespace transform3D
