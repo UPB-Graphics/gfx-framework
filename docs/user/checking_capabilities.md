@@ -2,11 +2,6 @@
 
 # Checking your graphics capabilities
 
-First things first, ***update your graphics drivers***. This guide assumes that your drivers are up-to-date. Instructions on how to install or update drivers differ across manufacturers and are ***not*** covered here.
-
-
-## Finding supported OpenGL versions
-
 If your computer has a processor manufactured within the last few years, you should be safe: a modern CPU has [graphics capabilities itself][ref-igp-wiki], see for example [Intel HD Graphics][ref-intelhd-wiki]. If you have a dedicated graphics card, you should be even safer.
 
 Use the steps in this section to find out what OpenGL versions your device supports.
