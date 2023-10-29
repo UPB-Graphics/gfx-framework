@@ -55,6 +55,18 @@ We recommend the following editors:
 
 ### Install or update your graphics drivers
 
+Use the following steps as a guideline. Detailed instructions differ across manufacturers and operating systems, and are ***not*** covered here.
+
+-   Update the drivers for your integrated graphics processor (for example, Intel Graphics XXXX)
+-   Update the drivers for your dedicated graphics card, if your computer has one:
+    -   for Nvidia cards: https://www.nvidia.com/Download/index.aspx
+    -   for AMD cards: https://www.amd.com/en/support
+
+Not updating your drivers may result in the project not working, or displaying a white screen.
+
+
+### Check your graphics capabilities
+
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
 This project requires OpenGL version ***3.3 core profile, or newer*** for the simpler parts, and version ***4.3 core profile, or newer***  for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
