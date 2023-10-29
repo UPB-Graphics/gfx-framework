@@ -10,6 +10,8 @@ uniform mat4 Model;
 uniform vec3 generator_position;
 uniform float deltaTime;
 
+out float vert_lifetime;
+out float vert_iLifetime;
 
 struct Particle
 {
