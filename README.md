@@ -36,11 +36,21 @@ The compiler requirements are listed below. We strongly recommend to always use 
     -   macOS: `clang++` version 4
 
 -   Recommended:
-    -   Windows: Visual Studio 2019 with `Workloads -> Desktop development with C++` checked when installing
+    -   Windows: Visual Studio 2022 with `Workloads -> Desktop development with C++` checked when installing
+        -    When installing Visual Studio 2019 or later, double-check that you selected "Desktop development with C++". This should download and install approximately 8 GB of stuff from the Microsoft servers. If you installed Visual Studio and it only took several minutes, you probably missed this step
     -   Linux: `g++` latest
     -   macOS: `clang++` latest, by doing one of the following:
         -   for LLVM/Clang: install [`brew`](https://brew.sh/) then run `brew install llvm`
         -   for Apple Clang: install XCode
+
+
+### Install an editor
+
+We recommend the following editors:
+
+-    Windows: Visual Studio (***not*** the same thing as Visual Studio Code)
+-    Linux: Visual Studio Code
+-    macOS: Visual Studio Code (***do not*** use Visual Studio for Mac, as it's discontinued)
 
 
 ### Check your graphics capabilities
@@ -48,6 +58,11 @@ The compiler requirements are listed below. We strongly recommend to always use 
 Graphics capabilities are decided by the combination of your computer's hardware, drivers, and operating system.
 
 This project requires OpenGL version ***3.3 core profile, or newer*** for the simpler parts, and version ***4.3 core profile, or newer***  for the more advanced parts. If you have a computer manufactured within the last few years, you should be safe. ***If you're not sure,*** follow the steps in [this guide](docs/user/checking_capabilities.md) to find out.
+
+***Note:*** When you run this project, if the app window is white, there may be an issue with your drivers. You must install and/or update the drivers for your integrated graphics processor (e.g. Intel Graphics XXXX) and the drivers for your video card, for example:
+
+-    for Nvidia: https://www.nvidia.com/Download/index.aspx
+-    for AMD: https://www.amd.com/en/support
 
 
 ### Install the third-party libraries
@@ -109,6 +124,8 @@ Do not run CMake directly from the top-level folder (meaning, do not do this: `c
         -   or just `make`
 
 That's it! :tada:
+
+***Note:*** When running the CMake generation step on Windows (meaning, `cmake ..`), you may receive errors that include the phrase `Permission denied`. If you currently have the framework on the `C:` drive, for example on the Desktop, you might not have write permissions. Experimentally, we've found that this happens on single-drive devices (meaning, for example, computers with no disk partition other than `C:`). As an alternative, move the framework on the top-level (directly in `C:`) or create another drive partition (for example `D:`) and move it there.
 
 
 ### Rebuilding
