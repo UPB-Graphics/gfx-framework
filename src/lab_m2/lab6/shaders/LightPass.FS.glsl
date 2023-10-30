@@ -32,19 +32,18 @@ vec3 PhongLight(vec3 w_pos, vec3 w_N)
 
     float att = pow(light_radius - dist, 2);
 
-    //TODO(student): Compute using Phong lighting the color to be added to the light accumulation.
-    // Use the following values:
-    //      att - light attenuation
-    //      eye_position - position of camera in world space
-    //      w_pos - position of fragment in world space
-    //      w_N - normal of fragment in world space
-    //      L - vector from w_pos to light_position
-    //      LD - constant specular factor (defined above)
-    //      LS - constant specular factor (defined above)
-    //      SHININESS - material shininess (defined above)
-    //      light_color - the color of the light source
+    float dot_specular = dot(w_N, L);
+    vec3 specular = vec3(0);
+    if (dot_specular > 0)
+    {
+        vec3 V = normalize(eye_position - w_pos);
+        vec3 H = normalize(L + V);
+        specular = LS * pow(max(dot(w_N, H), 0), SHININESS);
+    }
 
-    return vec3(0.3 * light_color);
+    vec3 diffuse = LD * max(dot_specular, 0);
+
+    return att * (diffuse + specular) * light_color;
 }
 
 
