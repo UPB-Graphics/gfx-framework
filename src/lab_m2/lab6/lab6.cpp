@@ -83,7 +83,10 @@ void Lab6::Init()
     lightBuffer->Generate(resolution.x, resolution.y, 1, false);
     //lightBuffer contains 1 texture (light accumulation)
 
-    // TODO(student): Add at least 40 lights into the scene.
+    // TODO(student): Add at least 40 light sources into the scene.
+    // Each light source is placed at random, has a random color and a random radius.
+    // The chosen position is between (-10, 0, -10) and (10, 3, 10)
+    // The chosen radius is between 1 and 4.
     // All the light sources are stored in the lights vector.
     // Read LightInfo structure in lab6.h for information.
     // You can use the Rand01 function defined above.
@@ -99,7 +102,8 @@ void Lab6::Update(float deltaTimeSeconds)
 {
     ClearScreen();
 
-    //TODO(student): Move the light sources around the scene.
+    // TODO(student): Move the light sources in an orbit around the center of the scene.
+    // Change only the x and z position of each light source.
 
     // ------------------------------------------------------------------------
     // Deferred rendering pass
@@ -161,21 +165,9 @@ void Lab6::Update(float deltaTimeSeconds)
         int loc_resolution = shader->GetUniformLocation("resolution");
         glUniform2i(loc_resolution, resolution.x, resolution.y);
 
-        // TODO(student): This section controls face culling for the light
-        // areas of the spheres. Change the code so that you can switch
-        // programatically between no culling, front culling and back culling.
-        // This will allow you to observe the differences much more easily.
-        //
-        // When GL_BACK is culled, the light area of a sphere will disappear
-        // if the camera enters that light sphere. This happens because the
-        // inside of the sphere is not rendered.
-        //
-        // When GL_FRONT is culled, the light area will always be visible.
-        // This is the desired effect.
-        //
-        // If no culling is active (meaning that both GL_FRONT and GL_BACK
-        // faces are rendered), then the light area will double the intensity
-        // for each pixel.
+        //Front face culling
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
 
         //TODO(student): For each light source draw the mesh "sphere".
         //  Draw the mesh at the position of the light source and scaled 2 times the light source radius.
@@ -276,13 +268,10 @@ void Lab6::OnKeyPress(int key, int mods)
     // What does each key seem to activate? Where can you find the
     // answer? Examine the source code to find out!
     int index = key - GLFW_KEY_0;
-    if (index >= 0 && index <= 9) {
+    if (index >= 0 && index <= 9)
+    {
         outputType = index;
     }
-
-    // TODO(student): Add key mappings for face culling. For example:
-    // Z: No culling, X: front culling, C: back culling, V: front and back culling
-    // Change the cullType variable
 }
 
 
