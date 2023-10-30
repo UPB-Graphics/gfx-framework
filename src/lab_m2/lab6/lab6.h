@@ -46,9 +46,5 @@ namespace m2
         FrameBuffer *lightBuffer;
         std::vector<LightInfo> lights;
         int outputType;
-
-        enum class CullType {NO_CULLING, FRONT_CULLING, BACK_CULLING, FRONT_AND_BACK_CULLING};
-
-        CullType cullType;
     };
 }   // namespace m2
