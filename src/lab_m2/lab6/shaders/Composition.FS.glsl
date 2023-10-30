@@ -72,7 +72,8 @@ void main()
         break;
 
     case 6:
-        out_color = vec4(light_accumulation() * color(), 1);
+        // TODO(student): Use the light accumulation texture and the color texture to compute final pixel color.
+        out_color = vec4(color(), 1);
         break;
 
     default:
