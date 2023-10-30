@@ -7,8 +7,11 @@ using namespace std;
 using namespace m2;
 
 
-#define rand01 (rand() / static_cast<float>(RAND_MAX))
-
+//Generates a random value between 0 and 1.
+inline float Rand01()
+{
+    return rand() / static_cast<float>(RAND_MAX);
+}
 
 /*
  *  To find out more about `FrameStart`, `Update`, `FrameEnd`
@@ -18,6 +21,7 @@ using namespace m2;
 
 Lab6::Lab6()
 {
+    cullType = CullType::FRONT_CULLING;
 }
 
 
@@ -73,22 +77,16 @@ void Lab6::Init()
 
     frameBuffer = new FrameBuffer();
     frameBuffer->Generate(resolution.x, resolution.y, 3);
+    //frameBuffer contains 3 textures (position, normal and color)
 
     lightBuffer = new FrameBuffer();
-    lightBuffer->Generate(resolution.x, resolution.y, 1);
+    lightBuffer->Generate(resolution.x, resolution.y, 1, false);
+    //lightBuffer contains 1 texture (light accumulation)
 
-    int gridSize = 3;
-    for (int i = -gridSize; i < gridSize; i++)
-    {
-        for (int j = -gridSize; j < gridSize; j++)
-        {
-            LightInfo L;
-            L.color = glm::vec3(rand01, rand01, rand01);
-            L.position = glm::vec3(i, rand01, j) * glm::vec3(3, 2, 3) + glm::vec3(0, 0.5, 0);
-            L.radius = rand01 + 3;
-            lights.push_back(L);
-        }
-    }
+    // TODO(student): Add at least 40 lights into the scene.
+    // All the light sources are stored in the lights vector.
+    // Read LightInfo structure in lab6.h for information.
+    // You can use the Rand01 function defined above.
 }
 
 
@@ -100,6 +98,8 @@ void Lab6::FrameStart()
 void Lab6::Update(float deltaTimeSeconds)
 {
     ClearScreen();
+
+    //TODO(student): Move the light sources around the scene.
 
     // ------------------------------------------------------------------------
     // Deferred rendering pass
@@ -116,22 +116,27 @@ void Lab6::Update(float deltaTimeSeconds)
         RenderMesh(meshes["box"], shader, glm::vec3(-2, 1.5f, 0));
         RenderMesh(meshes["sphere"], shader, glm::vec3(-4, 1, 1));
 
-        TextureManager::GetTexture("ground.jpg")->BindToTextureUnit(GL_TEXTURE0);
-        RenderMesh(meshes["plane"], shader, glm::vec3(0, 0, 0), glm::vec3(0.5f));
-
         // Render a simple point light bulb for each light (for debugging purposes)
+        TextureManager::GetTexture("default.png")->BindToTextureUnit(GL_TEXTURE0);
         for (auto &l : lights)
         {
             auto model = glm::translate(glm::mat4(1), l.position);
             model = glm::scale(model, glm::vec3(0.2f));
             RenderMesh(meshes["sphere"], shader, model);
         }
+
+        TextureManager::GetTexture("ground.jpg")->BindToTextureUnit(GL_TEXTURE0);
+        RenderMesh(meshes["plane"], shader, glm::vec3(0, 0, 0), glm::vec3(0.5f));
     }
 
     // ------------------------------------------------------------------------
     // Lighting pass
     {
+        glm::vec3 ambientLight(0.2f);
+        //Set the initial light accumulation in each pixel to be equal to the ambient light.
+        lightBuffer->SetClearColor(glm::vec4(ambientLight.x, ambientLight.y, ambientLight.z, 1.0f));
         lightBuffer->Bind();
+        glClearColor(0, 0, 0, 1);
 
         // Enable buffer color accumulation
         glDepthMask(GL_FALSE);
@@ -142,17 +147,10 @@ void Lab6::Update(float deltaTimeSeconds)
         auto shader = shaders["LightPass"];
         shader->Use();
 
-        {
-            int texturePositionsLoc = shader->GetUniformLocation("texture_position");
-            glUniform1i(texturePositionsLoc, 0);
-            frameBuffer->BindTexture(0, GL_TEXTURE0);
-        }
 
-        {
-            int textureNormalsLoc = shader->GetUniformLocation("texture_normal");
-            glUniform1i(textureNormalsLoc, 1);
-            frameBuffer->BindTexture(1, GL_TEXTURE0 + 1);
-        }
+        //TODO(student): Bind the following textures:
+        //  at location 0 - the position texture from framebuffer
+        //  at location 1 - the normal texture from framebuffer
 
         auto camera = GetSceneCamera();
         glm::vec3 cameraPos = camera->m_transform->GetWorldPosition();
@@ -178,18 +176,10 @@ void Lab6::Update(float deltaTimeSeconds)
         // If no culling is active (meaning that both GL_FRONT and GL_BACK
         // faces are rendered), then the light area will double the intensity
         // for each pixel.
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
 
-        for (auto &l : lights)
-        {
-            auto model = glm::translate(glm::mat4(1), l.position);
-            model = glm::scale(model, glm::vec3(2 * l.radius));
-            glUniform1f(shader->loc_light_radius, l.radius);
-            glUniform3fv(shader->loc_light_color, 1, glm::value_ptr(l.color));
-            glUniform3fv(shader->loc_light_pos, 1, glm::value_ptr(l.position));
-            RenderMesh(meshes["sphere"], shader, model);
-        }
+        //TODO(student): For each light source draw the mesh "sphere".
+        //  Draw the mesh at the position of the light source and scaled 2 times the light source radius.
+        //  Set the shader uniforms light_position, light_color and light_radius with the values from the light source.
 
         glDisable(GL_CULL_FACE);
 
@@ -291,8 +281,8 @@ void Lab6::OnKeyPress(int key, int mods)
     }
 
     // TODO(student): Add key mappings for face culling. For example:
-    // Z: off, X: front, C: back, V: both
-
+    // Z: No culling, X: front culling, C: back culling, V: front and back culling
+    // Change the cullType variable
 }
 
 

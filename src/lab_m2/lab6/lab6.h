@@ -14,7 +14,6 @@ namespace m2
     {
         glm::vec3 position;
         glm::vec3 color;
-        glm::mat4 lightArea;
         float radius;
     };
 
@@ -48,7 +47,8 @@ namespace m2
         std::vector<LightInfo> lights;
         int outputType;
 
-        // TODO(student): Declare any class members you might need.
+        enum class CullType {NO_CULLING, FRONT_CULLING, BACK_CULLING, FRONT_AND_BACK_CULLING};
 
+        CullType cullType;
     };
 }   // namespace m2
