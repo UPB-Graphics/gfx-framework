@@ -21,7 +21,6 @@ inline float Rand01()
 
 Lab6::Lab6()
 {
-    cullType = CullType::FRONT_CULLING;
 }
 
 
