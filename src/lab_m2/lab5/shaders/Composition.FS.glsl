@@ -8,7 +8,7 @@ uniform sampler2D texture_position;
 uniform sampler2D texture_normal;
 uniform sampler2D texture_color;
 uniform sampler2D texture_depth;
-uniform sampler2D texture_light_accumulation;
+uniform sampler2D texture_light;
 
 uniform int output_type;
 
@@ -43,7 +43,7 @@ vec3 world_position()
 
 vec3 light_accumulation()
 {
-    return texture(texture_light_accumulation, texture_coord).xyz + vec3(0.2,0.2,0.2);
+    return texture(texture_light, texture_coord).xyz;
 }
 
 
@@ -72,7 +72,8 @@ void main()
         break;
 
     case 6:
-        vec4(light_accumulation() * color(), 1);
+        // TODO(student): Multiply the light accumulation sample and the color sample to compute final pixel color.
+        out_color = vec4(color(), 1);
         break;
 
     default:
