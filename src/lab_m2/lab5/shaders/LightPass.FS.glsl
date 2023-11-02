@@ -18,7 +18,9 @@ const vec3 LD = vec3 (0.3);             // diffuse factor
 const vec3 LS = vec3 (0.3);             // specular factor
 const float SHININESS = 40.0;   // specular exponent
 
-
+// Computes the output color using Phong lighting model.
+// w_pos - world space position of the light source.
+// w_N   - world space normal vector of the light source.
 vec3 PhongLight(vec3 w_pos, vec3 w_N)
 {
     vec3 L = normalize(light_position - w_pos);
@@ -50,8 +52,18 @@ vec3 PhongLight(vec3 w_pos, vec3 w_N)
 void main()
 {
     vec2 tex_coord = gl_FragCoord.xy / resolution;
-    vec3 wPos = texture(texture_position, tex_coord).xyz;
-    vec3 wNorm = texture(texture_normal, tex_coord).xyz;
-    out_color.rgb = PhongLight(wPos, wNorm);
+
+    // TODO(student): Sample the texture 'texture_position' at tex_coord to obtain
+    // the world space position of the light source.
+    vec3 wPos = vec3(0.0);
+
+    // TODO(student): Sample the texture 'texture_normal' at tex_coord to obtain
+    // the world space normal vector of the light source.
+    vec3 wNorm = vec3(0.0);
+
+    // TODO(student): Compute out_color.rgb using 'PhongLight' method with the world space position 
+    // and the world space normal vector of the light source.
+    out_color.rgb = vec3(0.2);
+
     out_color.a = 1.0; 
 }

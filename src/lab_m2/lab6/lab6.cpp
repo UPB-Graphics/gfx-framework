@@ -3,15 +3,11 @@
 #include <vector>
 #include <iostream>
 
+#include "stb/stb_image.h"
+
 using namespace std;
 using namespace m2;
 
-
-//Generates a random value between 0 and 1.
-inline float Rand01()
-{
-    return rand() / static_cast<float>(RAND_MAX);
-}
 
 /*
  *  To find out more about `FrameStart`, `Update`, `FrameEnd`
@@ -31,64 +27,52 @@ Lab6::~Lab6()
 
 void Lab6::Init()
 {
-    outputType = 0;
-
     auto camera = GetSceneCamera();
-    camera->SetPositionAndRotation(glm::vec3(0, 2, 3.5), glm::quat(glm::vec3(-20 * TO_RADIANS, 0, 0)));
+    camera->SetPositionAndRotation(glm::vec3(0, 2, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
     camera->Update();
 
-    TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES), "ground.jpg");
+    std::string texturePath = PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube");
+    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab6", "shaders");
 
-    // Load a mesh from file into GPU memory
     {
-        Mesh* mesh = new Mesh("box");
+        Mesh* mesh = new Mesh("bunny");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
+        mesh->UseMaterials(false);
+        meshes[mesh->GetMeshID()] = mesh;
+    }
+
+    {
+        Mesh* mesh = new Mesh("cube");
         mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
-        meshes[mesh->GetMeshID()] = mesh;
-    }
-
-    {
-        Mesh* mesh = new Mesh("plane");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "plane50.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
-    // Load a mesh from file into GPU memory
+    // Create a shader program for rendering to texture
     {
-        Mesh* mesh = new Mesh("sphere");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
-        mesh->UseMaterials(false);
-        meshes[mesh->GetMeshID()] = mesh;
+        Shader *shader = new Shader("CubeMap");
+        shader->AddShader(PATH_JOIN(shaderPath, "CubeMap.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "CubeMap.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
     }
 
+    // Create a shader program for rendering to texture
     {
-        Mesh* mesh = new Mesh("quad");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
-        mesh->UseMaterials(false);
-        meshes[mesh->GetMeshID()] = mesh;
+        Shader *shader = new Shader("ShaderNormal");
+        shader->AddShader(PATH_JOIN(shaderPath, "Normal.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "Normal.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
     }
 
-    LoadShader("Render2Texture");
-    LoadShader("Composition");
-    LoadShader("LightPass");
-
-    auto resolution = window->GetResolution();
-
-    frameBuffer = new FrameBuffer();
-    frameBuffer->Generate(resolution.x, resolution.y, 3);
-    //frameBuffer contains 3 textures (position, normal and color)
-
-    lightBuffer = new FrameBuffer();
-    lightBuffer->Generate(resolution.x, resolution.y, 1, false);
-    //lightBuffer contains 1 texture (light accumulation)
-
-    // TODO(student): Add at least 40 light sources into the scene.
-    // Each light source is placed at random, has a random color and a random radius.
-    // The chosen position is between (-10, 0, -10) and (10, 3, 10)
-    // The chosen radius is between 1 and 4.
-    // All the light sources are stored in the lights vector.
-    // Read LightInfo structure in lab6.h for information.
-    // You can use the Rand01 function defined above.
+    cubeMapTextureID = UploadCubeMapTexture(
+        PATH_JOIN(texturePath, "pos_x.png"),
+        PATH_JOIN(texturePath, "pos_y.png"),
+        PATH_JOIN(texturePath, "pos_z.png"),
+        PATH_JOIN(texturePath, "neg_x.png"),
+        PATH_JOIN(texturePath, "neg_y.png"),
+        PATH_JOIN(texturePath, "neg_z.png"));
 }
 
 
@@ -101,126 +85,52 @@ void Lab6::Update(float deltaTimeSeconds)
 {
     ClearScreen();
 
-    // TODO(student): Move the light sources in an orbit around the center of the scene.
-    // Change only the x and z position of each light source.
+    auto camera = GetSceneCamera();
 
-    // ------------------------------------------------------------------------
-    // Deferred rendering pass
+    // Clear the screen
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Draw the cubemap
     {
-        frameBuffer->Bind();
-
-        auto shader = shaders["Render2Texture"];
-
-        TextureManager::GetTexture("default.png")->BindToTextureUnit(GL_TEXTURE0);
-
-        // Render scene objects
-        RenderMesh(meshes["box"], shader, glm::vec3(1.5, 0.5f, 0), glm::vec3(0.5f));
-        RenderMesh(meshes["box"], shader, glm::vec3(0, 1.05f, 0), glm::vec3(2));
-        RenderMesh(meshes["box"], shader, glm::vec3(-2, 1.5f, 0));
-        RenderMesh(meshes["sphere"], shader, glm::vec3(-4, 1, 1));
-
-        // Render a simple point light bulb for each light (for debugging purposes)
-        TextureManager::GetTexture("default.png")->BindToTextureUnit(GL_TEXTURE0);
-        for (auto &l : lights)
-        {
-            auto model = glm::translate(glm::mat4(1), l.position);
-            model = glm::scale(model, glm::vec3(0.2f));
-            RenderMesh(meshes["sphere"], shader, model);
-        }
-
-        TextureManager::GetTexture("ground.jpg")->BindToTextureUnit(GL_TEXTURE0);
-        RenderMesh(meshes["plane"], shader, glm::vec3(0, 0, 0), glm::vec3(0.5f));
-    }
-
-    // ------------------------------------------------------------------------
-    // Lighting pass
-    {
-        glm::vec3 ambientLight(0.2f);
-        //Set the initial light accumulation in each pixel to be equal to the ambient light.
-        lightBuffer->SetClearColor(glm::vec4(ambientLight.x, ambientLight.y, ambientLight.z, 1.0f));
-        lightBuffer->Bind();
-        glClearColor(0, 0, 0, 1);
-
-        // Enable buffer color accumulation
-        glDepthMask(GL_FALSE);
-        glEnable(GL_BLEND);
-        glBlendEquation(GL_FUNC_ADD);
-        glBlendFunc(GL_ONE, GL_ONE);
-
-        auto shader = shaders["LightPass"];
+        Shader *shader = shaders["ShaderNormal"];
         shader->Use();
 
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(30));
 
-        //TODO(student): Bind the following textures:
-        //  at location 0 - the position texture from framebuffer
-        //  at location 1 - the normal texture from framebuffer
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 
-        auto camera = GetSceneCamera();
-        glm::vec3 cameraPos = camera->m_transform->GetWorldPosition();
-        int loc_eyePosition = shader->GetUniformLocation("eye_position");
-        glUniform3fv(loc_eyePosition, 1, glm::value_ptr(cameraPos));
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
+        int loc_texture = shader->GetUniformLocation("texture_cubemap");
+        glUniform1i(loc_texture, 0);
 
-        auto resolution = window->GetResolution();
-        int loc_resolution = shader->GetUniformLocation("resolution");
-        glUniform2i(loc_resolution, resolution.x, resolution.y);
-
-        //Front face culling
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-
-        //TODO(student): For each light source draw the mesh "sphere".
-        //  Draw the mesh at the position of the light source and scaled 2 times the light source radius.
-        //  Set the shader uniforms light_position, light_color and light_radius with the values from the light source.
-
-        glDisable(GL_CULL_FACE);
-
-        glDepthMask(GL_TRUE);
-        glDisable(GL_BLEND);
+        meshes["cube"]->Render();
     }
 
-    // ------------------------------------------------------------------------
-    // Composition pass
+    // Draw the reflection on the mesh
     {
-        FrameBuffer::BindDefault();
-
-        auto shader = shaders["Composition"];
+        Shader *shader = shaders["CubeMap"];
         shader->Use();
 
-        int outputTypeLoc = shader->GetUniformLocation("output_type");
-        glUniform1i(outputTypeLoc, outputType);
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(0.1f));
 
-        {
-            int texturePositionsLoc = shader->GetUniformLocation("texture_position");
-            glUniform1i(texturePositionsLoc, 1);
-            frameBuffer->BindTexture(0, GL_TEXTURE0 + 1);
-        }
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 
-        {
-            int textureNormalsLoc = shader->GetUniformLocation("texture_normal");
-            glUniform1i(textureNormalsLoc, 2);
-            frameBuffer->BindTexture(1, GL_TEXTURE0 + 2);
-        }
+        auto cameraPosition = camera->m_transform->GetWorldPosition();
 
-        {
-            int textureColorLoc = shader->GetUniformLocation("texture_color");
-            glUniform1i(textureColorLoc, 3);
-            frameBuffer->BindTexture(2, GL_TEXTURE0 + 3);
-        }
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
+        int loc_texture = shader->GetUniformLocation("texture_cubemap");
+        glUniform1i(loc_texture, 0);
 
-        {
-            int textureDepthLoc = shader->GetUniformLocation("texture_depth");
-            glUniform1i(textureDepthLoc, 4);
-            frameBuffer->BindDepthTexture(GL_TEXTURE0 + 4);
-        }
+        int loc_camera = shader->GetUniformLocation("camera_position");
+        glUniform3f(loc_camera, cameraPosition.x, cameraPosition.y, cameraPosition.z);
 
-        {
-            int textureLightLoc = shader->GetUniformLocation("texture_light");
-            glUniform1i(textureLightLoc, 5);
-            lightBuffer->BindTexture(0, GL_TEXTURE0 + 5);
-        }
-
-        // Render the object again but with different properties
-        RenderMesh(meshes["quad"], shader, glm::vec3(0, 0, 0));
+        meshes["bunny"]->Render();
     }
 }
 
@@ -231,19 +141,56 @@ void Lab6::FrameEnd()
 }
 
 
-void Lab6::LoadShader(const std::string &name)
+unsigned int Lab6::UploadCubeMapTexture(const std::string &pos_x, const std::string &pos_y, const std::string &pos_z, const std::string& neg_x, const std::string& neg_y, const std::string& neg_z)
 {
-    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab6", "shaders");
+    int width, height, chn;
 
-    // Create a shader program for particle system
-    {
-        Shader *shader = new Shader(name);
-        shader->AddShader(PATH_JOIN(shaderPath, name + ".VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(shaderPath, name + ".FS.glsl"), GL_FRAGMENT_SHADER);
+    unsigned char* data_pos_x = stbi_load(pos_x.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_pos_y = stbi_load(pos_y.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_pos_z = stbi_load(pos_z.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_x = stbi_load(neg_x.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_y = stbi_load(neg_y.c_str(), &width, &height, &chn, 0);
+    unsigned char* data_neg_z = stbi_load(neg_z.c_str(), &width, &height, &chn, 0);
 
-        shader->CreateAndLink();
-        shaders[shader->GetName()] = shader;
+    unsigned int textureID = 0;
+    // TODO(student): Create the texture
+
+    // TODO(student): Bind the texture
+
+    glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    if (GLEW_EXT_texture_filter_anisotropic) {
+        float maxAnisotropy;
+
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
     }
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // TODO(student): Load texture information for each face
+
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    if (GetOpenGLError() == GL_INVALID_OPERATION)
+    {
+        cout << "\t[NOTE] : For students : DON'T PANIC! This error should go away when completing the tasks." << std::endl;
+    }
+
+    // Free memory
+    SAFE_FREE(data_pos_x);
+    SAFE_FREE(data_pos_y);
+    SAFE_FREE(data_pos_z);
+    SAFE_FREE(data_neg_x);
+    SAFE_FREE(data_neg_y);
+    SAFE_FREE(data_neg_z);
+
+    return textureID;
 }
 
 
@@ -262,15 +209,6 @@ void Lab6::OnInputUpdate(float deltaTime, int mods)
 void Lab6::OnKeyPress(int key, int mods)
 {
     // Add key press event
-
-    // These are the key mappings for compositing different passes.
-    // What does each key seem to activate? Where can you find the
-    // answer? Examine the source code to find out!
-    int index = key - GLFW_KEY_0;
-    if (index >= 0 && index <= 9)
-    {
-        outputType = index;
-    }
 }
 
 
@@ -307,6 +245,4 @@ void Lab6::OnMouseScroll(int mouseX, int mouseY, int offsetX, int offsetY)
 void Lab6::OnWindowResize(int width, int height)
 {
     // Treat window resize event
-    frameBuffer->Resize(width, height, 32);
-    lightBuffer->Resize(width, height, 32);
 }
