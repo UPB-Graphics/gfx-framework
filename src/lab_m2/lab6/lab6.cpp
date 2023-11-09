@@ -27,8 +27,11 @@ Lab6::~Lab6()
 
 void Lab6::Init()
 {
+    angle = 2.0f;
+    type = 0;
+
     auto camera = GetSceneCamera();
-    camera->SetPositionAndRotation(glm::vec3(0, 2, 4), glm::quat(glm::vec3(-30 * TO_RADIANS, 0, 0)));
+    camera->SetPositionAndRotation(glm::vec3(0, -1, 4), glm::quat(glm::vec3(RADIANS(10), 0, 0)));
     camera->Update();
 
     std::string texturePath = PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube");
@@ -48,7 +51,7 @@ void Lab6::Init()
         meshes[mesh->GetMeshID()] = mesh;
     }
 
-    // Create a shader program for rendering to texture
+    // Create a shader program for rendering cubemap texture
     {
         Shader *shader = new Shader("CubeMap");
         shader->AddShader(PATH_JOIN(shaderPath, "CubeMap.VS.glsl"), GL_VERTEX_SHADER);
@@ -57,11 +60,21 @@ void Lab6::Init()
         shaders[shader->GetName()] = shader;
     }
 
-    // Create a shader program for rendering to texture
+    // Create a shader program for standard rendering
     {
         Shader *shader = new Shader("ShaderNormal");
         shader->AddShader(PATH_JOIN(shaderPath, "Normal.VS.glsl"), GL_VERTEX_SHADER);
         shader->AddShader(PATH_JOIN(shaderPath, "Normal.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->CreateAndLink();
+        shaders[shader->GetName()] = shader;
+    }
+
+    // Create a shader program for creating a CUBEMAP
+    {
+        Shader *shader = new Shader("Framebuffer");
+        shader->AddShader(PATH_JOIN(shaderPath, "Framebuffer.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "Framebuffer.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(shaderPath, "Framebuffer.GS.glsl"), GL_GEOMETRY_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }
@@ -73,6 +86,10 @@ void Lab6::Init()
         PATH_JOIN(texturePath, "neg_x.png"),
         PATH_JOIN(texturePath, "neg_y.png"),
         PATH_JOIN(texturePath, "neg_z.png"));
+
+    // Create the framebuffer on which the scene is rendered from the perspective of the mesh
+    // Texture size must be cubic
+     CreateFramebuffer(1024, 1024);
 }
 
 
@@ -109,12 +126,73 @@ void Lab6::Update(float deltaTimeSeconds)
         meshes["cube"]->Render();
     }
 
+
+    // Draw a cube around the mesh
+    {
+        Shader *shader = shaders["ShaderNormal"];
+        shader->Use();
+
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(1));
+        modelMatrix = glm::rotate(modelMatrix,  angle, glm::vec3(0,1,0));
+        angle+=0.01f;
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(3,0,0));
+
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+        meshes["cube"]->Render();
+    }
+
+
+    // Draw the scene in Framebuffer
+    {
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_object);
+        // Set the clear color for the color buffer
+        glClearColor(0,0,0, 1);
+        // Clears the color buffer (using the previously set color) and depth buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        Shader *shader = shaders["Framebuffer"];
+        shader->Use();
+
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(1));
+        modelMatrix = glm::rotate(modelMatrix, angle, glm::vec3(0,1,0));
+        angle+=0.01f;
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(3,0,0));
+
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+
+        glm::mat4 cubeView[6] =
+        { 
+            glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3( 1.0f, 0.0f, 0.0f), glm::vec3(0.0f,-1.0f, 0.0f)), // +X
+            glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f,-1.0f, 0.0f)), // -X
+            glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3( 0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)), // +Y
+            glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3( 0.0f,-1.0f, 0.0f), glm::vec3(0.0f, 0.0f,-1.0f)), // -Y
+            glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3( 0.0f, 0.0f, 1.0f), glm::vec3(0.0f,-1.0f, 0.0f)), // +Z
+            glm::lookAt(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3( 0.0f, 0.0f,-1.0f), glm::vec3(0.0f,-1.0f, 0.0f)), // -Z
+        };
+
+        glUniformMatrix4fv(glGetUniformLocation(shader->GetProgramID(), "viewMatrices"), 6, GL_FALSE, glm::value_ptr(cubeView[0]));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+ 
+        meshes["cube"]->Render();
+
+        //reset drawing to screen
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+
     // Draw the reflection on the mesh
     {
+      
+
         Shader *shader = shaders["CubeMap"];
         shader->Use();
 
-        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(0.1f));
+        // glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(0.1f));
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(2.0f));
 
         glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
         glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
@@ -127,17 +205,28 @@ void Lab6::Update(float deltaTimeSeconds)
         int loc_texture = shader->GetUniformLocation("texture_cubemap");
         glUniform1i(loc_texture, 0);
 
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, color_texture);
+        int loc_texture2 = shader->GetUniformLocation("texture_cubemap_dynamic");
+        glUniform1i(loc_texture2, 1);
+        
+
         int loc_camera = shader->GetUniformLocation("camera_position");
         glUniform3f(loc_camera, cameraPosition.x, cameraPosition.y, cameraPosition.z);
+        
+        glUniform1i(shader->GetUniformLocation("type"), type);
 
-        meshes["bunny"]->Render();
+        meshes["cube"]->Render();
+
+        
     }
 }
 
 
 void Lab6::FrameEnd()
 {
-    DrawCoordinateSystem();
+    // DrawCoordinateSystem();
 }
 
 
@@ -193,6 +282,52 @@ unsigned int Lab6::UploadCubeMapTexture(const std::string &pos_x, const std::str
     return textureID;
 }
 
+void Lab6::CreateFramebuffer(int width, int height)
+{
+    // TODO(student): In this method, use the attributes
+    // 'framebuffer_object', 'color_texture'
+    // declared in lab6.h
+
+    // TODO(student): Generate and bind the framebuffer
+
+
+    // TODO(student): Generate, bind and initialize the color texture
+    
+
+    // TODO(student): Initialize the color textures
+
+
+
+    //cubemap params
+    glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    if (GLEW_EXT_texture_filter_anisotropic) {
+        float maxAnisotropy;
+
+        glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
+    }
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // Bind the color textures to the framebuffer as a color attachments
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, color_texture, 0);
+
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+
+    std::vector<GLenum> draw_textures;
+    draw_textures.push_back(GL_COLOR_ATTACHMENT0);
+    glDrawBuffers(draw_textures.size(), &draw_textures[0]); 
+
+    glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 
 /*
  *  These are callback functions. To find more about callbacks and
@@ -209,6 +344,15 @@ void Lab6::OnInputUpdate(float deltaTime, int mods)
 void Lab6::OnKeyPress(int key, int mods)
 {
     // Add key press event
+    if (key == GLFW_KEY_1)
+    {
+        type=1;
+    }
+
+    if (key == GLFW_KEY_2)
+    {
+        type=0;
+    }
 }
 
 
