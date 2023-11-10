@@ -38,6 +38,7 @@ namespace m2
         float angle;
         unsigned int framebuffer_object;
         unsigned int color_texture;
+        unsigned int depth_texture;
         unsigned int type;
     };
 }   // namespace m2
