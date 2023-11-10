@@ -17,6 +17,7 @@ namespace m2
         void Init() override;
 
      private:
+        void CreateFramebuffer(int width, int height);
         void FrameStart() override;
         void Update(float deltaTimeSeconds) override;
         void FrameEnd() override;
@@ -34,5 +35,9 @@ namespace m2
 
      private:
         int cubeMapTextureID;
+        float angle;
+        unsigned int framebuffer_object;
+        unsigned int color_texture;
+        unsigned int type;
     };
 }   // namespace m2
