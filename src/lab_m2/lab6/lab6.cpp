@@ -19,6 +19,7 @@ Lab6::Lab6()
 {
     framebuffer_object = 0;
     color_texture = 0;
+    depth_texture = 0;
 
     angle = 0;
 
@@ -340,7 +341,7 @@ void Lab6::CreateFramebuffer(int width, int height)
     // TODO(student): Generate and bind the framebuffer
 
 
-    // TODO(student): Generate, bind and initialize the color texture
+    // TODO(student): Generate and bind the color texture
 
 
     // TODO(student): Initialize the color textures
@@ -374,8 +375,19 @@ void Lab6::CreateFramebuffer(int width, int height)
         draw_textures.push_back(GL_COLOR_ATTACHMENT0);
         glDrawBuffers(draw_textures.size(), &draw_textures[0]);
 
-        glCheckFramebufferStatus(GL_FRAMEBUFFER);
     }
+
+    // TODO(student): Generate and bind the depth texture
+
+
+    // TODO(student): Initialize the depth textures
+
+
+    if (depth_texture) {
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depth_texture, 0);
+    }
+
+    glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
