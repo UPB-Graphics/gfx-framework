@@ -5,9 +5,7 @@ layout(location = 0) in vec3 world_position;
 layout(location = 1) in vec3 world_normal;
 
 // Uniform properties
-uniform sampler2D texture_1;
 uniform samplerCube texture_cubemap;
-uniform samplerCube texture_cubemap_dynamic;
 uniform int type;
 
 uniform vec3 camera_position;

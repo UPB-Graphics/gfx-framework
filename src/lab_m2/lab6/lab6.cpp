@@ -41,6 +41,13 @@ void Lab6::Init()
     std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab6", "shaders");
 
     {
+        Mesh* mesh = new Mesh("bunny");
+        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
+        mesh->UseMaterials(false);
+        meshes[mesh->GetMeshID()] = mesh;
+    }
+
+    {
         Mesh* mesh = new Mesh("cube");
         mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         mesh->UseMaterials(false);
@@ -105,56 +112,9 @@ void Lab6::FrameStart()
 
 void Lab6::Update(float deltaTimeSeconds)
 {
-    ClearScreen();
-
-    auto camera = GetSceneCamera();
-
-    // Clear the screen
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Draw the cubemap
-    {
-        Shader *shader = shaders["ShaderNormal"];
-        shader->Use();
-
-        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(30));
-
-        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
-        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
-        int loc_texture = shader->GetUniformLocation("texture_cubemap");
-        glUniform1i(loc_texture, 0);
-
-        meshes["cube"]->Render();
-    }
-
     angle += 0.5f * deltaTimeSeconds;
 
-    // Draw five archers around the mesh
-    for (int i = 0; i < 5; i++)
-    {
-        Shader *shader = shaders["Simple"];
-        shader->Use();
-
-        glm::mat4 modelMatrix = glm::mat4(1);
-        modelMatrix *= glm::rotate(glm::mat4(1), angle + i * glm::radians(360.0f) / 5, glm::vec3(0, 1, 0));
-        modelMatrix *= glm::translate(glm::mat4(1), glm::vec3(3, -1, 0));
-        modelMatrix *= glm::rotate(glm::mat4(1), glm::radians(-90.0f), glm::vec3(0, 1, 0));
-        modelMatrix *= glm::scale(glm::mat4(1), glm::vec3(0.01f));
-
-        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
-        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("Akai_E_Espiritu.fbm\\akai_diffuse.png")->GetTextureID());
-        glUniform1i(glGetUniformLocation(shader->program, "texture_1"), 0);
-
-        meshes["archer"]->Render();
-    }
+    auto camera = GetSceneCamera();
 
     // Draw the scene in Framebuffer
     if (framebuffer_object)
@@ -165,8 +125,26 @@ void Lab6::Update(float deltaTimeSeconds)
         // Clears the color buffer (using the previously set color) and depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        glViewport(0, 0, 1024, 1024);
+
         Shader *shader = shaders["Framebuffer"];
         shader->Use();
+
+        {
+            glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(30));
+
+            glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+            glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+            glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
+            glUniform1i(glGetUniformLocation(shader->program, "texture_cubemap"), 1);
+
+            glUniform1i(glGetUniformLocation(shader->program, "cube_draw"), 1);
+
+            meshes["cube"]->Render();
+        }
 
         for (int i = 0; i < 5; i++)
         {
@@ -196,22 +174,71 @@ void Lab6::Update(float deltaTimeSeconds)
             glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("Akai_E_Espiritu.fbm\\akai_diffuse.png")->GetTextureID());
             glUniform1i(glGetUniformLocation(shader->program, "texture_1"), 0);
 
+            glUniform1i(glGetUniformLocation(shader->program, "cube_draw"), 0);
+
             meshes["archer"]->Render();
         }
+
+        glBindTexture(GL_TEXTURE_CUBE_MAP, color_texture);
+        glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
 
         //reset drawing to screen
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
+    // Clear the screen
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glViewport(0, 0, window->GetResolution().x, window->GetResolution().y);
+
+    // Draw the cubemap
+    {
+        Shader* shader = shaders["ShaderNormal"];
+        shader->Use();
+
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(30));
+
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
+        int loc_texture = shader->GetUniformLocation("texture_cubemap");
+        glUniform1i(loc_texture, 0);
+
+        meshes["cube"]->Render();
+    }
+
+    // Draw five archers around the mesh
+    for (int i = 0; i < 5; i++)
+    {
+        Shader* shader = shaders["Simple"];
+        shader->Use();
+
+        glm::mat4 modelMatrix = glm::mat4(1);
+        modelMatrix *= glm::rotate(glm::mat4(1), angle + i * glm::radians(360.0f) / 5, glm::vec3(0, 1, 0));
+        modelMatrix *= glm::translate(glm::mat4(1), glm::vec3(3, -1, 0));
+        modelMatrix *= glm::rotate(glm::mat4(1), glm::radians(-90.0f), glm::vec3(0, 1, 0));
+        modelMatrix *= glm::scale(glm::mat4(1), glm::vec3(0.01f));
+
+        glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+        glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
+        glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("Akai_E_Espiritu.fbm\\akai_diffuse.png")->GetTextureID());
+        glUniform1i(glGetUniformLocation(shader->program, "texture_1"), 0);
+
+        meshes["archer"]->Render();
+    }
+
     // Draw the reflection on the mesh
     {
-      
-
         Shader *shader = shaders["CubeMap"];
         shader->Use();
 
-        // glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(0.1f));
-        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(2.0f));
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(0.1f));
 
         glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
         glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
@@ -219,15 +246,17 @@ void Lab6::Update(float deltaTimeSeconds)
 
         auto cameraPosition = camera->m_transform->GetWorldPosition();
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
-        int loc_texture = shader->GetUniformLocation("texture_cubemap");
-        glUniform1i(loc_texture, 0);
+        if (!color_texture) {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
+            int loc_texture = shader->GetUniformLocation("texture_cubemap");
+            glUniform1i(loc_texture, 0);
+        }
 
         if (color_texture) {
             glActiveTexture(GL_TEXTURE1);
             glBindTexture(GL_TEXTURE_CUBE_MAP, color_texture);
-            int loc_texture2 = shader->GetUniformLocation("texture_cubemap_dynamic");
+            int loc_texture2 = shader->GetUniformLocation("texture_cubemap");
             glUniform1i(loc_texture2, 1);
         }
         
@@ -237,9 +266,7 @@ void Lab6::Update(float deltaTimeSeconds)
         
         glUniform1i(shader->GetUniformLocation("type"), type);
 
-        meshes["cube"]->Render();
-
-        
+        meshes["bunny"]->Render();
     }
 }
 
@@ -312,9 +339,10 @@ void Lab6::CreateFramebuffer(int width, int height)
 
 
     // TODO(student): Generate, bind and initialize the color texture
-    
+
 
     // TODO(student): Initialize the color textures
+
 
 
     if (color_texture) {

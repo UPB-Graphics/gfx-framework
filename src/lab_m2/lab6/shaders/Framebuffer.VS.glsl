@@ -10,10 +10,12 @@ uniform mat4 Model;
 uniform mat4 View;
 uniform mat4 Projection;
 
+out vec3 geom_position;
 out vec2 geom_texture_coord;
 
 void main()
 {
+    geom_position = v_position;
     geom_texture_coord = v_texture_coord;
 
     gl_Position = Model * vec4(v_position, 1); 
