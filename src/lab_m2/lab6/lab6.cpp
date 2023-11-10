@@ -19,6 +19,7 @@ Lab6::Lab6()
 {
     framebuffer_object = 0;
     color_texture = 0;
+    depth_texture = 0;
 
     angle = 0;
 
@@ -130,12 +131,14 @@ void Lab6::Update(float deltaTimeSeconds)
         Shader *shader = shaders["Framebuffer"];
         shader->Use();
 
+        glm::mat4 projection = glm::perspective(glm::radians(90.0f), 1.0f, 0.1f, 100.0f);
+
         {
             glm::mat4 modelMatrix = glm::scale(glm::mat4(1), glm::vec3(30));
 
             glUniformMatrix4fv(shader->loc_model_matrix, 1, GL_FALSE, glm::value_ptr(modelMatrix));
             glUniformMatrix4fv(shader->loc_view_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetViewMatrix()));
-            glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+            glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(projection));
 
             glActiveTexture(GL_TEXTURE1);
             glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTextureID);
@@ -168,7 +171,7 @@ void Lab6::Update(float deltaTimeSeconds)
             };
 
             glUniformMatrix4fv(glGetUniformLocation(shader->GetProgramID(), "viewMatrices"), 6, GL_FALSE, glm::value_ptr(cubeView[0]));
-            glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
+            glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(projection));
 
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("Akai_E_Espiritu.fbm\\akai_diffuse.png")->GetTextureID());
@@ -338,7 +341,7 @@ void Lab6::CreateFramebuffer(int width, int height)
     // TODO(student): Generate and bind the framebuffer
 
 
-    // TODO(student): Generate, bind and initialize the color texture
+    // TODO(student): Generate and bind the color texture
 
 
     // TODO(student): Initialize the color textures
@@ -372,8 +375,19 @@ void Lab6::CreateFramebuffer(int width, int height)
         draw_textures.push_back(GL_COLOR_ATTACHMENT0);
         glDrawBuffers(draw_textures.size(), &draw_textures[0]);
 
-        glCheckFramebufferStatus(GL_FRAMEBUFFER);
     }
+
+    // TODO(student): Generate and bind the depth texture
+
+
+    // TODO(student): Initialize the depth textures
+
+
+    if (depth_texture) {
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depth_texture, 0);
+    }
+
+    glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
