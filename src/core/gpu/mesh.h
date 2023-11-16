@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "core/gpu/vertex_format.h"
 #include "core/gpu/texture2D.h"
@@ -77,6 +78,7 @@ class Mesh
     bool LoadMesh(const std::string& fileLocation,
                   const std::string& fileName);
 
+    glm::mat4 ConvertMatrix(const aiMatrix4x4& aiMat);
     void UseMaterials(bool value);
 
     // GL_POINTS, GL_TRIANGLES, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINE_STRIP_ADJACENCY, GL_LINES_ADJACENCY,
@@ -92,9 +94,17 @@ class Mesh
  protected:
     void InitFromData();
 
-    void InitMesh(const aiMesh* paiMesh);
+    void InitMesh(int index, const aiMesh* paiMesh);
+    void LoadBones(int MeshIndex, const aiMesh* pMesh);
     bool InitMaterials(const aiScene* pScene);
     bool InitFromScene(const aiScene* pScene);
+
+    aiNode* CopyRoot(const aiNode* sourceNode);
+    void CopyAnimations(const aiScene* pScene);
+
+    void DeleteAnimationKeys(aiNodeAnim* nodeAnim);
+    void ClearAnimations(aiAnimation** animations, unsigned int numAnimations);
+    void ClearRootNode(aiNode* node);
 
  private:
     std::string meshID;
@@ -103,8 +113,16 @@ class Mesh
     std::vector<glm::vec3> positions;
     std::vector<glm::vec3> normals;
     std::vector<glm::vec2> texCoords;
+    std::vector<VertexBoneData> bones;
     std::vector<VertexFormat> vertices;
     std::vector<unsigned int> indices;
+    std::vector<BoneInfo> m_BoneInfo;
+    std::map<std::string, int> m_BoneMapping;
+    glm::mat4 m_GlobalInverseTransform;
+    aiAnimation** anim;
+    aiNode* rootNode;
+    int m_NumBones = 0;
+    int numAnim;
 
  protected:
     std::string fileLocation;
