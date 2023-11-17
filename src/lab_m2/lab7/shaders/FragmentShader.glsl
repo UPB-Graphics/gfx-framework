@@ -2,7 +2,8 @@
 
 // Input
 layout(location = 0) in vec2 texture_coord;
-// TODO (student): wait for the normal input
+// TODO (student): Declare the normal variable
+// received from vertex shader
 
 // Uniform properties
 uniform sampler2D text;
