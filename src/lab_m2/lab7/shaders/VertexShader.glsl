@@ -1,4 +1,4 @@
-#version 430
+#version 330
 
 // Input
 layout(location = 0) in vec3 v_position;
@@ -18,7 +18,7 @@ uniform mat4 Projection;
 
 
 // Output
-layout(location = 0) out vec2 texture_coord;
+out vec2 texture_coord;
 // TODO (student): Send the normal to the fragment shader
 
 

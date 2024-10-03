@@ -1,11 +1,11 @@
-#version 430
+#version 330
 
 // Input and output topologies
 layout(triangles) in;
 layout(triangle_strip, max_vertices = 170) out;
 
 // Input
-layout(location = 0) in vec2 v_texture_coord[];
+in vec2 g_texture_coord[];
 
 // Uniform properties
 uniform mat4 View;
@@ -14,7 +14,7 @@ uniform int instances;
 // TODO(student): Declare other uniforms here
 
 // Output
-layout(location = 0) out vec2 texture_coord;
+out vec2 f_texture_coord;
 
 
 void EmitPoint(vec3 pos, vec3 offset)
@@ -43,13 +43,13 @@ void main()
         // changing the value of `NR_COLS`. No need to recompile.
         vec3 offset = vec3(0, 0, 0);
 
-        texture_coord = v_texture_coord[0];
+        f_texture_coord = g_texture_coord[0];
         EmitPoint(p1, offset);
 
-        texture_coord = v_texture_coord[1];
+        f_texture_coord = g_texture_coord[1];
         EmitPoint(p2, offset);
 
-        texture_coord = v_texture_coord[2];
+        f_texture_coord = g_texture_coord[2];
         EmitPoint(p3, offset);
 
         EndPrimitive();

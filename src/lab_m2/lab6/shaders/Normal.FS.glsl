@@ -1,7 +1,7 @@
-#version 430
+#version 330
 
 // Input
-layout(location = 0) in vec3 text_coord;
+in vec3 text_coord;
 
 // Uniform properties
 uniform samplerCube texture_cubemap;

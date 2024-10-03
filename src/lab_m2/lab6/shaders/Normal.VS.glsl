@@ -1,4 +1,4 @@
-#version 430
+#version 330
 
 // Input
 layout(location = 0) in vec3 v_position;
@@ -11,7 +11,7 @@ uniform mat4 View;
 uniform mat4 Projection;
 
 // Output
-layout(location = 0) out vec3 text_coord;
+out vec3 text_coord;
 
 
 void main()

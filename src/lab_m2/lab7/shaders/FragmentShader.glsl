@@ -1,7 +1,7 @@
-#version 430
+#version 330
 
 // Input
-layout(location = 0) in vec2 texture_coord;
+in vec2 texture_coord;
 // TODO (student): Declare the normal variable
 // received from vertex shader
 
