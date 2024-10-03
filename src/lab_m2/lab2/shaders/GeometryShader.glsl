@@ -1,4 +1,4 @@
-#version 430
+#version 330
 
 // Input and output topologies
 // TODO(student): First, generate a curve (via line strip),

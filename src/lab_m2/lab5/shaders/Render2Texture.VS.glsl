@@ -1,4 +1,4 @@
-#version 410
+#version 330
 
 // Input
 layout(location = 0) in vec3 v_position;
@@ -11,9 +11,9 @@ uniform mat4 View;
 uniform mat4 Projection;
 
 // Output
-layout(location = 0) out vec2 texture_coord;
-layout(location = 1) out vec3 world_position;
-layout(location = 2) out vec3 world_normal;
+out vec2 texture_coord;
+out vec3 world_position;
+out vec3 world_normal;
 
 
 void main()
