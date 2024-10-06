@@ -72,6 +72,8 @@ WindowObject::WindowObject(WindowProperties properties)
     memset(keyScanCode, 0, 512);
 
     SetWindowCallbacks();
+
+    elapsedTime = Engine::GetElapsedTime();
 }
 
 
