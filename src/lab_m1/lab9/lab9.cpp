@@ -26,7 +26,7 @@ Lab9::~Lab9()
 
 void Lab9::Init()
 {
-    const string sourceTextureDir = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "lab9", "textures");
+    const string sourceTextureDir = PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M1, "lab9", "textures");
 
     // Load textures
     {
@@ -49,7 +49,7 @@ void Lab9::Init()
 
     {
         Texture2D* texture = new Texture2D();
-        texture->Load2D(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "vegetation", "bamboo", "bamboo.png").c_str(), GL_REPEAT);
+        texture->Load2D(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "vegetation", "bamboo", "bamboo.png").c_str(), GL_REPEAT);
         mapTextures["bamboo"] = texture;
     }
 
@@ -60,19 +60,19 @@ void Lab9::Init()
     // Load meshes
     {
         Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("sphere");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("bamboo");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
@@ -115,8 +115,8 @@ void Lab9::Init()
     // Create a shader program for drawing face polygon with the color of the normal
     {
         Shader *shader = new Shader("LabShader");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "lab9", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M1, "lab9", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M1, "lab9", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M1, "lab9", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }

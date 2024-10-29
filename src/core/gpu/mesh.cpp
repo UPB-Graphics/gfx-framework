@@ -268,7 +268,7 @@ void Mesh::CopyAnimations(const aiScene* pScene)
         anim[i]->mChannels = new aiNodeAnim * [anim[i]->mNumChannels];
 
         // Copy position, rotation, and scaling keyframes
-        for (int j = 0; j < anim[i]->mNumChannels; j++)
+        for (unsigned j = 0; j < anim[i]->mNumChannels; j++)
         {
             anim[i]->mChannels[j] = new aiNodeAnim();
             anim[i]->mChannels[j]->mNodeName = pScene->mAnimations[i]->mChannels[j]->mNodeName;
@@ -294,7 +294,7 @@ void Mesh::CopyAnimations(const aiScene* pScene)
         anim[i]->mNumMeshChannels = pScene->mAnimations[i]->mNumMeshChannels;
         anim[i]->mMeshChannels = new aiMeshAnim * [anim[i]->mNumMeshChannels];
 
-        for (int j = 0; j < anim[i]->mNumMeshChannels; j++)
+        for (unsigned j = 0; j < anim[i]->mNumMeshChannels; j++)
         {
             anim[i]->mMeshChannels[j] = new aiMeshAnim();
             anim[i]->mMeshChannels[j]->mName = pScene->mAnimations[i]->mMeshChannels[j]->mName;

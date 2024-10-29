@@ -33,19 +33,19 @@ void Lab5::Init()
 
     {
         Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("sphere");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     // TODO(student): After you implement the changing of the projection
     // parameters, remove hardcodings of these parameters
-    projectionMatrix = glm::perspective(RADIANS(60), window->props.aspectRatio, 0.01f, 200.0f);
+    projectionMatrix = glm::perspective(RADIANS(60), window->GetAspectRatio(), 0.01f, 200.0f);
 
 }
 

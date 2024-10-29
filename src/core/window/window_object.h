@@ -41,117 +41,120 @@ typedef WindowDataImpl *WindowData;
  * Class WindowObject
  */
 
-class WindowObject
-{
-    friend class InputController;
-    friend class WindowCallbacks;
+class WindowObject {
+   friend class InputController;
+   friend class WindowCallbacks;
 
- public:
-    explicit WindowObject(WindowProperties properties);
-    ~WindowObject();
+public:
+   explicit WindowObject(WindowProperties properties);
+   ~WindowObject();
 
-    void Show();
-    void Hide();
-    void Close();
-    int ShouldClose() const;
+   void Show();
+   void Hide();
+   void Close();
+   int ShouldClose() const;
 
-    void ShowPointer();
-    void CenterPointer();
-    void SetPointerPosition(int mousePosX, int mousePosY);
-    void HidePointer();
-    void DisablePointer();
+   void ShowPointer();
+   void CenterPointer();
+   void SetPointerPosition(int mousePosX, int mousePosY);
+   void HidePointer();
+   void DisablePointer();
 
-    void SetWindowPosition(glm::ivec2 position);
-    void CenterWindow();
+   void SetWindowPosition(glm::ivec2 position);
+   void CenterWindow();
 
-    void SwapBuffers() const;
-    void SetVSync(bool state);
-    bool ToggleVSync();
+   void SwapBuffers() const;
+   void SetVSync(bool state);
+   bool ToggleVSync();
 
-    void MakeCurrentContext() const;
+   void MakeCurrentContext() const;
 
-    // Window Information
-    void SetSize(int width, int height);
+   // Window Information
+   void SetSize(int width, int height);
 
-    // Use scaled resolution for setting the viewport.
-    // Use unscaled resolution when working with mouse coordinates.
-    glm::ivec2 GetResolution(bool unscaled = false) const;
+   // Use scaled resolution for setting the viewport.
+   // Use unscaled resolution when working with mouse coordinates.
+   glm::ivec2 GetResolution(bool unscaled = false) const;
 
-    // Window Event
-    void PollEvents() const;
+   float GetAspectRatio() const;
 
-    // Get Input State
-    bool KeyHold(int keyCode) const;
-    bool MouseHold(int button) const;
-    int GetSpecialKeyState() const;
+   const std::string& GetSelfDir() const;
 
-    // Use unscaled resolution when working with mouse coordinates.
-    glm::ivec2 GetCursorPosition() const;
+   // Window Event
+   void PollEvents() const;
 
-    // Update event listeners (key press / mouse move / window events)
-    void UpdateObservers();
+   // Get Input State
+   bool KeyHold(int keyCode) const;
+   bool MouseHold(int button) const;
+   int GetSpecialKeyState() const;
 
- protected:
-    // Frame time
-    void ComputeFrameTime();
+   // Use unscaled resolution when working with mouse coordinates.
+   glm::ivec2 GetCursorPosition() const;
 
-    // Window Creation
-    void FullScreen();
-    void WindowMode();
+   // Update event listeners (key press / mouse move / window events)
+   void UpdateObservers();
 
-    // Input Processing
-    void KeyCallback(int key, int scanCode, int action, int mods);
-    void MouseButtonCallback(int button, int action, int mods);
-    void MouseMove(int posX, int posY);
-    void MouseScroll(double offsetX, double offsetY);
+protected:
+   // Frame time
+   void ComputeFrameTime();
 
-    // Subscribe to receive input events
-    void SubscribeToEvents(InputController * IC);
-    void UnsubscribeFromEvents(InputController * IC);
+   // Window Creation
+   void FullScreen();
+   void WindowMode();
 
- private:
-    void SetWindowCallbacks();
+   // Input Processing
+   void KeyCallback(int key, int scanCode, int action, int mods);
+   void MouseButtonCallback(int button, int action, int mods);
+   void MouseMove(int posX, int posY);
+   void MouseScroll(double offsetX, double offsetY);
 
- public:
-    WindowProperties props;
-    WindowData window;
+   // Subscribe to receive input events
+   void SubscribeToEvents(InputController * IC);
+   void UnsubscribeFromEvents(InputController * IC);
 
- private:
-    // Frame Time
-    unsigned int frameID;
-    double elapsedTime;
-    double deltaFrameTime;
+private:
+   void SetWindowCallbacks();
 
-    // Window state and events
-    bool hiddenPointer;
-    bool resizeEvent;
+   WindowProperties props;
+public:
+   WindowData window;
 
-    // Mouse button callback
-    int mouseButtonCallback;            // bit field for button callback
-    int mouseButtonAction;              // bit field for button state
-    int mouseButtonStates;              // bit field for mouse button state
+private:
+   // Frame Time
+   unsigned int frameID;
+   double elapsedTime;
+   double deltaFrameTime;
 
-    // Mouse move event
-    bool mouseMoveEvent;
-    int mouseDeltaX;
-    int mouseDeltaY;
+   // Window state and events
+   bool hiddenPointer;
+   bool resizeEvent;
 
-    // Mouse scroll event
-    bool scrollEvent;
-    int mouseScrollDeltaX;
-    int mouseScrollDeltaY;
+   // Mouse button callback
+   int mouseButtonCallback;            // bit field for button callback
+   int mouseButtonAction;              // bit field for button state
+   int mouseButtonStates;              // bit field for mouse button state
 
-    // States for keyboard buttons - PRESSED(true) / RELEASED(false)
-    int registeredKeyEvents;
-    int keyEvents[128];
-    bool keyStates[384];
+   // Mouse move event
+   bool mouseMoveEvent;
+   int mouseDeltaX;
+   int mouseDeltaY;
 
-    // Platform specific key codes - PRESSED(true) / RELEASED(false)
-    bool keyScanCode[512];
+   // Mouse scroll event
+   bool scrollEvent;
+   int mouseScrollDeltaX;
+   int mouseScrollDeltaY;
 
-    // Special keys (ALT, CTRL, SHIFT, CAPS LOOK, OS KEY) active alongside with normal key or mouse input
-    int keyMods;
+   // States for keyboard buttons - PRESSED(true) / RELEASED(false)
+   int registeredKeyEvents;
+   int keyEvents[128];
+   bool keyStates[384];
 
-    // Input Observers
-    std::list<InputController*> observers;
+   // Platform specific key codes - PRESSED(true) / RELEASED(false)
+   bool keyScanCode[512];
+
+   // Special keys (ALT, CTRL, SHIFT, CAPS LOOK, OS KEY) active alongside with normal key or mouse input
+   int keyMods;
+
+   // Input Observers
+   std::list<InputController*> observers;
 };

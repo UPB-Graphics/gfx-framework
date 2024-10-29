@@ -52,24 +52,24 @@ void ComputeShaders::Init()
     // Load a mesh from file into GPU memory
     {
         Mesh* mesh = new Mesh("sphere");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("bamboo");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("quad");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
-    const string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::EXTRA, "compute_shaders", "shaders");
+    const string shaderPath = PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::EXTRA, "compute_shaders", "shaders");
 
     // Create a shader program for rendering to texture
     {
