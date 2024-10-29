@@ -28,7 +28,7 @@ void BasicText::Init()
     // Load a mesh from file into GPU memory
     {
         Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
@@ -37,9 +37,9 @@ void BasicText::Init()
 
     // Create the text renderer object
     glm::ivec2 resolution = window->GetResolution();
-    textRenderer = new gfxc::TextRenderer(window->props.selfDir, resolution.x, resolution.y);
+    textRenderer = new gfxc::TextRenderer(window->GetSelfDir(), resolution.x, resolution.y);
 
-    textRenderer->Load(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::FONTS, "Hack-Bold.ttf"), 18);
+    textRenderer->Load(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::FONTS, "Hack-Bold.ttf"), 18);
 }
 
 
@@ -83,7 +83,7 @@ void BasicText::Update(float deltaTimeSeconds)
 {
     glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
 
-    glm::ivec2 resolution = window->props.resolution;
+    glm::ivec2 resolution = window->GetResolution();
 
     // Sets the clear color for the color buffer
     glClearColor(kBackgroundColor.r, kBackgroundColor.g, kBackgroundColor.b, 1);

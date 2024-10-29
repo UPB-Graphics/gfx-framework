@@ -32,8 +32,8 @@ void Lab7::Init()
     // Create a shader program for rendering to texture
     {
         Shader* shader = new Shader("Skinning");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "Lab7", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "Lab7", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "Lab7", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "Lab7", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }
@@ -41,7 +41,7 @@ void Lab7::Init()
     // Load a mesh from file into GPU memory
     {
         Mesh* mesh = new Mesh("animation");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "skinning"), "boblampclean.md5mesh");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "skinning"), "boblampclean.md5mesh");
         meshes[mesh->GetMeshID()] = mesh;
     }
 }
@@ -96,9 +96,9 @@ void Lab7::BoneTransform(Mesh* mesh, float timeInSeconds)
     glm::mat4 Identity = glm::mat4(1.0f);
 
     // Compute the duration of the animation
-    float ticksPerSecond = mesh->anim[0]->mTicksPerSecond != 0 ? mesh->anim[0]->mTicksPerSecond : 25.0f;
+    float ticksPerSecond = mesh->anim[0]->mTicksPerSecond != 0.0 ? static_cast<float>(mesh->anim[0]->mTicksPerSecond) : 25.0f;
     float timeInTicks = timeInSeconds * ticksPerSecond;
-    float animationTime = fmod(timeInTicks, mesh->anim[0]->mDuration);
+    float animationTime = static_cast<float>(fmod(timeInTicks, mesh->anim[0]->mDuration));
 
     // Compute the final transformations for each bone at the current time stamp
     // starting from the root node

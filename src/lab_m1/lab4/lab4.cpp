@@ -31,7 +31,7 @@ void Lab4::Init()
     polygonMode = GL_FILL;
 
     Mesh* mesh = new Mesh("box");
-    mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+    mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
     meshes[mesh->GetMeshID()] = mesh;
 
     // Initialize tx, ty and tz (the translation steps)
@@ -51,7 +51,7 @@ void Lab4::Init()
 
     // Sets the resolution of the small viewport
     glm::ivec2 resolution = window->GetResolution();
-    miniViewportArea = ViewportArea(50, 50, resolution.x / 5.f, resolution.y / 5.f);
+    miniViewportArea = ViewportArea(50, 50, resolution.x / 5, resolution.y / 5);
 }
 
 void Lab4::FrameStart()

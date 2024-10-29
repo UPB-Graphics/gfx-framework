@@ -408,9 +408,9 @@ void WindowObject::SetSize(int width, int height)
     glfwSetWindowSize(window->handle, width, height);
     glfwGetFramebufferSize(window->handle, &frameBufferWidth, &frameBufferHeight);
 
-    props.scaleFactor = frameBufferWidth * 1. / width;
+    props.scaleFactor = static_cast<float>(frameBufferWidth) / static_cast<float>(width);
     props.resolution = glm::ivec2(width, height);
-    props.aspectRatio = float(width) / height;
+    props.aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     resizeEvent = true;
 }
 
@@ -425,6 +425,15 @@ glm::ivec2 WindowObject::GetResolution(bool unscaled) const
     }
 
     return resolution;
+}
+
+float WindowObject::GetAspectRatio() const {
+    return props.aspectRatio;
+}
+
+const std::string& WindowObject::GetSelfDir() const
+{
+    return props.selfDir;
 }
 
 

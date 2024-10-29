@@ -30,29 +30,29 @@ void ShadowMapping::Init()
     renderDebugView = false;
     ToggleGroundPlane();
 
-    TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES), "ground.jpg");
+    TextureManager::LoadTexture(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::TEXTURES), "ground.jpg");
 
     {
         Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("sphere");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "sphere.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("plane");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "plane50.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "plane50.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("quad");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
@@ -72,8 +72,10 @@ void ShadowMapping::Init()
         materialKs = 0.5;
     }
 
+    glm::ivec2 resolution = window->GetResolution();
+
     shadowFBO = new FrameBuffer();
-    shadowFBO->Generate(window->props.resolution.x, window->props.resolution.y, 0);
+    shadowFBO->Generate(resolution.x, resolution.y, 0);
 
     {
         glm::mat4 modelMatrix = glm::mat4(1);
@@ -113,7 +115,7 @@ void ShadowMapping::Init()
 
     {
         lightCamera = new gfxc::Camera();
-        lightCamera->SetPerspective(60, window->props.aspectRatio, 0.01f, 200);
+        lightCamera->SetPerspective(60, window->GetAspectRatio(), 0.01f, 200);
         lightCamera->SetOrthographic(10, 10, 0.01f, 100);
         lightCamera->m_transform->SetWorldPosition(glm::vec3(0, 3, 1));
         lightCamera->m_transform->SetMoveSpeed(2);
@@ -289,7 +291,7 @@ void ShadowMapping::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4
 
 void ShadowMapping::LoadShader(const std::string &name)
 {
-    static string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::EXTRA, "shadow_mapping", "shaders");
+    static string shaderPath = PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::EXTRA, "shadow_mapping", "shaders");
 
     // Create a shader program for particle system
     {

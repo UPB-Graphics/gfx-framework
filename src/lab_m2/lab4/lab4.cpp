@@ -71,13 +71,13 @@ void Lab4::Init()
 
     {
         Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     // Load textures
     {
-        TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES), "particle2.png");
+        TextureManager::LoadTexture(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::TEXTURES), "particle2.png");
 
         // TODO(student): Load images "rain.png", "snowflake.png" and "fire.png" as
         // textures, similar to "particle2.png", loaded above. The images can be
@@ -93,7 +93,7 @@ void Lab4::Init()
 
     generator_position = glm::vec3(0, 0, 0);
     scene = 0;
-    offset = 0.05;
+    offset = 0.05f;
 }
 
 void Lab4::ResetParticlesFireworks(int xSize, int ySize, int zSize)
@@ -305,7 +305,7 @@ void Lab4::FrameEnd()
 
 void Lab4::LoadShader(const std::string& name, const std::string &VS, const std::string& FS, const std::string& GS,  bool hasGeomtery)
 {
-    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab4", "shaders");
+    std::string shaderPath = PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "lab4", "shaders");
 
     // Create a shader program for particle system
     {
@@ -351,9 +351,9 @@ void Lab4::OnInputUpdate(float deltaTime, int mods)
     }
 
     if (window->KeyHold(GLFW_KEY_Z))
-        offset += deltaTime * 0.1;
+        offset += deltaTime * 0.1f;
     if (window->KeyHold(GLFW_KEY_X))
-        offset -= deltaTime * 0.1;
+        offset -= deltaTime * 0.1f;
 
 
 }
