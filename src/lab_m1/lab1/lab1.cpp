@@ -48,7 +48,7 @@ void Lab1::FrameStart()
 
 void Lab1::Update(float deltaTimeSeconds)
 {
-    glm::ivec2 resolution = window->props.resolution;
+    glm::ivec2 resolution = window->GetResolution();
 
     // Sets the clear color for the color buffer
 
