@@ -1,7 +1,7 @@
 #version 330
 
 // Input
-in vec2 text_coord;
+in vec2 texture_coord;
 in vec3 world_position;
 in vec3 world_normal;
 
@@ -18,5 +18,5 @@ void main()
 {
     out_world_position = vec4(world_position, 1);
     out_world_normal = vec4(normalize(world_normal), 0);
-    out_color = texture(u_texture_0, text_coord);
+    out_color = texture(u_texture_0, texture_coord);
 }
