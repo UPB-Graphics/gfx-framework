@@ -43,8 +43,8 @@ endif()
 
 # Set options
 option(WITH_LAB_M1 "With module 1 labs" ON)
-option(WITH_LAB_M2 "With module 2 labs" OFF)
-option(WITH_LAB_EXTRA "With extra labs" OFF)
+option(WITH_LAB_M2 "With module 2 labs" ON)
+option(WITH_LAB_EXTRA "With extra labs" ON)
 option(USE_DEV_COMPONENTS "Use dev components" OFF)
 
 

@@ -38,26 +38,26 @@ void Lab6::Init()
     camera->SetPositionAndRotation(glm::vec3(0, -1, 4), glm::quat(glm::vec3(RADIANS(10), 0, 0)));
     camera->Update();
 
-    std::string texturePath = PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube");
-    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab6", "shaders");
+    std::string texturePath = PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::TEXTURES, "cube");
+    std::string shaderPath = PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "lab6", "shaders");
 
     {
         Mesh* mesh = new Mesh("bunny");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "animals"), "bunny.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("cube");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     {
         Mesh* mesh = new Mesh("archer");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "characters", "archer"), "Archer.fbx");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "characters", "archer"), "Archer.fbx");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
@@ -98,7 +98,7 @@ void Lab6::Init()
         PATH_JOIN(texturePath, "neg_y.png"),
         PATH_JOIN(texturePath, "neg_z.png"));
 
-    TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS), "characters", "archer", "Akai_E_Espiritu.fbm", "akai_diffuse.png");
+    TextureManager::LoadTexture(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS), "characters", "archer", "Akai_E_Espiritu.fbm", "akai_diffuse.png");
 
     // Create the framebuffer on which the scene is rendered from the perspective of the mesh
     // Texture size must be cubic
@@ -373,7 +373,7 @@ void Lab6::CreateFramebuffer(int width, int height)
 
         std::vector<GLenum> draw_textures;
         draw_textures.push_back(GL_COLOR_ATTACHMENT0);
-        glDrawBuffers(draw_textures.size(), &draw_textures[0]);
+        glDrawBuffers(static_cast<int>(draw_textures.size()), &draw_textures[0]);
 
     }
 

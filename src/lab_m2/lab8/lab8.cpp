@@ -32,17 +32,17 @@ Lab8::~Lab8()
 void Lab8::Init()
 {
     // Load default texture fore imagine processing
-    originalImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "image", true, true);
-    processedImage = TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "newImage", true, true);
+    originalImage = TextureManager::LoadTexture(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "image", true, true);
+    processedImage = TextureManager::LoadTexture(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::TEXTURES, "cube", "pos_x.png"), nullptr, "newImage", true, true);
 
     {
         Mesh* mesh = new Mesh("quad");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "quad.obj");
         mesh->UseMaterials(false);
         meshes[mesh->GetMeshID()] = mesh;
     }
 
-    std::string shaderPath = PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "Lab8", "shaders");
+    std::string shaderPath = PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "Lab8", "shaders");
 
     // Create a shader program for particle system
     {

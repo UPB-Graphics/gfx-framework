@@ -31,7 +31,7 @@ void Lab1::Init()
     // no matter how many times we want to draw this mesh.
     {
         Mesh* mesh = new Mesh("box");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "box.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "box.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
@@ -48,7 +48,7 @@ void Lab1::FrameStart()
 
 void Lab1::Update(float deltaTimeSeconds)
 {
-    glm::ivec2 resolution = window->props.resolution;
+    glm::ivec2 resolution = window->GetResolution();
 
     // Sets the clear color for the color buffer
 

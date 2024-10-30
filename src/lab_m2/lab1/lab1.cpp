@@ -36,16 +36,16 @@ void Lab1::Init()
     // Load a mesh from file into GPU memory
     {
         Mesh* mesh = new Mesh("bamboo");
-        mesh->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
+        mesh->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "vegetation", "bamboo"), "bamboo.obj");
         meshes[mesh->GetMeshID()] = mesh;
     }
 
     // Create a shader program for rendering to texture
     {
         Shader *shader = new Shader("Instances");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab1", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab1", "shaders", "GeometryShader.glsl"), GL_GEOMETRY_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab1", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "lab1", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "lab1", "shaders", "GeometryShader.glsl"), GL_GEOMETRY_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), SOURCE_PATH::M2, "lab1", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }

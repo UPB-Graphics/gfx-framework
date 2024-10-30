@@ -41,7 +41,7 @@ void SimpleScene::InitResources()
     objectModel = new Transform();
 
     camera = new Camera();
-    camera->SetPerspective(60, window->props.aspectRatio, 0.01f, 200);
+    camera->SetPerspective(60, window->GetAspectRatio(), 0.01f, 200);
     camera->m_transform->SetMoveSpeed(2);
     camera->m_transform->SetWorldPosition(glm::vec3(0, 1.6f, 2.5));
     camera->m_transform->SetWorldRotation(glm::vec3(-15, 0, 0));
@@ -54,7 +54,7 @@ void SimpleScene::InitResources()
     (void)SI;
 
     xozPlane = new Mesh("plane");
-    xozPlane->LoadMesh(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "primitives"), "plane50.obj");
+    xozPlane->LoadMesh(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::MODELS, "primitives"), "plane50.obj");
 
     {
         std::vector<VertexFormat> vertices =
@@ -72,8 +72,8 @@ void SimpleScene::InitResources()
     // Create a shader program for drawing face polygon with the color of the normal
     {
         Shader *shader = new Shader("Simple");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "Default.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "Default.FS.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }
@@ -81,8 +81,8 @@ void SimpleScene::InitResources()
     // Create a shader program for drawing vertex colors
     {
         Shader *shader = new Shader("Color");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "Color.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "Color.FS.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }
@@ -90,8 +90,8 @@ void SimpleScene::InitResources()
     // Create a shader program for drawing face polygon with the color of the normal
     {
         Shader *shader = new Shader("VertexNormal");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "Normals.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "Normals.FS.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }
@@ -99,8 +99,8 @@ void SimpleScene::InitResources()
     // Create a shader program for drawing vertex colors
     {
         Shader *shader = new Shader("VertexColor");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::SHADERS, "VertexColor.FS.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "MVP.Texture.VS.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->GetSelfDir(), RESOURCE_PATH::SHADERS, "VertexColor.FS.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }
@@ -287,7 +287,7 @@ InputController * SimpleScene::GetCameraInput() const
 
 void SimpleScene::ClearScreen(const glm::vec3 &color)
 {
-    glm::ivec2 resolution = window->props.resolution;
+    glm::ivec2 resolution = window->GetResolution();
 
     // Sets the clear color for the color buffer
     glClearColor(color.x, color.y, color.z, 1);
