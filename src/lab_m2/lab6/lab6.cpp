@@ -98,7 +98,7 @@ void Lab6::Init()
         PATH_JOIN(texturePath, "neg_y.png"),
         PATH_JOIN(texturePath, "neg_z.png"));
 
-    TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS), "characters", "archer", "Akai_E_Espiritu.fbm", "akai_diffuse.png");
+    TextureManager::LoadTexture(PATH_JOIN(window->props.selfDir, RESOURCE_PATH::MODELS, "characters", "archer", "Akai_E_Espiritu.fbm"), "akai_diffuse.png");
 
     // Create the framebuffer on which the scene is rendered from the perspective of the mesh
     // Texture size must be cubic
@@ -174,7 +174,7 @@ void Lab6::Update(float deltaTimeSeconds)
             glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(projection));
 
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("Akai_E_Espiritu.fbm\\akai_diffuse.png")->GetTextureID());
+            glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("akai_diffuse.png")->GetTextureID());
             glUniform1i(glGetUniformLocation(shader->program, "texture_1"), 0);
 
             glUniform1i(glGetUniformLocation(shader->program, "cube_draw"), 0);
@@ -230,7 +230,7 @@ void Lab6::Update(float deltaTimeSeconds)
         glUniformMatrix4fv(shader->loc_projection_matrix, 1, GL_FALSE, glm::value_ptr(camera->GetProjectionMatrix()));
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("Akai_E_Espiritu.fbm\\akai_diffuse.png")->GetTextureID());
+        glBindTexture(GL_TEXTURE_2D, TextureManager::GetTexture("akai_diffuse.png")->GetTextureID());
         glUniform1i(glGetUniformLocation(shader->program, "texture_1"), 0);
 
         meshes["archer"]->Render();
