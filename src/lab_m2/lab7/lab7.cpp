@@ -32,8 +32,8 @@ void Lab7::Init()
     // Create a shader program for rendering to texture
     {
         Shader* shader = new Shader("Skinning");
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "Lab7", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
-        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "Lab7", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab7", "shaders", "VertexShader.glsl"), GL_VERTEX_SHADER);
+        shader->AddShader(PATH_JOIN(window->props.selfDir, SOURCE_PATH::M2, "lab7", "shaders", "FragmentShader.glsl"), GL_FRAGMENT_SHADER);
         shader->CreateAndLink();
         shaders[shader->GetName()] = shader;
     }
