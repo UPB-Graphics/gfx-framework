@@ -22,6 +22,9 @@ Mesh::Mesh(std::string meshID)
     useMaterial = true;
     glDrawMode = GL_TRIANGLES;
     buffers = new GPUBuffers();
+
+    this->anim = nullptr;
+    this->rootNode = nullptr;
 }
 
 
@@ -31,8 +34,12 @@ Mesh::~Mesh()
     meshEntries.clear();
     SAFE_FREE(buffers);
 
-    ClearAnimations(anim, numAnim);
-    ClearRootNode(rootNode);
+    if (anim != nullptr) {
+        ClearAnimations(anim, numAnim);
+    }
+    if (rootNode != nullptr) {
+        ClearRootNode(rootNode);
+    }
 }
 
 
