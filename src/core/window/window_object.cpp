@@ -432,7 +432,7 @@ glm::ivec2 WindowObject::GetResolution(bool unscaled) const
 
     if (unscaled == false)
     {
-        resolution *= props.scaleFactor;
+        resolution = glm::vec2{resolution} / props.scaleFactor;
     }
 
     return resolution;
