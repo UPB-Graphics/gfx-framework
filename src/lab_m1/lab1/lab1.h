@@ -28,6 +28,13 @@ namespace m1
         void OnWindowResize(int width, int height) override;
 
         // TODO(student): Class variables go here
+     private:
+         glm::vec3 position;
+         std::string meshCurent;
+         float poz_x, poz_y, poz_z;
+
+         float actiuneCurenta; // 0 = sta pe loc, 1 = urca, 2 = coboara
+         bool flagSpaceAgain;
 
     };
 }   // namespace m1
