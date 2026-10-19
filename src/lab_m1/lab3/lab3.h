@@ -35,6 +35,7 @@ namespace m1
         float angularStep;
 
         // TODO(student): If you need any other class variables, define them here.
-
+        bool fuge = true;
+        bool creste = true;
     };
 }   // namespace m1

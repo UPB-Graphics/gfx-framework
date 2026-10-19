@@ -37,19 +37,21 @@ void Lab3::Init()
     GetCameraInput()->SetActive(false);
 
     glm::vec3 corner = glm::vec3(0, 0, 0);
-    float squareSide = 100;
+    float squareSide = 100; // lungimea laturii patratului
 
     // TODO(student): Compute coordinates of a square's center, and store
     // then in the `cx` and `cy` class variables (see the header). Use
     // `corner` and `squareSide`. These two class variables will be used
     // in the `Update()` function. Think about it, why do you need them?
+    cx = corner.x + squareSide / 2;
+    cy = corner.y + squareSide / 2; // ca patratus sa se invarta in jurul centrului, nu al coltului
 
     // Initialize tx and ty (the translation steps)
     translateX = 0;
     translateY = 0;
 
     // Initialize sx and sy (the scale factors)
-    scaleX = 1;
+    scaleX = 1; // scalat la 100%, adica e la dimensiunea lui normala
     scaleY = 1;
 
     // Initialize angularStep
@@ -84,28 +86,61 @@ void Lab3::Update(float deltaTimeSeconds)
     // in order to create animations. Use the class variables in the
     // class header, and if you need more of them to complete the task,
     // add them over there!
+    if (fuge == true) {
+        translateX += deltaTimeSeconds * 150;
+        if (translateX > 1030) {
+            fuge = false;
+        }
+    }
+    else {
+        translateX -= deltaTimeSeconds * 150;
+        if (translateX < 0) {
+            fuge = true;
+        }
+    }
 
     modelMatrix = glm::mat3(1);
-    modelMatrix *= transform2D::Translate(150, 250);
+    modelMatrix *= transform2D::Translate(150, 170);
     // TODO(student): Create animations by multiplying the current
     // transform matrix with the matrices you just implemented.
     // Remember, the last matrix in the chain will take effect first!
+    modelMatrix *= transform2D::Translate(translateX, translateY);
 
     RenderMesh2D(meshes["square1"], shaders["VertexColor"], modelMatrix);
 
     modelMatrix = glm::mat3(1);
-    modelMatrix *= transform2D::Translate(400, 250);
+    modelMatrix *= transform2D::Translate(400, 400);
     // TODO(student): Create animations by multiplying the current
     // transform matrix with the matrices you just implemented
     // Remember, the last matrix in the chain will take effect first!
+    
+    angularStep += deltaTimeSeconds * 3;
+    modelMatrix *= transform2D::Translate(cx, cy) * transform2D::Rotate(-angularStep) * transform2D::Translate(-cx, -cy);
 
     RenderMesh2D(meshes["square2"], shaders["VertexColor"], modelMatrix);
 
     modelMatrix = glm::mat3(1);
-    modelMatrix *= transform2D::Translate(650, 250);
+    modelMatrix *= transform2D::Translate(700, 530);
     // TODO(student): Create animations by multiplying the current
     // transform matrix with the matrices you just implemented
     // Remember, the last matrix in the chain will take effect first!
+
+    if (creste == true) {
+        scaleX += deltaTimeSeconds;
+        scaleY += deltaTimeSeconds;
+        if (scaleX > 2) {
+            creste = false;
+        }
+    }
+    else {
+        scaleX -= deltaTimeSeconds;
+        scaleY -= deltaTimeSeconds;
+        if (scaleX < 0.5f) {
+            creste = true;
+        }
+    }
+
+    modelMatrix *= transform2D::Translate(cx, cy) * transform2D::Scale(scaleX, scaleY) * transform2D::Translate(-cx, -cy);
 
     RenderMesh2D(meshes["square3"], shaders["VertexColor"], modelMatrix);
 }
